@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="{{ 'recommendations.css' | asset_url }}">
+<section class="section_recommendations">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-medium">
+        <div class="recommendations_wrapper">
+          <h2>Our Clients Recommend</h2>
+
+          <div class="grid-4-column">
+            <a class="recommendations_item">
+              <div class="recommendations_item-image-wrapper">
+                <img
+                  src="{{ 'product-img.jpg' | asset_url }}"
+                  alt="Product {{ index }}"
+                  class="recommendations_item-image"
+                >
+              </div>
+              <div class="recommendations_item-title">
+                <h3 class="text-size-medium text-weight-semi-bold text-color-secondary">Andreea C.</h3>
+                <img
+                  src="{{ 'stars.svg' | asset_url }}"
+                  alt="Product {{ index }}"
+                  class="recommendations_item-stars"
+                >
+              </div>
+              <p class="text-weight-medium">
+                Cosul e foarte util si usor de folosit. Livrarea a fost a doua zi de la comanda. Recomand gogobaby.ro.
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

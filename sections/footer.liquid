@@ -1,0 +1,156 @@
+<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}">
+
+<footer class="section_footer">
+  <div class="padding-global">
+    <div class="container-large z-index-1">
+      <div class="footer_inner"></div>
+      <div class="padding-section-large z-index-2">
+        <div class="footer_wrapper">
+          <!-- Top Section of the Footer -->
+          <div class="footer_top">
+            <!-- Left Section: Logo and Newsletter -->
+            <div class="footer_left">
+              <a href="/" class="footer_logo">
+                <img class="footer_logo-icon" src="{{ 'logo.svg' | asset_url }}" alt="Logo">
+              </a>
+              <p>Abonează-te la newsletter-ul nostru ca sa afli primul despre cele mai bune oferte!</p>
+              <div class="subscribe-form">
+                <input type="email" placeholder="Introdu adresa de email">
+                <button class="subscribe-form_button" type="submit">Abonează-te</button>
+              </div>
+            </div>
+
+            <!-- Right Section: Links -->
+            <div class="footer_list-links">
+              <div class="footer_column">
+                <p class="footer_column-title">Ai întrebări?</p>
+                <a class="footer_link" href="/pages/faqs">Întrebări frecvente</a>
+                <a class="footer_link" href="/pages/return-policy">Politica de returnare</a>
+                <a class="footer_link" href="/pages/shipping-info">Informații despre livrare</a>
+                <a class="footer_link" href="/pages/warranty-form">Formular de garanție</a>
+              </div>
+              <div class="footer_column">
+                <p class="footer_column-title">Contul Meu</p>
+                <a class="footer_link" href="/account">Profil</a>
+                <a class="footer_link" href="/cart">Coș de cumpărături</a>
+                <a class="footer_link" href="/account/orders">Comenzile mele</a>
+                <a class="footer_link" href="/account/wishlist">Favorite</a>
+              </div>
+              <div class="footer_column">
+                <p class="footer_column-title">Gogobaby</p>
+                <a class="footer_link" href="/collections/all">Magazin</a>
+                <a class="footer_link" href="/pages/about-us">Despre noi</a>
+                <a class="footer_link" href="/blog">Blog</a>
+                <a class="footer_link" href="/pages/contact">Contact</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Section of the Footer -->
+          <div class="footer_bottom">
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+              <a href="https://facebook.com" target="_blank">
+                <img src="{{ 'facebook-icon.svg' | asset_url }}" alt="Facebook">
+              </a>
+              <a href="https://instagram.com" target="_blank">
+                <img src="{{ 'instagram-icon.svg' | asset_url }}" alt="Instagram">
+              </a>
+            </div>
+
+            <!-- Legal Links and Copyright -->
+            <div class="footer_legal">
+              <p class="text-weight-medium text-color-secondary">&copy; {{ 'now' | date: '%Y' }} Gogobaby</p>
+              <a class="footer_legal-link text-weight-medium" href="/pages/privacy-policy">Cookie Policy</a>
+              <a class="footer_legal-link text-weight-medium" href="/pages/terms-conditions">Terms & Conditions</a>
+            </div>
+          </div>
+          <!-- End of footer_bottom -->
+        </div>
+        <!-- End of footer_wrapper -->
+      </div>
+      <!-- End of padding-section-medium -->
+    </div>
+    <!-- End of container-large -->
+  </div>
+  <!-- End of padding-global -->
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Abonează-te la newsletter-ul nostru ca să afli primul despre cele mai bune oferte!"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder Text",
+      "default": "Introdu adresa de email"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_button_text",
+      "label": "Subscribe Button Text",
+      "default": "Abonează-te"
+    },
+    {
+      "type": "url",
+      "id": "facebook_link",
+      "label": "Facebook Link",
+      "default": "https://facebook.com"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram Link",
+      "default": "https://instagram.com"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "Gogobaby"
+    },
+    {
+      "type": "url",
+      "id": "cookie_policy_link",
+      "label": "Cookie Policy Link",
+      "default": "/pages/privacy-policy"
+    },
+    {
+      "type": "url",
+      "id": "terms_conditions_link",
+      "label": "Terms & Conditions Link",
+      "default": "/pages/terms-conditions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Link Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column Title",
+          "default": "Ai întrebări?"
+        },
+        {
+          "type": "link_list",
+          "id": "links",
+          "label": "Links"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

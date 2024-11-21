@@ -1,0 +1,132 @@
+.product-card_details {
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column; /* Makes items align vertically */
+  gap: 42px; /* Adds space between items */
+}
+
+.product-card_price-old {
+  color: var(--text-color-secondary);
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.product-card_price-sale {
+  color: var(--text-color-secondary);
+}
+
+.product-card_price-sale--reduced {
+  color: var(--text-color-error); /* Set to primary color or any highlight color */
+  font-weight: bold; /* Make it bold for emphasis */
+}
+
+.product-card_badge {
+  background-color: var(--color-system-red);
+  padding: 6px 12px 6px 12px;
+  color: var(--text-color-tertiary);
+  font-weight: 600;
+  border-radius: 16px 0 16px 0;
+  position: absolute;
+  z-index: 3;
+}
+
+.product-card_image-wrapper {
+  border: 1px solid var(--border-color-primary);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative; /* Ensures child can be positioned absolutely within this container */
+  padding-top: 100%; /* Creates a square aspect ratio */
+}
+
+.product-card_image-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block; /* Ensures the link is block-level to cover the full area */
+}
+
+.product-card_image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Corrected property */
+}
+
+.brands_products {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* Mobile view (2 columns) */
+@media (max-width: 768px) {
+  .brands_products {
+    gap: 24px;
+  }
+}
+
+.product-card_actions {
+  opacity: 0;
+  position: absolute; /* Makes the element positioned relative to its closest positioned ancestor */
+  z-index: 1;
+  top: 0; /* Align to the top of the container */
+  left: 0; /* Align to the left of the container */
+  bottom: 0; /* Align to the bottom of the container */
+  right: 0; /* Align to the right of the container */
+  display: flex; /* Sets the layout to flex for horizontal alignment */
+  justify-content: flex-end; /* Aligns items to the right */
+  align-items: flex-end; /* Aligns items to the bottom */
+  padding: 1rem; /* Adds padding of 1rem */
+  background-color: rgba(31, 35, 91, 0.2); /* Background color with 20% opacity */
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+
+.product-card_wishlist {
+  width: 3rem; /* Set the width to 3rem */
+  height: 3rem; /* Set the height to 3rem */
+  border-radius: 60px; /* Make it circular */
+  border: 1px solid var(--border-color-primary); /* Border with primary color variable */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for button hover */
+}
+
+.product-card_wishlist svg path {
+  transition: stroke 0.3s ease, fill 0.3s ease; /* Smooth transition for SVG color */
+}
+
+.product-card_wishlist:hover svg path {
+  stroke: #f43636; /* Change stroke color to red */
+  fill: #f43636; /* Optional: Change fill color to red */
+}
+
+.product-card_cart {
+  width: 3rem; /* Set the width to 3rem */
+  height: 3rem; /* Set the height to 3rem */
+  border-radius: 60px; /* Make it circular */
+  border: 1px solid var(--border-color-primary); /* Border with primary color variable */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for button hover */
+}
+.product-card_cart:hover {
+  background-color: var(--background-color-alternate);
+}
+.product-card_cart svg path {
+  transition: stroke 0.3s ease; /* Adds a smooth transition to the stroke color */
+}
+
+.product-card_cart:hover svg path {
+  stroke: var(--text-color-tertiary);
+}
+
+.product-card_image-wrapper:hover .product-card_actions {
+  opacity: 1;
+}

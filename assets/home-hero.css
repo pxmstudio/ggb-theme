@@ -1,0 +1,142 @@
+.home-hero_wrapper {
+  margin-top: 7rem; /* Converted 112px to rem (assuming base font size is 16px) */
+  display: grid; /* Enables grid layout */
+  grid-template-columns: 21.25rem 57.5rem; /* 340px and 920px converted to rem */
+  gap: 1.25rem; /* 20px converted to rem */
+}
+.home-hero_left {
+  position: relative;
+  padding: 10px;
+  border-radius: 1rem; /* Sets border radius */
+  border: 2px dashed var(--border-color-secondary); /* 2px dotted border with secondary color variable */
+}
+
+.home-hero_right {
+  overflow: hidden;
+  border-radius: 1rem; /* Sets border radius */
+}
+
+.home-hero_category {
+  display: flex; /* Set layout to horizontal flex */
+  align-items: center; /* Center items vertically */
+  gap: 0rem; /* Space between elements */
+  padding: 1rem 1.5rem; /* Padding top-bottom: 1rem, left-right: 1.5rem */
+  border-radius: 60px; /* Border radius */
+  background-color: transparent; /* Optional background color */
+  color: var(--text-color-secondary); /* Color applied to parent */
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.home-hero_category-arrow {
+  margin-left: auto; /* Push arrow to the right */
+  fill: white; /* Ensure arrow is white */
+  stroke: white; /* Ensure arrow stroke is white */
+}
+
+.home-hero_category-title {
+  font-size: 1rem; /* Adjust title font size */
+  font-weight: 500; /* Optional styling for title */
+  color: inherit; /* Ensure it inherits the color from .home-hero_category */
+  transition: color 0.3s ease;
+}
+
+.home-hero_category.is-active {
+  background-color: var(--background-color-alternate); /* Secondary background color */
+  color: var(--text-color-tertiary) !important; /* White text color */
+}
+.home-hero_category .home-hero_category-icon path {
+  transition: stroke 0.3s ease-in-out; /* Add transition to stroke */
+}
+
+.home-hero_category.is-active .home-hero_category-icon path {
+  stroke: var(--text-color-tertiary) !important;
+}
+.home-hero_category .home-hero_category-icon {
+  margin-right: 0.75rem;
+}
+
+.home-hero_subcategories-inner {
+  position: static;
+  margin-left: 40px; /* Add 40px gap from the parent */
+
+  z-index: 2;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
+
+  gap: 2rem; /* Space between elements */
+  border: 1px solid var(--border-color-primary); /* Add 1px border with primary color */
+}
+
+.home-hero_subcategories-wrapper {
+  padding-top: 1rem;
+  position: absolute;
+  top: 0%;
+  left: 100%; /* Start from the right edge of the parent */
+  margin-left: 0px; /* Add 40px gap from the parent */
+  height: 100%;
+  z-index: 2;
+  background: transparent;
+  display: none;
+}
+
+.home-hero_subcategories-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  gap: 0; /* No gap between items */
+  width: 100%; /* Optional: ensures it spans the parent container's width */
+}
+
+.home-hero_subcategories-item {
+  padding: 1rem 1.5rem; /* Padding: 1rem top-bottom, 1.5rem left-right */
+  border-radius: 0.5rem; /* Rounded corners */
+  background: transparent; /* Transparent background */
+  color: var(--text-color-primary); /* Primary text color */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for both background and text color */
+}
+
+.home-hero_subcategories-item:hover {
+  background: var(--background-color-secondary); /* Background color on hover */
+  color: var(--text-color-secondary); /* Secondary text color on hover */
+}
+
+.home-hero_subcategories-item {
+  padding: 1rem 1.5rem; /* Padding: 1rem top-bottom, 1.5rem left-right */
+  border-radius: 0.5rem; /* Rounded corners */
+  background: transparent; /* Transparent background */
+  color: var(--text-color-secondary); /* Primary text color */
+  font-size: 1rem; /* Font size */
+  font-weight: 500; /* Font weight */
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for both background and text color */
+}
+
+.home-hero_subcategories-item:hover {
+  background: var(--background-color-secondary); /* Background color on hover */
+  color: var(--text-color-primary); /* Secondary text color on hover */
+}
+
+.home-hero_swiper-slide {
+  position: relative; /* Asigură că elementele absolute se vor poziționa relativ la acest container */
+  overflow: hidden; /* Ascunde părțile imaginilor care ies în afara containerului */
+  width: 100%; /* Sliderul ocupă întreaga lățime */
+  height: 100%; /* Sliderul ocupă întreaga înălțime */
+}
+
+.home-hero_swiper-slide img {
+  position: absolute; /* Poziționare absolută în interiorul containerului relativ */
+  top: 0;
+  left: 0;
+  width: 100%; /* Imaginea ocupă întreaga lățime a containerului */
+  height: 100%; /* Imaginea ocupă întreaga înălțime a containerului */
+  object-fit: cover; /* Imaginea este scalată pentru a acoperi întreg containerul fără deformare */
+}
+
+.home-hero_swiper {
+  width: 100%; /* Sliderul ocupă întreaga lățime a containerului părinte */
+  height: 100%; /* Sliderul ocupă întreaga înălțime a containerului părinte */
+  position: relative; /* Asigură că poate conține elemente absolut poziționate */
+}

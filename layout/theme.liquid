@@ -3,39 +3,53 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    >
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="canonical" href="{{ canonical_url }}">
 
-    <title>
-      {{ page_title }}
-    </title>
+    <title>{{ page_title }}</title>
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
-    {{ content_for_header }}
-
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
   </head>
 
   <body>
+    <!-- Accessibility link (Skip to Content) -->
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
+    {% section 'header' %}
+    <!-- Sections included in the layout -->
+    {% comment %}
+      {% section 'home-hero' %}
+      {% section 'brands' %}
+      {% section 'products' %}
+      {% section 'recommendations' %}
+    {% endcomment %}
 
-    {% sections 'header-group' %}
-
+    <!-- Main content element -->
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
-
+    {% section 'footer' %}
+    <!-- Accessibility messages -->
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
     </ul>
 
+    <!-- Scripts for routes and functionality -->
     <script>
       window.shopUrl = '{{ request.origin }}';
       window.routes = {

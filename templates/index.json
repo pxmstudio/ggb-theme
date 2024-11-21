@@ -1,8 +1,18 @@
 {
   "sections": {
-    "main": {
-      "type": "main-404"
-    }
+    "products": {
+      "type": "products"
+    },
+    "home-hero": {
+      "type": "home-hero"
+    },
+    "recommendations": {
+      "type": "recommendations"
+    },
+    "brands": {
+      "type": "brands"
+    },
+   
   },
-  "order": ["main"]
+  "order": ["home-hero","brands", "products","recommendations"]
 }

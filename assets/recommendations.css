@@ -1,0 +1,29 @@
+.recommendations_item-image-wrapper {
+  aspect-ratio: 1 / 1; /* Square ratio */
+  border: 2px solid var(--border-color-primary); /* Primary color border */
+  border-radius: 1rem; /* Rounded corners */
+  position: relative; /* Relative positioning */
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.recommendations_item-image {
+  position: absolute; /* Absolute positioning */
+  width: 100%; /* Cover the entire width */
+  height: 100%; /* Cover the entire height */
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
+}
+.recommendations_item-title {
+  display: flex; /* Enable flexbox */
+  justify-content: space-between; /* Space items evenly with maximum space between */
+  align-items: center; /* Center items vertically */
+  gap: 1rem; /* Add a 1rem gap between items */
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.recommendations_wrapper {
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Arrange children vertically */
+  gap: 3rem; /* Add a 3rem gap between items */
+  align-items: left; /* Center-align items (optional, adjust as needed) */
+}
