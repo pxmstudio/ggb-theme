@@ -1,0 +1,21 @@
+{% assign defaultClasses = 'h-12 py-3 px-4 rounded-3xl text-lg font-semibold' %}
+
+{% case type %}
+  {% when 'link' %}
+    {% if hierarchy == 'primary' %}
+      <a
+        href="{{ href }}"
+        class="{{ defaultClasses }} bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition {{ classes }}"
+      >
+        {{- text -}}
+      </a>
+    {% else %}
+      <a href="{{ href }}" class="{{ defaultClasses }} {{ classes }}">{{ text }}</a>
+    {% endif %}
+  {% when 'button' %}
+    {% if hierarchy == 'primary' %}
+      <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
+    {% else %}
+      <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
+    {% endif %}
+{% endcase %}

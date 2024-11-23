@@ -1,0 +1,11 @@
+<a
+  href="{{ href }}"
+  target="_blank"
+  class="global-transition text-neutral-white w-10 h-10 p-2 lg:w-20 lg:h-20 flex items-center justify-center rounded-3xl bg-bg-alternate hover:bg-[#B8643F]"
+>
+  {% if icon == 'facebook' %}
+    {% render 'icon-facebook', width: 48, height: 48 %}
+  {% elsif icon == 'instagram' %}
+    {% render 'icon-instagram', width: 48, height: 48 %}
+  {% endif %}
+</a>

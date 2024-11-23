@@ -1,0 +1,24 @@
+{% assign defaultClasses = 'py-3 pl-4 pr-3 inline-flex items-center gap-4 rounded-[5rem] text-lg font-semibold' %}
+
+{% case type %}
+  {% when 'link' %}
+    {% if hierarchy == 'primary' %}
+      <a
+        href="{{ href }}"
+        class="{{ defaultClasses }} bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition {{ classes }}"
+      >
+        {{- text -}}
+        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-bg-alternate">
+          {% render 'icon-arrow-right', width: 24, height: 24 %}
+        </div>
+      </a>
+    {% else %}
+      <a href="{{ href }}" class="{{ defaultClasses }} {{ classes }}">{{ text }}</a>
+    {% endif %}
+  {% when 'button' %}
+    {% if hierarchy == 'primary' %}
+      <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
+    {% else %}
+      <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
+    {% endif %}
+{% endcase %}

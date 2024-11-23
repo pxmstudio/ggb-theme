@@ -1,0 +1,16 @@
+<a href="{{ collection.url }}" class="group">
+  <div class="relative aspect-square overflow-hidden bg-bg-primary border border-border-primary rounded-[1.5rem] mb-4 p-3 lg:p-6 flex items-center justify-center group-hover:border-border-secondary global-transition">
+    {% if collection.image %}
+      <div class="relative overflow-hidden rounded-[1.5rem]">
+        <img
+          src="{{ collection.image | image_url: width: 300 }}"
+          alt="{{ collection.title }}"
+          width="{{ collection.image.width }}"
+          height="{{ collection.image.height }}"
+          class="w-full h-full object-contain object-center group-hover:scale-110 global-transition"
+        >
+      </div>
+    {% endif %}
+  </div>
+  <h3 class="lg:text-xl font-semibold leading-normal text-text-primary text-center">{{ collection.title }}</h3>
+</a>

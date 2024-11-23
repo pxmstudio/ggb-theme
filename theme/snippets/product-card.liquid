@@ -1,0 +1,39 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+<a href="{{ product.url }}" class="w-full h-full group">
+  <div class="w-full aspect-square relative rounded-2xl overflow-hidden border border-border-primary">
+    <img
+      src="{{ product.featured_image | image_url: height: 300 }}"
+      width="auto"
+      height="300"
+      class="absolute top-0 bottom-0 left-0 right-0 object-cover object-center w-full h-full group-hover:scale-110 global-transition"
+    >
+    {% if product.compare_at_price > product.price %}
+      <span class="absolute top-0 left-0 bg-error-red text-white px-2 py-1 rounded-br-2xl text-sm font-medium">
+        Reducere
+        {{
+          product.compare_at_price
+          | minus: product.price
+          | times: 100.0
+          | divided_by: product.compare_at_price
+          | round
+        -}}
+        %
+      </span>
+    {% endif %}
+  </div>
+  <div class="pt-4">
+    <h3 class="text-text-primary lg:text-lg font-semibold leading-normal mb-2">{{ product.title }}</h3>
+    <div class="flex items-center gap-4">
+      <p class="text-text-secondary lg:text-lg font-semibold line-through">
+        {{ product.compare_at_price | money_without_trailing_zeros }}
+      </p>
+      <p class="{% if on_sale %}text-error-red{% else %}text-text-primary{% endif %} font-semibold lg:text-lg">
+        {{ product.price | money_without_trailing_zeros }}
+      </p>
+    </div>
+  </div>
+</a>

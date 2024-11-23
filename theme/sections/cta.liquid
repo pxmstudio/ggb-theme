@@ -1,0 +1,68 @@
+<section class="py-16 relative">
+  <div class="global-padding">
+    <div class="container-large">
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="row-start-2 lg:row-start-1 p-8 lg:p-14 flex flex-col items-start justify-center rounded-2xl bg-bg-secondary border border-primary relative z-20">
+          <div class="mb-8 lg:mb-12">
+            <h2 class="heading-h2 text-text-primary mb-4">{{ section.settings.title }}</h2>
+            <p class="text-text-secondary text-lg leading-normal">{{ section.settings.description }}</p>
+          </div>
+          {% render 'button-arrow-right',
+            text: section.settings.button_text,
+            href: '#',
+            hierarchy: 'primary',
+            type: 'link'
+          %}
+        </div>
+        <div class="relative w-full aspect-square lg:aspect-auto lg:h-full rounded-2xl overflow-hidden border border-border-primary">
+          {% if section.settings.image != blank %}
+            <img
+              src="{{ section.settings.image | image_url: width: 1000 }}"
+              width="1000"
+              height="1000"
+              alt="{{ section.settings.image.alt }}"
+              class="absolute top-0 bottom-0 left-0 right-0 object-cover object-center w-full h-full"
+            >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden lg:flex absolute top-0 left-0 w-full h-full items-center justify-center overflow-hidden z-10">
+    <div class="w-[200vw]">
+      {% render 'shape-dashed-line', width: '125%', height: '505', class: 'translate-x-[-15vw] translate-y-[8vh]' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Descoperă jucăriile acum cu 50% reducere"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Descoperă colecția de jucării Toys confecționate folosind cele mai moi materiale, acum la super ofertă!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Descoperă oferta"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+<div class="h-28 w-full">
+  <header class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-bg-primary z-40 w-full m-0 mx-auto">
+    <div class="global-padding">
+      <div class="container-large">
+        <div class="w-full py-6 flex justify-between items-center gap-8">
+          {% if template.name == 'index' %}
+            <h1>
+              <span class="sr-only">GoGoBaby</span>
+          {% endif %}
+          <a
+            href="/"
+            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-50 h-10 lg:h-16 w-auto"
+          >
+            {% render 'icon-logo' %}
+          </a>
+          {% if template.name == 'index' %}
+            </h1>
+          {% endif %}
+
+          <div class="hidden lg:block" pxm-nav="menu">
+            <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full">
+              <div class="flex flex-col lg:flex-row gap-6 items-center justify-end">
+                {% for link in linklists['main-menu'].links %}
+                  <a
+                    href="{{ link.url }}"
+                    class="text-text-secondary hover:text-text-primary text-xl lg:text-base font-medium global-transition whitespace-nowrap hover:text-primary"
+                  >
+                    {{- link.title -}}
+                  </a>
+                {% endfor %}
+              </div>
+
+              <div class="flex items-center gap-2 lg:justify-end">
+                <!-- Search and Category Dropdown Form -->
+                <form
+                  action="/search"
+                  method="get"
+                  class="flex items-center lg:rounded-full lg:bg-bg-secondary lg:py-1 lg:pl-6 lg:w-[45%] md:w-full md:max-w-full md:overflow-hidden relative flex-grow"
+                >
+                  <select class="w-fit text-text-primary bg-transparent border-none focus:outline-none focus:border-none focus:ring-0 h-fit pl-0 hidden lg:block">
+                    <option value="">Categorii</option>
+                    {% for collection in collections %}
+                      <option value="{{ collection.handle }}">{{ collection.title }}</option>
+                    {% endfor %}
+                  </select>
+
+                  <!-- Search Input Field -->
+                  <input
+                    type="text"
+                    name="q"
+                    placeholder="Caută aici..."
+                    class="w-full bg-transparent border-t-0 border-r-0 border-b-0 border-border-primary py-0 focus:outline-none focus:ring-0 placeholder:text-text-secondary font-normal text-base text-text-primary hidden lg:block"
+                  >
+
+                  <!-- Search Button -->
+                  <button
+                    type="submit"
+                    class="lg:absolute top-2 right-2 bottom-2 w-12 h-12 lg:w-8 lg:h-8 p-3 lg:p-1.5 rounded-full bg-bg-secondary lg:bg-white flex items-center justify-center global-transition lg:hover:bg-neutral-light"
+                  >
+                    {% render 'icon-search' %}
+                  </button>
+                </form>
+
+                <!-- Account Links -->
+                <div class="flex items-center sm:gap-2 lg:gap-3">
+                  {% render 'nav-acc-btn', path: '/account', icon: 'user' %}
+                  {% render 'nav-acc-btn', path: '/wishlist', icon: 'heart' %}
+                  {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <!-- Mobile Buttons -->
+          <div>
+            <button
+              class="lg:hidden relative w-10 h-10 py-3 px-2 flex flex-col items-center justify-center gap-1 bg-bg-secondary rounded-full z-50"
+              pxm-nav="mobile-btn"
+            >
+              <div class="w-full h-[2px] rounded-2xl bg-neutral-darker" pxm-nav="mobile-btn-line"></div>
+              <div class="w-full h-[2px] rounded-2xl bg-neutral-darker" pxm-nav="mobile-btn-line"></div>
+              <div class="w-full h-[2px] rounded-2xl bg-neutral-darker" pxm-nav="mobile-btn-line"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<script src="{{ 'nav.js' | asset_url }}" type="module" defer></script>

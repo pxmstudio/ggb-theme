@@ -1,0 +1,21 @@
+<h1>{{ collection.title }}</h1>
+<p>{{ collection.id }}</p>
+
+<div class="" pxm-data="related-collections">
+  {% for related_collection in collections %}
+    {% if related_collection.metafields.custom.parent_collection != blank %}
+      {% assign related_collection_id = related_collection.metafields.custom.parent_collection
+        | split: '/'
+        | last
+        | plus: 0
+      %}
+
+      {% if related_collection_id == collection.id %}
+        <div pxm-data="related-collection-item">
+          <p pxm-item="title">{{ related_collection.title }}</p>
+          <p pxm-item="url">{{ related_collection.url }}</p>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>

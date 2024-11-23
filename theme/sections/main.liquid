@@ -20,4 +20,6 @@
   <a href="{{ routes.all_products_collection_url }}" class="button">
     {{ 'general.continue_shopping' | t }}
   </a>
+
+  {% render 'product' with product as {title: 'test', description: 'test', price: 100} %}
 </div>
