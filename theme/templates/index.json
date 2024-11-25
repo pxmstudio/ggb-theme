@@ -16,5 +16,5 @@
       "type": "collections-slider"
     }
   },
-  "order": ["category-picker", "featured-brands", "featured-products", "cta", "collections-slider", "featured-products"]
+  "order": ["category-picker", "featured-brands", "featured-products", "cta", "collections-slider"]
 }

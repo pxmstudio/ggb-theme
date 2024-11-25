@@ -1,0 +1,15 @@
+<div class="inline-flex items-center gap-2 lg:gap-3">
+  <input
+    id="{{ id }}"
+    name="{{ name }}"
+    type="checkbox"
+    class="bg-bg-secondary border border-border-primary w-6 h-6 lg:w-8 lg:h-8 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg hover:text-brand-turquoise"
+    required="{{ required | default: false }}"
+  >
+  {% if label %}
+    <label class="text-text-primary font-medium lg:text-lg">
+      {{- label -}}
+      {%- if required %} *{% endif -%}
+    </label>
+  {% endif %}
+</div>

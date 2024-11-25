@@ -14,7 +14,9 @@
     {% endif %}
   {% when 'button' %}
     {% if hierarchy == 'primary' %}
-      <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
+      <button class="{{ defaultClasses }} bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition {{ classes }}">
+        {{ text }}
+      </button>
     {% else %}
       <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
     {% endif %}

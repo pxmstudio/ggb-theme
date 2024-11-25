@@ -1,0 +1,16 @@
+<div class="inline-flex flex-col gap-2 lg:gap-3">
+  {% if label %}
+    <label class="text-text-primary font-medium lg:text-lg">
+      {{- label -}}
+      {%- if required %} *{% endif -%}
+    </label>
+  {% endif %}
+  <input
+    id="{{ id }}"
+    name="{{ name }}"
+    placeholder="{{ placeholder }}"
+    type="{{ type | default: 'text' }}"
+    class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg"
+    required="{{ required | default: false }}"
+  >
+</div>

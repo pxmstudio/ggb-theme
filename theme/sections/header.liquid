@@ -32,34 +32,90 @@
 
               <div class="flex items-center gap-2 lg:justify-end">
                 <!-- Search and Category Dropdown Form -->
-                <form
-                  action="/search"
-                  method="get"
-                  class="flex items-center lg:rounded-full lg:bg-bg-secondary lg:py-1 lg:pl-6 lg:w-[45%] md:w-full md:max-w-full md:overflow-hidden relative flex-grow"
-                >
-                  <select class="w-fit text-text-primary bg-transparent border-none focus:outline-none focus:border-none focus:ring-0 h-fit pl-0 hidden lg:block">
-                    <option value="">Categorii</option>
-                    {% for collection in collections %}
-                      <option value="{{ collection.handle }}">{{ collection.title }}</option>
-                    {% endfor %}
-                  </select>
-
-                  <!-- Search Input Field -->
-                  <input
-                    type="text"
-                    name="q"
-                    placeholder="Caută aici..."
-                    class="w-full bg-transparent border-t-0 border-r-0 border-b-0 border-border-primary py-0 focus:outline-none focus:ring-0 placeholder:text-text-secondary font-normal text-base text-text-primary hidden lg:block"
+                <div class="relative">
+                  <form
+                    action="{{ routes.search_url }}"
+                    role="search"
+                    method="get"
+                    class="flex items-center lg:rounded-full lg:bg-bg-secondary lg:py-1 md:w-full md:max-w-full md:overflow-hidden relative flex-grow lg:min-w-[20rem]"
+                    pxm-search="form"
                   >
+                    <input
+                      type="text"
+                      name="q"
+                      value="{{ search.terms | escape }}"
+                      placeholder="Caută aici..."
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-owns="predictive-search-results"
+                      aria-controls="predictive-search-results"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      class="w-full bg-transparent border-0 border-border-primary py-0 focus:outline-none focus:ring-0 placeholder:text-text-secondary font-normal text-base text-text-primary hidden lg:block h-12 pl-6"
+                      pxm-search="input"
+                      pxm-search-route="{{ routes.predictive_search_url }}"
+                    >
 
-                  <!-- Search Button -->
-                  <button
-                    type="submit"
-                    class="lg:absolute top-2 right-2 bottom-2 w-12 h-12 lg:w-8 lg:h-8 p-3 lg:p-1.5 rounded-full bg-bg-secondary lg:bg-white flex items-center justify-center global-transition lg:hover:bg-neutral-light"
-                  >
-                    {% render 'icon-search' %}
-                  </button>
-                </form>
+                    <!-- Search Button -->
+                    <button
+                      type="submit"
+                      class="lg:absolute top-2 right-2 bottom-2 p-3 lg:p-2 rounded-full bg-bg-secondary lg:bg-white flex items-center justify-center global-transition lg:hover:bg-neutral-light"
+                    >
+                      {% render 'icon-search' %}
+                    </button>
+                  </form>
+                  <div pxm-search="results-container">
+                    {% if predictive_search.performed %}
+                      <div
+                        id="predictive-search-results"
+                        pxm-search="results"
+                        class="absolute top-16 left-0 right-0 p-4 bg-bg-secondary rounded-xl"
+                      >
+                        {% if predictive_search.resources.products.size > 0 %}
+                          <h3 class="text-text-secondary text-xs uppercase font-medium mb-4">Products</h3>
+                          <ul>
+                            {% for product in predictive_search.resources.products %}
+                              <li>
+                                <a href="{{ product.url }}" class="flex items-center gap-2 group">
+                                  {% if product.featured_image %}
+                                    <img
+                                      src="{{ product.featured_image | image_url: width: 100 }}"
+                                      alt="{{ product.title }}"
+                                      class="w-10 h-10 object-contain object-center rounded-md"
+                                      width="{{ product.featured_image.width }}"
+                                      height="{{ product.featured_image.height }}"
+                                    >
+                                  {% endif %}
+                                  <div>
+                                    <p class="text-text-primary text-sm font-semibold global-transition group-hover:text-brand-orange">
+                                      {{ product.title }}
+                                    </p>
+                                    <div class="flex items-center gap-1">
+                                      {% if product.compare_at_price %}
+                                        <p class="text-text-secondary text-xs line-through">
+                                          {{ product.compare_at_price | money_without_trailing_zeros }}
+                                        </p>
+                                      {% endif %}
+                                      <p class="text-text-secondary text-xs">
+                                        {{ product.price | money_without_trailing_zeros }}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% else %}
+                          <p class="text-text-secondary text-sm">No results found.</p>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
 
                 <!-- Account Links -->
                 <div class="flex items-center sm:gap-2 lg:gap-3">

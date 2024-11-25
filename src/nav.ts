@@ -38,4 +38,60 @@ document.addEventListener("DOMContentLoaded", function () {
       isOpen = !isOpen;
     });
   }
+
+  const searchForm = document.querySelector<HTMLFormElement>(
+    '[pxm-search="form"]'
+  );
+  const searchInput = document.querySelector<HTMLInputElement>(
+    '[pxm-search="input"]'
+  );
+  const searchResultsContainer = document.querySelector<HTMLDivElement>(
+    '[pxm-search="results-container"]'
+  );
+
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+
+    searchInput.addEventListener("input", async (e) => {
+      const value = (e.target as HTMLInputElement).value;
+
+      if (value === "") {
+        if (searchResultsContainer) {
+          searchResultsContainer.innerHTML = "";
+        }
+
+        return;
+      }
+
+      const res = await fetch(`/search/suggest?q=${value}&section_id=header`);
+      const data = await res.text();
+
+      if (searchResultsContainer) {
+        const dataHtml = new DOMParser().parseFromString(data, "text/html");
+        const newResults = dataHtml.querySelector<HTMLDivElement>(
+          '[pxm-search="results"]'
+        );
+
+        if (newResults) {
+          searchResultsContainer.innerHTML = "";
+          searchResultsContainer.appendChild(newResults);
+        }
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !searchResultsContainer?.contains(event.target as Node) &&
+        event.target !== searchInput
+      ) {
+        if (searchResultsContainer) {
+          searchResultsContainer.innerHTML = "";
+
+          searchInput.value = "";
+        }
+      }
+    });
+  }
 });
