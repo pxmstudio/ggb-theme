@@ -1,20 +1,91 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "category-picker": {
-      "type": "category-picker"
+      "type": "category-picker",
+      "settings": {
+        "img": "shopify://shop_images/Rectangle_1038.png"
+      }
     },
     "featured-brands": {
-      "type": "featured-brands"
+      "type": "featured-brands",
+      "blocks": {
+        "brand_FbQCVt": {
+          "type": "brand",
+          "settings": {
+            "img": "shopify://shop_images/logo.png",
+            "url": ""
+          }
+        },
+        "brand_H3Rnzw": {
+          "type": "brand",
+          "settings": {
+            "img": "shopify://shop_images/logo.png",
+            "url": ""
+          }
+        },
+        "brand_r4BNdj": {
+          "type": "brand",
+          "settings": {
+            "img": "shopify://shop_images/logo.png",
+            "url": ""
+          }
+        },
+        "brand_WyEw9y": {
+          "type": "brand",
+          "settings": {
+            "img": "shopify://shop_images/logo.png",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_FbQCVt",
+        "brand_H3Rnzw",
+        "brand_r4BNdj",
+        "brand_WyEw9y"
+      ],
+      "settings": {
+        "title": "Brandurile noastre"
+      }
     },
     "featured-products": {
-      "type": "featured-products"
+      "type": "featured-products",
+      "settings": {
+        "title": "Cele mai mici prețuri",
+        "collection": "all",
+        "button_text": "Vezi toate"
+      }
     },
     "cta": {
-      "type": "cta"
+      "type": "cta",
+      "settings": {
+        "title": "Descoperă jucăriile acum cu 50% reducere",
+        "description": "Descoperă colecția de jucării Toys confecționate folosind cele mai moi materiale, acum la super ofertă!",
+        "button_text": "Descoperă oferta",
+        "image": "shopify://shop_images/Rectangle_1037.png"
+      }
     },
     "collections-slider": {
-      "type": "collections-slider"
+      "type": "collections-slider",
+      "settings": {
+        "title": "Descoperă toate produsele"
+      }
     }
   },
-  "order": ["category-picker", "featured-brands", "featured-products", "cta", "collections-slider"]
+  "order": [
+    "category-picker",
+    "featured-brands",
+    "featured-products",
+    "cta",
+    "collections-slider"
+  ]
 }
