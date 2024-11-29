@@ -22,31 +22,32 @@
           </div>
         </div>
         <div class="bg-bg-primary rounded-3xl border-2 lg:border-[3px] border-dashed border-border-secondary p-6 lg:p-8">
-          <form action="" class="flex flex-col gap-4 lg:gap-6">
-            {% render 'input', label: 'Nume', id: 'name', name: 'name', required: true, placeholder: 'Nume' %}
+          {% form 'contact', class: 'flex flex-col gap-4 lg:gap-6' %}
+            {% render 'input', label: 'Nume', id: 'name', name: 'contact[name]', required: true, placeholder: 'Nume' %}
             {% render 'input',
               label: 'Email',
               type: 'email',
               id: 'email',
-              name: 'email',
+              name: 'contact[email]',
               required: true,
               placeholder: 'Email'
             %}
             {% render 'text-area',
               label: 'Mesaj',
               id: 'message',
-              name: 'message',
+              name: 'contact[body]',
               required: true,
               placeholder: 'Scrie aici mesajul tău'
             %}
             {% render 'input-checkbox',
               label: 'Sunt de acord cu <a href="/policies/privacy" target="_blank" class="text-text-secondary global-transition hover:text-text-primary">Termenii si Conditiile</a>',
-              id: 'newsletter',
-              name: 'newsletter',
+              id: 'legal',
+              name: 'contact[legal]',
               required: true
             %}
+            <div class="g-recaptcha" data-sitekey="{{ shop.recaptcha_public_key }}"></div>
             {% render 'button', type: 'button', hierarchy: 'primary', text: 'Trimite', class: 'w-full' %}
-          </form>
+          {% endform %}
         </div>
       </div>
     </div>

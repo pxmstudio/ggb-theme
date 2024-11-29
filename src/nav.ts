@@ -1,5 +1,3 @@
-import { gsap } from "gsap";
-
 document.addEventListener("DOMContentLoaded", function () {
   const button = document.querySelector<HTMLButtonElement>(
     '[pxm-nav="mobile-btn"]'

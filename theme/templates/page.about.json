@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "header": {
+      "type": "about-header"
+    },
+    "cards": {
+      "type": "about-cards"
+    },
+    "timeline": {
+      "type": "about-timeline"
+    },
+    "reviews": {
+      "type": "about-reviews"
+    }
+  },
+  "order": ["header", "cards", "timeline", "reviews"]
+}

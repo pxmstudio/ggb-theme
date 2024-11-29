@@ -1,0 +1,47 @@
+<section>
+  <div class="global-padding pt-5 pb-10 lg:py-16">
+    <div class="container-large">
+      <div class="max-w-3xl mb-8 lg:mb-16">
+        <h1 class="heading-h1 text-text-primary mb-4 lg:mb-6">{{ section.settings.title }}</h1>
+        <div class="lg:text-xl text-text-secondary">
+          {{ section.settings.text }}
+        </div>
+      </div>
+      {% if section.settings.image %}
+        <div class="w-full aspect-video overflow-hidden rounded-2xl relative">
+          <img
+            src="{{ section.settings.image | image_url: width: 1280 }}"
+            width="1280"
+            height="600"
+            alt="{{ section.settings.title }}"
+            class="h-full w-full absolute top-0 bottom-0 left-0 right-0 object-center object-cover"
+          >
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Despre noi"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}

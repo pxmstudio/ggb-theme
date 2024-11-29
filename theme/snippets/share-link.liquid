@@ -1,0 +1,15 @@
+<a
+  href="{{ href }}"
+  class="w-8 h-8 flex items-center justify-center bg-neutral-lightest rounded-full text-neutral-darker global-transition hover:text-brand-orange"
+>
+  {% if icon == 'x' %}
+    {% render 'icon-x', width: 24, height: 24 %}
+  {% elsif icon == 'linkedin' %}
+    {% render 'icon-linkedin', width: 24, height: 24 %}
+  {% elsif icon == 'link' %}
+    {% render 'icon-link', width: 24, height: 24 %}
+  {% elsif icon == 'facebook' %}
+    {% render 'icon-facebook', width: 24, height: 24 %}
+  {% endif %}
+  <span class="sr-only">{{ label }}</span>
+</a>

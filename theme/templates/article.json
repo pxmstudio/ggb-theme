@@ -1,8 +1,14 @@
 {
   "sections": {
-    "main": {
-      "type": "main-404"
+    "header": {
+      "type": "article-header"
+    },
+    "body": {
+      "type": "article-body"
+    },
+    "related-articles": {
+      "type": "related-articles"
     }
   },
-  "order": ["main"]
+  "order": ["header", "body", "related-articles"]
 }

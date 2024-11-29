@@ -1,0 +1,78 @@
+<section>
+  <div class="global-padding pt-5 pb-10 lg:py-16">
+    <div class="container-large" pxm-swiper="wrapper">
+      <div class="mb-6 lg:mb-12 flex lg:flex-row flex-col lg:items-center gap-4 justify-between">
+        <h2 class="heading-h2 text-text-primary">{{ section.settings.title }}</h2>
+        <div class="flex items-center gap-3">
+          {% render 'button-slider', icon: 'left', disabled: true %}
+          {% render 'button-slider', icon: 'right' %}
+        </div>
+      </div>
+
+      <div class="swiper" pxm-swiper="swiper" pxm-slides-per-view="2" pxm-slides-space-between="20">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              <div class="flex flex-col gap-2 lg:gap-8 p-8 rounded-2xl border border-border-primary">
+                <div class="flex items-center justify-between gap-8">
+                  <h3 class="text-lg leading-normal text-text-primary">{{ block.settings.title }}</h3>
+                  <div class="relative h-6 w-[8.5rem] overflow-hidden">
+                    {% render 'icon-five-stars-outline' %}
+                    <div
+                      class="absolute top-0 bottom-0 left-0 overflow-hidden"
+                      style="width: {{ block.settings.rating | times: 20 }}%;"
+                    >
+                      {% render 'icon-five-stars-filled', width: 136, height: 24 %}
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:text-lg leading-normal text-text-secondary">{{ block.settings.description }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Ce cred clienții despre noi"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review-item",
+      "name": "Review Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

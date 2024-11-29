@@ -19,6 +19,8 @@ export default defineConfig({
         nav: "./src/nav.ts",
         "category-picker": "./src/category-picker.ts",
         "collections-slider": "./src/collections-slider.ts",
+        swiper: "./src/swiper.ts",
+        faqs: "./src/faqs.ts",
       },
       output: {
         entryFileNames: "[name].js",
