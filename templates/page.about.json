@@ -1,17 +1,133 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "header": {
-      "type": "about-header"
+      "type": "about-header",
+      "settings": {
+        "title": "Despre noi",
+        "text": "<p>La GoGo Baby, ne dedicăm să oferim produse de calitate, sigure și accesibile, care răspund nevoilor zilnice ale familiilor cu copii.</p>",
+        "image": "shopify://shop_images/Rectangle_1037.png"
+      }
     },
     "cards": {
-      "type": "about-cards"
+      "type": "about-cards",
+      "blocks": {
+        "about_card_MgBqJp": {
+          "type": "about-card",
+          "settings": {
+            "icon": "shopify://shop_images/car_white.svg",
+            "title": "Misiune",
+            "description": "<p>Misiunea noastră este să aducem confort și siguranță în creșterea celor mici, oferind o gamă variată de produse atent selectate pentru fiecare etapă de dezvoltare.</p>"
+          }
+        },
+        "about_card_meEkYe": {
+          "type": "about-card",
+          "settings": {
+            "icon": "shopify://shop_images/car_white.svg",
+            "title": "Viziune",
+            "description": "<p>Visăm să fim prima alegere a părinților din România pentru produse destinate copiilor, creând o experiență de cumpărare simplă și plăcută.</p>"
+          }
+        },
+        "about_card_jGqFFy": {
+          "type": "about-card",
+          "settings": {
+            "icon": "shopify://shop_images/car_white.svg",
+            "title": "Valori",
+            "description": "<p>Valorile noastre sunt: siguranță, calitate, accesibilitate și empatie, puse în slujba părinților și a copiilor lor.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "about_card_MgBqJp",
+        "about_card_meEkYe",
+        "about_card_jGqFFy"
+      ],
+      "settings": {}
     },
     "timeline": {
-      "type": "about-timeline"
+      "type": "about-timeline",
+      "blocks": {
+        "timeline_item_m7EJRQ": {
+          "type": "timeline-item",
+          "settings": {
+            "title": "2009",
+            "description": "<p>Înființată în 2009, GoGo Baby a crescut continuu, devenind un partener de încredere pentru familiile din România.</p>"
+          }
+        },
+        "timeline_item_4qCU7W": {
+          "type": "timeline-item",
+          "settings": {
+            "title": "2016",
+            "description": "<p>Înființată în 2009, GoGo Baby a crescut continuu, devenind un partener de încredere pentru familiile din România.</p>"
+          }
+        },
+        "timeline_item_wYr6wd": {
+          "type": "timeline-item",
+          "settings": {
+            "title": "prezent",
+            "description": "<p>Înființată în 2009, GoGo Baby a crescut continuu, devenind un partener de încredere pentru familiile din România.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "timeline_item_m7EJRQ",
+        "timeline_item_4qCU7W",
+        "timeline_item_wYr6wd"
+      ],
+      "settings": {
+        "title": "Călătoria Gogobaby"
+      }
     },
     "reviews": {
-      "type": "about-reviews"
+      "type": "about-reviews",
+      "blocks": {
+        "review_item_LwcUMk": {
+          "type": "review-item",
+          "settings": {
+            "title": "Amanda Constantin",
+            "description": "<p>Am avut o experiență foarte plăcută pe site-ul GoGo Baby. Gama de produse este diversificată, iar descrierile detaliate m-au ajutat să fac o alegere informată. Navigarea pe site este intuitivă, iar filtrele sunt utile pentru a găsi rapid ceea ce căutam.</p>",
+            "rating": 5
+          }
+        },
+        "review_item_RPX9mM": {
+          "type": "review-item",
+          "settings": {
+            "title": "Andrei Cândea",
+            "description": "<p>Am apreciat informațiile clare despre livrare și retur. Produsul a ajuns repede și în stare perfectă. Recomand cu căldură GoGo Baby pentru oricine caută produse de calitate pentru copii!</p>",
+            "rating": 5
+          }
+        },
+        "review_item_LAFxxU": {
+          "type": "review-item",
+          "settings": {
+            "title": "Valentina Gabor",
+            "description": "<p>Am găsit rapid produsele dorite, iar procesul de comandă a fost simplu și rapid. Am apreciat și promptitudinea livrării, produsul ajungând chiar mai devreme decât mă așteptam. Cu siguranță voi reveni și recomand cu încredere acest site pentru părinții care caută calitate și fiabilitate!</p>",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "review_item_LwcUMk",
+        "review_item_RPX9mM",
+        "review_item_LAFxxU"
+      ],
+      "settings": {
+        "title": "Ce cred clienții despre noi"
+      }
     }
   },
-  "order": ["header", "cards", "timeline", "reviews"]
+  "order": [
+    "header",
+    "cards",
+    "timeline",
+    "reviews"
+  ]
 }
