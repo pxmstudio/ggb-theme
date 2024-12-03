@@ -1,4 +1,4 @@
-{% assign defaultClasses = 'h-12 py-3 px-4 rounded-3xl text-lg font-semibold' %}
+{% assign defaultClasses = 'h-12 py-3 px-4 rounded-3xl text-lg font-semibold inline-flex items-center justify-center' %}
 
 {% case type %}
   {% when 'link' %}
@@ -10,7 +10,9 @@
         {{- text -}}
       </a>
     {% else %}
-      <a href="{{ href }}" class="{{ defaultClasses }} {{ classes }}">{{ text }}</a>
+      <a href="{{ href }}" class="border border-border-primary bg-white {{ defaultClasses }} {{ classes }}">
+        {{- text -}}
+      </a>
     {% endif %}
   {% when 'button' %}
     {% if hierarchy == 'primary' %}
@@ -18,6 +20,6 @@
         {{ text }}
       </button>
     {% else %}
-      <button class="{{ defaultClasses }} {{ classes }}">{{ text }}</button>
+      <button class="border border-border-primary bg-white {{ defaultClasses }} {{ classes }}">{{ text }}</button>
     {% endif %}
 {% endcase %}
