@@ -135,5 +135,11 @@
     {% if content_for_layout contains 'faqs' %}
       <script src="{{ 'faqs.js' | asset_url }}" defer></script>
     {% endif %}
+
+    {% if content_for_layout contains 'main-collection' %}
+      <script src="https://cdn.jsdelivr.net/npm/range-slider-input@2.4/dist/rangeslider.umd.min.js" defer></script>
+
+      <script src="{{ 'collection.js' | asset_url }}" defer></script>
+    {% endif %}
   </body>
 </html>

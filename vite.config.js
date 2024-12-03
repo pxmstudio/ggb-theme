@@ -21,6 +21,7 @@ export default defineConfig({
         'collections-slider': './src/collections-slider.ts',
         swiper: './src/swiper.ts',
         faqs: './src/faqs.ts',
+        collection: './src/collection.ts',
       },
       output: {
         entryFileNames: '[name].js',

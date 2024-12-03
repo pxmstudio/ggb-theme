@@ -7,7 +7,7 @@
     required="{{ required | default: false }}"
   >
   {% if label %}
-    <label class="text-text-primary font-medium lg:text-lg">
+    <label for="{{ id }}" class="text-text-secondary font-medium lg:text-lg">
       {{- label -}}
       {%- if required %} *{% endif -%}
     </label>

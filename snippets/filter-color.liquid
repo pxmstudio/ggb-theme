@@ -1,0 +1,35 @@
+{% assign bg_class = 'bg-bg-primary' %}
+
+{% assign border_class = 'border-transparent' %}
+
+{% if color == 'red' %}
+  {% assign bg_class = 'bg-[#F43636]' %}
+{% elsif color == 'green' %}
+  {% assign bg_class = 'bg-[#027A48]' %}
+{% elsif color == 'yellow' %}
+  {% assign bg_class = 'bg-[#FCCA1A]' %}
+{% elsif color == 'blue' %}
+  {% assign bg_class = 'bg-[#2063E5]' %}
+{% elsif color == 'black' %}
+  {% assign bg_class = 'bg-[#000000]' %}
+{% elsif color == 'white' %}
+  {% assign bg_class = 'bg-[#FFFFFF]' %}
+  {% assign border_class = 'border-black/20' %}
+{% elsif color == 'orange' %}
+  {% assign bg_class = 'bg-[#EA8050]' %}
+{% elsif color == 'rainbow' %}
+  {% assign bg_class = 'gradient-rainbow' %}
+{% endif %}
+
+<div class="w-full">
+  <input
+    type="checkbox"
+    id="{{ id }}"
+    name="{{ name }}"
+    class="hidden peer/input"
+  >
+  <label
+    for="{{ id }}"
+    class="cursor-pointer block w-full h-6 rounded-[0.25rem] border {{ bg_class }} {{ border_class }} peer-checked/input:ring-2 peer-checked/input:ring-border-secondary"
+  ></label>
+</div>
