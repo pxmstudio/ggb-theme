@@ -141,5 +141,9 @@
 
       <script src="{{ 'collection.js' | asset_url }}" defer></script>
     {% endif %}
+
+    {% if content_for_layout contains 'main-product' %}
+      <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {% endif %}
   </body>
 </html>
