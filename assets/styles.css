@@ -2213,6 +2213,15 @@ input[type='search'] {
     width: 100%;
   }
 
+  .lg\:w-\[23\.75rem\] {
+    width: 23.75rem;
+  }
+
+  .lg\:w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+
   .lg\:min-w-\[20rem\] {
     min-width: 20rem;
   }
@@ -2356,6 +2365,11 @@ input[type='search'] {
   .lg\:py-4 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .lg\:py-6 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .lg\:pb-16 {
