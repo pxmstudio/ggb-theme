@@ -1,0 +1,62 @@
+<section>
+  <div class="global-padding pt-0 pb-6 lg:py-6">
+    <div class="container-large">
+      <div class="flex items-center gap-3 mb-8">
+        <a href="/collections" class="text-text-secondary font-medium global-transition hover:text-text-primary"
+          >Colectii</a
+        >
+        {% render 'icon-chevron-right', width: 16, height: 16, class: 'text-text-primary' %}
+        <a
+          href="/collections/{{ product.collections.first.handle }}"
+          class="text-text-secondary font-medium global-transition hover:text-text-primary"
+        >
+          {{- product.collections.first.title -}}
+        </a>
+        {% render 'icon-chevron-right', width: 16, height: 16, class: 'text-text-primary' %}
+        <h1 class="text-text-primary font-medium">{{ product.title }}</h1>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20">
+        {% render 'product-images', product: product %}
+        <div class="">
+          <h1 class="heading-h3 text-text-primary mb-4">{{ product.title }}</h1>
+          <div class="inline-flex items-center gap-4 mb-4 lg:mb-14">
+            <p class="font-semibold text-xl text-text-secondary line-through">
+              {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
+            </p>
+            <p class="font-semibold text-xl text-text-error">
+              {{ product.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}
+            </p>
+          </div>
+          <div class="flex flex-col gap-6 mb-4 lg:mb-8">
+            {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
+              {% render 'input-number',
+                id: 'quantity',
+                name: 'quantity',
+                placeholder: '1',
+                value: 1,
+                max: product.selected_or_first_available_variant.inventory_quantity
+              %}
+            {% else %}
+              <p class="font-semibold text-text-error">Momentan, acest produs nu este disponibil!</p>
+            {% endif %}
+            <div class="flex flex-col lg:flex-row items-center gap-4 lg:gap-5">
+              {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
+                {% render 'product-add-to-cart' %}
+              {% endif %}
+              {% render 'product-add-to-wishlist' %}
+            </div>
+          </div>
+          {% render 'product-tabs', product: product %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "blocks": []
+}
+{% endschema %}

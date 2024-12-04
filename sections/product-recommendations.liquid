@@ -1,0 +1,67 @@
+<section class="py-16">
+  <div class="global-padding">
+    <div class="container-large">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 lg:mb-12 gap-4">
+        <h2 class="heading-h2 text-text-primary">{{ section.settings.title }}</h2>
+      </div>
+      <div
+        class="product-recommendations grid grid-cols-2 lg:grid-cols-4 gap-5"
+        data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent=related"
+      >
+        {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+          <ul>
+            {%- for product in recommendations.products -%}
+              <li class="product">
+                {% render 'product-card', product: product %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then((response) => response.text())
+      .then((text) => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, { rootMargin: '0px 0px 200px 0px' });
+
+  observer.observe(productRecommendationsSection);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product Recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Produse recomandate"
+    }
+  ]
+}
+{% endschema %}

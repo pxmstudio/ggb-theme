@@ -1,0 +1,12 @@
+<div class="relative {{ class }}">
+  <input
+    type="search"
+    id="{{ id }}"
+    name="{{ name }}"
+    placeholder="{{ placeholder }}"
+    class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary w-full"
+  >
+  <div class="absolute right-6 top-0 h-full flex items-center justify-center">
+    {% render 'icon-search', width: 24, height: 24, class: 'text-text-primary' %}
+  </div>
+</div>

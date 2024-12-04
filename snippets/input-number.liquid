@@ -1,0 +1,27 @@
+<div
+  class="inline-flex rounded-[0.375rem] overflow-hidden border border-border-primary w-min text-text-secondary"
+  pxm-input="number"
+>
+  <button
+    class="w-12 flex items-center justify-center global-transition hover:text-text-primary hover:bg-black/5"
+  >
+    {% render 'icon-minus', width: 24, height: 24 %}
+  </button>
+  <input
+    id="{{ id }}"
+    name="{{ name }}"
+    placeholder="{{ placeholder }}"
+    value="{{ value }}"
+    type="number"
+    class="w-14 text-center border-y-0 border-x border-border-primary focus:outline-none focus:border-border-primary focus:ring-0 placeholder:text-text-secondary text-text-primary"
+    min="1"
+    {% if max %}
+      max="{{ max }}"
+    {% endif %}
+  >
+  <button
+    class="w-12 flex items-center justify-center global-transition hover:text-text-primary hover:bg-black/5"
+  >
+    {% render 'icon-plus', width: 24, height: 24 %}
+  </button>
+</div>

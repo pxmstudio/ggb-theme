@@ -1,0 +1,28 @@
+<button
+  class="py-2 px-4 bg-bg-secondary data-[active=true]:bg-bg-alternate data-[active=true]:text-white text-text-secondary flex items-center gap-2 rounded-3xl"
+  data-active="false"
+>
+  {% if collection.metafields.custom.icon_white != blank and collection.metafields.custom.icon != blank %}
+    <div class="w-5 h-5 relative">
+      {% if collection.metafields.custom.icon_white != blank %}
+        <img
+          src="{{ collection.metafields.custom.icon_white | image_url: width: 20 }}"
+          alt="{{ collection.title }}"
+          width="20"
+          height="20"
+          class="absolute top-0 bottom-0 left-0 right-0 object-contain"
+        >
+      {% endif %}
+      {% if collection.metafields.custom.icon != blank %}
+        <img
+          src="{{ collection.metafields.custom.icon | image_url: width: 20 }}"
+          alt="{{ collection.title }}"
+          width="20"
+          height="20"
+          class="absolute top-0 bottom-0 left-0 right-0 object-contain"
+        >
+      {% endif %}
+    </div>
+  {% endif %}
+  <span class="font-medium">{{ collection.title }}</span>
+</button>

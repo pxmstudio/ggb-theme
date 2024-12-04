@@ -1,0 +1,14 @@
+{% assign options = options | split: ', ' %}
+
+<select
+  name="{{ name }}"
+  id="{{ id }}"
+  class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary {{ class }}"
+>
+  {% if placeholder %}
+    <option value="" disabled selected>{{ placeholder }}</option>
+  {% endif %}
+  {% for option in options %}
+    <option value="{{ option }}">{{ option }}</option>
+  {% endfor %}
+</select>

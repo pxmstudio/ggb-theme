@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
 }
 
 .heading-h1 {
@@ -64,4 +70,40 @@ html {
 
 .global-transition {
   @apply transition-all duration-200 ease-in-out;
+}
+
+.range-slider__thumb,
+.range-slider__range {
+  @apply !bg-bg-alternate;
+}
+
+.gradient-rainbow {
+  background: linear-gradient(
+    106deg,
+    #f43636 -9.47%,
+    #e85212 14.58%,
+    #e9d83e 35.47%,
+    #06b12b 55.73%,
+    #1899e2 75.35%,
+    #0f4081 97.5%,
+    #9747ff 117.13%
+  );
+}
+
+input[type='search'] {
+  appearance: none;
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+input[type='number'] {
+  appearance: none;
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
