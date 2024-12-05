@@ -3,16 +3,20 @@
   {% assign on_sale = true %}
 {% endif %}
 
-<a href="{{ product.url }}" class="w-full h-full group">
+<a href="{{ product.url }}" class="w-full h-full group" pxm-product="item">
   <div class="w-full aspect-square relative rounded-2xl overflow-hidden border border-border-primary">
     <img
       src="{{ product.featured_image | image_url: height: 300 }}"
       width="auto"
       height="300"
       class="absolute top-0 bottom-0 left-0 right-0 object-cover object-center w-full h-full group-hover:scale-110 global-transition"
+      pxm-product="image"
     >
     {% if product.compare_at_price > product.price %}
-      <span class="absolute top-0 left-0 bg-error-red text-white px-2 py-1 rounded-br-2xl text-sm font-medium">
+      <span
+        class="absolute top-0 left-0 bg-error-red text-white px-2 py-1 rounded-br-2xl text-sm font-medium"
+        pxm-product="discount"
+      >
         Reducere
         {{
           product.compare_at_price
@@ -26,12 +30,17 @@
     {% endif %}
   </div>
   <div class="pt-4">
-    <h3 class="text-text-primary lg:text-lg font-semibold leading-normal mb-2">{{ product.title }}</h3>
+    <h3 class="text-text-primary lg:text-lg font-semibold leading-normal mb-2" pxm-product="title">
+      {{ product.title }}
+    </h3>
     <div class="flex items-center gap-4">
-      <p class="text-text-secondary lg:text-lg font-semibold line-through">
+      <p class="text-text-secondary lg:text-lg font-semibold line-through" pxm-product="compare-price">
         {{ product.compare_at_price | money_without_trailing_zeros }}
       </p>
-      <p class="{% if on_sale %}text-error-red{% else %}text-text-primary{% endif %} font-semibold lg:text-lg">
+      <p
+        class="{% if on_sale %}text-error-red{% else %}text-text-primary{% endif %} font-semibold lg:text-lg"
+        pxm-product="price"
+      >
         {{ product.price | money_without_trailing_zeros }}
       </p>
     </div>
