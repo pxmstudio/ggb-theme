@@ -1,5 +1,5 @@
 <div class="h-28 w-full">
-  <header class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-bg-primary z-40 w-full m-0 mx-auto z-50">
+  <header class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-bg-primary w-full m-0 mx-auto z-50">
     <div class="global-padding">
       <div class="container-large">
         <div class="w-full py-6 flex justify-between items-center gap-8">
@@ -119,9 +119,13 @@
 
                 <!-- Account Links -->
                 <div class="flex items-center sm:gap-2 lg:gap-3">
-                  {% render 'nav-acc-btn', path: '/account', icon: 'user' %}
-                  {% render 'nav-acc-btn', path: '/wishlist', icon: 'heart' %}
+                  {% if customer %}
+                    {% render 'nav-acc-btn', path: routes.account_url, icon: 'user' %}
+                  {% else %}
+                    {% render 'nav-acc-btn', path: routes.account_login_url, icon: 'user' %}
+                  {% endif %}
                   {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+                  {% render 'nav-acc-btn', path: '/pages/wishlist', icon: 'heart' %}
                 </div>
               </div>
             </nav>

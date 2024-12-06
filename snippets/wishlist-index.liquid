@@ -1,0 +1,14 @@
+<div class="wishlist-index">
+  <div class="flex lg:justify-end lg:items-end">
+    <button
+      class="border border-border-primary bg-bg-primary inline-flex items-center gap-4 py-3 px-4 rounded-[3rem] font-semibold text-lg leading-none text-text-primary global-transition hover:bg-bg-secondary mb-8"
+      pxm-wishlist-index="btn-add"
+    >
+      Adauga o listă nouă
+      {% render 'icon-plus', width: 24, height: 24 %}
+    </button>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    {% render 'wishlist-item' %}
+  </div>
+</div>
