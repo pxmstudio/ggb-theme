@@ -27,116 +27,127 @@
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div class="lg:col-span-3">
-          <div class="flex flex-col gap-8 border border-border-primary rounded-xl py-4 lg:py-6 px-4">
-            <div class="flex items-center justify-between w-full gap-4">
-              <h2 class="heading-h5 text-text-primary">Filtre</h2>
-              <div class="flex items-center gap-6">
-                <button class="text-neutral-neutral global-transition hover:text-text-primary">Șterge filtrele</button>
-                <button class="lg:hidden global-transition" pxm-filter="toggle-filters">
-                  {% render 'icon-chevron-down', width: 24, height: 24 %}
-                </button>
-              </div>
-            </div>
-            <div class="hidden lg:flex flex-col gap-8" pxm-filter="filters">
-              <p class="text-text-primary font-medium">
-                Se afișează
-                {% if collection.products_count == 1 %}
-                  {{ collection.products_count }} produs
-                {% elsif collection.products_count < 20 %}
-                  {{ collection.products_count }} produse
-                {% else %}
-                  {{ collection.products_count }} de produse
-                {% endif %}
-              </p>
-              <div>
-                {% render 'filter-title', title: 'Subcategorii' %}
-                <div class="flex flex-col">
-                  {% for related_collection in collections %}
-                    {% if related_collection.metafields.custom.parent_collection != blank %}
-                      {% assign related_collection_id = related_collection.metafields.custom.parent_collection
-                        | split: '/'
-                        | last
-                        | plus: 0
-                      %}
+          <form id="filter-form" novalidate>
+            <div class="flex flex-col gap-8 border border-border-primary rounded-xl py-4 lg:py-6 px-4">
+              <div class="flex items-center justify-between w-full gap-4">
+                <h2 class="heading-h5 text-text-primary">Filtre</h2>
+                <div class="flex items-center gap-6">
+                  {% assign active_filter_count = 0 %}
+                  {% for filter in collection.filters %}
+                    {% if filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value %}
+                      {% assign active_filter_count = active_filter_count | plus: 1 %}
+                    {% endif %}
+                  {% endfor %}
 
-                      {% if related_collection_id == collection.id %}
-                        {% render 'filter-subcollection',
-                          title: related_collection.title,
-                          href: related_collection.handle
-                        %}
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
+                  {% if active_filter_count > 0 %}
+                    <a
+                      href="{{ collection.url }}?sort_by={{ collection.sort_by }}"
+                      class="text-neutral-neutral global-transition hover:text-text-primary"
+                    >
+                      Șterge filtrele
+                    </a>
+                  {% endif %}
+                  <button class="lg:hidden global-transition" pxm-filter="toggle-filters">
+                    {% render 'icon-chevron-down', width: 24, height: 24 %}
+                  </button>
                 </div>
               </div>
-              <div>
-                {% render 'filter-title', title: 'Preț' %}
-                <div class="flex flex-col">
-                  {% assign max_price = 0 %}
-                  {% for product in collection.products %}
-                    {% if product.price > max_price %}
-                      {% assign max_price = product.price %}
-                    {% endif %}
-                  {% endfor %}
+              <div class="hidden lg:flex flex-col gap-8" pxm-filter="filters">
+                <p class="text-text-primary font-medium">
+                  Se afișează
+                  {% if collection.products_count == 1 %}
+                    {{ collection.products_count }} produs
+                  {% elsif collection.products_count < 20 %}
+                    {{ collection.products_count }} produse
+                  {% else %}
+                    {{ collection.products_count }} de produse
+                  {% endif %}
+                </p>
+                {% for filter in collection.filters %}
                   <div>
-                    <div pxm-filter="price" data-min="0" data-max="{{ max_price }}" class="mb-2"></div>
-                    <div class="flex items-center justify-between">
-                      <p>{{ 0 | money_without_trailing_zeros }}</p>
-                      <p>
-                        {{ max_price | money_without_trailing_zeros }}
-                      </p>
-                    </div>
+                    {% render 'filter-title', title: filter.label %}
+                    {% case filter.type %}
+                      {% when 'boolean' %}
+
+                      {% when 'list' %}
+                        {% case filter.label %}
+                          {% when 'Culoare' %}
+                            <div class="grid grid-cols-5 gap-2">
+                              {% for filter_value in filter.values %}
+                                {% render 'filter-color',
+                                  index: forloop.index,
+                                  id: filter.param_name,
+                                  name: filter_value.param_name,
+                                  color: filter_value.label,
+                                  active: filter_value.active,
+                                  value: filter_value.value
+                                %}
+                              {% endfor %}
+                            </div>
+                          {% else %}
+                            <ul>
+                              {% for filter_value in filter.values %}
+                                <li>
+                                  {% render 'input-checkbox',
+                                    index: forloop.index,
+                                    id: filter.param_name,
+                                    name: filter_value.param_name,
+                                    label: filter_value.label,
+                                    active: filter_value.active,
+                                    value: filter_value.value,
+                                    count: filter_value.count
+                                  %}
+                                </li>
+                              {% endfor %}
+                            </ul>
+                        {% endcase %}
+                      {% when 'price_range' %}
+                        <div>
+                          <div class="flex flex-col">
+                            <div class="filter-group-display__price-range">
+                              <div class="filter-group-display__price-range-from">
+                                <label for="Filter-{{ filter.min_value.param_name }}">De la</label>
+
+                                <input
+                                  name="{{ filter.min_value.param_name }}"
+                                  id="Filter-{{ filter.min_value.param_name }}"
+                                  {% if filter.min_value.value -%}
+                                    value="{{ filter.min_value.value | money_without_trailing_zeros | replace: ',', '' }}"
+                                  {%- endif %}
+                                  type="number"
+                                  placeholder="{{0 | money_without_trailing_zeros | replace: ',', ''}}"
+                                  min="0"
+                                  max="{{ filter.range_max | money_without_trailing_zeros | replace: ',', '' }}"
+                                >
+                              </div>
+                              <div class="filter-group-display__price-range-to">
+                                <label for="Filter-{{ filter.max_value.param_name }}">Până la</label>
+                                <br>
+                                <input
+                                  name="{{ filter.max_value.param_name }}"
+                                  id="Filter-{{ filter.max_value.param_name }}"
+                                  {% if filter.max_value.value -%}
+                                    value="{{ filter.max_value.value | money_without_trailing_zeros | replace: ',', '' }}"
+                                  {%- endif %}
+                                  type="number"
+                                  placeholder="{{ filter.range_max | money_without_trailing_zeros | replace: ',', '' }}"
+                                  min="0"
+                                  max="{{ filter.range_max | money_without_trailing_zeros | replace: ',', '' }}"
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endcase %}
                   </div>
-                </div>
+                {% endfor %}
               </div>
-              <div>
-                {% render 'filter-title', title: 'Vârsta' %}
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', id: 'age-0-6', name: 'age-0-6', label: '0-6 luni' %}
-                  {% render 'input-checkbox', id: 'age-6-12', name: 'age-6-12', label: '6-12 luni' %}
-                  {% render 'input-checkbox', id: 'age-12-18', name: 'age-12-18', label: '12-18 luni' %}
-                  {% render 'input-checkbox', id: 'age-3-6', name: 'age-3-6', label: '3-6 ani' %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Producător' %}
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Afișează' %}
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', label: 'Noutăți' %}
-                  {% render 'input-checkbox', label: 'Promoții' %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Culoare' %}
-                <div class="grid grid-cols-5 gap-2">
-                  {% render 'filter-color', id: 'color-red', name: 'color-red', color: 'red' %}
-                  {% render 'filter-color', id: 'color-green', name: 'color-green', color: 'green' %}
-                  {% render 'filter-color', id: 'color-yellow', name: 'color-yellow', color: 'yellow' %}
-                  {% render 'filter-color', id: 'color-blue', name: 'color-blue', color: 'blue' %}
-                  {% render 'filter-color', id: 'color-black', name: 'color-black', color: 'black' %}
-                  {% render 'filter-color', id: 'color-white', name: 'color-white', color: 'white' %}
-                  {% render 'filter-color', id: 'color-orange', name: 'color-orange', color: 'orange' %}
-                  {% render 'filter-color', id: 'color-rainbow', name: 'color-rainbow', color: 'rainbow' %}
-                </div>
-              </div>
-              <div>
-                <h3 class="text-xl leading-normal text-text-alternate font-semibold mb-4">Pentru cine</h3>
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', label: 'Băieței' %}
-                  {% render 'input-checkbox', label: 'Fetițe' %}
-                  {% render 'input-checkbox', label: 'Unisex' %}
-                </div>
+              <div class="flex justify-end">
+                <button class="border px-4 py-2 font-bold hover:cursor-pointer" type="submit">Aplică</button>
               </div>
             </div>
-          </div>
+            {% comment %} <button type="submit">Apply</button> {% endcomment %}
+          </form>
         </div>
         <div class="lg:col-span-9">
           <div class="flex lg:flex-row flex-col justify-end items-center gap-3 mb-12">
@@ -184,6 +195,22 @@
     {% endif %}
   {% endfor %}
 </div>
+
+<script>
+  /*function handleSubmit(event) {
+    event.preventDefault();
+
+    // Get the form element
+    const form = event.target;
+
+    // Create FormData from the form
+    const formData = new FormData(form);
+
+    // Alternative way to see all data
+    const formDataObject = Object.fromEntries(formData);
+    console.log('Form data as object:', formDataObject);
+  } */
+</script>
 
 {% schema %}
 {

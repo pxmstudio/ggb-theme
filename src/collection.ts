@@ -1,11 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const priceFilter = document.querySelector('[pxm-filter="price"]');
+  // const priceFilter = document.querySelector('[pxm-filter="price"]');
 
-  if (priceFilter) {
-    if (rangeSlider) {
-      rangeSlider(priceFilter);
-    }
-  }
+  // if (priceFilter) {
+  //   if (rangeSlider) {
+  //     const rangeSliderElement = rangeSlider(priceFilter, {
+  //       onInput: (value: any, userInteraction: any) => {
+  //         console.log(value, userInteraction);
+  //       },
+  //     });
+  //     console.log(rangeSliderElement);
+  //   }
+  // }
 
   const filters = document.querySelector<HTMLElement>('[pxm-filter="filters"]');
   const toggleFilters = document.querySelector<HTMLButtonElement>('[pxm-filter="toggle-filters"]');

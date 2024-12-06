@@ -145,5 +145,13 @@
     {% if content_for_layout contains 'main-product' %}
       <script src="{{ 'product.js' | asset_url }}" defer></script>
     {% endif %}
+
+    {% if content_for_layout contains 'main-collection' %}
+      <script src="{{ 'collection-filters.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {% if content_for_layout contains 'main-cart' %}
+      <script src="{{ 'cart.js' | asset_url }}" type="module" defer></script>
+    {% endif %}
   </body>
 </html>

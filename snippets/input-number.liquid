@@ -3,6 +3,9 @@
   pxm-input="number"
 >
   <button
+    data-pxm-decrease-quantity
+    data-pxm-input-id="{{ id }}"
+    type="button"
     class="w-12 flex items-center justify-center global-transition hover:text-text-primary hover:bg-black/5"
   >
     {% render 'icon-minus', width: 24, height: 24 %}
@@ -20,6 +23,9 @@
     {% endif %}
   >
   <button
+    data-pxm-increase-quantity
+    data-pxm-input-id="{{ id }}"
+    type="button"
     class="w-12 flex items-center justify-center global-transition hover:text-text-primary hover:bg-black/5"
   >
     {% render 'icon-plus', width: 24, height: 24 %}

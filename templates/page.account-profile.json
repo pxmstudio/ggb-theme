@@ -1,0 +1,8 @@
+{
+    "sections": {
+      "main-profile": {
+        "type": "main-profile"
+      }
+    },
+    "order": ["main-profile"]
+  }
