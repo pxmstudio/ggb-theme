@@ -104,10 +104,34 @@
                       {% when 'price_range' %}
                         <div>
                           <div class="flex flex-col">
+                            <div class="flex flex-col"></div>
+                            {% assign max_price = 0 %}
+                            {% for product in collection.products %}
+                              {% if product.price > max_price %}
+                                {% assign max_price = product.price | money_without_trailing_zeros | replace: ',', '' %}
+                              {% endif %}
+                            {% endfor %}
+                            <div>
+                              <div
+                                pxm-filter="price"
+                                data-min="0"
+                                data-max="{{ max_price | plus: 0 }}"
+                                data-min-current="{{filter.min_value.value | money_without_trailing_zeros | replace: ',', '' | plus: 0 | default: 0}}"
+                                data-max-current="{{filter.max_value.value | money_without_trailing_zeros | replace: ',', '' | plus: 0 | default: max_price}}"
+                                class="mb-2"
+                              ></div>
+                              <div class="flex items-center justify-between">
+                                <p>{{ 0 | money_without_trailing_zeros }}</p>
+                                <p>
+                                  {{ max_price | money_without_trailing_zeros }}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          {% comment %}
                             <div class="filter-group-display__price-range">
                               <div class="filter-group-display__price-range-from">
                                 <label for="Filter-{{ filter.min_value.param_name }}">De la</label>
-
                                 <input
                                   name="{{ filter.min_value.param_name }}"
                                   id="Filter-{{ filter.min_value.param_name }}"
@@ -136,7 +160,7 @@
                                 >
                               </div>
                             </div>
-                          </div>
+                          {% endcomment %}
                         </div>
                     {% endcase %}
                   </div>
