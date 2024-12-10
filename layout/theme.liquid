@@ -153,5 +153,12 @@
     {% if content_for_layout contains 'main-cart' %}
       <script src="{{ 'cart.js' | asset_url }}" type="module" defer></script>
     {% endif %}
+
+    {% if customer %}
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+      {% if content_for_layout contains 'main-wishlist' or content_for_layout contains 'main-product' %}
+        <script src="{{ 'supabase.js' | asset_url }}" defer></script>
+      {% endif %}
+    {% endif %}
   </body>
 </html>

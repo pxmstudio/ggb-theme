@@ -45,7 +45,7 @@
                 {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
                   {% render 'product-add-to-cart', product: product %}
                 {% endif %}
-                {% render 'product-add-to-wishlist' %}
+                {% render 'product-add-to-wishlist', product: product, customer: customer %}
               </div>
             </form>
           </div>

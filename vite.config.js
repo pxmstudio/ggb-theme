@@ -25,6 +25,7 @@ export default defineConfig({
         product: './src/product.ts',
         'collection-filters': './src/collection-filters.ts',
         cart: './src/cart.ts',
+        supabase: './src/supabase.ts',
       },
       output: {
         entryFileNames: '[name].js',

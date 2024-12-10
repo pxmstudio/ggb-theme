@@ -134,10 +134,6 @@ async function updateCart(input: HTMLInputElement) {
 
     if (!response.ok) throw new Error('Network response was not ok');
 
-    const cart = await response.json();
-
-    console.log(cart);
-
     // Refresh the page to show updated cart
     window.location.reload();
   } catch (error) {

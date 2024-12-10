@@ -1,11 +1,13 @@
 <div pxm-wishlist="detail">
+  <input type="hidden" id="wishlist-product-ids" value="">
   <div class="flex items-center gap-2 mb-6">
-    <button
+    <a
+      href="/pages/wishlist"
       class="font-medium text-text-secondary global-transition hover:text-text-primary"
       pxm-wishlist-detail="back"
     >
       Favorite
-    </button>
+    </a>
     {% render 'icon-chevron-right', width: 16, height: 16, class: 'text-text-primary' %}
     <h3 class="font-medium text-text-primary" pxm-wishlist-detail="title">Cadouri pentru Alexandra</h3>
   </div>
@@ -13,6 +15,7 @@
     <h2 class="heading-h4 text-text-primary" pxm-wishlist-detail="title">Cadouri pentru Alexandra</h2>
     <div class="flex items-center gap-3">
       <button
+        type="button"
         class="border border-border-primary bg-bg-primary inline-flex items-center gap-4 py-3 px-4 rounded-[3rem] font-semibold text-lg leading-none text-text-primary global-transition hover:bg-bg-secondary"
         pxm-wishlist-detail="btn-edit"
       >
