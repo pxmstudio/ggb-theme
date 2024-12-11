@@ -1,41 +1,17 @@
 <section>
   <div class="global-padding py-6">
     <div class="container-large">
-      {% comment %}
-        <div class="overflow-x-auto rounded-[0.25rem] border border-border-primary mb-12">
-          <div class="flex items-center gap-3 p-3">
-            {% for related_collection in collections %}
-              {% if related_collection.metafields.custom.parent_collection != blank %}
-                {% assign related_collection_id = related_collection.metafields.custom.parent_collection
-                  | split: '/'
-                  | last
-                  | plus: 0
-                %}
-
-                {% if related_collection_id == collection.id %}
-                  {% render 'subcollection-item', collection: related_collection %}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      {% endcomment %}
-      <div class="flex items-center gap-3 mb-8">
-        <a href="/collections" class="text-text-secondary font-medium global-transition hover:text-text-primary"
-          >Collections</a
-        >
-        {% render 'icon-chevron-right', width: 16, height: 16, class: 'text-text-primary' %}
-        <h1 class="text-text-primary font-medium">{{ collection.title }}</h1>
-      </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div class="lg:col-span-3">
           <form id="filter-form" novalidate>
+            <input id="search-query-input" type="hidden" name="q" value="{{ search.terms }}">
+            <input type="hidden" name="type" value="{{ search.types }}">
             <div class="flex flex-col gap-8 border border-border-primary rounded-xl py-4 lg:py-6 px-4">
               <div class="flex items-center justify-between w-full gap-4">
                 <h2 class="heading-h5 text-text-primary">Filtre</h2>
                 <div class="flex items-center gap-6">
                   {% assign active_filter_count = 0 %}
-                  {% for filter in collection.filters %}
+                  {% for filter in search.filters %}
                     {% if filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value %}
                       {% assign active_filter_count = active_filter_count | plus: 1 %}
                     {% endif %}
@@ -43,7 +19,7 @@
 
                   {% if active_filter_count > 0 %}
                     <a
-                      href="{{ collection.url }}"
+                      href="{{ search.url }}?sort_by={{ search.sort_by }}"
                       class="text-neutral-neutral global-transition hover:text-text-primary"
                     >
                       Șterge filtrele
@@ -57,15 +33,15 @@
               <div class="hidden lg:flex flex-col gap-8" pxm-filter="filters">
                 <p class="text-text-primary font-medium">
                   Se afișează
-                  {% if collection.products_count == 1 %}
-                    {{ collection.products_count }} produs
-                  {% elsif collection.products_count < 20 %}
-                    {{ collection.products_count }} produse
+                  {% if search.results_count == 1 %}
+                    {{ search.results_count }} produs
+                  {% elsif search.results_count < 20 %}
+                    {{ search.results_count }} produse
                   {% else %}
-                    {{ collection.products_count }} de produse
+                    {{ search.results_count }} de produse
                   {% endif %}
                 </p>
-                {% for filter in collection.filters %}
+                {% for filter in search.filters %}
                   <div>
                     {% render 'filter-title', title: filter.label %}
                     {% case filter.type %}
@@ -108,7 +84,7 @@
                           <div class="flex flex-col">
                             <div class="flex flex-col"></div>
                             {% assign max_price = 100 %}
-                            {% for product in collection.products %}
+                            {% for product in search.results %}
                               {% if product.price > max_price %}
                                 {% assign max_price = product.price %}
                               {% endif %}
@@ -163,9 +139,9 @@
             %}
           </div>
           <div class="flex flex-col gap-4">
-            {% paginate collection.products by section.settings.products_per_page %}
+            {% paginate search.results by section.settings.products_per_page %}
               <div class="grid grid-cols-2 lg:grid-cols-3 gap-5" id="product-grid">
-                {% for product in collection.products %}
+                {% for product in search.results %}
                   {% render 'product-card', product: product %}
                 {% endfor %}
               </div>
@@ -210,14 +186,14 @@
 
 {% schema %}
 {
-  "name": "Main Collection",
+  "name": "Main Search Pagination",
   "settings": [
     {
       "type": "range",
       "id": "products_per_page",
       "min": 8,
-      "max": 32,
-      "step": 8,
+      "max": 16,
+      "step": 4,
       "default": 8,
       "label": "products_per_page"
     }
@@ -225,3 +201,10 @@
   "blocks": []
 }
 {% endschema %}
+
+<script>
+  const searchQueryInput = document.getElementById('search-query-input');
+  if (!searchQueryInput.value) {
+    window.location.replace('/collections/all');
+  }
+</script>

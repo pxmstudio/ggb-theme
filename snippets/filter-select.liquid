@@ -1,14 +1,71 @@
-{% assign options = options | split: ', ' %}
+{% assign current_sort = collection.sort_by %}
 
-<select
-  name="{{ name }}"
-  id="{{ id }}"
-  class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary {{ class }}"
->
-  {% if placeholder %}
-    <option value="" disabled selected>{{ placeholder }}</option>
-  {% endif %}
-  {% for option in options %}
-    <option value="{{ option }}">{{ option }}</option>
-  {% endfor %}
-</select>
+{% if current_sort == blank %}
+  {% assign current_sort = search.sort_by %}
+{% endif %}
+
+<form id="sort-form" method="get" action="{{ request.path }}">
+  <select
+    name="{{ name }}"
+    id="{{ id }}"
+    class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary {{ class }}"
+    value="{{ current_sort | default: "" }}"
+    onchange="handleSort()"
+  >
+    <option
+      value=""
+      disabled
+      {% if current_sort == blank %}
+        selected
+      {% endif %}
+    >
+      Sortează
+    </option>
+
+    <option
+      value="price-ascending"
+      {% if current_sort == 'price-ascending' %}
+        selected
+      {% endif %}
+    >
+      Crescător
+    </option>
+
+    <option
+      value="price-descending"
+      {% if current_sort == 'price-descending' %}
+        selected
+      {% endif %}
+    >
+      Descrescător
+    </option>
+
+    <option
+      value="created-descending"
+      {% if current_sort == 'created-descending' %}
+        selected
+      {% endif %}
+    >
+      Noutăți
+    </option>
+  </select>
+</form>
+
+{{ request.params.sort_by }}
+
+<script>
+  function handleSort() {
+    const form = document.getElementById('sort-form');
+    const select = form.firstElementChild;
+    const selectedValue = select.value;
+
+    // Create a URL object to manipulate the current URL
+    const url = new URL(window.location.href);
+
+    // Set the sort_by parameter to the selected value
+    url.searchParams.set('sort_by', selectedValue);
+
+    // Redirect to the new URL with all parameters
+    window.location.href = url.toString();
+  }
+</script>

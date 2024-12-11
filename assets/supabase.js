@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
 
       </div>
     </div>
-    `;n.innerHTML=$;const f=n.querySelector("#add-new-wishlist-btn");f&&f.addEventListener("click",async()=>{await C(e,p,"New wishlist")}),g&&g.length>0&&g.forEach(async t=>{const a=t.product_handles?t.product_handles.length:0;let l="",d=0;for(let w=0;w<a&&d!==4;w++){const b=await y(t.product_handles[w]);b&&(l+=`<img
+    `;n.innerHTML=$;const f=n.querySelector("#add-new-wishlist-btn");f&&f.addEventListener("click",async()=>{await C(e,p,"New wishlist"),window.location.reload()}),g&&g.length>0&&g.forEach(async t=>{const a=t.product_handles?t.product_handles.length:0;let l="",d=0;for(let w=0;w<a&&d!==4;w++){const b=await y(t.product_handles[w]);b&&(l+=`<img
                       src="${b.featured_image}"
                       alt="${b.title}"
                       width="200"

@@ -240,6 +240,7 @@
       const i = new URL(t);
       i.searchParams.set("page", e);
       const r = i.href;
+      console.log(r)
       fetch(`${r}`, { method: "GET", headers: { "Content-Type": "text/html" } })
         .then((e) => e.text())
         .then((e) => {

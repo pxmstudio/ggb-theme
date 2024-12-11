@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (addNewWishlistBtn) {
     addNewWishlistBtn.addEventListener('click', async () => {
       await createWishlist(supabaseClient, customerId, 'New wishlist');
-      // window.location.reload();
+      window.location.reload();
     });
   }
 

@@ -928,6 +928,10 @@ select {
   margin-top: auto;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -1681,6 +1685,10 @@ select {
 
 .pt-52 {
   padding-top: 13rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
 }
 
 .text-left {
