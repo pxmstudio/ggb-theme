@@ -1,0 +1,79 @@
+<section>
+  <div class="global-padding pt-5 pb-10 lg:py-20">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col gap-6 lg:gap-16">
+        <h1 class="heading-h1 text-text-primary text-center mb-6 lg:mb-14">{{ section.settings.title }}</h1>
+
+        <div class="bg-bg-primary rounded-3xl border-2 lg:border-[3px] border-dashed border-border-secondary p-6 lg:p-8">
+          {% form 'contact', class: 'flex flex-col gap-4 lg:gap-6' %}
+            {% render 'input',
+              label: 'Nume',
+              id: 'name',
+              name: 'contact[name]',
+              required: true,
+              placeholder: 'Nume...'
+            %}
+            {% render 'input',
+              label: 'Email',
+              type: 'email',
+              id: 'email',
+              name: 'contact[email]',
+              required: true,
+              placeholder: 'Email...'
+            %}
+            {% render 'input',
+              label: 'Telefon',
+              id: 'phone',
+              name: 'contact[phone]',
+              required: true,
+              placeholder: 'Telefon...'
+            %}
+            {% render 'input',
+              label: 'Numar comanda',
+              id: 'order_number',
+              name: 'contact[order_number]',
+              required: true,
+              placeholder: 'Numar comanda...'
+            %}
+            {% render 'input',
+              label: 'Produsul',
+              id: 'product',
+              name: 'contact[product]',
+              required: true,
+              placeholder: 'Produsul...'
+            %}
+            {% render 'text-area',
+              label: 'Descrierea problemei',
+              id: 'message',
+              name: 'contact[body]',
+              required: true,
+              placeholder: 'Scrie aici defectele produsului...'
+            %}
+            {% render 'input-checkbox',
+              label: 'Sunt de acord cu <a href="/policies/terms-and-conditions" target="_blank" class="text-text-secondary global-transition hover:text-text-primary">Termenii si Conditiile</a>',
+              id: 'legal',
+              name: 'contact[legal]',
+              required: true
+            %}
+            <div class="g-recaptcha" data-sitekey="{{ shop.recaptcha_public_key }}"></div>
+            {% render 'button', type: 'button', hierarchy: 'primary', text: 'Trimite', class: 'w-full' %}
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Warranty",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Formular de garanție"
+    }
+  ]
+}
+{% endschema %}

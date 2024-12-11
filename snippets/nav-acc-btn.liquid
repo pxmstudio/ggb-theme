@@ -1,0 +1,16 @@
+{% assign path = path | default: '/account' %}
+{% assign icon = icon | default: 'user' %}
+
+<a
+  href="{{ path }}"
+  class="w-12 h-12 flex items-center justify-center p-3 rounded-full bg-bg-secondary hover:text-text-alternate global-transition"
+>
+  {% case icon %}
+    {% when 'user' %}
+      {% render 'icon-user' %}
+    {% when 'heart' %}
+      {% render 'icon-heart' %}
+    {% when 'cart' %}
+      {% render 'icon-cart' %}
+  {% endcase %}
+</a>

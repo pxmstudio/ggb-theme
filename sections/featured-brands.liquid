@@ -1,0 +1,60 @@
+<section class="py-16">
+  <div class="global-padding">
+    <div class="container-large">
+      <h2 class="heading-h2 text-text-primary mb-6 lg:mb-12">{{ section.settings.title }}</h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        {% for block in section.blocks %}
+          {% if block.type == 'brand' %}
+            {% assign img = block.settings.img %}
+            {% assign url = block.settings.url %}
+            {% if img != blank %}
+              <a
+                href="{{ url }}"
+                class="w-full rounded-2xl border-2 border-border-primary flex items-center justify-center h-20 lg:h-40 global-transition hover:border-border-secondary hover:border-dashed"
+              >
+                <img
+                  src="{{ img | image_url: width: 100 }}"
+                  width="auto"
+                  height="24"
+                  class="w-auto h-6"
+                >
+              </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Brands",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Brandurile noastre"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

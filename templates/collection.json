@@ -1,10 +1,8 @@
 {
   "sections": {
-    "main": {
-      "type": "main-404"
+    "main-collection": {
+      "type": "main-collection"
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main-collection"]
 }

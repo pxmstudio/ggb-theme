@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector('[pxm-input="number"]');if(e){const n=e.querySelectorAll("button"),t=e.querySelector("input"),u=n.item(0),o=n.item(1);u.addEventListener("click",()=>{t&&(t.value=(parseInt(t.value)-1).toString())}),o.addEventListener("click",()=>{t&&(t.value=(parseInt(t.value)+1).toString())})}});

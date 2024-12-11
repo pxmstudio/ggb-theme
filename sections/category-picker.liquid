@@ -1,0 +1,100 @@
+<section class="pb-16">
+  <div class="global-padding">
+    <div class="container-large">
+      <div class="grid lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-3 p-2.5 border-2 border-dashed border-border-secondary rounded-2xl flex lg:flex-col overflow-x-auto">
+          {% for collection in collections %}
+            {% if collection.metafields.custom.parent_collection == blank %}
+              <button
+                class="lg:w-full flex items-center gap-3 flex-shrink-0 w-max text-text-secondary text-base font-medium px-4 lg:px-6 py-4 global-transition hover:bg-bg-alternate hover:text-white justify-start rounded-[12rem] leading-none group"
+                pxm-category-picker="trigger"
+                pxm-collection-handle="{{ collection.handle }}"
+              >
+                <div class="flex items-center gap-3 flex-grow">
+                  {% if collection.metafields.custom.icon != blank %}
+                    <div class="w-5 h-5 flex items-center justify-center">
+                      <img
+                        src="{{ collection.metafields.custom.icon | image_url: width: 100 }}"
+                        width="20"
+                        height="20"
+                        alt="{{ collection.title }} icon"
+                        class="w-full h-full object-contain object-center group-hover:hidden"
+                      >
+                      <img
+                        src="{{ collection.metafields.custom.icon_white | image_url: width: 100 }}"
+                        width="20"
+                        height="20"
+                        alt="{{ collection.title }} icon"
+                        class="w-full h-full object-contain object-center hidden group-hover:block"
+                      >
+                    </div>
+                  {% endif %}
+                  <span>
+                    {{ collection.title }}
+                  </span>
+                </div>
+                <div class="w-4 h-4 flex items-center justify-center">
+                  {% render 'icon-arrow-right',
+                    class: 'w-6 h-6 flex-shrink-0 hidden group-hover:block',
+                    width: 24,
+                    height: 24
+                  %}
+                </div>
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="lg:col-span-9 p-5 rounded-2xl overflow-hidden relative border border-border-primary flex items-start justify-start global-transition min-h-80 lg:h-auto">
+          {% if section.settings.img != blank %}
+            <img
+              src="{{ section.settings.img | image_url: width: 1920 }}"
+              width="1920"
+              height="1080"
+              alt="Category image"
+              class="w-full h-full object-cover absolute top-0 left-0 bottom-0 right-0"
+            >
+          {% endif %}
+          <div
+            class="p-4 lg:p-8 bg-bg-primary border-border-primary rounded-xl relative z-10 hidden"
+            pxm-category-picker="content"
+          >
+            <h3 class="heading-h5 text-text-primary mb-8" pxm-category-picker="title">Title</h3>
+            <div class="flex items-center gap-2" pxm-category-picker="loader">
+              {% render 'icon-loader', class: 'w-4 h-4 animate-spin', width: 16, height: 16 %}
+            </div>
+            <div class="grid grid-cols-2 gap-1 lg:gap-0" pxm-category-picker="items">
+              <a
+                href=""
+                class=" px-1 lg:px-6 py-2 lg:py-4 global-transition rounded-lg hover:bg-bg-secondary text-base font-medium text-text-secondary hover:text-text-primary"
+                pxm-category-picker="item"
+              >
+                Item
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'category-picker.js' | asset_url }}" type="module" defer></script>
+
+{% schema %}
+{
+  "name": "Category Picker",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Category Picker"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+<section class="min-h-[70vh]">
+  <div class="global-padding pt-5 pb-10 lg:py-20">
+    <div class="container-large">
+      {% if customer %}
+        <h1 class="heading-h1 text-text-primary mb-6 lg:mb-12">{{ section.settings.title }}</h1>
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-20">
+          <div class="lg:col-span-3">
+            {% render 'account-sidebar' %}
+          </div>
+          <div class="lg:col-span-9" id="container" data-customer-id="{{customer.id}}">
+            {% comment %} {% render 'wishlist-index', wishlists: [1,2,3] %} {% endcomment %}
+            {% comment %} {% render 'wishlist-detail' %} {% endcomment %}
+          </div>
+        </div>
+      {% else %}
+        <div class="flex flex-col items-center justify-center gap-4">
+          <p class="text-text-primary text-lg font-medium">
+            Pentru a putea vedea lista de favorite, trebuie să fiți autentificat.
+          </p>
+          {% render 'button',
+            text: 'Autentificare',
+            type: 'link',
+            hierarchy: 'primary',
+            class: 'w-full',
+            href: '/account/login'
+          %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Favorite"
+    }
+  ]
+}
+{% endschema %}

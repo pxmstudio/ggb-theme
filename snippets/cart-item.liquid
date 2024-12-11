@@ -1,0 +1,37 @@
+<li class="p-4 rounded-xl border border-border-primary flex lg:flex-row flex-col lg:items-center gap-6 w-full">
+  <div class="aspect-square overflow-hidden rounded-lg border border-border-primary relative w-36">
+    <img
+      src="{{ item.image | image_url: width: 200 }}"
+      alt="{{ item.title }}"
+      width="200"
+      height="200"
+      class="absolute w-full h-full top-0 bottom-0 left-0 right-0 object-cover object-center"
+    >
+  </div>
+  <div class="flex flex-col gap-6 lg:gap-12 justify-between">
+    <div class="flex flex-col gap-1">
+      <h3 class="text-text-primary font-semibold lg:text-xl">{{ item.title }}</h3>
+      <p class="text-text-secondary font-semibold text-sm lg:text-lg">
+        {{ item.final_price | times: item.quantity | money }}
+      </p>
+    </div>
+    <div class="flex items-center gap-4 justify-between">
+      {{ item.total_inventory }}
+      {% render 'input-number',
+        id: item.variant_id,
+        name: 'updates[]',
+        value: item.quantity,
+        min: 1,
+        max: item.product.selected_or_first_available_variant.inventory_quantity
+      %}
+      <button
+        data-pxm-remove-item-from-cart
+        data-pxm-variant-id="{{ item.variant_id }}"
+        type="button"
+        class="w-12 h-12 rounded-full border border-border-primary flex items-center justify-center text-text-secondary global-transition hover:text-text-primary"
+      >
+        {% render 'icon-trash', width: 24, height: 24 %}
+      </button>
+    </div>
+  </div>
+</li>

@@ -1,0 +1,33 @@
+<section>
+  <div class="global-padding pt-5 pb-10 lg:py-16">
+    <div class="container-large">
+      <div class="max-w-2xl mx-auto">
+        <div class="mb-6 lg:mb-16 flex flex-col lg:items-center gap-3">
+          <h1 class="heading-h1 text-text-primary text-center">{{ section.settings.title }}</h1>
+          <p class="lg:text-xl leading-normal text-text-secondary text-center">{{ section.settings.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Află cele mai noi tendințe, produsele noastre preferate și recomandări de la experți. "
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

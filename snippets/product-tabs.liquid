@@ -1,0 +1,21 @@
+<div>
+  <div
+    class="flex items-center gap-3 rounded-[0.375rem] border border-border-primary p-2"
+    pxm-tabs="triggers"
+  >
+    {% render 'tab-btn', text: 'Caracteristici', value: 'features', active: true %}
+    {% render 'tab-btn', text: 'Livrare', value: 'delivery' %}
+    {% render 'tab-btn', text: 'Retururi', value: 'returns' %}
+  </div>
+  <div pxm-tabs="content">
+    <div data-value="features" aria-hidden="false" class="aria-[hidden=false]:block hidden pt-3">
+      <div class="text-text-secondary">{{ product.description }}</div>
+    </div>
+    <div data-value="delivery" aria-hidden="true" class="aria-[hidden=false]:block hidden pt-3">
+      <h2>Livrare</h2>
+    </div>
+    <div data-value="returns" aria-hidden="true" class="aria-[hidden=false]:block hidden pt-3">
+      <h2>Retururi</h2>
+    </div>
+  </div>
+</div>

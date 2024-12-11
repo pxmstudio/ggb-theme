@@ -1,0 +1,52 @@
+{% assign bg_class = 'bg-bg-primary' %}
+{% assign border_class = 'border-transparent' %}
+{% assign color_lower = color | downcase %}
+
+{% if color_lower == 'red' %}
+  {% assign bg_class = 'bg-[#F43636]' %}
+{% elsif color_lower == 'green' %}
+  {% assign bg_class = 'bg-[#027A48]' %}
+{% elsif color_lower == 'yellow' %}
+  {% assign bg_class = 'bg-[#FCCA1A]' %}
+{% elsif color_lower == 'blue' %}
+  {% assign bg_class = 'bg-[#2063E5]' %}
+{% elsif color_lower == 'black' %}
+  {% assign bg_class = 'bg-[#000000]' %}
+{% elsif color_lower == 'white' %}
+  {% assign bg_class = 'bg-[#FFFFFF]' %}
+  {% assign border_class = 'border-black/20' %}
+{% elsif color_lower == 'orange' %}
+  {% assign bg_class = 'bg-[#EA8050]' %}
+{% elsif color_lower == 'rainbow' %}
+  {% assign bg_class = 'gradient-rainbow' %}
+{% elsif color_lower == 'cloud white' %}
+  {% assign bg_class = 'bg-[#dbd5d5]' %}
+{% elsif color_lower == 'core black' %}
+  {% assign bg_class = 'bg-[#292828]' %}
+{% elsif color_lower == 'grey one' %}
+  {% assign bg_class = 'bg-[#8f8d8d]' %}
+{% elsif color_lower == 'grey three' %}
+  {% assign bg_class = 'bg-[#827b7a]' %}
+{% elsif color_lower == 'night indigo' %}
+  {% assign bg_class = 'bg-[#423938]' %}
+{% endif %}
+
+<div class="w-full">
+  <input
+    type="checkbox"
+    id="{{ id }}-{{ index }}"
+    name="{{ name }}"
+    class="hidden peer/input"
+    {% if active %}
+      checked
+    {% endif %}
+    {% if count == 0 and active == false %}
+      disabled
+    {% endif %}
+    value="{{ value }}"
+  >
+  <label
+    for="{{ id }}-{{ index }}"
+    class="cursor-pointer block w-full h-6 rounded-[0.25rem] border {{ bg_class }} {{ border_class }} peer-checked/input:ring-2 peer-checked/input:ring-border-secondary"
+  ></label>
+</div>

@@ -1,0 +1,10 @@
+<button
+  class="w-12 h-12 rounded-full border global-transition disabled:bg-bg-secondary disabled:border-border-primary disabled:text-text-secondary bg-transparent border-border-secondary text-text-alternate hover:bg-bg-alternate/10 flex items-center justify-center"
+  pxm-swiper="btn-{% if icon == 'left' %}prev{% else %}next{% endif %}"
+>
+  {% if icon == 'left' %}
+    {% render 'icon-arrow-left', width: 24, height: 24, class: 'w-6 h-6' %}
+  {% else %}
+    {% render 'icon-arrow-right', width: 24, height: 24, class: 'w-6 h-6' %}
+  {% endif %}
+</button>

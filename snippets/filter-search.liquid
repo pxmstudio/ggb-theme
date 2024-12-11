@@ -1,0 +1,44 @@
+<div class="relative {{ class }}">
+  <form id="search-form" action="{{ routes.search_url }}">
+    <input
+      type="text"
+      id="{{ id }}"
+      name="{{ name }}"
+      placeholder="{{ placeholder }}"
+      class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary w-full"
+      value="{{ search.terms | escape }}"
+    >
+    <input type="hidden" name="type" value="product">
+  </form>
+  <div class="absolute right-6 top-0 h-full flex items-center justify-center">
+    {% render 'icon-search', width: 24, height: 24, class: 'text-text-primary' %}
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('search-form');
+  const input = form.firstElementChild;
+
+  input.addEventListener(
+    'input',
+    debounce((e) => {
+      const query = e.target.value;
+      console.log(query);
+      if (query.length > 2) {
+        form.submit();
+      }
+    }, 1000)
+  );
+
+  function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
+</script>

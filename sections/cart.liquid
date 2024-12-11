@@ -1,0 +1,6 @@
+{%- for item in cart.items -%}
+  <div class="flex gap-2">
+    <p>{{ item.title }}</p>
+    <p>Quantity: {{ item.quantity }}</p>
+  </div>
+{%- endfor -%}

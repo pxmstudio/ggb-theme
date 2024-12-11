@@ -1,232 +1,149 @@
-<link rel="stylesheet" href="{{ 'header.css' | asset_url }}">
+<div class="h-28 w-full">
+  <header class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-bg-primary w-full m-0 mx-auto z-50">
+    <div class="global-padding">
+      <div class="container-large">
+        <div class="w-full py-6 flex justify-between items-center gap-8">
+          {% if template.name == 'index' %}
+            <h1>
+              <span class="sr-only">GoGoBaby</span>
+          {% endif %}
+          <a
+            href="/"
+            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-50 h-10 lg:h-16 w-auto"
+          >
+            {% render 'icon-logo' %}
+          </a>
+          {% if template.name == 'index' %}
+            </h1>
+          {% endif %}
 
-<header class="section_header">
-  <div class="padding-global">
-    <div class="container-large">
-      <div class="header_wrapper">
-        <!-- Logo -->
-        <a href="/" class="header_button">
-          <img class="header_button-icon" src="{{ 'logo.svg' | asset_url }}" alt="Logo">
-        </a>
+          <div class="hidden lg:block" pxm-nav="menu">
+            <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full">
+              <div class="flex flex-col lg:flex-row gap-6 items-center justify-end">
+                {% for link in linklists['main-menu'].links %}
+                  <a
+                    href="{{ link.url }}"
+                    class="text-text-secondary hover:text-text-primary text-xl lg:text-base font-medium global-transition whitespace-nowrap hover:text-primary"
+                  >
+                    {{- link.title -}}
+                  </a>
+                {% endfor %}
+              </div>
 
-        <!-- Navigation Links -->
-        <div class="header_right">
-          <div class="header_mobile-dropdown">
-            <a href="/magazin" class="header_link">Magazin</a>
-            <a href="/blog" class="header_link">Blog</a>
-            <a href="/despre-noi" class="header_link">Despre Noi</a>
+              <div class="flex items-center gap-2 lg:justify-end">
+                <!-- Search and Category Dropdown Form -->
+                <div class="relative">
+                  <form
+                    action="{{ routes.search_url }}"
+                    role="search"
+                    method="get"
+                    class="flex items-center lg:rounded-full lg:bg-bg-secondary lg:py-1 md:w-full md:max-w-full md:overflow-hidden relative flex-grow lg:min-w-[20rem]"
+                    pxm-search="form"
+                  >
+                    <input
+                      type="text"
+                      name="q"
+                      value="{{ search.terms | escape }}"
+                      placeholder="Caută aici..."
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-owns="predictive-search-results"
+                      aria-controls="predictive-search-results"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      class="w-full bg-transparent border-0 border-border-primary py-0 focus:outline-none focus:ring-0 placeholder:text-text-secondary font-normal text-base text-text-primary hidden lg:block h-12 pl-6"
+                      pxm-search="input"
+                      pxm-search-route="{{ routes.predictive_search_url }}"
+                    >
+
+                    <!-- Search Button -->
+                    <button
+                      type="submit"
+                      class="lg:absolute top-2 right-2 bottom-2 p-3 lg:p-2 rounded-full bg-bg-secondary lg:bg-white flex items-center justify-center global-transition lg:hover:bg-neutral-light"
+                    >
+                      {% render 'icon-search' %}
+                    </button>
+                  </form>
+                  <div pxm-search="results-container">
+                    {% if predictive_search.performed %}
+                      <div
+                        id="predictive-search-results"
+                        pxm-search="results"
+                        class="absolute top-16 left-0 right-0 p-4 bg-bg-secondary rounded-xl"
+                      >
+                        {% if predictive_search.resources.products.size > 0 %}
+                          <h3 class="text-text-secondary text-xs uppercase font-medium mb-4">Products</h3>
+                          <ul>
+                            {% for product in predictive_search.resources.products %}
+                              <li>
+                                <a href="{{ product.url }}" class="flex items-center gap-2 group">
+                                  {% if product.featured_image %}
+                                    <img
+                                      src="{{ product.featured_image | image_url: width: 100 }}"
+                                      alt="{{ product.title }}"
+                                      class="w-10 h-10 object-contain object-center rounded-md"
+                                      width="{{ product.featured_image.width }}"
+                                      height="{{ product.featured_image.height }}"
+                                    >
+                                  {% endif %}
+                                  <div>
+                                    <p class="text-text-primary text-sm font-semibold global-transition group-hover:text-brand-orange">
+                                      {{ product.title }}
+                                    </p>
+                                    <div class="flex items-center gap-1">
+                                      {% if product.compare_at_price %}
+                                        <p class="text-text-secondary text-xs line-through">
+                                          {{ product.compare_at_price | money_without_trailing_zeros }}
+                                        </p>
+                                      {% endif %}
+                                      <p class="text-text-secondary text-xs">
+                                        {{ product.price | money_without_trailing_zeros }}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% else %}
+                          <p class="text-text-secondary text-sm">No results found.</p>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <!-- Account Links -->
+                <div class="flex items-center sm:gap-2 lg:gap-3">
+                  {% if customer %}
+                    {% render 'nav-acc-btn', path: routes.account_url, icon: 'user' %}
+                  {% else %}
+                    {% render 'nav-acc-btn', path: routes.account_login_url, icon: 'user' %}
+                  {% endif %}
+                  {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+                  {% render 'nav-acc-btn', path: '/pages/wishlist', icon: 'heart' %}
+                </div>
+              </div>
+            </nav>
           </div>
 
-          <!-- Search and Category Dropdown Form -->
-          <form action="/search" method="get" class="header_search-form">
-            <!-- Category Dropdown with SVG Icon -->
-            <div class="header_category-wrapper">
-              <div class="custom-select">
-                <select>
-                  <option value="0">Categorii</option>
-                  {% for collection in collections %}
-                    <option value="{{ collection.handle }}">{{ collection.title }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <!-- SVG Icon (styled as a clickable button to open the select) -->
-              <div class="dropdown-icon-wrapper">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="18" height="18" fill="#F7F7F7"/>
-                  <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#383838" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="divider"></div>
-
-            <!-- Search Input Field -->
-            <input type="text" name="q" placeholder="Caută aici..." class="header_search-input">
-
-            <!-- Search Button -->
-            <button type="submit" class="header_search-button">
-              <img src="{{ 'search-icon.svg' | asset_url }}" alt="Search">
+          <!-- Mobile Buttons -->
+          <div>
+            <button
+              class="lg:hidden relative w-10 h-10 py-3 px-2 flex flex-col items-center justify-center gap-1 bg-bg-secondary rounded-full z-50"
+              pxm-nav="mobile-btn"
+            >
+              <div class="w-full h-[2px] rounded-2xl bg-neutral-darker" pxm-nav="mobile-btn-line"></div>
+              <div class="w-full h-[2px] rounded-2xl bg-neutral-darker" pxm-nav="mobile-btn-line"></div>
+              <div class="w-full h-[2px] rounded-2xl bg-neutral-darker" pxm-nav="mobile-btn-line"></div>
             </button>
-          </form>
-
-          <!-- Account Links -->
-          <div class="header_account-link">
-            <a href="/account" class="button_account {{ button_style | default: 'default-style' }}">
-              <img src="{{ 'user.svg' | asset_url }}" alt="User" class="button_account-icon">
-            </a>
-            <a href="/favorites" class="button_account {{ button_style | default: 'default-style' }}">
-              <img src="{{ 'heart-rounded.svg' | asset_url }}" alt="Favorites" class="button_account-icon">
-            </a>
-            <a href="/cart" class="button_account {{ button_style | default: 'default-style' }}">
-              <img src="{{ 'cart.svg' | asset_url }}" alt="Cart" class="button_account-icon">
-            </a>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <div class="header_mobile-button">
-            <img src="{{ 'menu-open.svg' | asset_url }}" alt="Menu Open" class="menu-icon menu-open">
-            <img src="{{ 'menu-close.svg' | asset_url }}" alt="Menu Close" class="menu-icon menu-close">
           </div>
         </div>
-        <!-- End of .header_right -->
       </div>
-      <!-- End of .header_wrapper -->
     </div>
-    <!-- End of .container-large -->
-  </div>
-  <!-- End of .padding-global -->
-</header>
-
-<script>
-  var x, i, j, l, ll, selElmnt, a, b, c;
-  /* Look for any elements with the class "custom-select": */
-  x = document.getElementsByClassName('custom-select');
-  l = x.length;
-  for (i = 0; i < l; i++) {
-    selElmnt = x[i].getElementsByTagName('select')[0];
-    ll = selElmnt.length;
-    /* For each element, create a new DIV that will act as the selected item: */
-    a = document.createElement('DIV');
-    a.setAttribute('class', 'select-selected');
-    a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-    x[i].appendChild(a);
-    /* For each element, create a new DIV that will contain the option list: */
-    b = document.createElement('DIV');
-    b.setAttribute('class', 'select-items select-hide');
-    for (j = 1; j < ll; j++) {
-      /* For each option in the original select element,
-    create a new DIV that will act as an option item: */
-      c = document.createElement('DIV');
-      c.innerHTML = selElmnt.options[j].innerHTML;
-      c.addEventListener('click', function (e) {
-        /* When an item is clicked, update the original select box,
-        and the selected item: */
-        var y, i, k, s, h, sl, yl;
-        s = this.parentNode.parentNode.getElementsByTagName('select')[0];
-        sl = s.length;
-        h = this.parentNode.previousSibling;
-        for (i = 0; i < sl; i++) {
-          if (s.options[i].innerHTML == this.innerHTML) {
-            s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
-            y = this.parentNode.getElementsByClassName('same-as-selected');
-            yl = y.length;
-            for (k = 0; k < yl; k++) {
-              y[k].removeAttribute('class');
-            }
-            this.setAttribute('class', 'same-as-selected');
-            break;
-          }
-        }
-        h.click();
-      });
-      b.appendChild(c);
-    }
-    x[i].appendChild(b);
-    a.addEventListener('click', function (e) {
-      /* When the select box is clicked, close any other select boxes,
-    and open/close the current select box: */
-      e.stopPropagation();
-      closeAllSelect(this);
-      this.nextSibling.classList.toggle('select-hide');
-      this.classList.toggle('select-arrow-active');
-    });
-  }
-
-  function closeAllSelect(elmnt) {
-    /* A function that will close all select boxes in the document,
-  except the current select box: */
-    var x,
-      y,
-      i,
-      xl,
-      yl,
-      arrNo = [];
-    x = document.getElementsByClassName('select-items');
-    y = document.getElementsByClassName('select-selected');
-    xl = x.length;
-    yl = y.length;
-    for (i = 0; i < yl; i++) {
-      if (elmnt == y[i]) {
-        arrNo.push(i);
-      } else {
-        y[i].classList.remove('select-arrow-active');
-      }
-    }
-    for (i = 0; i < xl; i++) {
-      if (arrNo.indexOf(i)) {
-        x[i].classList.add('select-hide');
-      }
-    }
-  }
-
-  /* If the user clicks anywhere outside the select box,
-then close all select boxes: */
-  document.addEventListener('click', closeAllSelect);
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const button = document.querySelector('.header_mobile-button');
-    const menuOpen = document.querySelector('.menu-open');
-    const menuClose = document.querySelector('.menu-close');
-    const dropdown = document.querySelector('.header_mobile-dropdown');
-
-    // Function to initialize menu behavior based on screen size
-    function initMenu() {
-      const isSmallScreen = window.matchMedia('(max-width: 992px)').matches;
-
-      if (isSmallScreen) {
-        // Set initial visibility (ensure correct initial styles)
-        menuOpen.style.opacity = '1';
-        menuOpen.style.pointerEvents = 'auto';
-        menuClose.style.opacity = '0';
-        menuClose.style.pointerEvents = 'none';
-        dropdown.style.opacity = '0'; // Hidden initially
-        dropdown.style.visibility = 'hidden'; // Not visible initially
-
-        button.addEventListener('click', toggleDropdown);
-      } else {
-        // Cleanup and reset styles if screen size increases
-        menuOpen.style.opacity = '';
-        menuOpen.style.pointerEvents = '';
-        menuClose.style.opacity = '';
-        menuClose.style.pointerEvents = '';
-        dropdown.style.opacity = '';
-        dropdown.style.visibility = '';
-        dropdown.classList.remove('open');
-
-        button.removeEventListener('click', toggleDropdown); // Remove the event listener
-      }
-    }
-
-    // Toggle dropdown function
-    function toggleDropdown() {
-      if (menuOpen.style.opacity === '1') {
-        // Show the close icon
-        menuOpen.style.opacity = '0';
-        menuOpen.style.pointerEvents = 'none';
-        menuClose.style.opacity = '1';
-        menuClose.style.pointerEvents = 'auto';
-
-        // Fade in the dropdown
-        dropdown.classList.add('open');
-      } else {
-        // Show the open icon
-        menuOpen.style.opacity = '1';
-        menuOpen.style.pointerEvents = 'auto';
-        menuClose.style.opacity = '0';
-        menuClose.style.pointerEvents = 'none';
-
-        // Fade out the dropdown
-        dropdown.classList.remove('open');
-      }
-    }
-
-    // Run on page load and when window is resized
-    initMenu();
-    window.addEventListener('resize', initMenu);
-  });
-</script>
+  </header>
+</div>

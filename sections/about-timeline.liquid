@@ -1,0 +1,61 @@
+<section>
+  <div class="global-padding pt-5 pb-10 lg:py-16">
+    <div class="container-large">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
+        <div>
+          <h2 class="heading-h2 text-text-primary">{{ section.settings.title }}</h2>
+        </div>
+        <div class="flex flex-col">
+          {% for block in section.blocks %}
+            <div class="flex gap-12">
+              <div class="h-full pt-1">
+                <div class="w-6 h-6 rounded-full bg-bg-alternate relative z-10 ring-[1rem] ring-[#FBE6DC]"></div>
+                {% unless forloop.last %}
+                  <div class="w-full h-full flex justify-center">
+                    <div class="h-full w-px bg-[#FBE6DC]"></div>
+                  </div>
+                {% endunless %}
+              </div>
+              <div class="flex flex-col gap-2 lg:gap-6 {% unless forloop.last %} gap-12 lg:pb-16 {% endunless %}">
+                <h3 class="heading-h4 text-text-primary">{{ block.settings.title }}</h3>
+                <div class="lg:text-lg leading-normal text-text-secondary">{{ block.settings.description }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Timeline",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Călătoria Gogobaby"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "timeline-item",
+      "name": "Timeline Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,29 @@
+<section>
+  <div class="global-padding pb-10 lg:pb-16">
+    <div class="container-large">
+      <h2 class="heading-h3 text-text-primary mb-6 lg:mb-12">Te-ar mai putea interesa si...</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-5 gap-y-12">
+        {% for relatedArticle in blog.articles %}
+          {% if relatedArticle.id != article.id %}
+            {% render 'blog-card', article: relatedArticle %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related Articles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Te-ar mai putea interesa si..."
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

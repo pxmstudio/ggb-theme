@@ -1,0 +1,24 @@
+<div class="p-8 bg-bg-secondary rounded-xl border-2 border-border-secondary border-dashed flex flex-col gap-12">
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="text-text-primary font-semibold text-xl">Subtotal:</h2>
+    <p class="text-text-primary font-semibold text-xl">{{ cart.total_price | money }}</p>
+  </div>
+  <div class="flex lg:flex-row flex-col items-center gap-3">
+    {% render 'button',
+      hierarchy: 'secondary',
+      text: 'Continuă cumpărăturile',
+      type: 'link',
+      classes: 'w-full',
+      href: '/collections'
+    %}
+    {% render 'button',
+      hierarchy: 'primary',
+      text: 'Finalizează comanda',
+      type: 'button',
+      classes: 'w-full',
+      button_name: 'checkout',
+      button_type: 'submit',
+      button_form: 'cart'
+    %}
+  </div>
+</div>

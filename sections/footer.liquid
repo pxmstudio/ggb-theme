@@ -1,156 +1,118 @@
-<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}">
-
-<footer class="section_footer">
-  <div class="padding-global">
-    <div class="container-large z-index-1">
-      <div class="footer_inner"></div>
-      <div class="padding-section-large z-index-2">
-        <div class="footer_wrapper">
-          <!-- Top Section of the Footer -->
-          <div class="footer_top">
-            <!-- Left Section: Logo and Newsletter -->
-            <div class="footer_left">
-              <a href="/" class="footer_logo">
-                <img class="footer_logo-icon" src="{{ 'logo.svg' | asset_url }}" alt="Logo">
-              </a>
-              <p>Abonează-te la newsletter-ul nostru ca sa afli primul despre cele mai bune oferte!</p>
-              <div class="subscribe-form">
-                <input type="email" placeholder="Introdu adresa de email">
-                <button class="subscribe-form_button" type="submit">Abonează-te</button>
+<footer class="bg-bg-secondary border-2 lg:border-4 border-border-secondary border-dashed rounded-t-2xl lg:rounded-[2.5rem] max-w-screen-2xl mx-auto py-10 lg:py-20 lg:mb-5">
+  <div class="global-padding">
+    <div class="container-large">
+      <div class="flex flex-col lg:flex-row justify-between gap-12 mb-10">
+        <div class="flex flex-col items-start gap-6 lg:gap-12 justify-between max-w-96">
+          <a
+            href="/"
+            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-50 h-10 lg:h-16 w-auto"
+          >
+            {% render 'icon-logo' %}
+          </a>
+          <div class="flex flex-col">
+            <p class="text-text-primary mb-3">
+              {{- section.settings.newsletter_title -}}
+            </p>
+            <form action="">
+              <div class="relative h-14 mb-4">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  class="bg-bg-primary w-full h-full border-transparent rounded-[5rem] pl-6 text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-0 focus:border-brand-turquoise"
+                >
+                <button class="absolute top-1 bottom-1 right-1 bg-brand-turquoise text-lg font-semibold rounded-[5rem] px-8 text-[#FAFAFA]">
+                  {{- section.settings.newsletter_button -}}
+                </button>
               </div>
-            </div>
-
-            <!-- Right Section: Links -->
-            <div class="footer_list-links">
-              <div class="footer_column">
-                <p class="footer_column-title">Ai întrebări?</p>
-                <a class="footer_link" href="/pages/faqs">Întrebări frecvente</a>
-                <a class="footer_link" href="/pages/return-policy">Politica de returnare</a>
-                <a class="footer_link" href="/pages/shipping-info">Informații despre livrare</a>
-                <a class="footer_link" href="/pages/warranty-form">Formular de garanție</a>
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="newsletter-consent"
+                  class="w-4 h-4 rounded-sm border border-border-primary checked:border-brand-turquoise focus:border-brand-turquoise focus:ring-brand-turquoise text-brand-turquoise"
+                  required
+                >
+                <label for="newsletter-consent" class="text-sm text-text-primary">
+                  {{- section.settings.newsletter_disclaimer -}}
+                </label>
               </div>
-              <div class="footer_column">
-                <p class="footer_column-title">Contul Meu</p>
-                <a class="footer_link" href="/account">Profil</a>
-                <a class="footer_link" href="/cart">Coș de cumpărături</a>
-                <a class="footer_link" href="/account/orders">Comenzile mele</a>
-                <a class="footer_link" href="/account/wishlist">Favorite</a>
-              </div>
-              <div class="footer_column">
-                <p class="footer_column-title">Gogobaby</p>
-                <a class="footer_link" href="/collections/all">Magazin</a>
-                <a class="footer_link" href="/pages/about-us">Despre noi</a>
-                <a class="footer_link" href="/blog">Blog</a>
-                <a class="footer_link" href="/pages/contact">Contact</a>
-              </div>
-            </div>
+            </form>
           </div>
-
-          <!-- Bottom Section of the Footer -->
-          <div class="footer_bottom">
-            <!-- Social Media Icons -->
-            <div class="social-icons">
-              <a href="https://facebook.com" target="_blank">
-                <img src="{{ 'facebook-icon.svg' | asset_url }}" alt="Facebook">
-              </a>
-              <a href="https://instagram.com" target="_blank">
-                <img src="{{ 'instagram-icon.svg' | asset_url }}" alt="Instagram">
-              </a>
-            </div>
-
-            <!-- Legal Links and Copyright -->
-            <div class="footer_legal">
-              <p class="text-weight-medium text-color-secondary">&copy; {{ 'now' | date: '%Y' }} Gogobaby</p>
-              <a class="footer_legal-link text-weight-medium" href="/pages/privacy-policy">Cookie Policy</a>
-              <a class="footer_legal-link text-weight-medium" href="/pages/terms-conditions">Terms & Conditions</a>
-            </div>
-          </div>
-          <!-- End of footer_bottom -->
         </div>
-        <!-- End of footer_wrapper -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          {% for link in linklists.footer.links %}
+            <div>
+              <h3 class="text-text-secondary text-base font-bold mb-4 lg:mb-10">
+                {{- link.title -}}
+              </h3>
+              {% if link.links.size > 0 %}
+                <ul class="flex flex-col gap-4">
+                  {% for sublink in link.links %}
+                    <li>
+                      <a
+                        href="{{ sublink.url }}"
+                        class="text-text-primary global-transition hover:text-text-alternate text-base font-medium leading-normal"
+                      >
+                        {{- sublink.title -}}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
-      <!-- End of padding-section-medium -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-12">
+        <div class="flex items-center gap-4">
+          {% if shop.brand.metafields.social_links.facebook %}
+            {% render 'footer-social-link', icon: 'facebook', href: shop.brand.metafields.social_links.facebook.value %}
+          {% endif %}
+          {% if shop.brand.metafields.social_links.instagram %}
+            {% render 'footer-social-link',
+              icon: 'instagram',
+              href: shop.brand.metafields.social_links.instagram.value
+            %}
+          {% endif %}
+        </div>
+        <div class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
+          <p class="text-[#6E6E6E] text-sm font-medium leading-normal">© {{ 'now' | date: '%Y' }} Gogobaby</p>
+          {% for link in linklists['footer-secondary-menu'].links %}
+            <a
+              href="{{ link.url }}"
+              class="text-[#6E6E6E] global-transition hover:text-text-alternate text-sm font-medium leading-normal"
+            >
+              {{- link.title -}}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    <!-- End of container-large -->
   </div>
-  <!-- End of padding-global -->
 </footer>
+
 {% schema %}
 {
   "name": "Footer",
   "settings": [
     {
       "type": "text",
-      "id": "newsletter_text",
-      "label": "Newsletter Text",
-      "default": "Abonează-te la newsletter-ul nostru ca să afli primul despre cele mai bune oferte!"
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Abonează-te la newsletter-ul nostru ca sa afli primul despre cele mai bune oferte!"
     },
     {
       "type": "text",
-      "id": "email_placeholder",
-      "label": "Email Placeholder Text",
-      "default": "Introdu adresa de email"
+      "id": "newsletter_button",
+      "label": "Newsletter Button",
+      "default": "Aboneaza-te"
     },
     {
-      "type": "text",
-      "id": "subscribe_button_text",
-      "label": "Subscribe Button Text",
-      "default": "Abonează-te"
-    },
-    {
-      "type": "url",
-      "id": "facebook_link",
-      "label": "Facebook Link",
-      "default": "https://facebook.com"
-    },
-    {
-      "type": "url",
-      "id": "instagram_link",
-      "label": "Instagram Link",
-      "default": "https://instagram.com"
-    },
-    {
-      "type": "text",
-      "id": "copyright_text",
-      "label": "Copyright Text",
-      "default": "Gogobaby"
-    },
-    {
-      "type": "url",
-      "id": "cookie_policy_link",
-      "label": "Cookie Policy Link",
-      "default": "/pages/privacy-policy"
-    },
-    {
-      "type": "url",
-      "id": "terms_conditions_link",
-      "label": "Terms & Conditions Link",
-      "default": "/pages/terms-conditions"
+      "type": "richtext",
+      "id": "newsletter_disclaimer",
+      "label": "Newsletter Disclaimer",
+      "default": "<p>Sunt de acord cu <a href=\"/legal/politica-de-confidentialitate\">politica de confidentialitate</a>.</p>"
     }
   ],
-  "blocks": [
-    {
-      "type": "link_column",
-      "name": "Link Column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Column Title",
-          "default": "Ai întrebări?"
-        },
-        {
-          "type": "link_list",
-          "id": "links",
-          "label": "Links"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Footer"
-    }
-  ]
+  "blocks": []
 }
 {% endschema %}

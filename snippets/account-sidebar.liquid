@@ -1,0 +1,14 @@
+<div class="overflow-x-auto max-w-[85vw] lg:max-w-none pb-4 lg:pb-0">
+  <div class="flex flex-row lg:flex-col gap-2">
+    {% render 'account-sidebar-link', title: 'Comenzile mele', href: '/account/orders', active: false %}
+    {% render 'account-sidebar-link', title: 'Favorite', href: '/pages/wishlist', active: true %}
+    {% render 'account-sidebar-link', title: 'Profil', href: '/account/profile', active: false %}
+    <a
+      href="/account/logout"
+      class="flex items-center gap-3 text-text-secondary hover:text-text-primary py-3 px-6 rounded-lg font-medium flex-shrink-0 lg:flex-shrink"
+    >
+      {% render 'icon-logout', width: 24, height: 24 %}
+      Deconectează-te
+    </a>
+  </div>
+</div>

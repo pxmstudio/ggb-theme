@@ -1,8 +1,8 @@
 {
   "sections": {
-    "main": {
-      "type": "main-404"
+    "main-cart": {
+      "type": "main-cart"
     }
   },
-  "order": ["main"]
+  "order": ["main-cart"]
 }

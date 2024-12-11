@@ -1,8 +1,14 @@
 {
   "sections": {
-    "main": {
-      "type": "main-404"
+    "main-product": {
+      "type": "main-product"
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products"
+    },
+    "product-recommendations": {
+      "type": "product-recommendations"
     }
   },
-  "order": ["main"]
+  "order": ["main-product", "recently-viewed-products", "product-recommendations"]
 }

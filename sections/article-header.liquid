@@ -1,0 +1,59 @@
+<section>
+  <div class="global-padding pt-5 pb-10 lg:py-16">
+    <div class="container-large">
+      <div class="flex flex-col lg:items-center gap-8">
+        {% if article.image %}
+          <div class="w-full pb-[26.56%] rounded-lg overflow-hidden relative">
+            <img
+              src="{{ article.image.src | image_url: width: 600 }}"
+              width="1280"
+              height="340"
+              alt="{{ article.image.alt }}"
+              class="w-full h-full object-cover object-center absolute top-0 bottom-0 left-0 right-0"
+            >
+          </div>
+        {% endif %}
+        <div class="max-w-3xl mx-auto w-full">
+          <h1 class="heading-h1 text-text-primary lg:text-center">{{ article.title }}</h1>
+        </div>
+        <div class="max-w-3xl mx-auto w-full">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 w-full">
+            <div class="flex items-center gap-3">
+              <div class="w-16 h-16 rounded-full overflow-hidden relative">
+                {% if article.author %}
+                  {% assign author_handle = article.author | downcase | replace: ' ', '-' %}
+
+                  <img
+                    src="{{ shop.metaobjects.author[author_handle].image.value | image_url: width: 128 }}"
+                    width="64"
+                    height="64"
+                    alt="{{ article.author }}"
+                    class="absolute top-0 bottom-0 left-0 right-0 w-full h-full object-cover object-center"
+                  >
+                {% endif %}
+              </div>
+              <div class="flex flex-col">
+                <p class="text-lg font-semibold text-text-primary">{{ article.author }}</p>
+                <p class=" text-text-secondary">{{ article.published_at | date: '%B %d, %Y' }}</p>
+              </div>
+            </div>
+            <div class="flex items-center lg:justify-center gap-2">
+              {% render 'share-link', href: article.url, icon: 'link' %}
+              {% render 'share-link', href: article.url, icon: 'linkedin' %}
+              {% render 'share-link', href: article.url, icon: 'x' %}
+              {% render 'share-link', href: article.url, icon: 'facebook' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Article Header",
+  "settings": [],
+  "blocks": []
+}
+{% endschema %}

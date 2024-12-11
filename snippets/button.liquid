@@ -1,0 +1,30 @@
+{% assign default_classes = 'h-12 py-3 px-4 rounded-3xl text-lg font-semibold inline-flex items-center justify-center' %}
+
+{% case type %}
+  {% when 'link' %}
+    {% if hierarchy == 'primary' %}
+      <a
+        href="{{ href }}"
+        class="{{ default_classes }} bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition {{ classes }}"
+      >
+        {{- text -}}
+      </a>
+    {% else %}
+      <a href="{{ href }}" class="border border-border-primary bg-white {{ default_classes }} {{ classes }}">
+        {{- text -}}
+      </a>
+    {% endif %}
+  {% when 'button' %}
+    {% if hierarchy == 'primary' %}
+      <button
+        type="{{ button_type | default: 'button' }}"
+        form="{{ button_form | default: '' }}"
+        name="{{ button_name | default: '' }}"
+        class="{{ default_classes }} bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition {{ classes }}"
+      >
+        {{ text }}
+      </button>
+    {% else %}
+      <button class="border border-border-primary bg-white {{ default_classes }} {{ classes }}">{{ text }}</button>
+    {% endif %}
+{% endcase %}

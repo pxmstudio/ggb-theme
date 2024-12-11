@@ -1,0 +1,37 @@
+<section class="py-16 relative">
+  <div class="global-padding">
+    <div class="container-large" pxm-swiper="wrapper">
+      <div class="mb-6 lg:mb-12 flex lg:flex-row flex-col lg:items-center gap-4 justify-between">
+        <h2 class="heading-h2 text-text-primary">{{ section.settings.title }}</h2>
+        <div class="flex items-center gap-3">
+          {% render 'button-slider', icon: 'left', disabled: true %}
+          {% render 'button-slider', icon: 'right' %}
+        </div>
+      </div>
+      <div class="swiper" pxm-swiper="swiper" pxm-slides-per-view="4" pxm-slides-space-between="20">
+        <div class="swiper-wrapper">
+          {% for collection in collections %}
+            <div class="swiper-slide">
+              {% render 'collection-card', collection: collection %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Descoperă toate produsele"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

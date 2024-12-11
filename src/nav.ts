@@ -1,0 +1,95 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.querySelector<HTMLButtonElement>(
+    '[pxm-nav="mobile-btn"]'
+  );
+
+  const lines = document.querySelectorAll<HTMLDivElement>(
+    '[pxm-nav="mobile-btn-line"]'
+  );
+
+  const menu = document.querySelector<HTMLDivElement>('[pxm-nav="menu"]');
+
+  if (button) {
+    let isOpen = false;
+
+    button.addEventListener("click", () => {
+      if (!lines || lines.length !== 3) return;
+
+      if (isOpen) {
+        const tl = gsap.timeline({ duration: 0.3 });
+
+        tl.to(lines[0], { rotate: 0, y: 0 }, "<")
+          .to(lines[1], { opacity: 1 }, "<")
+          .to(lines[2], { rotate: 0, y: 0 }, "<");
+
+        menu?.classList.add("hidden");
+      } else {
+        const tl = gsap.timeline({ duration: 0.3 });
+
+        tl.to(lines[0], { rotate: 45, y: 6 }, "<")
+          .to(lines[1], { opacity: 0 }, "<")
+          .to(lines[2], { rotate: -45, y: -6 }, "<");
+
+        menu?.classList.remove("hidden");
+      }
+
+      isOpen = !isOpen;
+    });
+  }
+
+  const searchForm = document.querySelector<HTMLFormElement>(
+    '[pxm-search="form"]'
+  );
+  const searchInput = document.querySelector<HTMLInputElement>(
+    '[pxm-search="input"]'
+  );
+  const searchResultsContainer = document.querySelector<HTMLDivElement>(
+    '[pxm-search="results-container"]'
+  );
+
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+
+    searchInput.addEventListener("input", async (e) => {
+      const value = (e.target as HTMLInputElement).value;
+
+      if (value === "") {
+        if (searchResultsContainer) {
+          searchResultsContainer.innerHTML = "";
+        }
+
+        return;
+      }
+
+      const res = await fetch(`/search/suggest?q=${value}&section_id=header`);
+      const data = await res.text();
+
+      if (searchResultsContainer) {
+        const dataHtml = new DOMParser().parseFromString(data, "text/html");
+        const newResults = dataHtml.querySelector<HTMLDivElement>(
+          '[pxm-search="results"]'
+        );
+
+        if (newResults) {
+          searchResultsContainer.innerHTML = "";
+          searchResultsContainer.appendChild(newResults);
+        }
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !searchResultsContainer?.contains(event.target as Node) &&
+        event.target !== searchInput
+      ) {
+        if (searchResultsContainer) {
+          searchResultsContainer.innerHTML = "";
+
+          searchInput.value = "";
+        }
+      }
+    });
+  }
+});
