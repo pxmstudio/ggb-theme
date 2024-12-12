@@ -8,11 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (priceFilter && rangeSlider) {
+    let placeholdersRemoved = false;
+
     rangeSlider(priceFilter, {
       min: priceFilter.dataset.min,
       max: priceFilter.dataset.max,
       value: [priceFilter.dataset.minCurrent, priceFilter.dataset.maxCurrent],
       onInput: (value: any) => {
+        if (!placeholdersRemoved) {
+          const placeHolderGteInput = filterForm.querySelector('#placeholder-gte');
+          const placeHolderLteInput = filterForm.querySelector('#placeholder-lte');
+
+          placeHolderGteInput?.remove();
+          placeHolderLteInput?.remove();
+          
+          placeholdersRemoved = true; // Mark as removed to prevent repeated removal
+        }
+
         const inputLower = priceFilter.childNodes[0] as HTMLInputElement;
         const inputUpper = priceFilter.childNodes[1] as HTMLInputElement;
         const firstDot = priceFilter.childNodes[2] as HTMLElement;

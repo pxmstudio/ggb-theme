@@ -1,25 +1,6 @@
 <section>
   <div class="global-padding py-6">
     <div class="container-large">
-      {% comment %}
-        <div class="overflow-x-auto rounded-[0.25rem] border border-border-primary mb-12">
-          <div class="flex items-center gap-3 p-3">
-            {% for related_collection in collections %}
-              {% if related_collection.metafields.custom.parent_collection != blank %}
-                {% assign related_collection_id = related_collection.metafields.custom.parent_collection
-                  | split: '/'
-                  | last
-                  | plus: 0
-                %}
-
-                {% if related_collection_id == collection.id %}
-                  {% render 'subcollection-item', collection: related_collection %}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      {% endcomment %}
       <div class="flex items-center gap-3 mb-8">
         <a href="/collections" class="text-text-secondary font-medium global-transition hover:text-text-primary"
           >Collections</a
@@ -29,121 +10,7 @@
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div class="lg:col-span-3">
-          <form id="filter-form" novalidate>
-            <div class="flex flex-col gap-8 border border-border-primary rounded-xl py-4 lg:py-6 px-4">
-              <div class="flex items-center justify-between w-full gap-4">
-                <h2 class="heading-h5 text-text-primary">Filtre</h2>
-                <div class="flex items-center gap-6">
-                  {% assign active_filter_count = 0 %}
-                  {% for filter in collection.filters %}
-                    {% if filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value %}
-                      {% assign active_filter_count = active_filter_count | plus: 1 %}
-                    {% endif %}
-                  {% endfor %}
-
-                  {% if active_filter_count > 0 %}
-                    <a
-                      href="{{ collection.url }}"
-                      class="text-neutral-neutral global-transition hover:text-text-primary"
-                    >
-                      Șterge filtrele
-                    </a>
-                  {% endif %}
-                  <button type="button" class="lg:hidden global-transition" pxm-filter="toggle-filters">
-                    {% render 'icon-chevron-down', width: 24, height: 24 %}
-                  </button>
-                </div>
-              </div>
-              <div class="hidden lg:flex flex-col gap-8" pxm-filter="filters">
-                <p class="text-text-primary font-medium">
-                  Se afișează
-                  {% if collection.products_count == 1 %}
-                    {{ collection.products_count }} produs
-                  {% elsif collection.products_count < 20 %}
-                    {{ collection.products_count }} produse
-                  {% else %}
-                    {{ collection.products_count }} de produse
-                  {% endif %}
-                </p>
-                {% for filter in collection.filters %}
-                  <div>
-                    {% render 'filter-title', title: filter.label %}
-                    {% case filter.type %}
-                      {% when 'boolean' %}
-
-                      {% when 'list' %}
-                        {% case filter.label %}
-                          {% when 'Culoare' %}
-                            <div class="grid grid-cols-5 gap-2">
-                              {% for filter_value in filter.values %}
-                                {% render 'filter-color',
-                                  index: forloop.index,
-                                  id: filter.param_name,
-                                  name: filter_value.param_name,
-                                  color: filter_value.label,
-                                  active: filter_value.active,
-                                  value: filter_value.value
-                                %}
-                              {% endfor %}
-                            </div>
-                          {% else %}
-                            <ul>
-                              {% for filter_value in filter.values %}
-                                <li>
-                                  {% render 'input-checkbox',
-                                    index: forloop.index,
-                                    id: filter.param_name,
-                                    name: filter_value.param_name,
-                                    label: filter_value.label,
-                                    active: filter_value.active,
-                                    value: filter_value.value,
-                                    count: filter_value.count
-                                  %}
-                                </li>
-                              {% endfor %}
-                            </ul>
-                        {% endcase %}
-                      {% when 'price_range' %}
-                        <div>
-                          <div class="flex flex-col">
-                            <div class="flex flex-col"></div>
-                            {% assign max_price = 100 %}
-                            {% for product in collection.products %}
-                              {% if product.price > max_price %}
-                                {% assign max_price = product.price %}
-                              {% endif %}
-                            {% endfor %}
-                            <div>
-                              <div
-                                pxm-filter="price"
-                                data-min="0"
-                                data-max="{{ max_price | divided_by: 100 | plus: 0 }}"
-                                data-min-current="{{ filter.min_value.value | divided_by: 100 | default: 0 }}"
-                                data-max-current="{{ filter.max_value.value | divided_by: 100 | default: max_price }}"
-                                class="mb-2"
-                              ></div>
-                              <div class="flex items-center justify-between">
-                                <p>
-                                  {{ filter.min_value.value | default: 0 | money_without_trailing_zeros }}
-                                </p>
-                                <p>
-                                  {{ max_price | money_without_trailing_zeros }}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    {% endcase %}
-                  </div>
-                {% endfor %}
-              </div>
-              {% comment %}
-                <div class="flex justify-end">
-                  <button class="border px-4 py-2 font-bold hover:cursor-pointer" type="submit">Aplică</button>
-                </div>
-              {% endcomment %}
-            </div>
-          </form>
+          {% render 'filters', location: 'collection' %}
         </div>
         <div class="lg:col-span-9">
           <div class="flex lg:flex-row flex-col justify-end items-center gap-3 mb-12">
