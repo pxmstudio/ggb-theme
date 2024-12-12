@@ -924,12 +924,12 @@ select {
   margin-bottom: 2rem;
 }
 
-.mt-auto {
-  margin-top: auto;
-}
-
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mt-auto {
+  margin-top: auto;
 }
 
 .block {
@@ -1685,10 +1685,6 @@ select {
 
 .pt-52 {
   padding-top: 13rem;
-}
-
-.pt-8 {
-  padding-top: 2rem;
 }
 
 .text-left {
