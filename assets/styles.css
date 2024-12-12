@@ -2044,10 +2044,6 @@ input[type='number']::-webkit-inner-spin-button {
   border-color: rgb(84 191 199 / var(--tw-border-opacity, 1));
 }
 
-.hover\:cursor-pointer:hover {
-  cursor: pointer;
-}
-
 .hover\:border-dashed:hover {
   border-style: dashed;
 }

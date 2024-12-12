@@ -158,6 +158,12 @@
       <script src="{{ 'cart.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
+    {% comment %}
+      {% if content_for_layout contains 'main-warranty' %}
+        <script src="{{ 'warranty.js' | asset_url }}" type="module" defer></script>
+      {% endif %}
+    {% endcomment %}
+
     {% if customer %}
       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
       {% if content_for_layout contains 'main-wishlist' or content_for_layout contains 'main-product' %}
