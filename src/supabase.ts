@@ -148,6 +148,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const currency = await getShopCurrency();
 
+    (window as any).shopCurrency = currency;
+
     if (wishlist && wishlist[0] && wishlist[0].product_handles && wishlist[0].product_handles.length > 0) {
       wishlist[0].product_handles.forEach(async (handle: string) => {
         const product = await getProduct(handle);
