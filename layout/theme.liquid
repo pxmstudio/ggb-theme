@@ -127,6 +127,13 @@
 
     <script src="{{ 'nav.js' | asset_url }}" type="module" defer></script>
 
+    {% if customer %}
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+      {% if content_for_layout contains 'main-wishlist' or content_for_layout contains 'main-product' %}
+        <script src="{{ 'supabase.js' | asset_url }}" defer></script>
+      {% endif %}
+    {% endif %}
+
     {% if content_for_layout contains 'collections-slider' or content_for_layout contains 'about-reviews' %}
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
       <script src="{{ 'swiper.js' | asset_url }}" defer></script>
@@ -164,11 +171,22 @@
       {% endif %}
     {% endcomment %}
 
-    {% if customer %}
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-      {% if content_for_layout contains 'main-wishlist' or content_for_layout contains 'main-product' %}
-        <script src="{{ 'supabase.js' | asset_url }}" defer></script>
-      {% endif %}
-    {% endif %}
+    <script>
+      async function getShopCurrency() {
+        try {
+          const response = await fetch('/cart.js');
+          const cart = await response.json();
+
+          if (!response.ok) throw new Error('Network response was not ok');
+
+          window.shopCurrency = cart.currency;
+        } catch (error) {
+          console.error(error.message);
+          window.shopCurrency = '';
+        }
+      }
+
+      getShopCurrency();
+    </script>
   </body>
 </html>

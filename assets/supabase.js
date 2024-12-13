@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script loaded"),!supabase){console.error("Supabase has not been initialized");return}const e=supabase.createClient("https://jafmuleopzozznyqaqyc.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphZm11bGVvcHpvenpueXFhcXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUwMzI2MjksImV4cCI6MjA0MDYwODYyOX0.QXnxsND4JDqfDWzJ5tdXOehsSpShm7P7NgjjjV4RERE"),i=document.getElementById("add-to-wishlist-btn");if(i){const t=i.firstElementChild,a=i.lastElementChild,l=i.dataset.productHandle,d=i.dataset.customerId;let c=await v(e,Number(d)),s=!1;c&&c.length>0&&(s=!0,c[0].product_handles.find(m=>m===l)&&(t.setAttribute("fill","#FF0000"),a.textContent="În lista de favorite")),i.addEventListener("click",async()=>{if(s)console.log(`Added product ${l} to wishlist ${c[0].id} for customer ${d}`),t.setAttribute("fill","#FF0000"),a.textContent="În lista de favorite",await _(e,Number(d),c[0].id,l);else{const u=await C(e,Number(d),"New wishlist");console.log(u),u&&u.length>0&&(console.log(`Added product ${l} to a new wishlist ${u[0].id} for customer ${d}`),t.setAttribute("fill","#FF0000"),a.textContent="În lista de favorite",s=!0,await _(e,Number(d),u[0].id,l))}});return}const n=document.getElementById("container");if(!n){console.log("Wishlists container is missing");return}const p=Number(n.dataset.customerId),h=new URLSearchParams(window.location.search).get("id");if(h){const t=await I(e,h,p);console.log(t);const a=`
+document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script loaded"),!supabase){console.error("Supabase has not been initialized");return}const e=supabase.createClient("https://jafmuleopzozznyqaqyc.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphZm11bGVvcHpvenpueXFhcXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUwMzI2MjksImV4cCI6MjA0MDYwODYyOX0.QXnxsND4JDqfDWzJ5tdXOehsSpShm7P7NgjjjV4RERE"),i=document.getElementById("add-to-wishlist-btn");if(i){const t=i.firstElementChild,l=i.lastElementChild,a=i.dataset.productHandle,d=i.dataset.customerId;let c=await v(e,Number(d)),s=!1;c&&c.length>0&&(s=!0,c[0].product_handles.find(m=>m===a)&&(t.setAttribute("fill","#FF0000"),l.textContent="În lista de favorite")),i.addEventListener("click",async()=>{if(s)console.log(`Added product ${a} to wishlist ${c[0].id} for customer ${d}`),t.setAttribute("fill","#FF0000"),l.textContent="În lista de favorite",await _(e,Number(d),c[0].id,a);else{const u=await C(e,Number(d),"New wishlist");console.log(u),u&&u.length>0&&(console.log(`Added product ${a} to a new wishlist ${u[0].id} for customer ${d}`),t.setAttribute("fill","#FF0000"),l.textContent="În lista de favorite",s=!0,await _(e,Number(d),u[0].id,a))}});return}const n=document.getElementById("container");if(!n){console.log("Wishlists container is missing");return}const p=Number(n.dataset.customerId),h=new URLSearchParams(window.location.search).get("id");if(h){const t=await I(e,h,p);console.log(t);const l=`
         <div pxm-wishlist="detail">
           <input type="hidden" id="wishlist-product-ids" value="">
           <div class="flex items-center gap-2 mb-6">
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
             
           </div>
         </div>
-      `;n.innerHTML=a;const l=await M();t&&t[0]&&t[0].product_handles&&t[0].product_handles.length>0&&t[0].product_handles.forEach(async c=>{const s=await y(c);if(s){const u=`
+      `;n.innerHTML=l;const a=await M();window.shopCurrency=a,t&&t[0]&&t[0].product_handles&&t[0].product_handles.length>0&&t[0].product_handles.forEach(async c=>{const s=await y(c);if(s){const u=`
                         <a href="${s.url}" class="w-full h-full group" pxm-product="item">
                           <div class="w-full aspect-square relative rounded-2xl overflow-hidden border border-border-primary">
                             <img
@@ -92,13 +92,13 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
                             </h3>
                             <div class="flex items-center gap-4">
                               <p class="text-text-secondary lg:text-lg font-semibold line-through" pxm-product="compare-price">
-                                 ${k(s.compare_at_price)} ${l}
+                                 ${k(s.compare_at_price)} ${a}
                               </p>
                               <p
                                 class="${s.compare_at_price>s.price?"text-error-red":"text-text-primary"} font-semibold lg:text-lg"
                                 pxm-product="price"
                               >
-                                ${k(s.price)} ${l}
+                                ${k(s.price)} ${a}
                               </p>
                             </div>
                           </div>
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
 
       </div>
     </div>
-    `;n.innerHTML=$;const f=n.querySelector("#add-new-wishlist-btn");f&&f.addEventListener("click",async()=>{await C(e,p,"New wishlist"),window.location.reload()}),g&&g.length>0&&g.forEach(async t=>{const a=t.product_handles?t.product_handles.length:0;let l="",d=0;for(let w=0;w<a&&d!==4;w++){const b=await y(t.product_handles[w]);b&&(l+=`<img
+    `;n.innerHTML=$;const f=n.querySelector("#add-new-wishlist-btn");f&&f.addEventListener("click",async()=>{await C(e,p,"New wishlist"),window.location.reload()}),g&&g.length>0&&g.forEach(async t=>{const l=t.product_handles?t.product_handles.length:0;let a="",d=0;for(let w=0;w<l&&d!==4;w++){const b=await y(t.product_handles[w]);b&&(a+=`<img
                       src="${b.featured_image}"
                       alt="${b.title}"
                       width="200"
@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
                 pxm-wishlist="image-wrapper"
               >
                 <div class="grid grid-cols-2 gap-2">
-                  ${l}
+                  ${a}
                 </div>
                 
-                ${a-d>0?`
+                ${l-d>0?`
                   <div
                     class="z-10 absolute top-0 bottom-0 left-0 right-0 bg-[rgba(31,35,91,0.2)] flex items-center justify-center"
                     pxm-wishlist="image-overlay"
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
                         class="bg-bg-primary border border-border-primary py-1 px-3 rounded-3xl text-text-primary font-medium"
                         pxm-wishlist="image-overlay-btn"
                       >
-                    +${a-d} produse
+                    +${l-d} produse
                   </div>
                   </div>
                     `:""}
@@ -185,4 +185,4 @@ document.addEventListener("DOMContentLoaded",async()=>{if(console.log("Script lo
               </svg>
             </button>
         </div>
-      `,u=document.createElement("div");u.innerHTML=s,c.appendChild(u.firstElementChild);const m=c.querySelector(`#delete-btn-${t.id}`);m&&m.addEventListener("click",async()=>{await x(t.id),window.location.reload()})});async function x(t){try{const{data:a,error:l}=await e.rpc("delete_wishlist",{customer_id:p.toString(),wishlist_id:Number(t)});if(console.log(a),l)throw l;return a}catch(a){return console.error(a.message),null}}});async function y(o){try{const r=await fetch(`/products/${o}.js`),e=await r.json();if(!r.ok)throw new Error("Network response was not ok");return e}catch(r){return console.error(r.message),null}}async function I(o,r,e){try{const{data:i,error:n}=await o.rpc("fetch_wishlist",{customer_id:e.toString(),wishlist_id:Number(r)});if(n)throw n;return i}catch(i){return console.error(i.message),null}}async function v(o,r){try{const{data:e,error:i}=await o.rpc("fetch_wishlists",{customer_id:r.toString()});if(i)throw i;return e}catch(e){return console.error(e.message),null}}async function M(){try{const o=await fetch("/cart.js"),r=await o.json();if(!o.ok)throw new Error("Network response was not ok");return r.currency}catch(o){return console.error(o.message),null}}async function C(o,r,e){try{const{data:i,error:n}=await o.rpc("create_wishlist",{customer_id:r.toString(),wishlist_name:e});if(n)throw n;return i}catch(i){return console.error(i.message),null}}async function _(o,r,e,i){try{const{data:n,error:p}=await o.rpc("add_product_to_wishlist",{customer_id:r.toString(),wishlist_id:e,product_handle:i});if(p)throw p;return n}catch(n){return console.error(n.message),null}}function k(o){const r=(o/100).toFixed(2);return r.endsWith(".00")?r.slice(0,-3):r}
+      `,u=document.createElement("div");u.innerHTML=s,c.appendChild(u.firstElementChild);const m=c.querySelector(`#delete-btn-${t.id}`);m&&m.addEventListener("click",async()=>{await x(t.id),window.location.reload()})});async function x(t){try{const{data:l,error:a}=await e.rpc("delete_wishlist",{customer_id:p.toString(),wishlist_id:Number(t)});if(console.log(l),a)throw a;return l}catch(l){return console.error(l.message),null}}});async function y(o){try{const r=await fetch(`/products/${o}.js`),e=await r.json();if(!r.ok)throw new Error("Network response was not ok");return e}catch(r){return console.error(r.message),null}}async function I(o,r,e){try{const{data:i,error:n}=await o.rpc("fetch_wishlist",{customer_id:e.toString(),wishlist_id:Number(r)});if(n)throw n;return i}catch(i){return console.error(i.message),null}}async function v(o,r){try{const{data:e,error:i}=await o.rpc("fetch_wishlists",{customer_id:r.toString()});if(i)throw i;return e}catch(e){return console.error(e.message),null}}async function M(){try{const o=await fetch("/cart.js"),r=await o.json();if(!o.ok)throw new Error("Network response was not ok");return r.currency}catch(o){return console.error(o.message),null}}async function C(o,r,e){try{const{data:i,error:n}=await o.rpc("create_wishlist",{customer_id:r.toString(),wishlist_name:e});if(n)throw n;return i}catch(i){return console.error(i.message),null}}async function _(o,r,e,i){try{const{data:n,error:p}=await o.rpc("add_product_to_wishlist",{customer_id:r.toString(),wishlist_id:e,product_handle:i});if(p)throw p;return n}catch(n){return console.error(n.message),null}}function k(o){const r=(o/100).toFixed(2);return r.endsWith(".00")?r.slice(0,-3):r}
