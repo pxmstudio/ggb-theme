@@ -23,6 +23,11 @@ export default defineConfig({
         faqs: './src/faqs.ts',
         collection: './src/collection.ts',
         product: './src/product.ts',
+        'collection-filters': './src/collection-filters.ts',
+        cart: './src/cart.ts',
+        supabase: './src/supabase.ts',
+        filters: './src/filters.ts',
+        warranty: './src/warranty.ts',
       },
       output: {
         entryFileNames: '[name].js',

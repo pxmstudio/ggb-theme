@@ -1,0 +1,63 @@
+.brands_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.brands_item {
+  position: relative; /* Necessary for positioning the ::before element */
+  border: 1px solid var(--border-color-primary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  padding-top: 69px;
+  padding-bottom: 69px;
+  overflow: hidden; /* Ensure the inner border stays within the rounded corners */
+  transition: border-color 0.3s ease;
+}
+
+.brands_item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px dashed var(--border-color-secondary);
+  border-radius: 16px; /* Slightly smaller to create an inset effect */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease; /* Smooth fade-in effect on hover */
+  pointer-events: none; /* Ensure it doesn’t interfere with hover detection */
+}
+
+.brands_item:hover::before {
+  opacity: 1; /* Make the inner border visible on hover */
+}
+.brands_item:hover {
+  border: 1px solid transparent;
+}
+
+/* Tablet view (3 columns) */
+@media (max-width: 992px) {
+  .grid-4-column {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .brands_item {
+    padding: 20px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+/* Mobile view (2 columns) */
+@media (max-width: 768px) {
+  .grid-4-column {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brands_wrapper {
+    gap: 24px;
+  }
+}

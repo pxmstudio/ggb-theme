@@ -7,9 +7,9 @@
           <div class="lg:col-span-3">
             {% render 'account-sidebar' %}
           </div>
-          <div class="lg:col-span-9">
-            {% comment %} {% render 'wishlist-index' %} {% endcomment %}
-            {% render 'wishlist-detail' %}
+          <div class="lg:col-span-9" id="container" data-customer-id="{{customer.id}}">
+            {% comment %} {% render 'wishlist-index', wishlists: [1,2,3] %} {% endcomment %}
+            {% comment %} {% render 'wishlist-detail' %} {% endcomment %}
           </div>
         </div>
       {% else %}
@@ -17,7 +17,13 @@
           <p class="text-text-primary text-lg font-medium">
             Pentru a putea vedea lista de favorite, trebuie să fiți autentificat.
           </p>
-          {% render 'button', text: 'Autentificare', type: 'link', hierarchy: 'primary', class: 'w-full' %}
+          {% render 'button',
+            text: 'Autentificare',
+            type: 'link',
+            hierarchy: 'primary',
+            class: 'w-full',
+            href: '/account/login'
+          %}
         </div>
       {% endif %}
     </div>

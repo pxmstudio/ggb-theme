@@ -1,0 +1,430 @@
+.section_header {
+  position: fixed;
+  top: 0; /* Keeps it at the top of the page */
+  left: 50%; /* Moves it to the center horizontally */
+  transform: translateX(-50%); /* Centers it exactly by shifting half its width to the left */
+  background-color: var(--background-color-primary);
+  z-index: 999;
+  width: 100%; /* Full width */
+
+  margin: 0 auto;
+}
+
+.header_button {
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-brand-turquoise);
+  border: none;
+  border-radius: 60px;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 300ms ease;
+}
+.header_button:hover {
+  background-color: var(--color-brand-orange);
+}
+
+.header_wrapper {
+  width: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header_right {
+  flex-grow: 1; /* Takes up the remaining available space */
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 24px;
+}
+
+.header_button-icon {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+.header_link {
+  color: var(--text-color-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 300ms ease; /* Add this line */
+  white-space: nowrap;
+}
+
+.header_link:hover {
+  color: var(--text-color-primary);
+}
+
+.header_account-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* General styling for the form */
+/* General styling for the form min-width: 500px; */
+.header_search-form {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  background-color: var(--background-color-secondary);
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+/* SVG as a clickable icon to trigger the select */
+
+.dropdown-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  pointer-events: none;
+}
+
+/* Divider Styling */
+.divider {
+  width: 1px;
+  height: 100%; /* Ensures divider takes full height of its parent */
+  min-height: 2rem; /* Sets a minimum height */
+  background-color: var(--border-color-primary);
+  margin: 0 0.75rem;
+}
+
+/* Styling for the search input */
+.header_search-input {
+  flex-grow: 1; /* Takes up remaining space */
+  border-radius: 0.25rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: var(--text-color-primary);
+  outline: none;
+  min-width: 0; /* Allows it to shrink properly */
+}
+
+/* Placeholder styling */
+.header_search-input::placeholder {
+  color: var(--text-color-secondary);
+}
+
+/* Remove focus outline on select and input */
+.header_search-input:focus,
+.header_category-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Styling for the search button */
+.header_search-button {
+  width: 3rem;
+  min-width: 3rem;
+  height: 3rem;
+  background: var(--background-color-primary);
+  border: none;
+  border-radius: 60px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header_search-input:focus {
+  color: var(--text-color-primary);
+}
+
+.header_category-dropdown {
+  display: flex;
+  align-items: center;
+}
+
+.header_category-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 0.25rem;
+}
+
+.header_category-select {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  max-width: 6rem;
+  font-size: 1rem;
+  color: var(--text-color-priamry);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  padding-right: 1rem;
+}
+
+.dropdown-icon-wrapper {
+  position: absolute;
+  right: 0rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  pointer-events: none; /* Makes the icon non-interactive */
+}
+
+.header_category-select option {
+  padding: 0.5rem 1rem; /* Controls the spacing within each option */
+}
+
+/* Styling for select dropdown in certain browsers (may not work in all) */
+.header_category-select option:checked,
+.header_category-select option:hover {
+  background-color: var(--background-color-primary); /* Attempt to set hover color */
+  color: white;
+}
+
+/* Styling for custom select wrapper */
+.custom-select {
+  width: 6rem;
+  position: relative;
+  font-family: Arial;
+  color: var(--text-color-primary);
+}
+
+/* Hide the original select */
+.custom-select select {
+  display: none;
+}
+
+/* Selected item display (initial visible item) */
+.select-selected {
+  color: var(--text-color-primary);
+  padding-right: 1rem;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Remove this section to hide the arrow */
+/* .select-selected:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: var(--text-color-secondary) transparent transparent transparent;
+} */
+
+/* Dropdown items container */
+.select-items {
+  position: absolute;
+  background-color: var(--background-color-primary);
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border: 1px solid var(--border-color-primary);
+  border-radius: 1rem;
+  display: none;
+  width: 10rem;
+  overflow: hidden;
+}
+
+/* Show dropdown items */
+.select-items.select-hide {
+  display: none;
+}
+
+.select-selected.select-arrow-active + .select-items {
+  display: block;
+}
+
+/* Style each option in the dropdown */
+
+.select-selected {
+  max-width: 5rem !important;
+  height: 1.5rem;
+  color: var(--text-color-primary);
+  cursor: pointer;
+  padding-right: 1rem;
+  font-size: 1rem;
+  white-space: nowrap; /* Prevents text wrapping */
+  transition: background-color 0.3s ease;
+  text-overflow: ellipsis; /* Adds "..." if text is too long */
+}
+
+/* Hover effect for each option */
+.select-items div:hover,
+.same-as-selected {
+  background-color: var(--background-color-secondary) !important;
+}
+
+/* Adjust dropdown color and spacing */
+.select-items div {
+  border-top: 1px solid var(--border-color-primary);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.select-items div:first-child {
+  border-top: none;
+}
+
+.select-items {
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+.header_mobile-dropdown {
+  display: flex;
+  gap: 24px; /* Adds a gap of 24px between child elements */
+  align-items: center; /* Vertically aligns items to the center */
+  justify-content: right; /* Horizontally centers items */
+}
+.header_mobile-button {
+  display: none;
+}
+@media (max-width: 1250px) and (min-width: 992px) {
+  .header_search-form {
+    width: 45%;
+  }
+  .header_mobile-dropdown,
+  .header_right {
+    gap: 0.75rem;
+  }
+  .header_account-link {
+    gap: 0.5rem;
+  }
+  .header_right {
+    justify-content: right;
+    width: auto;
+    margin-left: auto;
+    max-width: 80%;
+  }
+  .header_wrapper {
+    justify-content: left;
+    overflow: hidden;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .header_mobile-button {
+    display: block;
+    position: relative;
+    width: 1.5rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    z-index: 999;
+  }
+
+  .menu-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Adjust to fit inside the button */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent interactions with hidden images */
+  }
+
+  .menu-open {
+    opacity: 1; /* Initially visible */
+    pointer-events: auto; /* Allow interactions */
+  }
+  .header_button {
+    z-index: 999;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .header_button-icon {
+    height: 1.5rem;
+  }
+
+  .header_wrapper {
+    padding: 1rem 0rem;
+  }
+
+  .button_account {
+    width: 2rem;
+    height: 2rem;
+  }
+  .button_account-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  .header_account-link {
+    z-index: 999;
+    gap: 0.5rem;
+  }
+
+  @keyframes slideDown {
+    from {
+      max-height: 0;
+      opacity: 0;
+    }
+    to {
+      max-height: 300px;
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      max-height: 300px;
+      opacity: 1;
+    }
+    to {
+      max-height: 0;
+      opacity: 0;
+    }
+  }
+
+  .header_mobile-dropdown {
+    box-sizing: border-box;
+    display: flex; /* Keeps the element in the DOM for animation */
+    flex-direction: column; /* Arranges items vertically */
+    justify-content: flex-start; /* Align items at the top */
+    align-items: flex-start; /* Align items to the left */
+    padding-left: 1rem; /* Adds padding to the left */
+    padding-right: 1rem; /* Adds padding to the right */
+    padding-top: 6rem;
+
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    max-width: 100vw;
+    overflow: hidden;
+
+    position: fixed; /* Stays fixed relative to the viewport */
+    top: 0; /* Starts from the top */
+    left: 0; /* Starts from the left */
+
+    background-color: white; /* Background color */
+    z-index: 998; /* Ensure it appears above other elements */
+
+    opacity: 0; /* Hidden initially */
+    visibility: hidden; /* Visually hide the element */
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Smooth fade-in/fade-out */
+  }
+
+  .header_mobile-dropdown.open {
+    opacity: 1 !important; /* Fade in */
+    visibility: visible !important; /* Make visible */
+    pointer-events: auto !important; /* Allow interaction */
+  }
+
+  .header_search-form {
+    box-sizing: border-box;
+
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* Prevent overflowing content */
+  }
+}

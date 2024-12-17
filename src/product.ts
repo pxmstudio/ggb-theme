@@ -202,11 +202,11 @@ class ProductGallery {
   private init(): void {
     // Set initial active button
     this.activeButton = this.config.thumbnailButtons[0] || null;
-    
+
     // Add click listeners to thumbnail buttons
-    this.config.thumbnailButtons.forEach(button => {
+    this.config.thumbnailButtons.forEach((button) => {
       button.addEventListener('click', () => this.handleThumbnailClick(button));
-      
+
       // Set initial active state
       if (button.dataset.active === 'true') {
         this.activeButton = button;
@@ -276,19 +276,21 @@ class ProductGallery {
     newActiveButton.setAttribute('aria-selected', 'true');
 
     // Dispatch custom event
-    this.config.container.dispatchEvent(new CustomEvent('gallery-change', {
-      detail: { 
-        button: newActiveButton,
-        index: Array.from(this.config.thumbnailButtons).indexOf(newActiveButton)
-      },
-      bubbles: true
-    }));
+    this.config.container.dispatchEvent(
+      new CustomEvent('gallery-change', {
+        detail: {
+          button: newActiveButton,
+          index: Array.from(this.config.thumbnailButtons).indexOf(newActiveButton),
+        },
+        bubbles: true,
+      })
+    );
   }
 
   private updateMainImage(src: string, alt: string): void {
     // Add loading state
     this.config.mainImage.style.opacity = '0.5';
-    
+
     // Create new image to preload
     const newImage = new Image();
     newImage.onload = () => {
@@ -305,7 +307,7 @@ class ProductGallery {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // Initialize number inputs
   document.querySelectorAll<HTMLElement>('[pxm-input="number"]').forEach((container) => {
     const input = container.querySelector<HTMLInputElement>('input');
@@ -341,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Initialize product image galleries
-  document.querySelectorAll<HTMLElement>('[pxm-product="image-gallery"]').forEach(container => {
+  document.querySelectorAll<HTMLElement>('[pxm-product="image-gallery"]').forEach((container) => {
     const mainImage = container.querySelector<HTMLImageElement>('[pxm-product="image-gallery-img"]');
     const thumbnailButtons = container.querySelectorAll<HTMLButtonElement>('[pxm-product="image-gallery-btn"]');
 
@@ -349,8 +351,154 @@ document.addEventListener('DOMContentLoaded', () => {
       new ProductGallery({
         container,
         mainImage,
-        thumbnailButtons
+        thumbnailButtons,
       });
     }
   });
+
+  // Recently viewed products
+  const recentlyViewedProductsElement = document.getElementById('recently-viewed-products');
+
+  if (!recentlyViewedProductsElement) {
+    console.warn(recentlyViewedProductsElement);
+    return;
+  }
+
+  let recentlyViewedProducts = getCookie('recentlyViewedProducts');
+
+  if (!recentlyViewedProducts) {
+    setCookie('recentlyViewedProducts', '', 7);
+    recentlyViewedProducts = getCookie('recentlyViewedProducts');
+  }
+
+  const productHandle = recentlyViewedProductsElement.dataset.productHandle as string;
+  if (!productHandle) {
+    console.warn('Product ID was not found.');
+    return;
+  }
+
+  const newRecentlyViewedProducts = addRecentlyViewedProduct(productHandle, recentlyViewedProducts);
+  setCookie('recentlyViewedProducts', newRecentlyViewedProducts, 7);
+
+  // Display recently viewed products
+  const products = recentlyViewedProducts.split(',');
+
+  for (const handle of products) {
+    const product = await productAPI.getProduct(handle);
+    if (product) {
+      const productHtml = `
+        <a href="${product.url}" class="w-full h-full group" pxm-product="item">
+          <div class="w-full aspect-square relative rounded-2xl overflow-hidden border border-border-primary">
+            <img
+              src="${product.featured_image}"
+              width="auto"
+              height="300"
+              class="absolute top-0 bottom-0 left-0 right-0 object-cover object-center w-full h-full group-hover:scale-110 global-transition"
+              pxm-product="image"
+            >
+            ${
+              product.compare_at_price > product.price
+                ? `
+              <span
+                class="absolute top-0 left-0 bg-error-red text-white px-2 py-1 rounded-br-2xl text-sm font-medium"
+                pxm-product="discount"
+              >
+                Reducere ${Math.round(
+                  ((product.compare_at_price - product.price) * 100.0) / product.compare_at_price
+                )}%
+              </span>
+              `
+                : ''
+            }
+          </div>
+          <div class="pt-4">
+            <h3 class="text-text-primary lg:text-lg font-semibold leading-normal mb-2" pxm-product="title">
+              ${product.title}
+            </h3>
+            <div class="flex items-center gap-4">
+              <p class="text-text-secondary lg:text-lg font-semibold line-through" pxm-product="compare-price">
+                 ${productAPI.formatMoneyWithoutTrailingZeros(product.compare_at_price)} ${(window as any).shopCurrency}
+              </p>
+              <p
+                class="${
+                  product.compare_at_price > product.price ? 'text-error-red' : 'text-text-primary'
+                } font-semibold lg:text-lg"
+                pxm-product="price"
+              >
+                ${productAPI.formatMoneyWithoutTrailingZeros(product.price)} ${(window as any).shopCurrency}
+              </p>
+            </div>
+          </div>
+        </a>
+      `;
+
+      recentlyViewedProductsElement.innerHTML += productHtml
+    }
+  }
 });
+
+function addRecentlyViewedProduct(productHandle: string, recentlyViewedProducts: string) {
+  const MAX_RECENTLY_VIEWED_PRODUCTS = 6;
+
+  const newRecentlyViewedProducts: string[] = recentlyViewedProducts.split(',').filter((product) => product !== '');
+  // const id = productId.split('gid://shopify/Product/')[1];
+
+  if (newRecentlyViewedProducts.includes(productHandle)) {
+    newRecentlyViewedProducts.splice(newRecentlyViewedProducts.indexOf(productHandle), 1);
+  }
+
+  newRecentlyViewedProducts.unshift(productHandle);
+
+  if (newRecentlyViewedProducts.length > MAX_RECENTLY_VIEWED_PRODUCTS) {
+    newRecentlyViewedProducts.pop();
+  }
+
+  return newRecentlyViewedProducts.join(',');
+}
+
+const productAPI = {
+  getProduct: async (handle: string) => {
+    try {
+      const productResponse = await fetch(`/products/${handle}.js`);
+      const product = await productResponse.json();
+
+      if (!productResponse.ok) throw new Error('Network response was not ok');
+
+      return product;
+    } catch (error: any) {
+      console.error(error.message);
+      return null;
+    }
+  },
+  formatMoneyWithoutTrailingZeros: (amount: any) => {
+    const formatted = (amount / 100).toFixed(2);
+    return formatted.endsWith('.00') ? formatted.slice(0, -3) : formatted;
+  }
+};
+
+function getCookie(cname: string) {
+  let name = cname + '=';
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+}
+
+function setCookie(name: string, value: any, days: number) {
+  let expires = '';
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = `; expires=${date.toUTCString()}`;
+  }
+
+  document.cookie = `${name}=${value ?? ''}; ${expires}; path=/`;
+}

@@ -8,7 +8,25 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {},
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "main_menu": "new-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "newsletter_title": "Abonează-te la newsletter-ul nostru ca sa afli primul despre cele mai bune oferte!",
+          "newsletter_button": "Aboneaza-te",
+          "newsletter_disclaimer": "<p>Sunt de acord cu <a href=\"/legal/politica-de-confidentialitate\">politica de confidentialitate</a>.</p>"
+        }
+      }
+    },
+    "content_for_index": []
+  },
   "presets": {
     "Default": {}
   }
