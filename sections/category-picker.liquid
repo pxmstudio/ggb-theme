@@ -3,7 +3,7 @@
     <div class="container-large">
       <div class="grid lg:grid-cols-12 gap-5">
         <div class="lg:col-span-3 p-2.5 border-2 border-dashed border-border-secondary rounded-2xl flex lg:flex-col overflow-x-auto">
-          {% for collection in collections %}
+          {% for collection in collections limit: 8 %}
             {% if collection.metafields.custom.parent_collection == blank %}
               <button
                 class="lg:w-full flex items-center gap-3 flex-shrink-0 w-max text-text-secondary text-base font-medium px-4 lg:px-6 py-4 global-transition hover:bg-bg-alternate hover:text-white justify-start rounded-[12rem] leading-none group"
@@ -92,8 +92,7 @@
   ],
   "presets": [
     {
-      "name": "Default",
-      "category": "Category Picker"
+      "name": "Default"
     }
   ]
 }
