@@ -1,49 +1,58 @@
+{% capture filtered_collections %}
+  {% for collection in collections %}
+    {% if collection.metafields.custom.parent_collection == blank
+      and collection.metafields.custom.is_featured == true
+    %}
+      {{ collection.handle }}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% assign filtered_collection_handles = filtered_collections | split: ' ' %}
+
 <section class="pb-16">
   <div class="global-padding">
     <div class="container-large">
       <div class="grid lg:grid-cols-12 gap-5">
         <div class="lg:col-span-3 p-2.5 border-2 border-dashed border-border-secondary rounded-2xl flex lg:flex-col overflow-x-auto">
-          {% for collection in collections limit: 8 %}
-            {% if collection.metafields.custom.parent_collection == blank
-              and collection.metafields.custom.is_featured == true
-            %}
-              <button
-                class="lg:w-full flex items-center gap-3 flex-shrink-0 w-max text-text-secondary text-base font-medium px-4 lg:px-6 py-4 global-transition hover:bg-bg-alternate hover:text-white justify-start rounded-[12rem] leading-none group"
-                pxm-category-picker="trigger"
-                pxm-collection-handle="{{ collection.handle }}"
-              >
-                <div class="flex items-center gap-3 flex-grow">
-                  {% if collection.metafields.custom.icon != blank %}
-                    <div class="w-5 h-5 flex items-center justify-center">
-                      <img
-                        src="{{ collection.metafields.custom.icon | image_url: width: 100 }}"
-                        width="20"
-                        height="20"
-                        alt="{{ collection.title }} icon"
-                        class="w-full h-full object-contain object-center group-hover:hidden"
-                      >
-                      <img
-                        src="{{ collection.metafields.custom.icon_white | image_url: width: 100 }}"
-                        width="20"
-                        height="20"
-                        alt="{{ collection.title }} icon"
-                        class="w-full h-full object-contain object-center hidden group-hover:block"
-                      >
-                    </div>
-                  {% endif %}
-                  <span>
-                    {{ collection.title }}
-                  </span>
-                </div>
-                <div class="w-4 h-4 flex items-center justify-center">
-                  {% render 'icon-arrow-right',
-                    class: 'w-6 h-6 flex-shrink-0 hidden group-hover:block',
-                    width: 24,
-                    height: 24
-                  %}
-                </div>
-              </button>
-            {% endif %}
+          {% for collection_handle in filtered_collection_handles limit: 8 %}
+            {% assign collection = collections | where: 'handle', collection_handle | first %}
+            <button
+              class="lg:w-full flex items-center gap-3 flex-shrink-0 w-max text-text-secondary text-base font-medium px-4 lg:px-6 py-4 global-transition hover:bg-bg-alternate hover:text-white justify-start rounded-[12rem] leading-none group"
+              pxm-category-picker="trigger"
+              pxm-collection-handle="{{ collection.handle }}"
+            >
+              <div class="flex items-center gap-3 flex-grow">
+                {% if collection.metafields.custom.icon != blank %}
+                  <div class="w-5 h-5 flex items-center justify-center">
+                    <img
+                      src="{{ collection.metafields.custom.icon | image_url: width: 100 }}"
+                      width="20"
+                      height="20"
+                      alt="{{ collection.title }} icon"
+                      class="w-full h-full object-contain object-center group-hover:hidden"
+                    >
+                    <img
+                      src="{{ collection.metafields.custom.icon_white | image_url: width: 100 }}"
+                      width="20"
+                      height="20"
+                      alt="{{ collection.title }} icon"
+                      class="w-full h-full object-contain object-center hidden group-hover:block"
+                    >
+                  </div>
+                {% endif %}
+                <span>
+                  {{ collection.title }}
+                </span>
+              </div>
+              <div class="w-4 h-4 flex items-center justify-center">
+                {% render 'icon-arrow-right',
+                  class: 'w-6 h-6 flex-shrink-0 hidden group-hover:block',
+                  width: 24,
+                  height: 24
+                %}
+              </div>
+            </button>
           {% endfor %}
         </div>
         <div class="lg:col-span-9 p-5 rounded-2xl overflow-hidden relative border border-border-primary flex items-start justify-start global-transition min-h-80 lg:h-auto">
