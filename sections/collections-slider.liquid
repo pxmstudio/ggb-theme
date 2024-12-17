@@ -11,9 +11,11 @@
       <div class="swiper" pxm-swiper="swiper" pxm-slides-per-view="4" pxm-slides-space-between="20">
         <div class="swiper-wrapper">
           {% for collection in collections %}
-            <div class="swiper-slide">
-              {% render 'collection-card', collection: collection %}
-            </div>
+            {% if collection.image != blank %}
+              <div class="swiper-slide">
+                {% render 'collection-card', collection: collection %}
+              </div>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
