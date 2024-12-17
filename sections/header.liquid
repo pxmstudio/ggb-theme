@@ -20,7 +20,7 @@
           <div class="hidden lg:block" pxm-nav="menu">
             <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full">
               <div class="flex flex-col lg:flex-row gap-6 items-center justify-end">
-                {% for link in linklists['main-menu'].links %}
+                {% for link in linklists[section.settings.main_menu].links %}
                   <a
                     href="{{ link.url }}"
                     class="text-text-secondary hover:text-text-primary text-xl lg:text-base font-medium global-transition whitespace-nowrap hover:text-primary"
@@ -147,3 +147,18 @@
     </div>
   </header>
 </div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main Menu",
+      "default": "main-menu"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}
