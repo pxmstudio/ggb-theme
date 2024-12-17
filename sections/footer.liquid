@@ -76,7 +76,7 @@
         </div>
         <div class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
           <p class="text-[#6E6E6E] text-sm font-medium leading-normal">© {{ 'now' | date: '%Y' }} Gogobaby</p>
-          {% for link in linklists[section.settings.footer_secondary_menu].links %}
+          {% for link in linklists['footer-secondary-menu'].links %}
             <a
               href="{{ link.url }}"
               class="text-[#6E6E6E] global-transition hover:text-text-alternate text-sm font-medium leading-normal"
@@ -117,6 +117,7 @@
       "id": "footer_menu",
       "label": "Footer Menu",
       "default": "footer"
+
     },
     {
       "type": "link_list",
