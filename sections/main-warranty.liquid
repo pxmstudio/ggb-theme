@@ -5,59 +5,107 @@
         <h1 class="heading-h1 text-text-primary text-center mb-6 lg:mb-14">{{ section.settings.title }}</h1>
 
         <div class="bg-bg-primary rounded-3xl border-2 lg:border-[3px] border-dashed border-border-secondary p-6 lg:p-8">
-          {% form 'contact', class: 'flex flex-col gap-4 lg:gap-6' %}
-            {% render 'input',
-              label: 'Nume',
-              id: 'name',
-              name: 'contact[name]',
-              required: true,
-              placeholder: 'Nume...'
-            %}
-            {% render 'input',
-              label: 'Email',
-              type: 'email',
-              id: 'email',
-              name: 'contact[email]',
-              required: true,
-              placeholder: 'Email...'
-            %}
-            {% render 'input',
-              label: 'Telefon',
-              id: 'phone',
-              name: 'contact[phone]',
-              required: true,
-              placeholder: 'Telefon...'
-            %}
-            {% render 'input',
-              label: 'Numar comanda',
-              id: 'order_number',
-              name: 'contact[order_number]',
-              required: true,
-              placeholder: 'Numar comanda...'
-            %}
-            {% render 'input',
-              label: 'Produsul',
-              id: 'product',
-              name: 'contact[product]',
-              required: true,
-              placeholder: 'Produsul...'
-            %}
-            {% render 'text-area',
-              label: 'Descrierea problemei',
-              id: 'message',
-              name: 'contact[body]',
-              required: true,
-              placeholder: 'Scrie aici defectele produsului...'
-            %}
-            {% render 'input-checkbox',
-              label: 'Sunt de acord cu <a href="/policies/terms-and-conditions" target="_blank" class="text-text-secondary global-transition hover:text-text-primary">Termenii si Conditiile</a>',
-              id: 'legal',
-              name: 'contact[legal]',
-              required: true
-            %}
+          <div id="response-message" class=""></div>
+          <form
+            id="warranty-form"
+            class="flex flex-col gap-4 lg:gap-6"
+            data-customer-id="{{customer.id}}"
+          >
+            {% if customer %}
+              <input type="hidden" name="customerId" value="{{ customer.id }}">
+            {% endif %}
+            <div class="inline-flex flex-col gap-2 lg:gap-3">
+              <label class="text-text-primary font-medium lg:text-lg"> Nume * </label>
+              <input
+                id="name"
+                name="nume"
+                placeholder="Nume..."
+                type="text"
+                class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg"
+                required="true"
+              >
+            </div>
+            <div class="inline-flex flex-col gap-2 lg:gap-3">
+              <label class="text-text-primary font-medium lg:text-lg"> Email * </label>
+              <input
+                id="name"
+                name="email"
+                placeholder="Email..."
+                type="text"
+                class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg"
+                required="true"
+              >
+            </div>
+            <div class="inline-flex flex-col gap-2 lg:gap-3">
+              <label class="text-text-primary font-medium lg:text-lg"> Telefon * </label>
+              <input
+                id="name"
+                name="telefon"
+                placeholder="Telefon..."
+                type="text"
+                class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg"
+                required="true"
+              >
+            </div>
+            <div class="inline-flex flex-col gap-2 lg:gap-3">
+              <label class="text-text-primary font-medium lg:text-lg"> Numar comanda * </label>
+              <input
+                id="name"
+                name="numar_comanda"
+                placeholder="Numar comanda..."
+                type="text"
+                class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg"
+                required="true"
+              >
+            </div>
+            <div class="inline-flex flex-col gap-2 lg:gap-3">
+              <label class="text-text-primary font-medium lg:text-lg"> Produsul * </label>
+              <input
+                id="name"
+                name="produs"
+                placeholder="Produsul..."
+                type="text"
+                class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg"
+                required="true"
+              >
+            </div>
+            <div class="inline-flex flex-col gap-2 lg:gap-3">
+              <label class="text-text-primary font-medium lg:text-lg"> Descrierea problemei * </label>
+              <textarea
+                id="description"
+                name="descriere"
+                placeholder="Scrie aici defectele produsului..."
+                class="bg-bg-secondary border border-border-primary p-3 lg:py-4 lg:px-6 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg h-32 lg:h-44"
+                required="true"
+              ></textarea>
+            </div>
+            <div class="inline-flex items-center gap-2 lg:gap-3">
+              <input
+                id="legal"
+                name="termeni_si_conditii"
+                type="checkbox"
+                class="bg-bg-secondary border border-border-primary w-6 h-6 lg:w-8 lg:h-8 rounded-lg text-text-primary placeholder:text-text-secondary lg:text-lg hover:text-brand-turquoise"
+                required="true"
+              >
+              <label for="legal" class="text-text-secondary font-medium lg:text-lg">
+                Sunt de acord cu
+                <a
+                  href="/policies/terms-and-conditions"
+                  target="_blank"
+                  class="text-text-secondary global-transition hover:text-text-primary"
+                  >Termenii si Conditiile</a
+                >
+                *
+              </label>
+            </div>
             <div class="g-recaptcha" data-sitekey="{{ shop.recaptcha_public_key }}"></div>
-            {% render 'button', type: 'button', hierarchy: 'primary', text: 'Trimite', class: 'w-full' %}
-          {% endform %}
+            <button
+              type="submit"
+              class="h-12 py-3 px-4 rounded-3xl text-lg font-semibold inline-flex items-center justify-center bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition w-full"
+            >
+              Trimite
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -77,3 +125,34 @@
   ]
 }
 {% endschema %}
+
+<script>
+  const warrantyForm = document.getElementById('warranty-form');
+
+  warrantyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = 'https://gogobaby-api.pixelmakers.workers.dev/warranty-form';
+
+    const formData = new FormData(warrantyForm);
+    const responseMessage = document.getElementById('response-message');
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        responseMessage.textContent =
+          'Formularul a fost trimis cu succes. Vă vom contacta în cel mai scurt timp posibil.';
+        warrantyForm.remove();
+      } else {
+        responseMessage.textContent =
+          'A fost o eroare și nu s-a putut trimite formularul. Vă rugăm să incercați mai târziu.';
+        warrantyForm.remove();
+      }
+    } catch (error) {
+      console.log('Warranty: ', error.message);
+    }
+  });
+</script>

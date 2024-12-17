@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const priceFilter = document.querySelector('[pxm-filter="price"]');
-
-  if (priceFilter) {
-    if (rangeSlider) {
-      rangeSlider(priceFilter);
-    }
-  }
-
   const filters = document.querySelector<HTMLElement>('[pxm-filter="filters"]');
   const toggleFilters = document.querySelector<HTMLButtonElement>('[pxm-filter="toggle-filters"]');
 

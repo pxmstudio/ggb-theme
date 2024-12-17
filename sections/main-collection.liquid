@@ -1,23 +1,6 @@
 <section>
   <div class="global-padding py-6">
     <div class="container-large">
-      <div class="overflow-x-auto rounded-[0.25rem] border border-border-primary mb-12">
-        <div class="flex items-center gap-3 p-3">
-          {% for related_collection in collections %}
-            {% if related_collection.metafields.custom.parent_collection != blank %}
-              {% assign related_collection_id = related_collection.metafields.custom.parent_collection
-                | split: '/'
-                | last
-                | plus: 0
-              %}
-
-              {% if related_collection_id == collection.id %}
-                {% render 'subcollection-item', collection: related_collection %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
       <div class="flex items-center gap-3 mb-8">
         <a href="/collections" class="text-text-secondary font-medium global-transition hover:text-text-primary"
           >Collections</a
@@ -27,129 +10,45 @@
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div class="lg:col-span-3">
-          <div class="flex flex-col gap-8 border border-border-primary rounded-xl py-4 lg:py-6 px-4">
-            <div class="flex items-center justify-between w-full gap-4">
-              <h2 class="heading-h5 text-text-primary">Filtre</h2>
-              <div class="flex items-center gap-6">
-                <button class="text-neutral-neutral global-transition hover:text-text-primary">Șterge filtrele</button>
-                <button class="lg:hidden global-transition" pxm-filter="toggle-filters">
-                  {% render 'icon-chevron-down', width: 24, height: 24 %}
-                </button>
-              </div>
-            </div>
-            <div class="hidden lg:flex flex-col gap-8" pxm-filter="filters">
-              <p class="text-text-primary font-medium">Se afișează 40 de produse</p>
-              <div>
-                {% render 'filter-title', title: 'Subcategorii' %}
-                <div class="flex flex-col">
-                  {% for related_collection in collections %}
-                    {% if related_collection.metafields.custom.parent_collection != blank %}
-                      {% assign related_collection_id = related_collection.metafields.custom.parent_collection
-                        | split: '/'
-                        | last
-                        | plus: 0
-                      %}
-
-                      {% if related_collection_id == collection.id %}
-                        {% render 'filter-subcollection',
-                          title: related_collection.title,
-                          href: related_collection.handle
-                        %}
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Preț' %}
-                <div class="flex flex-col">
-                  {% assign max_price = 0 %}
-                  {% for product in collection.products %}
-                    {% if product.price > max_price %}
-                      {% assign max_price = product.price %}
-                    {% endif %}
-                  {% endfor %}
-                  <div>
-                    <div pxm-filter="price" data-min="0" data-max="{{ max_price }}" class="mb-2"></div>
-                    <div class="flex items-center justify-between">
-                      <p>{{ 0 | money_without_trailing_zeros }}</p>
-                      <p>
-                        {{ max_price | money_without_trailing_zeros }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Vârsta' %}
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', id: 'age-0-6', name: 'age-0-6', label: '0-6 luni' %}
-                  {% render 'input-checkbox', id: 'age-6-12', name: 'age-6-12', label: '6-12 luni' %}
-                  {% render 'input-checkbox', id: 'age-12-18', name: 'age-12-18', label: '12-18 luni' %}
-                  {% render 'input-checkbox', id: 'age-3-6', name: 'age-3-6', label: '3-6 ani' %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Producător' %}
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                  {% render 'input-checkbox', id: 'producer-akuku', name: 'producer-akuku', label: 'akuku' %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Afișează' %}
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', label: 'Noutăți' %}
-                  {% render 'input-checkbox', label: 'Promoții' %}
-                </div>
-              </div>
-              <div>
-                {% render 'filter-title', title: 'Culoare' %}
-                <div class="grid grid-cols-5 gap-2">
-                  {% render 'filter-color', id: 'color-red', name: 'color-red', color: 'red' %}
-                  {% render 'filter-color', id: 'color-green', name: 'color-green', color: 'green' %}
-                  {% render 'filter-color', id: 'color-yellow', name: 'color-yellow', color: 'yellow' %}
-                  {% render 'filter-color', id: 'color-blue', name: 'color-blue', color: 'blue' %}
-                  {% render 'filter-color', id: 'color-black', name: 'color-black', color: 'black' %}
-                  {% render 'filter-color', id: 'color-white', name: 'color-white', color: 'white' %}
-                  {% render 'filter-color', id: 'color-orange', name: 'color-orange', color: 'orange' %}
-                  {% render 'filter-color', id: 'color-rainbow', name: 'color-rainbow', color: 'rainbow' %}
-                </div>
-              </div>
-              <div>
-                <h3 class="text-xl leading-normal text-text-alternate font-semibold mb-4">Pentru cine</h3>
-                <div class="flex flex-col gap-2">
-                  {% render 'input-checkbox', label: 'Băieței' %}
-                  {% render 'input-checkbox', label: 'Fetițe' %}
-                  {% render 'input-checkbox', label: 'Unisex' %}
-                </div>
-              </div>
-            </div>
-          </div>
+          {% render 'filters', location: 'collection' %}
         </div>
         <div class="lg:col-span-9">
           <div class="flex lg:flex-row flex-col justify-end items-center gap-3 mb-12">
             {% render 'filter-search',
               id: 'search',
-              name: 'search',
+              name: 'q',
               placeholder: 'Caută produs...',
               class: 'w-full lg:w-[23.75rem]'
             %}
 
             {% render 'filter-select',
-              id: 'sort',
-              name: 'sort',
-              options: 'Crescător, Descrescător, Preț, Noutăți',
+              id: 'sort_by',
+              name: 'sort_by',
+              options: 'Crescător, Descrescător, Noutăți',
               placeholder: 'Sortează',
               class: 'w-full lg:w-fit'
             %}
           </div>
-          <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {% for product in collection.products %}
-              {% render 'product-card', product: product %}
-            {% endfor %}
+          <div class="flex flex-col gap-4">
+            {% paginate collection.products by section.settings.products_per_page %}
+              <div class="grid grid-cols-2 lg:grid-cols-3 gap-5" id="product-grid">
+                {% for product in collection.products %}
+                  {% render 'product-card', product: product %}
+                {% endfor %}
+              </div>
+
+              <div class="mt-auto">
+                {%- if paginate.pages > 1 -%}
+                  {% render 'pagination', paginate: paginate, anchor: '' %}
+                {%- endif -%}
+              </div>
+
+              {% render 'infinite-scroll',
+                next_page: paginate.next.url,
+                page_size: paginate.pages,
+                end_text: 'You reached the end...'
+              %}
+            {% endpaginate %}
           </div>
         </div>
       </div>
@@ -179,7 +78,17 @@
 {% schema %}
 {
   "name": "Main Collection",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 32,
+      "step": 8,
+      "default": 8,
+      "label": "products_per_page"
+    }
+  ],
   "blocks": []
 }
 {% endschema %}

@@ -1,0 +1,94 @@
+<section>
+  <div class="global-padding py-6">
+    <div class="container-large">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-3">
+          {% render 'filters', location: 'search' %}
+        </div>
+        <div class="lg:col-span-9">
+          <div class="flex lg:flex-row flex-col justify-end items-center gap-3 mb-12">
+            {% render 'filter-search',
+              id: 'search',
+              name: 'q',
+              placeholder: 'Caută produs...',
+              class: 'w-full lg:w-[23.75rem]'
+            %}
+
+            {% render 'filter-select',
+              id: 'sort_by',
+              name: 'sort_by',
+              options: 'Crescător, Descrescător, Noutăți',
+              placeholder: 'Sortează',
+              class: 'w-full lg:w-fit'
+            %}
+          </div>
+          <div class="flex flex-col gap-4">
+            {% paginate search.results by section.settings.products_per_page %}
+              <div class="grid grid-cols-2 lg:grid-cols-3 gap-5" id="product-grid">
+                {% for product in search.results %}
+                  {% render 'product-card', product: product %}
+                {% endfor %}
+              </div>
+
+              <div class="mt-auto">
+                {%- if paginate.pages > 1 -%}
+                  {% render 'pagination', paginate: paginate, anchor: '' %}
+                {%- endif -%}
+              </div>
+
+              {% render 'infinite-scroll',
+                next_page: paginate.next.url,
+                page_size: paginate.pages,
+                end_text: 'You reached the end...'
+              %}
+            {% endpaginate %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hidden" pxm-data="related-collections">
+  {% for related_collection in collections %}
+    {% if related_collection.metafields.custom.parent_collection != blank %}
+      {% assign related_collection_id = related_collection.metafields.custom.parent_collection
+        | split: '/'
+        | last
+        | plus: 0
+      %}
+
+      {% if related_collection_id == collection.id %}
+        <div pxm-data="related-collection-item">
+          <p pxm-item="title">{{ related_collection.title }}</p>
+          <p pxm-item="url">{{ related_collection.url }}</p>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Main Search Pagination",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 16,
+      "step": 4,
+      "default": 8,
+      "label": "products_per_page"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}
+
+<script>
+  const searchQueryInput = document.getElementById('search-query-input');
+  if (!searchQueryInput.value) {
+    window.location.replace('/collections/all');
+  }
+</script>

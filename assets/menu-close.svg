@@ -8,3 +8,14 @@
 </clipPath>
 </defs>
 </svg>
+
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_7586_5921)">
+<path d="M41 7L7 41M7 7L41 41" stroke="#383838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_7586_5921">
+<rect width="48" height="48" fill="white"/>
+</clipPath>
+</defs>
+</svg>

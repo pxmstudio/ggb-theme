@@ -14,9 +14,11 @@
     {% render 'button',
       hierarchy: 'primary',
       text: 'Finalizează comanda',
-      type: 'link',
-      href: routes.all_products_collection_url,
-      classes: 'w-full'
+      type: 'button',
+      classes: 'w-full',
+      button_name: 'checkout',
+      button_type: 'submit',
+      button_form: 'cart'
     %}
   </div>
 </div>

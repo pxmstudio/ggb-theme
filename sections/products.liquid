@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="{{ 'products.css' | asset_url }}">
+<section class="section_products">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-medium">
+        <div class="brands_products">
+          <h2>Cele mai mici prețuri</h2>
+
+          <div class="grid-4-column">
+            {% for i in (1..4) %}
+              {% render 'product-card', index: i %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

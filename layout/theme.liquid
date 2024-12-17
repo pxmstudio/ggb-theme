@@ -3,13 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    >
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="canonical" href="{{ canonical_url }}">
 
-    <title>
-      {{ page_title }}
-    </title>
+    <title>{{ page_title }}</title>
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -112,6 +117,7 @@
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
     </ul>
 
+    <!-- Scripts for routes and functionality -->
     <script>
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
@@ -127,6 +133,13 @@
 
     <script src="{{ 'nav.js' | asset_url }}" type="module" defer></script>
 
+    {% if customer %}
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+      {% if content_for_layout contains 'main-wishlist' or content_for_layout contains 'main-product' %}
+        <script src="{{ 'supabase.js' | asset_url }}" defer></script>
+      {% endif %}
+    {% endif %}
+
     {% if content_for_layout contains 'collections-slider' or content_for_layout contains 'about-reviews' %}
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
       <script src="{{ 'swiper.js' | asset_url }}" defer></script>
@@ -139,11 +152,47 @@
     {% if content_for_layout contains 'main-collection' %}
       <script src="https://cdn.jsdelivr.net/npm/range-slider-input@2.4/dist/rangeslider.umd.min.js" defer></script>
 
+      <script src="{{ 'filters.js' | asset_url }}" defer></script>
+      <script src="{{ 'collection.js' | asset_url }}" defer></script>
+    {% endif %}
+
+    {% if content_for_layout contains 'main-search' %}
+      <script src="https://cdn.jsdelivr.net/npm/range-slider-input@2.4/dist/rangeslider.umd.min.js" defer></script>
+
+      <script src="{{ 'filters.js' | asset_url }}" defer></script>
       <script src="{{ 'collection.js' | asset_url }}" defer></script>
     {% endif %}
 
     {% if content_for_layout contains 'main-product' %}
       <script src="{{ 'product.js' | asset_url }}" defer></script>
     {% endif %}
+
+    {% if content_for_layout contains 'main-cart' %}
+      <script src="{{ 'cart.js' | asset_url }}" type="module" defer></script>
+    {% endif %}
+
+    {% comment %}
+      {% if content_for_layout contains 'main-warranty' %}
+        <script src="{{ 'warranty.js' | asset_url }}" type="module" defer></script>
+      {% endif %}
+    {% endcomment %}
+
+    <script>
+      async function getShopCurrency() {
+        try {
+          const response = await fetch('/cart.js');
+          const cart = await response.json();
+
+          if (!response.ok) throw new Error('Network response was not ok');
+
+          window.shopCurrency = cart.currency;
+        } catch (error) {
+          console.error(error.message);
+          window.shopCurrency = '';
+        }
+      }
+
+      getShopCurrency();
+    </script>
   </body>
 </html>

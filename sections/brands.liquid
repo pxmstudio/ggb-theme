@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="{{ 'brands.css' | asset_url }}">
+
+<section class="section_brands">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-medium">
+        <div class="brands_wrapper">
+          <h2>Brandurile noastre</h2>
+          <div class="grid-4-column">
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 1" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 2" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 3" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 3" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 3" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 3" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 3" class="brands_item-logo">
+            </a>
+            <a class="brands_item" href="#">
+              <img src="{{ 'brand.svg' | asset_url }}" alt="Brand 3" class="brands_item-logo">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brands",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Brands"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_logo",
+          "label": "Brand Logo"
+        },
+        {
+          "type": "url",
+          "id": "brand_link",
+          "label": "Brand Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brands Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
