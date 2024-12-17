@@ -12,47 +12,51 @@
     "category-picker": {
       "type": "category-picker",
       "settings": {
-        "img": "shopify://shop_images/Rectangle_1038.png"
+        "img": "shopify://shop_images/categ-bkg.webp"
       }
     },
     "featured-brands": {
       "type": "featured-brands",
       "blocks": {
+        "brand_FWnnw4": {
+          "type": "brand",
+          "settings": {
+            "url": ""
+          }
+        },
         "brand_FbQCVt": {
           "type": "brand",
           "settings": {
-            "img": "shopify://shop_images/logo.png",
             "url": ""
           }
         },
         "brand_H3Rnzw": {
           "type": "brand",
           "settings": {
-            "img": "shopify://shop_images/logo.png",
             "url": ""
           }
         },
         "brand_r4BNdj": {
           "type": "brand",
           "settings": {
-            "img": "shopify://shop_images/logo.png",
             "url": ""
           }
         },
         "brand_WyEw9y": {
           "type": "brand",
           "settings": {
-            "img": "shopify://shop_images/logo.png",
             "url": ""
           }
         }
       },
       "block_order": [
+        "brand_FWnnw4",
         "brand_FbQCVt",
         "brand_H3Rnzw",
         "brand_r4BNdj",
         "brand_WyEw9y"
       ],
+      "disabled": true,
       "settings": {
         "title": "Brandurile noastre"
       }
@@ -70,8 +74,7 @@
       "settings": {
         "title": "Descoperă jucăriile acum cu 50% reducere",
         "description": "Descoperă colecția de jucării Toys confecționate folosind cele mai moi materiale, acum la super ofertă!",
-        "button_text": "Descoperă oferta",
-        "image": "shopify://shop_images/Rectangle_1037.png"
+        "button_text": "Descoperă oferta"
       }
     },
     "collections-slider": {
