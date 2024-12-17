@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {% for link in linklists.footer.links %}
+          {% for link in linklists[section.settings.footer_menu].links %}
             <div>
               <h3 class="text-text-secondary text-base font-bold mb-4 lg:mb-10">
                 {{- link.title -}}
@@ -111,6 +111,12 @@
       "id": "newsletter_disclaimer",
       "label": "Newsletter Disclaimer",
       "default": "<p>Sunt de acord cu <a href=\"/legal/politica-de-confidentialitate\">politica de confidentialitate</a>.</p>"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer Menu",
+      "default": "footer"
     }
   ],
   "blocks": []
