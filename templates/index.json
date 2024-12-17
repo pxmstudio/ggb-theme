@@ -74,7 +74,8 @@
       "settings": {
         "title": "Descoperă jucăriile acum cu 50% reducere",
         "description": "Descoperă colecția de jucării Toys confecționate folosind cele mai moi materiale, acum la super ofertă!",
-        "button_text": "Descoperă oferta"
+        "button_text": "Descoperă oferta",
+        "image": "shopify://shop_images/bunny.webp"
       }
     },
     "collections-slider": {
