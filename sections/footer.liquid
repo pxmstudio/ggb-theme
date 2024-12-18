@@ -63,16 +63,37 @@
         </div>
       </div>
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-12">
+        {% if shop.brand.metafields.custom.social_links.facebook != blank
+          and shop.brand.metafields.custom.social_links.instagram != blank
+        %}
+          <div class="flex items-center gap-4">
+            {% if shop.brand.metafields.social_links.facebook %}
+              {% render 'footer-social-link',
+                icon: 'facebook',
+                href: shop.brand.metafields.social_links.facebook.value
+              %}
+            {% endif %}
+            {% if shop.brand.metafields.social_links.instagram %}
+              {% render 'footer-social-link',
+                icon: 'instagram',
+                href: shop.brand.metafields.social_links.instagram.value
+              %}
+            {% endif %}
+          </div>
+        {% endif %}
         <div class="flex items-center gap-4">
-          {% if shop.brand.metafields.social_links.facebook %}
-            {% render 'footer-social-link', icon: 'facebook', href: shop.brand.metafields.social_links.facebook.value %}
-          {% endif %}
-          {% if shop.brand.metafields.social_links.instagram %}
-            {% render 'footer-social-link',
-              icon: 'instagram',
-              href: shop.brand.metafields.social_links.instagram.value
-            %}
-          {% endif %}
+          {% for block in section.blocks %}
+            {% if block.type == 'badge' %}
+              <img
+                src="{{ block.settings.image | image_url }}"
+                alt="{{ block.settings.image.alt }}"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                loading="lazy"
+                class="h-12 w-auto object-contain"
+              >
+            {% endif %}
+          {% endfor %}
         </div>
         <div class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
           <p class="text-[#6E6E6E] text-sm font-medium leading-normal">© {{ 'now' | date: '%Y' }} Gogobaby</p>
@@ -117,7 +138,6 @@
       "id": "footer_menu",
       "label": "Footer Menu",
       "default": "footer"
-
     },
     {
       "type": "link_list",
@@ -125,6 +145,18 @@
       "label": "Footer Secondary Menu"
     }
   ],
-  "blocks": []
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Badge Image"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
