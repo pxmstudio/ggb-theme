@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ 'home-hero.css' | asset_url }}">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-<script  defer src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script defer src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <section class="section_home-hero">
   <div class="padding-global">
@@ -35,17 +35,13 @@
                 </svg>
               </div>
             {% endfor %}
-           
+
             <div class="home-hero_subcategories-wrapper">
               <div class="home-hero_subcategories-inner">
-              <h3 class="heading-style-5">Category name<h3>
+                <h3 class="heading-style-5">Category name</h3>
                 <div class="home-hero_subcategories-list">
-                  <a href="your-link-here" class="home-hero_subcategories-item">
-                    Subcategory Name
-                  </a>
-                  <a href="your-link-here" class="home-hero_subcategories-item">
-                    Subcategory Name
-                  </a>
+                  <a href="your-link-here" class="home-hero_subcategories-item"> Subcategory Name </a>
+                  <a href="your-link-here" class="home-hero_subcategories-item"> Subcategory Name </a>
                 </div>
               </div>
             </div>
@@ -53,20 +49,19 @@
 
           <div class="home-hero_right">
             <div class="home-hero_swiper swiper">
-            <div class="home-hero_swiper-wrapper swiper-wrapper">
-              <a href="your-link-1" class="home-hero_swiper-slide swiper-slide">
-                <img src="{{ 'image1.jpg' | asset_url }}" alt="Slide 1">
-              </a>
-              <a href="your-link-2" class="home-hero_swiper-slide swiper-slide">
-                <img src="{{ 'image2.jpg' | asset_url }}" alt="Slide 2">
-              </a>
-              <a href="your-link-3" class="home-hero_swiper-slide swiper-slide">
-                <img src="{{ 'image3.jpg' | asset_url }}" alt="Slide 3">
-              </a>
-              
-            </div></div>
+              <div class="home-hero_swiper-wrapper swiper-wrapper">
+                <a href="your-link-1" class="home-hero_swiper-slide swiper-slide">
+                  <img src="{{ 'image1.jpg' | asset_url }}" alt="Slide 1">
+                </a>
+                <a href="your-link-2" class="home-hero_swiper-slide swiper-slide">
+                  <img src="{{ 'image2.jpg' | asset_url }}" alt="Slide 2">
+                </a>
+                <a href="your-link-3" class="home-hero_swiper-slide swiper-slide">
+                  <img src="{{ 'image3.jpg' | asset_url }}" alt="Slide 3">
+                </a>
+              </div>
+            </div>
           </div>
-          
         </div>
       </div>
     </div>
@@ -114,13 +109,13 @@
       ]
     }
   }
-  </script>
-  
+</script>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var swiper = new Swiper('.home-hero_swiper', {
       loop: true,
-      slidesPerView: 1, 
+      slidesPerView: 1,
       autoplay: {
         delay: 3000,
       },
@@ -129,26 +124,26 @@
   });
 </script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const categoryElements = document.querySelectorAll(".home-hero_category");
-    const parentElement = document.querySelector(".home-hero_left");
-    const subcategoriesWrapper = document.querySelector(".home-hero_subcategories-wrapper");
-    const headingElement = document.querySelector(".home-hero_subcategories-inner .heading-style-5");
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryElements = document.querySelectorAll('.home-hero_category');
+    const parentElement = document.querySelector('.home-hero_left');
+    const subcategoriesWrapper = document.querySelector('.home-hero_subcategories-wrapper');
+    const headingElement = document.querySelector('.home-hero_subcategories-inner .heading-style-5');
 
     // Initially hide the subcategories wrapper
     if (subcategoriesWrapper) {
-      gsap.set(subcategoriesWrapper, { opacity: 0, display: "none" });
+      gsap.set(subcategoriesWrapper, { opacity: 0, display: 'none' });
     }
 
-    categoryElements.forEach(category => {
-      category.addEventListener("mouseenter", () => {
+    categoryElements.forEach((category) => {
+      category.addEventListener('mouseenter', () => {
         // Remove 'is-active' class from all categories
-        categoryElements.forEach(el => el.classList.remove("is-active"));
+        categoryElements.forEach((el) => el.classList.remove('is-active'));
         // Add 'is-active' class to the hovered category
-        category.classList.add("is-active");
+        category.classList.add('is-active');
 
         // Extract the text from the current category title
-        const categoryTitle = category.querySelector(".home-hero_category-title")?.textContent || "";
+        const categoryTitle = category.querySelector('.home-hero_category-title')?.textContent || '';
 
         // Fade out the subcategories wrapper
         if (subcategoriesWrapper) {
@@ -162,23 +157,27 @@
               }
 
               // Fade in the subcategories wrapper with the updated text
-              gsap.set(subcategoriesWrapper, { display: "block" });
+              gsap.set(subcategoriesWrapper, { display: 'block' });
               gsap.to(subcategoriesWrapper, { opacity: 1, duration: 0.15 });
-            }
+            },
           });
         }
       });
     });
 
-    parentElement.addEventListener("mouseleave", () => {
+    parentElement.addEventListener('mouseleave', () => {
       // Remove 'is-active' from all categories
-      categoryElements.forEach(el => el.classList.remove("is-active"));
+      categoryElements.forEach((el) => el.classList.remove('is-active'));
 
       // Hide the subcategories wrapper
       if (subcategoriesWrapper) {
-        gsap.to(subcategoriesWrapper, { opacity: 0, duration: 0.15, onComplete: () => {
-          gsap.set(subcategoriesWrapper, { display: "none" });
-        }});
+        gsap.to(subcategoriesWrapper, {
+          opacity: 0,
+          duration: 0.15,
+          onComplete: () => {
+            gsap.set(subcategoriesWrapper, { display: 'none' });
+          },
+        });
       }
     });
   });
