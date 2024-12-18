@@ -18,6 +18,24 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "badge_gN34aw": {
+            "type": "badge",
+            "settings": {
+              "image": "shopify://shop_images/SAL.svg"
+            }
+          },
+          "badge_736fFL": {
+            "type": "badge",
+            "settings": {
+              "image": "shopify://shop_images/SOL_1.svg"
+            }
+          }
+        },
+        "block_order": [
+          "badge_gN34aw",
+          "badge_736fFL"
+        ],
         "settings": {
           "newsletter_title": "Abonează-te la newsletter-ul nostru ca sa afli primul despre cele mai bune oferte!",
           "newsletter_button": "Aboneaza-te",
