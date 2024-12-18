@@ -1,21 +1,36 @@
 <div>
-  <div
-    class="flex items-center gap-3 rounded-[0.375rem] border border-border-primary p-2"
-    pxm-tabs="triggers"
-  >
-    {% render 'tab-btn', text: 'Caracteristici', value: 'features', active: true %}
-    {% render 'tab-btn', text: 'Livrare', value: 'delivery' %}
-    {% render 'tab-btn', text: 'Retururi', value: 'returns' %}
+  <div class="rounded-[0.375rem] border border-border-primary p-2 overflow-y-auto" pxm-tabs="triggers">
+    <div
+      class="flex items-center gap-3"
+    >
+      {% render 'tab-btn', text: 'Caracteristici', value: 'features', active: true %}
+      {% render 'tab-btn', text: 'Livrare', value: 'delivery' %}
+      {% render 'tab-btn', text: 'Retururi', value: 'returns' %}
+    </div>
   </div>
   <div pxm-tabs="content">
     <div data-value="features" aria-hidden="false" class="aria-[hidden=false]:block hidden pt-3">
       <div class="text-text-secondary">{{ product.description }}</div>
     </div>
     <div data-value="delivery" aria-hidden="true" class="aria-[hidden=false]:block hidden pt-3">
-      <h2>Livrare</h2>
+      <div class="text-text-secondary">
+        {% for policy in shop.policies %}
+          {% if policy.url == '/policies/shipping-policy' %}
+            <div class="flex flex-col gap-2">
+              <div class="text-text-secondary">{{ policy.body }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
     <div data-value="returns" aria-hidden="true" class="aria-[hidden=false]:block hidden pt-3">
-      <h2>Retururi</h2>
+      {% for policy in shop.policies %}
+        {% if policy.url == '/policies/refund-policy' %}
+          <div class="flex flex-col gap-2">
+            <div class="text-text-secondary">{{ policy.body }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </div>
