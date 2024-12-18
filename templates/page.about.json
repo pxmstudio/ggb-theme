@@ -13,8 +13,7 @@
       "type": "about-header",
       "settings": {
         "title": "Despre noi",
-        "text": "<p>La GoGo Baby, ne dedicăm să oferim produse de calitate, sigure și accesibile, care răspund nevoilor zilnice ale familiilor cu copii.</p>",
-        "image": "shopify://shop_images/Rectangle_1037.png"
+        "text": "<p>La GoGo Baby, ne dedicăm să oferim produse de calitate, sigure și accesibile, care răspund nevoilor zilnice ale familiilor cu copii.</p>"
       }
     },
     "cards": {
@@ -23,7 +22,6 @@
         "about_card_MgBqJp": {
           "type": "about-card",
           "settings": {
-            "icon": "shopify://shop_images/car_white.svg",
             "title": "Misiune",
             "description": "<p>Misiunea noastră este să aducem confort și siguranță în creșterea celor mici, oferind o gamă variată de produse atent selectate pentru fiecare etapă de dezvoltare.</p>"
           }
@@ -31,7 +29,6 @@
         "about_card_meEkYe": {
           "type": "about-card",
           "settings": {
-            "icon": "shopify://shop_images/car_white.svg",
             "title": "Viziune",
             "description": "<p>Visăm să fim prima alegere a părinților din România pentru produse destinate copiilor, creând o experiență de cumpărare simplă și plăcută.</p>"
           }
@@ -39,7 +36,6 @@
         "about_card_jGqFFy": {
           "type": "about-card",
           "settings": {
-            "icon": "shopify://shop_images/car_white.svg",
             "title": "Valori",
             "description": "<p>Valorile noastre sunt: siguranță, calitate, accesibilitate și empatie, puse în slujba părinților și a copiilor lor.</p>"
           }
@@ -119,6 +115,7 @@
         "review_item_RPX9mM",
         "review_item_LAFxxU"
       ],
+      "disabled": true,
       "settings": {
         "title": "Ce cred clienții despre noi"
       }
