@@ -1,17 +1,17 @@
-<div class="grid grid-cols-1 lg:grid-cols-none lg:grid-flow-col gap-5" pxm-product="image-gallery">
-  <div class="row-start-2 lg:row-start-auto flex flex-row lg:flex-col gap-5 h-16 lg:w-20 lg:h-auto flex-shrink-0 overflow-x-auto lg:overflow-x-visible">
+<div class="grid grid-cols-1 lg:grid-cols-none lg:grid-flow-col gap-5 sticky top-32" pxm-product="image-gallery">
+  <div class="row-start-2 lg:row-start-auto flex flex-row lg:flex-col gap-5 h-16 lg:w-20 lg:h-[32rem] flex-shrink-0 overflow-x-auto lg:overflow-x-visible overflow-y-auto">
     {% for image in product.images %}
       <button
         pxm-product="image-gallery-btn"
         data-active="{{ forloop.first }}"
-        class="lg:w-full aspect-square relative border data-[active=true]:border-border-secondary border-border-primary rounded-[0.375rem] overflow-hidden"
+        class="lg:w-full aspect-square relative border data-[active=true]:border-border-secondary border-border-primary rounded-[0.375rem] overflow-hidden flex-shrink-0"
       >
         <img
           src="{{ image | image_url: width: 80 }}"
           alt="{{ product.title }}"
           width="{{ image.width }}"
           height="{{ image.height }}"
-          class="absolute top-0 bottom-0 left-0 right-0 w-full h-full object-center"
+          class="absolute top-0 bottom-0 left-0 right-0 w-full h-full object-center object-cover"
         >
       </button>
     {% endfor %}

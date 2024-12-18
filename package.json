@@ -8,7 +8,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc --watch && vite build --watch && npx tailwindcss -i ./src/styles.css -o ./assets/styles.css --watch",
+    "dev": "tsc --watch & vite build --watch & npx tailwindcss -i ./src/styles.css -o ./assets/styles.css --watch",
     "build": "tsc && vite build && npx tailwindcss -i ./src/styles.css -o ./assets/styles.css --watch",
     "preview": "vite preview",
     "shopify": "shopify theme dev --store gogobaby-ro",

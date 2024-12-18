@@ -1,7 +1,7 @@
 <section>
   <div class="global-padding pt-0 pb-6 lg:py-6">
     <div class="container-large">
-      <div class="flex items-center gap-3 mb-8">
+      <div class="flex flex-wrap items-center gap-3 mb-8">
         <a href="/collections" class="text-text-secondary font-medium global-transition hover:text-text-primary"
           >Colectii</a
         >
@@ -16,7 +16,9 @@
         <h1 class="text-text-primary font-medium">{{ product.title }}</h1>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20">
-        {% render 'product-images', product: product %}
+        <div>
+          {% render 'product-images', product: product %}
+        </div>
         <div class="">
           <h1 class="heading-h3 text-text-primary mb-4">{{ product.title }}</h1>
           <div class="inline-flex items-center gap-4 mb-4 lg:mb-14">

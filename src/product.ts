@@ -336,6 +336,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialize tabs
   document.querySelectorAll<HTMLElement>('[pxm-tabs="triggers"]').forEach((triggersElement) => {
+    console.log('triggersElement', triggersElement);
+
     const contentElement = triggersElement.parentElement?.querySelector<HTMLElement>('[pxm-tabs="content"]');
     if (contentElement) {
       new Tabs({ triggers: triggersElement, content: contentElement });
@@ -403,9 +405,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 class="absolute top-0 left-0 bg-error-red text-white px-2 py-1 rounded-br-2xl text-sm font-medium"
                 pxm-product="discount"
               >
-                Reducere ${Math.round(
-                  ((product.compare_at_price - product.price) * 100.0) / product.compare_at_price
-                )}%
+                Reducere ${Math.round(((product.compare_at_price - product.price) * 100.0) / product.compare_at_price)}%
               </span>
               `
                 : ''
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         </a>
       `;
 
-      recentlyViewedProductsElement.innerHTML += productHtml
+      recentlyViewedProductsElement.innerHTML += productHtml;
     }
   }
 });
@@ -473,7 +473,7 @@ const productAPI = {
   formatMoneyWithoutTrailingZeros: (amount: any) => {
     const formatted = (amount / 100).toFixed(2);
     return formatted.endsWith('.00') ? formatted.slice(0, -3) : formatted;
-  }
+  },
 };
 
 function getCookie(cname: string) {
