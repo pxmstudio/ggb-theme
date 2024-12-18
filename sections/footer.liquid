@@ -51,6 +51,10 @@
                       <a
                         href="{{ sublink.url }}"
                         class="text-text-primary global-transition hover:text-text-alternate text-base font-medium leading-normal"
+                        {%- if sublink.url contains '://' -%}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        {%- endif -%}
                       >
                         {{- sublink.title -}}
                       </a>
@@ -101,6 +105,10 @@
             <a
               href="{{ link.url }}"
               class="text-[#6E6E6E] global-transition hover:text-text-alternate text-sm font-medium leading-normal"
+              {%- if link.url contains '://' -%}
+                target="_blank"
+                rel="noopener noreferrer"
+              {%- endif -%}
             >
               {{- link.title -}}
             </a>
