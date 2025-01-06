@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "favicon": "shopify://shop_images/ggb-icon256.png",
     "sections": {
       "header": {
         "type": "header",
