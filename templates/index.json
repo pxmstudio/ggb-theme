@@ -64,8 +64,8 @@
     "featured-products": {
       "type": "featured-products",
       "settings": {
-        "title": "Cele mai mici prețuri",
-        "collection": "accesorii-masa",
+        "title": "Carucioare bebelusi!",
+        "collection": "carucioare",
         "button_text": "Vezi toate"
       }
     },
