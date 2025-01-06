@@ -23,10 +23,10 @@
           <h1 class="heading-h3 text-text-primary mb-4">{{ product.title }}</h1>
           <div class="inline-flex items-center gap-4 mb-4 lg:mb-14">
             <p class="font-semibold text-xl text-text-secondary line-through">
-              {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
+              {{ product.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}
             </p>
             <p class="font-semibold text-xl text-text-error">
-              {{ product.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}
+              {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
             </p>
           </div>
           <div class="flex flex-col gap-6 mb-4 lg:mb-8">

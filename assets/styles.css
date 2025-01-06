@@ -932,10 +932,6 @@ select {
   margin-bottom: 2rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
-}
-
 .mt-auto {
   margin-top: auto;
 }
@@ -993,10 +989,6 @@ select {
 
 .h-20 {
   height: 5rem;
-}
-
-.h-28 {
-  height: 7rem;
 }
 
 .h-32 {
@@ -1109,16 +1101,16 @@ select {
   width: 1px;
 }
 
-.max-w-10 {
-  max-width: 2.5rem;
-}
-
 .max-w-2xl {
   max-width: 42rem;
 }
 
 .max-w-3xl {
   max-width: 48rem;
+}
+
+.max-w-48 {
+  max-width: 12rem;
 }
 
 .max-w-72 {
@@ -1139,18 +1131,6 @@ select {
 
 .max-w-screen-2xl {
   max-width: 1536px;
-}
-
-.max-w-28 {
-  max-width: 7rem;
-}
-
-.max-w-32 {
-  max-width: 8rem;
-}
-
-.max-w-48 {
-  max-width: 12rem;
 }
 
 .flex-1 {
@@ -2366,6 +2346,10 @@ input[type='number']::-webkit-inner-spin-button {
     height: 5rem;
   }
 
+  .lg\:h-28 {
+    height: 7rem;
+  }
+
   .lg\:h-40 {
     height: 10rem;
   }
@@ -2390,8 +2374,8 @@ input[type='number']::-webkit-inner-spin-button {
     height: 100%;
   }
 
-  .lg\:h-28 {
-    height: 7rem;
+  .lg\:h-10 {
+    height: 2.5rem;
   }
 
   .lg\:w-12 {
@@ -2414,6 +2398,10 @@ input[type='number']::-webkit-inner-spin-button {
     width: 23.75rem;
   }
 
+  .lg\:w-auto {
+    width: auto;
+  }
+
   .lg\:w-fit {
     width: -moz-fit-content;
     width: fit-content;
@@ -2423,8 +2411,8 @@ input[type='number']::-webkit-inner-spin-button {
     width: 100%;
   }
 
-  .lg\:w-auto {
-    width: auto;
+  .lg\:w-10 {
+    width: 2.5rem;
   }
 
   .lg\:min-w-\[20rem\] {
