@@ -1222,6 +1222,10 @@ select {
   flex-direction: column;
 }
 
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -2386,6 +2390,10 @@ input[type='number']::-webkit-inner-spin-button {
     height: 100%;
   }
 
+  .lg\:h-28 {
+    height: 7rem;
+  }
+
   .lg\:w-12 {
     width: 3rem;
   }
@@ -2413,6 +2421,10 @@ input[type='number']::-webkit-inner-spin-button {
 
   .lg\:w-full {
     width: 100%;
+  }
+
+  .lg\:w-auto {
+    width: auto;
   }
 
   .lg\:min-w-\[20rem\] {

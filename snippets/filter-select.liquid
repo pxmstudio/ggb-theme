@@ -4,11 +4,11 @@
   {% assign current_sort = search.sort_by %}
 {% endif %}
 
-<form id="sort-form" method="get" action="{{ request.path }}">
+<form id="sort-form" method="get" action="{{ request.path }}" class="w-full lg:w-auto">
   <select
     name="{{ name }}"
     id="{{ id }}"
-    class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary {{ class }}"
+    class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary w-full {{ class }}"
     value="{{ current_sort | default: "" }}"
     onchange="handleSort()"
   >
