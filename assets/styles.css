@@ -1109,6 +1109,10 @@ select {
   width: 1px;
 }
 
+.max-w-10 {
+  max-width: 2.5rem;
+}
+
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -1135,6 +1139,18 @@ select {
 
 .max-w-screen-2xl {
   max-width: 1536px;
+}
+
+.max-w-28 {
+  max-width: 7rem;
+}
+
+.max-w-32 {
+  max-width: 8rem;
+}
+
+.max-w-48 {
+  max-width: 12rem;
 }
 
 .flex-1 {
@@ -1289,10 +1305,6 @@ select {
 
 .overflow-y-auto {
   overflow-y: auto;
-}
-
-.overflow-y-hidden {
-  overflow-y: hidden;
 }
 
 .truncate {
@@ -1516,11 +1528,6 @@ select {
 .bg-neutral-lightest {
   --tw-bg-opacity: 1;
   background-color: rgb(247 247 247 / var(--tw-bg-opacity, 1));
-}
-
-.bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
 
 .bg-transparent {
@@ -2367,8 +2374,8 @@ input[type='number']::-webkit-inner-spin-button {
     height: 2rem;
   }
 
-  .lg\:h-\[120rem\] {
-    height: 120rem;
+  .lg\:h-\[32rem\] {
+    height: 32rem;
   }
 
   .lg\:h-auto {
@@ -2377,14 +2384,6 @@ input[type='number']::-webkit-inner-spin-button {
 
   .lg\:h-full {
     height: 100%;
-  }
-
-  .lg\:h-\[48rem\] {
-    height: 48rem;
-  }
-
-  .lg\:h-\[32rem\] {
-    height: 32rem;
   }
 
   .lg\:w-12 {
