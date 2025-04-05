@@ -1,3 +1,5 @@
+{% assign compare_price = product.selected_or_first_available_variant.compare_at_price %}
+
 <section>
   <div class="global-padding pt-0 pb-6 lg:py-6">
     <div class="container-large">
@@ -20,36 +22,38 @@
           {% render 'product-images', product: product %}
         </div>
         <div class="">
-          <h1 class="heading-h3 text-text-primary mb-4">{{ product.title }}</h1>
+          <h1 data-product-name class="heading-h3 text-text-primary mb-4">{{ product.title }}</h1>
           <div class="inline-flex items-center gap-4 mb-4 lg:mb-14">
-            <p class="font-semibold text-xl text-text-secondary line-through">
-              {{ product.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}
+            <p class="font-semibold text-xl text-text-secondary line-through" data-compare-price>
+              {{ compare_price | money_without_trailing_zeros }}
             </p>
             <p class="font-semibold text-xl text-text-error">
               {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
             </p>
           </div>
           <div class="flex flex-col gap-6 mb-4 lg:mb-8">
-            <form method="post" action="/cart/add" class="flex items-center gap-8">
-              {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
-                {% render 'input-number',
-                  id: 'quantity',
-                  name: 'quantity',
-                  placeholder: '1',
-                  value: 1,
-                  max: product.selected_or_first_available_variant.inventory_quantity,
-                  data-variant-id: product.selected_or_first_available_variant.id
-                %}
-              {% else %}
-                <p class="font-semibold text-text-error">Momentan, acest produs nu este disponibil!</p>
-              {% endif %}
-              <div class="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 max-w-48">
+            <px-add-to-cart>
+              {% form 'product', product, class: 'flex items-center gap-8  flex-wrap', data-product-form: '' %}
                 {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
-                  {% render 'product-add-to-cart', product: product %}
+                  {% render 'input-number',
+                    id: 'quantity',
+                    name: 'quantity',
+                    placeholder: '1',
+                    value: 1,
+                    max: product.selected_or_first_available_variant.inventory_quantity,
+                    data-variant-id: product.selected_or_first_available_variant.id
+                  %}
+                {% else %}
+                  <p class="font-semibold text-text-error">Momentan, acest produs nu este disponibil!</p>
                 {% endif %}
-                {% comment %} {% render 'product-add-to-wishlist', product: product, customer: customer %} {% endcomment %}
-              </div>
-            </form>
+                <div class="flex flex-col lg:flex-row items-center gap-4 lg:gap-5 max-w-48">
+                  {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
+                    {% render 'product-add-to-cart', product: product %}
+                  {% endif %}
+                  {% comment %} {% render 'product-add-to-wishlist', product: product, customer: customer %} {% endcomment %}
+                </div>
+              {% endform %}
+            </px-add-to-cart>
           </div>
           {% render 'product-tabs', product: product %}
         </div>
@@ -57,7 +61,10 @@
     </div>
   </div>
 </section>
+{% render 'add-to-cart-notfication' %}
 
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{% render 'structured-data-product', product: product, current_variant: current_variant %}
 {% schema %}
 {
   "name": "Main Product",
