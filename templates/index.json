@@ -9,10 +9,9 @@
  */
 {
   "sections": {
-    "category-picker": {
-      "type": "category-picker",
+    "home-hero": {
+      "type": "home-hero",
       "settings": {
-        "img": "shopify://shop_images/categ-bkg.webp"
       }
     },
     "featured-brands": {
@@ -86,7 +85,7 @@
     }
   },
   "order": [
-    "category-picker",
+    "home-hero",
     "featured-brands",
     "featured-products",
     "cta",

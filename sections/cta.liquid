@@ -9,7 +9,7 @@
           </div>
           {% render 'button-arrow-right',
             text: section.settings.button_text,
-            href: '#',
+            href: section.settings.button_link,
             hierarchy: 'primary',
             type: 'link'
           %}
@@ -56,6 +56,12 @@
       "id": "button_text",
       "label": "Button Text",
       "default": "Descoperă oferta"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
     },
     {
       "type": "image_picker",

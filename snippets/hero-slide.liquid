@@ -1,0 +1,14 @@
+{% for block in section.blocks %}
+  {% if block.type == 'slide' %}
+    <a href="{{ block.settings.link }}" class="home-hero_swiper-slide swiper-slide h-full w-full relative">
+      <img
+        src="{{ block.settings.image | image_url }}"
+        alt="{{ block.settings.image.alt | escape }}"
+        width="{{ block.settings.image.width }}"
+        height="{{ block.settings.image.height }}"
+        loading="lazy"
+        class="h-full w-full object-cover absolute top-0 left-0"
+      >
+    </a>
+  {% endif %}
+{% endfor %}

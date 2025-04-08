@@ -2,7 +2,7 @@
   <div class="global-padding">
     <div class="container-large">
       <h2 class="heading-h2 text-text-primary mb-6 lg:mb-12">{{ section.settings.title }}</h2>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {% for block in section.blocks %}
           {% if block.type == 'brand' %}
             {% assign img = block.settings.img %}

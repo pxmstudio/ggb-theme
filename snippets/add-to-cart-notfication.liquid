@@ -1,0 +1,44 @@
+{% comment %}
+  Notification component for add to cart functionality
+{% endcomment %}
+
+<!-- JavaScript has been moved to add-to-cart-notification.js -->
+
+<add-to-cart-notification>
+  <div class="fixed z-50 top-auto left-auto right-0 bottom-0 p-4 hidden" data-notification>
+    <div class="flex flex-col gap-6 w-full max-w-[586px] bg-white rounded-lg md:p-6 p-4 shadow-lg border border-border-primary">
+      <div class="flex items-center justify-between gap-10">
+        <div class="flex items-center gap-2">
+          {% render 'icon-check', class: 'w-6 h-6 md:w-8 md:h-8' %}
+          <p class="md:text-2xl  text-m font-semibold text-text-primary">Produs adăugat în coș</p>
+        </div>
+        <button data-close class="text-text-primary opacity-70 hover:opacity-100 global-transition">
+          {% render 'icon-close', width: 24, height: 24 %}
+        </button>
+      </div>
+      <div class="flex items-start md:flex-row flex-col gap-6">
+        <img
+          src=""
+          alt=""
+          class="w-[110px] h-[120px] border border-border-primary rounded-lg object-cover object-center"
+          width="120"
+          height="120"
+        >
+        <div style="min-height: 120px;" class=" flex flex-col justify-center">
+          <p class="text-lg font-semibold" data-product-name></p>
+          <div class="flex items-left gap-2">
+            <p class="text-sm text-text-secondary line-through font-semibold" data-compare-at-price></p>
+            <p class="text-sm text-text-error font-semibold" data-price></p>
+          </div>
+        </div>
+      </div>
+      {% render 'button',
+        text: 'Vizualizează coșul',
+        type: 'link',
+        hierarchy: 'primary',
+        href: '/cart',
+        class: 'w-full md:w-auto'
+      %}
+    </div>
+  </div>
+</add-to-cart-notification>

@@ -45,8 +45,13 @@
               name: 'contact[legal]',
               required: true
             %}
-            <div class="g-recaptcha" data-sitekey="{{ shop.recaptcha_public_key }}"></div>
-            {% render 'button', type: 'button', hierarchy: 'primary', text: 'Trimite', class: 'w-full' %}
+            {% comment %} <div class="g-recaptcha" data-sitekey="{{ shop.recaptcha_public_key }}"></div> {% endcomment %}
+            <button
+              type="submit"
+              class="h-12 py-3 px-4 rounded-3xl text-lg font-semibold inline-flex items-center justify-center  bg-brand-turquoise hover:bg-[#3E8E94] text-white global-transition"
+            >
+              Trimite
+            </button>
           {% endform %}
         </div>
       </div>
