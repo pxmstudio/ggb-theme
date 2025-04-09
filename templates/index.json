@@ -11,8 +11,27 @@
   "sections": {
     "home-hero": {
       "type": "home-hero",
-      "settings": {
-      }
+      "blocks": {
+        "slide_AxJWgz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/scoica-auto-lionelo-i-size-astrid-0-13-kg-40-87-cm-cu-maner-si-capotina-reglabile-cu-protectie-laterala-avansata-salteluta-confortabila-conform-cu-standardul-european-de-securitate-r1_209a7e08-5741-4f8e-8403-7ad011149a15.jpg",
+            "link": "shopify://products/arcada-educativa-new-baby-cu-jucarii-din-lemn-60x58x2-cm-0-luni-brown"
+          }
+        },
+        "slide_jBcriz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/5_135.jpg",
+            "link": "shopify://collections/accesorii-masa"
+          }
+        }
+      },
+      "block_order": [
+        "slide_AxJWgz",
+        "slide_jBcriz"
+      ],
+      "settings": {}
     },
     "featured-brands": {
       "type": "featured-brands",
@@ -74,7 +93,7 @@
         "title": "Scaune auto",
         "description": "Descoperă toată gama de scaune auto !",
         "button_text": "Descoperă produsele!",
-        "image": "shopify://shop_images/scaun-auto-lionelo-lavender-i-size-isofix-cu-centura-toptether-cu-spatar-inclinabil-in-5-pozitii-cu-tetiera-reglabila-in-13-pozitii-instalare-cu-fata-inainte-9-36-kg-76-150-cm-conform_73d76c2a-ccb3-4e11-add0-e58764cfaa5c.jpg"
+        "button_link": "shopify://collections/all"
       }
     },
     "collections-slider": {
