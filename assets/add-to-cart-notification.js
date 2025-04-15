@@ -28,8 +28,12 @@ class AddToCartNotification extends HTMLElement {
         ? `${event.detail.product.compare_at_price} `
         : '';
     }
-    if (this.price) {
-      this.price.textContent = `${event.detail.product.price} lei`;
+
+    if (this.price && event.detail.product.price) {
+      // Format the final price
+      const priceValue = event.detail.product.price / 100;
+      this.price.textContent =
+        priceValue.toLocaleString('ro-RO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' lei';
     }
     this.show();
   }

@@ -30,16 +30,10 @@
                 {% endfor %}
               </div>
 
-              <div class="mt-auto">
-                {%- if paginate.pages > 1 -%}
-                  {% render 'pagination', paginate: paginate, anchor: '' %}
-                {%- endif -%}
-              </div>
-
               {% render 'infinite-scroll',
                 next_page: paginate.next.url,
                 page_size: paginate.pages,
-                end_text: 'You reached the end...'
+                end_text: 'Nu mai sunt produse de afișat.'
               %}
             {% endpaginate %}
           </div>
@@ -75,10 +69,10 @@
     {
       "type": "range",
       "id": "products_per_page",
-      "min": 8,
-      "max": 16,
-      "step": 4,
-      "default": 8,
+      "min": 9,
+      "max": 18,
+      "step": 1,
+      "default": 9,
       "label": "products_per_page"
     }
   ],

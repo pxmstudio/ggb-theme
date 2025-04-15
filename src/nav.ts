@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   const menu = document.querySelector<HTMLDivElement>('[pxm-nav="menu"]');
+  
+  const mobileCategoriesContainer = document.querySelector<HTMLDivElement>(
+    '[data-mobile-categories-container]'
+  );
+  const mobileSubcategoriesContainer = document.querySelector<HTMLDivElement>(
+    '[data-mobile-subcategories-container]'
+  );
 
   if (button) {
     let isOpen = false;
@@ -23,6 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
           .to(lines[2], { rotate: 0, y: 0 }, "<");
 
         menu?.classList.add("hidden");
+        document.documentElement.classList.remove("overflow-hidden");
+        document.body.classList.remove("overflow-hidden");
+        
+        if (mobileCategoriesContainer) {
+          mobileCategoriesContainer.classList.add('hidden');
+          gsap.set(mobileCategoriesContainer, { x: '100%' });
+        }
+        if (mobileSubcategoriesContainer) {
+          mobileSubcategoriesContainer.classList.add('hidden');
+          gsap.set(mobileSubcategoriesContainer, { x: '100%' });
+        }
       } else {
         const tl = gsap.timeline({ duration: 0.3 });
 
@@ -31,6 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
           .to(lines[2], { rotate: -45, y: -6 }, "<");
 
         menu?.classList.remove("hidden");
+        document.documentElement.classList.add("overflow-hidden");
+        document.body.classList.add("overflow-hidden");
       }
 
       isOpen = !isOpen;
@@ -86,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         if (searchResultsContainer) {
           searchResultsContainer.innerHTML = "";
-
           searchInput.value = "";
         }
       }

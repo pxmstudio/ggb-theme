@@ -1,0 +1,103 @@
+<div
+  class="fixed inset-0 bg-white z-50 hidden left-0 top-0 h-full overflow-hidden"
+  data-mobile-categories-container
+  style="min-width: 100vw !important; min-height: 100vh !important;"
+>
+  <div class="h-full flex flex-col overflow-hidden">
+    <div class="h-32"></div>
+    <div class="flex-1 h-full overflow-hidden">
+      <div class="global-padding overflow-hidden h-full">
+        <div class="flex flex-row gap-2 items-center justify-start mb-6" data-mobile-categories-back>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12L5 12M5 12L12 19M5 12L12 5" stroke="#6E6E6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="text-text-secondary text-sm font-medium">Înapoi</p>
+        </div>
+        <div class=" h-full overflow-y-auto">
+          {% for link in linklists['main-menu'].links %}
+            {% unless forloop.first or forloop.last %}
+              {% if link.links.size > 0 %}
+                <button
+                  class="flex items-center justify-between p-4 text-text-secondary hover:bg-bg-secondary rounded-xl transition-colors w-full text-left"
+                  data-category-trigger="{{ link.title | handle }}"
+                >
+                  <span>{{ link.title }}</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              {% else %}
+                <a
+                  href="{{ link.url }}"
+                  class="flex items-center justify-between p-4 text-text-secondary hover:bg-bg-secondary rounded-xl transition-colors"
+                >
+                  <span>{{ link.title }}</span>
+                </a>
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Subcategories Panel -->
+<div
+  class="fixed inset-0 bg-white z-50 hidden left-0"
+  data-mobile-subcategories-container
+  style="min-width: 100vw !important; min-height: 100vh !important;"
+>
+  <div class="h-full flex flex-col overflow-auto">
+    <div class="h-20"></div>
+    <div class="flex-1">
+      <div class="global-padding">
+        <div class="flex flex-row gap-2 items-center justify-start mb-6" data-mobile-subcategories-back>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12L5 12M5 12L12 19M5 12L12 5" stroke="#6E6E6E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="text-text-secondary text-sm font-medium">Înapoi</p>
+        </div>
+        <h2 class="text-l font-medium mb-6" data-subcategories-title></h2>
+        <div class="" data-subcategories-list>
+          <!-- Subcategories will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="mobile-menu-data">
+  {
+    "categories": [
+      {% assign has_previous = false %}
+      {% for link in linklists['main-menu'].links %}
+        {% unless forloop.first or forloop.last %}
+          {% if link.links.size > 0 %}
+            {% if has_previous %},{% endif %}
+            {
+              "handle": {{ link.title | handle | json }},
+              "title": {{ link.title | json }},
+              "url": {{ link.url | json }},
+              "links": [
+                {% for sub_link in link.links %}
+                  {
+                    "title": {{ sub_link.title | json }},
+                    "url": {{ sub_link.url | json }}
+                  }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ]
+            }
+            {% assign has_previous = true %}
+          {% endif %}
+        {% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>

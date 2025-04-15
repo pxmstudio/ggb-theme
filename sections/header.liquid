@@ -1,15 +1,15 @@
-<div class="h-20 lg:h-28 w-full">
+<div class="h-20 lg:h-28 w-full z-100">
   <header class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-bg-primary w-full m-0 mx-auto z-50">
     <div class="global-padding">
       <div class="container-large">
         <div class="w-full py-6 flex justify-between items-center gap-8">
           {% if template.name == 'index' %}
-            <h1>
+            <h1 class="relative z-100">
               <span class="sr-only">GoGoBaby</span>
           {% endif %}
           <a
             href="/"
-            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-50 h-10 lg:h-16 w-auto"
+            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-100 h-10 lg:h-16 w-auto"
           >
             {% render 'icon-logo' %}
           </a>
@@ -17,8 +17,8 @@
             </h1>
           {% endif %}
 
-          <div class="hidden lg:block" pxm-nav="menu">
-            <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full">
+          <div class="hidden lg:block relative" pxm-nav="menu">
+            <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
               <div class="flex flex-col lg:flex-row gap-6 items-center justify-end">
                 <a
                   href="#"
@@ -39,7 +39,7 @@
 
               <div class="flex items-center gap-2 lg:justify-end">
                 <!-- Search and Category Dropdown Form -->
-                <div class="relative">
+                <div class="relative lg:block hidden">
                   <form
                     action="{{ routes.search_url }}"
                     role="search"
@@ -125,7 +125,10 @@
                 </div>
 
                 <!-- Account Links -->
-                <div class="flex items-center sm:gap-2 lg:gap-3">
+                <div class="flex items-center gap-2 lg:gap-3">
+                  <a href="/collections/all" class=" bg-bg-secondary rounded-full z-50 w-12 h-12 p-3 block lg:hidden">
+                    {% render 'icon-search' %}
+                  </a>
                   {% if customer %}
                     {% render 'nav-acc-btn', path: routes.account_url, icon: 'user' %}
                   {% else %}
@@ -136,10 +139,11 @@
                 </div>
               </div>
             </nav>
+            {% render 'mobile-categories' %}
           </div>
 
           <!-- Mobile Buttons -->
-          <div class="block lg:hidden">
+          <div class="flex items-center gap-4 lg:hidden">
             <button
               class="lg:hidden relative w-10 h-10 py-3 px-2 flex flex-col items-center justify-center gap-1 bg-bg-secondary rounded-full z-50"
               pxm-nav="mobile-btn"
