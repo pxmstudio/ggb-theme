@@ -815,6 +815,10 @@ select {
   position: sticky;
 }
 
+.inset-0 {
+  inset: 0px;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -1287,6 +1291,10 @@ select {
   row-gap: 3rem;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1544,6 +1552,10 @@ select {
 .object-center {
   -o-object-position: center;
      object-position: center;
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .p-2 {
@@ -1881,6 +1893,12 @@ select {
   transition-duration: 150ms;
 }
 
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 html {
   font-family: 'Poppins', sans-serif;
 }
@@ -2123,6 +2141,11 @@ input[type='number']::-webkit-inner-spin-button {
   background-color: rgb(0 0 0 / 0.05);
 }
 
+.hover\:bg-brand-orange:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 128 80 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-brand-orange:hover {
   --tw-text-opacity: 1;
   color: rgb(234 128 80 / var(--tw-text-opacity, 1));
@@ -2150,6 +2173,10 @@ input[type='number']::-webkit-inner-spin-button {
 
 .hover\:opacity-100:hover {
   opacity: 1;
+}
+
+.focus\:border-0:focus {
+  border-width: 0px;
 }
 
 .focus\:border-border-primary:focus {
@@ -2268,8 +2295,12 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 @media (min-width: 640px) {
-  .sm\:gap-2 {
-    gap: 0.5rem;
+  .sm\:gap-12 {
+    gap: 3rem;
+  }
+
+  .sm\:p-8 {
+    padding: 2rem;
   }
 }
 
@@ -2343,6 +2374,10 @@ input[type='number']::-webkit-inner-spin-button {
 
   .lg\:row-start-auto {
     grid-row-start: auto;
+  }
+
+  .lg\:mb-0 {
+    margin-bottom: 0px;
   }
 
   .lg\:mb-10 {
@@ -2613,9 +2648,19 @@ input[type='number']::-webkit-inner-spin-button {
     padding-right: 0px;
   }
 
+  .lg\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .lg\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .lg\:py-0 {
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 
   .lg\:py-1 {
@@ -2681,6 +2726,10 @@ input[type='number']::-webkit-inner-spin-button {
   .lg\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .lg\:opacity-100 {
+    opacity: 1;
   }
 
   .lg\:hover\:bg-neutral-light:hover {

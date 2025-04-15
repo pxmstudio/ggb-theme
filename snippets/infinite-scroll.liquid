@@ -1,4 +1,8 @@
-<infinite-scroll data-next="{{ next_page }}" data-page-size="{{ page_size }}" data-end-text="{{ end_text }}"></infinite-scroll>
+<infinite-scroll
+  data-next="{{ next_page }}"
+  data-page-size="{{ page_size }}"
+  data-end-text="{{ end_text }}"
+>
   {% if page_size > 1 %}
     <div class="loadingBox">
       <span id="loading_1" class="loadingScroll">&nbsp</span>
@@ -135,20 +139,22 @@
     -webkit-animation-delay: 1.64s;
     -moz-animation-delay: 1.64s;
   }
- 
+
   /* Pristege */
-  [class^="pagination"], [class^="Pagination"], .pagination {
+  [class^='pagination'],
+  [class^='Pagination'],
+  .pagination {
     display: none !important;
   }
- 
+
   .js .features--show-element-staggering .ProductList--grid div.ProductItem {
     visibility: visible;
   }
- 
-  .js .product-card[reveal-on-scroll="true"] {
+
+  .js .product-card[reveal-on-scroll='true'] {
     opacity: 1;
   }
- 
+
   @keyframes loading_animation {
     0% {
       transform: scale(1);
@@ -202,76 +208,226 @@
 </style>
 <script>
   class InfiniteScroll extends HTMLElement {
-  constructor() {
-    super();
-    this.initGrid();
-    this.init();
-    this.page = 1;
-    this.scrollToTopBtn = document.querySelector(".scrollToTopButton");
-    this.scrollToTopBtn.addEventListener(
-      "click",
-      this.scrollToTopFx.bind(this)
-    );
-  }
- 
-  initGrid() {
-    const gridOptions = [".ProductListWrapper", "#main-collection-product-grid", "#product-grid", ".product-list"];
-    for (let gridName of gridOptions) {
-      let grid = document.querySelector(gridName);
-      if (grid) {
-        this.gridName = gridName;
-        this.gridContainer = grid;
-        break;
+    constructor() {
+      super();
+      this.initGrid();
+      this.init();
+      this.page = 1;
+      this.scrollToTopBtn = document.querySelector('.scrollToTopButton');
+      this.scrollToTopBtn.addEventListener('click', this.scrollToTopFx.bind(this));
+    }
+
+    initGrid() {
+      const gridOptions = [
+        '.ProductListWrapper',
+        '#main-collection-product-grid',
+        '#product-grid',
+        '.product-list',
+        '.grid.grid-cols-2',
+        '.grid',
+      ];
+
+      for (let gridName of gridOptions) {
+        let grid = document.querySelector(gridName);
+        if (grid) {
+          this.gridName = gridName;
+          this.gridContainer = grid;
+          //console.log('Found grid container with selector:', gridName);
+          break;
+        }
+      }
+
+      if (!this.gridContainer) {
+        console.error('Nu s-a găsit niciun container valid pentru produse');
       }
     }
-  }
- 
-  init() {
-    const observer = new IntersectionObserver(this.revealItem.bind(this), {
-      root: null,
-      threshold: 0.05,
-    });
-    observer.observe(this);
-  }
- 
-  fetchNextPage(e) {
-    if (e <= this.dataset.pageSize) {
-      const t = `{{ shop.url }}/${this.dataset.next}`;
-      const i = new URL(t);
-      i.searchParams.set("page", e);
-      const r = i.href;
-      console.log(r)
-      fetch(`${r}`, { method: "GET", headers: { "Content-Type": "text/html" } })
-        .then((e) => e.text())
-        .then((e) => {
-          const t = new DOMParser().parseFromString(e, "text/html");
-          const i = t.querySelector(this.gridName).innerHTML;
-          this.gridContainer.insertAdjacentHTML("beforeend", i);        
-        })
-        .catch((e) => {
-          console.error("Error:", e);
+
+    init() {
+      if (!this.gridContainer) {
+        console.error('Cannot initialize infinite scroll without a valid container');
+        return;
+      }
+
+      // Create a better visible trigger element
+      this.triggerElement = document.createElement('div');
+      this.triggerElement.style.width = '100%';
+      this.triggerElement.style.height = '10px';
+      this.triggerElement.style.marginTop = '20px';
+      this.triggerElement.setAttribute('data-infinite-scroll-trigger', '');
+
+      // Add it after the grid container
+      this.gridContainer.parentNode.insertBefore(this.triggerElement, this.gridContainer.nextSibling);
+
+      // Log that we created a trigger
+      // console.log('Created infinite scroll trigger element');
+
+      // Configure the IntersectionObserver with more sensitive settings
+      const options = {
+        root: null, // viewport
+        rootMargin: '0px 0px 300px 0px', // Trigger when element is 300px from bottom of viewport
+        threshold: 0.1, // Trigger when 10% of the element is visible
+      };
+
+      // Create observer and observe the trigger element
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // console.log('Trigger element is visible, loading next page');
+            this.loadMore();
+          }
         });
+      }, options);
+
+      // Start observing
+      this.observer.observe(this.triggerElement);
+      // console.log('Intersection Observer started, watching trigger element');
     }
-    if (e == this.dataset.pageSize) {
-      this.innerHTML = `<h2>${this.dataset.endText}</h2>`;
+
+    // New method to handle loading more products
+    loadMore() {
+      // Only load if we haven't reached the last page
+      if (this.page < this.dataset.pageSize) {
+        this.page++;
+        // console.log(`Loading page ${this.page} of ${this.dataset.pageSize}`);
+        this.fetchNextPage(this.page);
+      } else {
+        // console.log('All pages loaded. Disconnecting observer.');
+        this.observer.disconnect();
+        this.triggerElement.remove();
+      }
+    }
+
+    revealItem(entries, observer) {
+      // This method is now simplified since we're using the loadMore() method
+      const [entry] = entries;
+
+      if (entry.isIntersecting) {
+        // console.log('Trigger element visible, calling loadMore()');
+        this.loadMore();
+
+        // If we've loaded the last page, disconnect the observer
+        if (this.page >= this.dataset.pageSize) {
+          // console.log('Last page loaded, disconnecting observer');
+          observer.unobserve(entry.target);
+          entry.target.remove();
+        }
+      }
+    }
+
+    fetchNextPage(e) {
+      if (!this.gridContainer) {
+        console.error('Cannot load next page without a valid container');
+        return;
+      }
+
+      if (e <= this.dataset.pageSize) {
+        // Get the current section ID from URL or use a default value
+        let sectionId = 'main-search';
+
+        // Try to determine section from URL
+        const path = window.location.pathname;
+        if (path.includes('/collections/')) {
+          sectionId = 'main-collection';
+        } else if (path.includes('/search')) {
+          sectionId = 'main-search';
+        }
+
+        // Build existing parameters
+        const currentParams = new URLSearchParams(window.location.search);
+
+        // Add page parameter for the next page
+        currentParams.set('page', e);
+
+        // Add section_id parameter to get only the section HTML
+        currentParams.set('section_id', sectionId);
+
+        // Final URL - use current URL + parameters to avoid path problems
+        const currentPath = window.location.pathname.replace(/\/+/g, '/');
+        const finalUrl = `${currentPath}?${currentParams.toString()}`;
+
+        // console.log(`Trying to load page ${e} using section rendering with section_id=${sectionId}`);
+        // console.log('URL: ', finalUrl);
+
+        fetch(finalUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+          })
+          .then((htmlContent) => {
+            // console.log('Received response from server');
+
+            // Check if we have HTML content
+            if (!htmlContent || htmlContent.trim() === '') {
+              throw new Error('Response is empty');
+            }
+
+            // Try to find the product container in the HTML response
+            const tempContainer = document.createElement('div');
+            tempContainer.innerHTML = htmlContent;
+
+            // Look for products - try multiple selectors
+            const selectors = [
+              '#product-grid',
+              '.grid.grid-cols-2',
+              '.grid.grid-cols-3',
+              '.grid',
+              '[class*="product-grid"]',
+              '[id*="product-grid"]',
+              '[class*="product"]',
+            ];
+
+            let productContainer = null;
+            for (const selector of selectors) {
+              const container = tempContainer.querySelector(selector);
+              if (container) {
+                productContainer = container;
+                // console.log(`Found products with selector: ${selector}`);
+                break;
+              }
+            }
+
+            // If we don't find a container, try to find products individually
+            if (!productContainer) {
+              // console.log('No product container found. Looking for individual products.');
+              const products = tempContainer.querySelectorAll(
+                '[class*="product-card"], [class*="product-item"], [class*="product"]'
+              );
+
+              if (products && products.length > 0) {
+                // console.log(`Found ${products.length} individual products`);
+                products.forEach((product) => {
+                  this.gridContainer.appendChild(product.cloneNode(true));
+                });
+                return;
+              } else {
+                // If we still can't find anything, log the response to see what we received
+                console.error('No products found in response.');
+                // console.log('Response received:', htmlContent.substring(0, 500) + '...');
+                throw new Error('No products found in response');
+              }
+            }
+
+            // Add the found products to the container
+            const productHTML = productContainer.innerHTML;
+            this.gridContainer.insertAdjacentHTML('beforeend', productHTML);
+            // console.log(`Products from page ${e} successfully added!`);
+          })
+          .catch((error) => {
+            console.error('Error fetching products:', error);
+          });
+      }
+
+      if (e == this.dataset.pageSize) {
+        this.innerHTML = `<h2>${this.dataset.endText}</h2>`;
+      }
+    }
+    scrollToTopFx(e) {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      e.currentTarget.style.display = 'none';
     }
   }
-  revealItem(e, t) {
-    const [i] = e;
-    if (!i.isIntersecting) return;
-    if (i.target) {
-      this.page++;
-      this.fetchNextPage(this.page);
-    }
-    if (this.page == this.dataset.pageSize) {
-      t.unobserve(i.target);
-    }
-  }
-  scrollToTopFx(e) {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-    e.currentTarget.style.display = "none";
-  }
-}
-customElements.define("infinite-scroll", InfiniteScroll);
+  customElements.define('infinite-scroll', InfiniteScroll);
 </script>

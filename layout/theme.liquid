@@ -70,12 +70,28 @@
         const links = document.querySelectorAll('a');
 
         links.forEach((link) => {
-          const url = new URL(link.href);
+          // Skip links with invalid hrefs or javascript: links
+          if (
+            !link.href ||
+            typeof link.href !== 'string' ||
+            link.href === '#' ||
+            link.href.startsWith('javascript:') ||
+            link.href.trim() === ''
+          ) {
+            return;
+          }
 
-          if (url.origin === window.location.origin) {
-            link.addEventListener('mouseover', () => {
-              prefetch(url.href), { once: true };
-            });
+          try {
+            const url = new URL(link.href);
+
+            if (url.origin === window.location.origin) {
+              link.addEventListener('mouseover', () => {
+                prefetch(url.href, { once: true });
+              });
+            }
+          } catch (error) {
+            // Silently ignore invalid URLs instead of crashing
+            console.debug(`Skipped prefetch for invalid URL: ${link.href}`);
           }
         });
 
@@ -137,6 +153,7 @@
 
     <script src="{{ 'nav.js' | asset_url }}" type="module" defer></script>
 
+    <script src="{{ 'mobile-categories.js' | asset_url }}" defer></script>
     {% if customer %}
       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
       {% if content_for_layout contains 'main-wishlist' or content_for_layout contains 'main-product' %}
@@ -162,13 +179,6 @@
     {% endif %}
 
     {% if content_for_layout contains 'main-collection' %}
-      <script src="https://cdn.jsdelivr.net/npm/range-slider-input@2.4/dist/rangeslider.umd.min.js" defer></script>
-
-      <script src="{{ 'filters.js' | asset_url }}" defer></script>
-      <script src="{{ 'collection.js' | asset_url }}" defer></script>
-    {% endif %}
-
-    {% if content_for_layout contains 'main-search' %}
       <script src="https://cdn.jsdelivr.net/npm/range-slider-input@2.4/dist/rangeslider.umd.min.js" defer></script>
 
       <script src="{{ 'filters.js' | asset_url }}" defer></script>
@@ -206,5 +216,11 @@
 
       getShopCurrency();
     </script>
+
+    {% comment %}
+      {% if content_for_layout contains 'main-search' %}
+        <script src="{{ 'main-search.js' | asset_url }}" defer></script>
+      {% endif %}
+    {% endcomment %}
   </body>
 </html>

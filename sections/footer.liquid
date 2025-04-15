@@ -5,7 +5,7 @@
         <div class="flex flex-col items-start gap-6 lg:gap-12 justify-between max-w-96">
           <a
             href="/"
-            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-50 h-10 lg:h-16 w-auto"
+            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative h-10 lg:h-16 w-auto"
           >
             {% render 'icon-logo' %}
           </a>
@@ -14,18 +14,18 @@
               {{- section.settings.newsletter_title -}}
             </p>
             <form action="">
-              <div class="relative mb-4 bg-bg-primary rounded-[5rem] overflow-hidden flex flex-row ">
+              <div class="relative mb-4 bg-bg-primary rounded-[5rem] overflow-hidden flex flex-row items-center ">
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="Introdu email-ul"
                   required
-                  class="bg-bg-primary h-full border-transparent  text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-0 focus:border-brand-turquoise "
+                  class="w-full h-full p-0 border-0 bg-bg-primary text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-0 focus:border-0 px-6 py-4 lg:py-0"
                 >
-                <button class="bg-brand-turquoise text-lg font-semibold rounded-[5rem] px-8 text-[#FAFAFA] whitespace-nowrap flex-shrink-0 m-1">
+                <button class="bg-brand-turquoise text-lg font-semibold rounded-[5rem] px-8 py-2 text-[#FAFAFA] whitespace-nowrap flex-shrink-0 m-1 hidden lg:block">
                   {{- section.settings.newsletter_button -}}
                 </button>
               </div>
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 mb-4 lg:mb-0">
                 <input
                   type="checkbox"
                   id="newsletter-consent"
@@ -36,6 +36,9 @@
                   {{- section.settings.newsletter_disclaimer -}}
                 </label>
               </div>
+              <button class="bg-brand-turquoise text-lg font-semibold rounded-[5rem] px-8 py-2 text-[#FAFAFA] whitespace-nowrap flex-shrink-0 m-1 block lg:hidden top-2">
+                {{- section.settings.newsletter_button -}}
+              </button>
             </form>
           </div>
         </div>
@@ -86,7 +89,7 @@
             {% endif %}
           </div>
         {% endif %}
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 flex-wrap">
           {% for block in section.blocks %}
             {% if block.type == 'badge' %}
               <img
