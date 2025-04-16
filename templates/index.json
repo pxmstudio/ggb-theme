@@ -91,9 +91,9 @@
       "type": "cta",
       "settings": {
         "title": "Scaune auto",
-        "description": "Descoperă toată gama de scaune auto !",
+        "description": "Descoperă toată gama de scaune auto!",
         "button_text": "Descoperă produsele!",
-        "button_link": "shopify://collections/all",
+        "button_link": "shopify://collections/scaune-auto-2",
         "image": "shopify://shop_images/scoica-auto-lionelo-i-size-astrid-0-13-kg-40-87-cm-cu-maner-si-capotina-reglabile-cu-protectie-laterala-avansata-salteluta-confortabila-conform-cu-standardul-european-de-securitate-r1_8ad6fcae-cbab-4f47-94d6-62afc5582a51.jpg"
       }
     },
