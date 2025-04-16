@@ -84,10 +84,10 @@
                       >
                         {% if predictive_search.resources.products.size > 0 %}
                           <h3 class="text-text-secondary text-xs uppercase font-medium mb-4">Products</h3>
-                          <ul>
+                          <ul class="flex flex-col gap-2">
                             {% for product in predictive_search.resources.products %}
                               <li>
-                                <a href="{{ product.url }}" class="flex items-center gap-2 group">
+                                <a href="{{ product.url }}" class="flex items-center gap-4 group">
                                   {% if product.featured_image %}
                                     <img
                                       src="{{ product.featured_image | image_url: width: 100 }}"
@@ -98,7 +98,7 @@
                                     >
                                   {% endif %}
                                   <div>
-                                    <p class="text-text-primary text-sm font-semibold global-transition group-hover:text-brand-orange">
+                                    <p class="text-text-primary text-sm font-semibold global-transition group-hover:text-brand-orange line-clamp-3">
                                       {{ product.title }}
                                     </p>
                                     <div class="flex items-center gap-1">

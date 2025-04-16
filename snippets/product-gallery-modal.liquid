@@ -1,0 +1,42 @@
+<px-product-gallery-modal
+  class="fixed  lg:p-[10%]  p-[2%] inset-0 z-50    hidden  vertical-center items-center justify-center bg-black/50"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="absolute top-0 bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.1)] z-0" data-modal-background></div>
+  <button
+    class="absolute right-4 top-4 text-white p-2 z-30"
+    data-modal-close
+    aria-label="Close modal"
+  >
+    {% render 'icon-close' %}
+  </button>
+  <div class="flex flex-col gap-4 h-full w-full">
+    <div class="swiper w-full h-full relative mx-20  z-20 ">
+      <div class="swiper-wrapper z-30">
+        {% for image in product.images %}
+          <div class="swiper-slide flex items-center justify-center">
+            <img
+              src="{{ image | image_url: width: 1200 }}"
+              alt="{{ image.alt }}"
+              class="max-h-[100%] max-w-[100%] w-full h-full px-auto object-contain relative z-30"
+              loading="lazy"
+              width="1200"
+              height="{{ image.height | times: 1200 | divided_by: image.width }}"
+            >
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="w-full z-30 lg:absolute inset-x-0 top-1/2 -translate-y-1/2 px-[10%] lg:block flex justify-center gap-4 static ">
+      {% render 'button-slider',
+        icon: 'left',
+        extra_classes: 'gallery-prev static lg:absolute lg:left-[calc(10%-5rem)] bg-white'
+      %}
+      {% render 'button-slider',
+        icon: 'right',
+        extra_classes: 'gallery-next static lg:absolute lg:right-[calc(10%-5rem)] bg-white'
+      %}
+    </div>
+  </div>
+</px-product-gallery-modal>
