@@ -345,18 +345,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Initialize product image galleries
-  document.querySelectorAll<HTMLElement>('[pxm-product="image-gallery"]').forEach((container) => {
-    const mainImage = container.querySelector<HTMLImageElement>('[pxm-product="image-gallery-img"]');
-    const thumbnailButtons = container.querySelectorAll<HTMLButtonElement>('[pxm-product="image-gallery-btn"]');
+  // document.querySelectorAll<HTMLElement>('[pxm-product="image-gallery"]').forEach((container) => {
+  //   const mainImage = container.querySelector<HTMLImageElement>('[pxm-product="image-gallery-img"]');
+  //   const thumbnailButtons = container.querySelectorAll<HTMLButtonElement>('[pxm-product="image-gallery-btn"]');
 
-    if (mainImage && thumbnailButtons.length > 0) {
-      new ProductGallery({
-        container,
-        mainImage,
-        thumbnailButtons,
-      });
-    }
-  });
+  //   if (mainImage && thumbnailButtons.length > 0) {
+  //     new ProductGallery({
+  //       container,
+  //       mainImage,
+  //       thumbnailButtons,
+  //     });
+  //   }
+  // });
 
   // Recently viewed products
   const recentlyViewedProductsElement = document.getElementById('recently-viewed-products');
