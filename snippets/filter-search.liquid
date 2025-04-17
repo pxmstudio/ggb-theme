@@ -1,44 +1,274 @@
-<div class="relative {{ class }}">
-  <form id="search-form" action="{{ routes.search_url }}">
+<div class="relative {{ class }} hidden">
+  <div id="search-container-{{ id }}" class="search-container">
     <input
       type="text"
       id="{{ id }}"
-      name="{{ name }}"
+      name="q"
       placeholder="{{ placeholder }}"
       class="h-12 py-3 pl-6 pr-16 rounded-md border border-border-primary w-full"
       value="{{ search.terms | escape }}"
+      form="filter-form"
     >
-    <input type="hidden" name="type" value="product">
-  </form>
-  <div class="absolute right-6 top-0 h-full flex items-center justify-center">
-    {% render 'icon-search', width: 24, height: 24, class: 'text-text-primary' %}
+    <button
+      type="submit"
+      form="filter-form"
+      id="search-btn-{{ id }}"
+      class="absolute right-6 top-0 h-full flex items-center justify-center"
+    >
+      {% render 'icon-search', width: 24, height: 24, class: 'text-text-primary' %}
+    </button>
   </div>
 </div>
 
-<script>
-  const form = document.getElementById('search-form');
-  const input = form.firstElementChild;
+<!--
+  <script>
+    function initializeSearch() {
+      const searchInput = document.getElementById('{{ id }}');
+      const searchBtn = document.getElementById('search-btn-{{ id }}');
+      const productGrid = document.getElementById('product-grid');
+      const filterForm = document.getElementById('filter-form');
 
-  input.addEventListener(
-    'input',
-    debounce((e) => {
-      const query = e.target.value;
-      console.log(query);
-      if (query.length > 2) {
-        form.submit();
+      if (!searchInput || !productGrid || !filterForm) {
+        console.log('Missing required elements, retrying...');
+        setTimeout(initializeSearch, 100);
+        return;
       }
-    }, 1000)
-  );
 
-  function debounce(func, delay) {
-    let timeoutId;
-    return function (...args) {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
+      console.log('Search initialized with elements:', {
+        searchInput: !!searchInput,
+        searchBtn: !!searchBtn,
+        productGrid: !!productGrid,
+        filterForm: !!filterForm
+      });
+
+      // Check URL parameters on page load
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialQuery = urlParams.get('q');
+
+      console.log('Initial query:', initialQuery); // Debug log
+
+      // If there's a search query in URL, apply the filter immediately
+      if (initialQuery) {
+        searchInput.value = initialQuery;
+        console.log('Setting search input value to:', initialQuery); // Debug log
+        fetchSearchResults(initialQuery);
       }
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  }
-</script>
+
+      // Function to handle search input changes
+      function handleSearchInput() {
+        const query = searchInput.value.trim();
+        console.log('Handling search input:', query); // Debug log
+
+        if (query.length > 1) {
+          fetchSearchResults(query);
+        } else if (query === '') {
+          resetFilter(productGrid);
+        }
+      }
+
+      // Add multiple event listeners to ensure we catch all input types
+      searchInput.addEventListener('input', debounce(handleSearchInput, 300));
+      searchInput.addEventListener('paste', function (e) {
+        setTimeout(handleSearchInput, 10);
+      });
+      searchInput.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleSearchInput();
+        } else {
+          debounce(handleSearchInput, 300)();
+        }
+      });
+
+      // Add search button functionality
+      if (searchBtn) {
+        searchBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          handleSearchInput();
+        });
+      }
+
+      // Focus event to detect when the user interacts with the input
+      searchInput.addEventListener('focus', function () {
+        if (searchInput.value.trim() !== '') {
+          handleSearchInput();
+        }
+      });
+
+      async function fetchSearchResults(query) {
+        try {
+          // Get current collection handle from URL
+          const pathParts = window.location.pathname.split('/');
+          const collectionHandle = pathParts[2]; // Assuming URL format /collections/handle
+
+          console.log('Collection handle:', collectionHandle); // Debug log
+
+          // Create search URL with proper format
+          let searchUrl = `/search?q=${encodeURIComponent(query)}`;
+
+          // Add collection filter if we're on a collection page - using the proper format
+          if (collectionHandle && window.location.pathname.includes('/collections/')) {
+            // Get the collection name with proper capitalization - replacing hyphens with spaces
+            const collectionName = collectionHandle
+              .split('-')
+              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ');
+
+            // Use + instead of %20 for spaces
+            const encodedCollectionName = collectionName.replace(/ /g, '+');
+            searchUrl += `&filter.p.product_type=${encodedCollectionName}`;
+          }
+
+          console.log('Fetching from:', searchUrl);
+
+          // Either send user to search page or make an AJAX request
+          if (searchBtn.closest('form') && searchBtn.closest('form').getAttribute('method') === 'get') {
+            // Direct form submission
+            window.location.href = searchUrl;
+            return;
+          }
+
+          // AJAX approach
+          const response = await fetch(searchUrl);
+          const html = await response.text();
+
+          // Create a temporary div to parse the HTML
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+
+          // Extract product data from the HTML
+          const productItems = tempDiv.querySelectorAll('.product-card');
+          console.log('Found products in HTML:', productItems.length);
+
+          if (productItems.length > 0) {
+            // Client-side filtering based on the search results
+            clientSideFilter(query, productItems);
+          } else {
+            // No products found
+            updateNoResultsMessage(query);
+          }
+        } catch (error) {
+          console.error('Error fetching search results:', error);
+          updateNoResultsMessage(query);
+        }
+      }
+
+      function clientSideFilter(query, searchResults) {
+        console.log('Filtering client-side with', searchResults.length, 'results'); // Debug log
+
+        // Clear existing no-results message
+        const existingNoResults = productGrid.querySelector('.no-results-message');
+        if (existingNoResults) {
+          existingNoResults.remove();
+        }
+
+        // Get all product cards in the current grid
+        const allProducts = productGrid.querySelectorAll('.product-card');
+        console.log('Total products in grid:', allProducts.length); // Debug log
+
+        // Hide all products first
+        allProducts.forEach(product => {
+          product.style.display = 'none';
+        });
+
+        // Extract titles from search results
+        const searchTitles = Array.from(searchResults).map(product => {
+          const titleElement = product.querySelector('h3');
+          return titleElement ? titleElement.textContent.trim().toLowerCase() : '';
+        });
+
+        console.log('Search titles:', searchTitles); // Debug log
+
+        // Show matching products
+        let matchesFound = 0;
+        allProducts.forEach(product => {
+          const productTitle = getProductTitle(product);
+
+          if (productTitle && searchTitles.some(title =>
+            productTitle.toLowerCase().includes(title) ||
+            title.includes(productTitle.toLowerCase())
+          )) {
+            product.style.display = '';
+            matchesFound++;
+          }
+        });
+
+        console.log('Matches found:', matchesFound); // Debug log
+
+        // If no matches, show no results message
+        if (matchesFound === 0) {
+          updateNoResultsMessage(query);
+        }
+      }
+
+      function updateNoResultsMessage(query) {
+        // Remove any existing message
+        const existingNoResults = productGrid.querySelector('.no-results-message');
+        if (existingNoResults) {
+          existingNoResults.remove();
+        }
+
+        // Create new message
+        const noResultsMsg = document.createElement('div');
+        noResultsMsg.className = 'no-results-message col-span-full text-center py-8';
+        noResultsMsg.innerHTML = `<p class="text-lg text-text-secondary">Nu s-au găsit produse pentru "${query}"</p>`;
+        productGrid.appendChild(noResultsMsg);
+      }
+
+      function resetFilter(productGrid) {
+        console.log('Resetting filter'); // Debug log
+
+        // Show all products
+        const products = productGrid.querySelectorAll('.product-card');
+        products.forEach(product => {
+          product.style.display = '';
+        });
+
+        // Hide no results message
+        const noResultsMsg = productGrid.querySelector('.no-results-message');
+        if (noResultsMsg) {
+          noResultsMsg.style.display = 'none';
+        }
+      }
+
+      function getProductTitle(productElement) {
+        // Try various common selectors for product titles
+        const selectors = [
+          '[data-product-title]',
+          '.product-title',
+          'h3',
+          '.card-information__text',
+          '.product-card-title',
+        ];
+
+        for (const selector of selectors) {
+          const element = productElement.querySelector(selector);
+          if (element) {
+            return element.textContent.trim();
+          }
+        }
+
+        return null;
+      }
+
+      function debounce(func, delay) {
+        let timeoutId;
+        return function (...args) {
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+          timeoutId = setTimeout(() => {
+            func.apply(this, args);
+          }, delay);
+        };
+      }
+    }
+
+    // Start initialization when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeSearch);
+    } else {
+      initializeSearch();
+    }
+  </script>
+-->

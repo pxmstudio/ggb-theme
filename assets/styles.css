@@ -920,6 +920,10 @@ select {
   z-index: 50;
 }
 
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
 .row-start-2 {
   grid-row-start: 2;
 }
@@ -1061,6 +1065,14 @@ select {
   height: 100vh;
 }
 
+.h-\[50\%\] {
+  height: 50%;
+}
+
+.h-auto {
+  height: auto;
+}
+
 .max-h-\[100\%\] {
   max-height: 100%;
 }
@@ -1145,6 +1157,14 @@ select {
 
 .w-px {
   width: 1px;
+}
+
+.w-\[50\%\] {
+  width: 50%;
+}
+
+.w-\[45\%\] {
+  width: 45%;
 }
 
 .max-w-2xl {
@@ -1746,6 +1766,11 @@ select {
   padding-bottom: 1.5rem;
 }
 
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -1955,6 +1980,11 @@ select {
 .ring-\[\#FBE6DC\] {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(251 230 220 / var(--tw-ring-opacity, 1));
+}
+
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .filter {
