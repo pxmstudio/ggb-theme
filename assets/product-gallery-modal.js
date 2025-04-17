@@ -8,7 +8,7 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
       class extends HTMLElement {
         constructor() {
           super();
-          console.log('[GalleryModal] Constructor called');
+          // console.log('[GalleryModal] Constructor called');
           this.modal = this;
           this.swiper = null;
           this.isOpen = false;
@@ -20,11 +20,11 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
         }
 
         connectedCallback() {
-          console.log('[GalleryModal] Connected to DOM');
+          // console.log('[GalleryModal] Connected to DOM');
           // Initialize gallery triggers
           // Use the correct data attribute selector
           const galleryTriggers = document.querySelectorAll('[data-gallery-item]');
-          console.log(`[GalleryModal] Found ${galleryTriggers.length} gallery trigger items`);
+          // console.log(`[GalleryModal] Found ${galleryTriggers.length} gallery trigger items`);
 
           galleryTriggers.forEach((item) => {
             // Nu mai avem nevoie de 'index' aici
@@ -42,7 +42,7 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
           // Add close button listener
           const closeButton = this.querySelector('[data-modal-close]');
           if (closeButton) {
-            console.log('[GalleryModal] Close button found');
+            // console.log('[GalleryModal] Close button found');
             closeButton.addEventListener('click', this.closeModal);
           } else {
             console.warn('[GalleryModal] Close button not found');
@@ -51,7 +51,7 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
           // Add background click listener
           const modalBackground = this.querySelector('[data-modal-background]');
           if (modalBackground) {
-            console.log('[GalleryModal] Background element found');
+            // console.log('[GalleryModal] Background element found');
             modalBackground.addEventListener('click', this.closeModal);
           } else {
             console.warn('[GalleryModal] Background element not found');
@@ -60,7 +60,7 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
           // Initialize Swiper
           const swiperElement = this.querySelector('.swiper');
           if (swiperElement) {
-            console.log('[GalleryModal] Initializing Swiper on element:', swiperElement);
+            // console.log('[GalleryModal] Initializing Swiper on element:', swiperElement);
             try {
               this.swiper = new Swiper(swiperElement, {
                 // Removed Navigation module import, check if needed
@@ -71,8 +71,13 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
                 },
                 loop: true,
                 initialSlide: 0, // Start at the first slide by default
+                preloadImages: false, // Don't preload all images
+                // Optional: Enable Swiper's lazy loading if needed
+                // lazy: {
+                //   loadPrevNext: true,
+                // },
               });
-              console.log('[GalleryModal] Swiper initialized:', this.swiper);
+              // console.log('[GalleryModal] Swiper initialized:', this.swiper);
             } catch (error) {
               console.error('[GalleryModal] Error initializing Swiper:', error);
             }
@@ -82,34 +87,34 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
         }
 
         openModal(index = 0) {
-          console.log(`[GalleryModal] openModal called with index: ${index}`);
+          // console.log(`[GalleryModal] openModal called with index: ${index}`);
           if (isNaN(index)) {
             console.warn('[GalleryModal] Invalid index passed to openModal. Defaulting to 0.');
             index = 0;
           }
 
           if (this.isOpen) {
-            console.log('[GalleryModal] Modal already open');
+            // console.log('[GalleryModal] Modal already open');
             return;
           }
           this.isOpen = true;
 
           // Add stop-scroll class
           // document.getElementById('smooth-content')?.classList.add('stop-scroll');
-          console.log('[GalleryModal] Added stop-scroll (commented out)');
+          // console.log('[GalleryModal] Added stop-scroll (commented out)');
 
           // Add keyboard listener
           document.addEventListener('keydown', this.handleKeydown);
-          console.log('[GalleryModal] Added keydown listener');
+          // console.log('[GalleryModal] Added keydown listener');
 
           // Show modal with GSAP animation
-          console.log('[GalleryModal] Showing modal with GSAP');
+          // console.log('[GalleryModal] Showing modal with GSAP');
           gsap.set(this.modal, { display: 'flex' });
           gsap.fromTo(this.modal, { opacity: 0 }, { opacity: 1, duration: 0.3 });
 
           // Slide to the clicked image
           if (this.swiper) {
-            console.log(`[GalleryModal] Swiper sliding to index: ${index}`);
+            // console.log(`[GalleryModal] Swiper sliding to index: ${index}`);
             this.swiper.slideToLoop(index, 0); // Use slideToLoop for loop mode
           } else {
             console.error('[GalleryModal] Swiper not initialized, cannot slide.');
@@ -117,23 +122,23 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
         }
 
         closeModal() {
-          console.log('[GalleryModal] closeModal called');
+          // console.log('[GalleryModal] closeModal called');
           if (!this.isOpen) {
-            console.log('[GalleryModal] Modal already closed');
+            // console.log('[GalleryModal] Modal already closed');
             return;
           }
 
           // Remove keyboard listener
           document.removeEventListener('keydown', this.handleKeydown);
-          console.log('[GalleryModal] Removed keydown listener');
+          // console.log('[GalleryModal] Removed keydown listener');
 
           // Hide modal with GSAP animation
-          console.log('[GalleryModal] Hiding modal with GSAP');
+          // console.log('[GalleryModal] Hiding modal with GSAP');
           gsap.to(this.modal, {
             opacity: 0,
             duration: 0.3,
             onComplete: () => {
-              console.log('[GalleryModal] Hide animation complete');
+              // console.log('[GalleryModal] Hide animation complete');
               gsap.set(this.modal, { display: 'none' });
               this.isOpen = false;
             },
@@ -142,7 +147,7 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
 
         handleKeydown(e) {
           if (e.key === 'Escape') {
-            console.log('[GalleryModal] Escape key pressed');
+            // console.log('[GalleryModal] Escape key pressed');
             this.closeModal();
           }
         }

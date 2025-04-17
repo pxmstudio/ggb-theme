@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Running nav.ts");
   const button = document.querySelector<HTMLButtonElement>(
     '[pxm-nav="mobile-btn"]'
   );
@@ -69,7 +70,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (searchForm && searchInput) {
     searchForm.addEventListener("submit", (e) => {
+      console.log("Form submitted in nav.ts");
       e.preventDefault();
+      const searchQuery = searchInput.value.trim();
+      if (!searchQuery) return;
+      const searchUrl = new URL("/search", window.location.origin);
+      searchUrl.searchParams.set("q", searchQuery);
+      window.location.href = searchUrl.toString();
     });
 
     searchInput.addEventListener("input", async (e) => {

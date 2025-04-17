@@ -1,5 +1,5 @@
 <a href="{{ collection.url }}" class="group">
-  <div class="relative aspect-square overflow-hidden bg-bg-primary border border-border-primary rounded-[1.5rem] mb-4 p-3 lg:p-6 flex items-center justify-center group-hover:border-border-secondary global-transition">
+  <div class="relative aspect-square overflow-hidden bg-bg-primary border border-border-primary rounded-[1.5rem] mb-4  flex items-center justify-center group-hover:border-border-secondary global-transition">
     {% if collection.image %}
       <div class="relative overflow-hidden rounded-[1.5rem]">
         <img
@@ -7,10 +7,17 @@
           alt="{{ collection.title }}"
           width="{{ collection.image.width }}"
           height="{{ collection.image.height }}"
-          class="w-full h-full object-contain object-center group-hover:scale-110 global-transition"
+          class="w-full h-full object-contain object-center group-hover:scale-110 global-transition cover-image"
         >
       </div>
     {% endif %}
+    <img
+      src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/card-corner.png?v=1744802885"
+      alt="card-corner"
+      width="500"
+      height="500"
+      class="absolute bottom-0 right-0 w-[45%] h-auto object-contain"
+    >
   </div>
   <h3 class="lg:text-xl font-semibold leading-normal text-text-primary text-center">{{ collection.title }}</h3>
 </a>
