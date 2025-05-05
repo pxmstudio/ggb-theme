@@ -1,8 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-contact"
+      "type": "main-contact",
+      "blocks": {
+        "contact_info_jQQxE7": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "location",
+            "richtext": "<p>S.C. HUBNERS S.R.L.<br/>Punct de lucru: 410605 - Oradea, Jud. Bihor, Sos. Borsului, Nr. 20<br/>Cod unic de inregistrare: RO30955352<br/>Numar registrul comertului: J05/2019/2012<br/>IBAN: RO16INGB0000999905097682<br/>Banca: ING Bank, Sucursala Oradea</p>"
+          }
+        },
+        "contact_info_3VjU7q": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "phone",
+            "richtext": "<p><a href=\"tel:+40727-565056\" target=\"_blank\" title=\"tel:+40727565056\">+40727-565056</a> sau <a href=\"tel:+40762-333343\" target=\"_blank\" title=\"tel:+40762333343\">+40762-333343</a></p>"
+          }
+        },
+        "contact_info_CVCNRt": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "mail",
+            "richtext": "<p><a href=\"mailto:office@hubners.ro\" target=\"_blank\" title=\"mailto:office@hubners.ro\">office@hubners.ro</a></p>"
+          }
+        },
+        "contact_info_TdCkbA": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "clock",
+            "richtext": "<p>Program de lucru:</p><ul><li>De Luni pana Vineri intre orele 9-17</li><li>Sambata inchis</li><li>Duminica inchis</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "contact_info_jQQxE7",
+        "contact_info_3VjU7q",
+        "contact_info_CVCNRt",
+        "contact_info_TdCkbA"
+      ],
+      "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
