@@ -1,4 +1,15 @@
-<section class="py-16 relative">
+<style>
+  .cta-line {
+    transform: translateY(5vh);
+  }
+  @media (min-width: 2000px) {
+    .cta-line {
+      transform: translateY(0vh);
+    }
+  }
+</style>
+
+<section class="py-16 relative" style="padding-bottom: 10vh;">
   <div class="global-padding">
     <div class="container-large">
       <div class="grid lg:grid-cols-2 gap-5">
@@ -30,7 +41,7 @@
   </div>
   <div class="hidden lg:flex absolute top-0 left-0 w-full h-full items-center justify-center overflow-hidden z-10">
     <div class="w-[200vw]">
-      {% render 'shape-dashed-line', width: '125%', height: '505', class: 'translate-x-[-15vw] translate-y-[8vh]' %}
+      {% render 'shape-dashed-line', width: '125%', height: '505', class: 'translate-x-[-15vw] cta-line' %}
     </div>
   </div>
 </section>

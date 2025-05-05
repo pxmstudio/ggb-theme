@@ -200,12 +200,6 @@
       <script src="{{ 'product-gallery-modal.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
-    {% comment %}
-      {% if content_for_layout contains 'main-warranty' %}
-        <script src="{{ 'warranty.js' | asset_url }}" type="module" defer></script>
-      {% endif %}
-    {% endcomment %}
-
     <script>
       async function getShopCurrency() {
         try {
@@ -229,5 +223,9 @@
         <script src="{{ 'main-search.js' | asset_url }}" defer></script>
       {% endif %}
     {% endcomment %}
+
+    {%- if settings.whatsapp_number != blank -%}
+      {% render 'whatsapp-floting-button', whatsapp_number: settings.whatsapp_number %}
+    {%- endif -%}
   </body>
 </html>
