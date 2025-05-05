@@ -17,5 +17,16 @@
         "info": "t:settings_schema.logo.settings.favicon.info"
       }
     ]
+  },
+  {
+    "name": "whatsapp",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Number",
+        "default": "+40727565056"
+      }
+    ]
   }
 ]

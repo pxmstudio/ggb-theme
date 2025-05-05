@@ -81,8 +81,8 @@
 {% endschema %}
 
 <script>
-  const searchQueryInput = document.getElementById('search-query-input');
+  {% comment %} const searchQueryInput = document.getElementById('search-query-input');
   if (!searchQueryInput.value) {
     window.location.replace('/collections/all');
-  }
+  } {% endcomment %}
 </script>

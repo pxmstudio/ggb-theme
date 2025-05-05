@@ -1,5 +1,8 @@
 <li class="p-4 rounded-xl border border-border-primary flex lg:flex-row flex-col lg:items-center gap-6 w-full">
-  <div class="aspect-square overflow-hidden rounded-lg border border-border-primary relative w-36">
+  <a
+    href="{{ item.url }}"
+    class="aspect-square overflow-hidden rounded-lg border border-border-primary relative w-36 min-w-[9rem] "
+  >
     <img
       src="{{ item.image | image_url: width: 200 }}"
       alt="{{ item.title }}"
@@ -7,7 +10,7 @@
       height="200"
       class="absolute w-full h-full top-0 bottom-0 left-0 right-0 object-cover object-center"
     >
-  </div>
+  </a>
   <div class="flex flex-col gap-6 lg:gap-12 justify-between">
     <div class="flex flex-col gap-1">
       <h3 class="text-text-primary font-semibold lg:text-xl">{{ item.title }}</h3>

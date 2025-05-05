@@ -4,7 +4,11 @@
       <h1 class="heading-h1 text-text-primary mb-6 lg:mb-14">Colecții</h1>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12">
         {% for collection in collections %}
-          {% render 'collection-card', collection: collection %}
+          {% if collection.metafields.custom.is_displayed != false
+            and collection.metafields.custom.is_displayed != blank
+          %}
+            {% render 'collection-card', collection: collection %}
+          {% endif %}
         {% endfor %}
       </div>
     </div>

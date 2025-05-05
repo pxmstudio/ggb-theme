@@ -18,7 +18,7 @@ class p{constructor(t){Object.defineProperty(this,"config",{enumerable:!0,config
               `:""}
           </div>
           <div class="pt-4">
-            <h3 class="text-text-primary lg:text-lg font-semibold leading-normal mb-2" pxm-product="title">
+            <h3 class="text-text-primary lg:text-lg font-semibold leading-normal mb-2" pxm-product="title line-clamp-3">
               ${n.title}
             </h3>
             <div class="flex items-center gap-4">

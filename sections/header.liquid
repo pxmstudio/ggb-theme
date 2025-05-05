@@ -126,9 +126,6 @@
 
                 <!-- Account Links -->
                 <div class="flex items-center gap-2 lg:gap-3">
-                  <a href="/collections/all" class=" bg-bg-secondary rounded-full z-50 w-12 h-12 p-3 block lg:hidden">
-                    {% render 'icon-search' %}
-                  </a>
                   {% if customer %}
                     {% render 'nav-acc-btn', path: routes.account_url, icon: 'user' %}
                   {% else %}
@@ -144,6 +141,10 @@
 
           <!-- Mobile Buttons -->
           <div class="flex items-center gap-4 lg:hidden">
+            <a href="/search" class=" bg-bg-secondary rounded-full w-10 h-10 p-2 block lg:hidden">
+              {% render 'icon-search' %}
+            </a>
+            {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
             <button
               class="lg:hidden relative w-10 h-10 py-3 px-2 flex flex-col items-center justify-center gap-1 bg-bg-secondary rounded-full z-50"
               pxm-nav="mobile-btn"

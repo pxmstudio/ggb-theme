@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Running nav.ts");
+  //console.log("Running nav.ts");
   const button = document.querySelector<HTMLButtonElement>(
     '[pxm-nav="mobile-btn"]'
   );
