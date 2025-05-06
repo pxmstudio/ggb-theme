@@ -9,7 +9,7 @@
           {% endif %}
           <a
             href="/"
-            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-100 h-10 lg:h-16 w-auto"
+            class="global-transition flex justify-center bg-brand-turquoise border-none rounded-full px-3 lg:px-6 py-1.5 lg:py-3 relative z-50 h-10 lg:h-16 w-auto"
           >
             {% render 'icon-logo' %}
           </a>
@@ -131,7 +131,9 @@
                   {% else %}
                     {% render 'nav-acc-btn', path: routes.account_login_url, icon: 'user' %}
                   {% endif %}
-                  {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+                  <div class="hidden lg:block">
+                    {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+                  </div>
                   {% comment %} {% render 'nav-acc-btn', path: '/pages/wishlist', icon: 'heart' %} {% endcomment %}
                 </div>
               </div>
@@ -141,10 +143,12 @@
 
           <!-- Mobile Buttons -->
           <div class="flex items-center gap-4 lg:hidden">
-            <a href="/search" class=" bg-bg-secondary rounded-full w-10 h-10 p-2 block lg:hidden">
+            <a href="/search" class=" bg-bg-secondary rounded-full w-10 h-10 p-2 block lg:hidden z-50">
               {% render 'icon-search' %}
             </a>
-            {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+            <div class="z-50">
+              {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
+            </div>
             <button
               class="lg:hidden relative w-10 h-10 py-3 px-2 flex flex-col items-center justify-center gap-1 bg-bg-secondary rounded-full z-50"
               pxm-nav="mobile-btn"
