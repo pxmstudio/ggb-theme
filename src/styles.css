@@ -114,9 +114,20 @@ input[type='number']::-webkit-inner-spin-button {
 .shopify-policy__title {
   @apply text-3xl font-semibold;
 }
-.shopify-policy__body p {
+.shopify-policy__body p,
+.shopify-policy__body li,
+.shopify-policy__body ol {
   @apply text-lg leading-normal mt-4;
 }
+
+.shopify-policy__body ul {
+  @apply list-disc pl-6 mt-4;
+}
+
+.shopify-policy__body ol {
+  @apply list-decimal pl-6 mt-4;
+}
+
 .shopify-policy__body h1 {
   @apply text-2xl font-semibold;
 }

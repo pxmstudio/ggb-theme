@@ -2218,11 +2218,25 @@ input[type='number']::-webkit-inner-spin-button {
   font-weight: 600;
 }
 
-.shopify-policy__body p {
+.shopify-policy__body p,
+.shopify-policy__body li,
+.shopify-policy__body ol {
   margin-top: 1rem;
   font-size: 1.125rem;
   line-height: 1.75rem;
   line-height: 1.5;
+}
+
+.shopify-policy__body ul {
+  margin-top: 1rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.shopify-policy__body ol {
+  margin-top: 1rem;
+  list-style-type: decimal;
+  padding-left: 1.5rem;
 }
 
 .shopify-policy__body h1 {
