@@ -13,7 +13,7 @@
       "type": "about-header",
       "settings": {
         "title": "Despre noi",
-        "text": "<p>La GoGo Baby, ne dedicăm să oferim produse de calitate, sigure și accesibile, care răspund nevoilor zilnice ale familiilor cu copii.</p>",
+        "text": "<p>La Go Go Baby, ne dedicăm să oferim produse de calitate, sigure și accesibile, care răspund nevoilor zilnice ale familiilor cu copii.</p>",
         "image": "shopify://shop_images/about-min.jpg"
       }
     },
@@ -80,7 +80,7 @@
         "timeline_item_wYr6wd"
       ],
       "settings": {
-        "title": "Călătoria Gogobaby"
+        "title": "Călătoria Go Go Baby"
       }
     },
     "reviews": {
