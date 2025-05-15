@@ -1,4 +1,4 @@
-<section class="py-16">
+section class="py-16">
   <div class="global-padding">
     <div class="container-large">
       <h2 class="heading-h2 text-text-primary mb-6 lg:mb-12">{{ section.settings.title }}</h2>
@@ -10,10 +10,10 @@
             {% if img != blank %}
               <a
                 href="{{ url }}"
-                class="w-full rounded-2xl border-2 border-border-primary flex items-center justify-center h-20 lg:h-80 global-transition hover:border-border-secondary hover:border-dashed"
+                class="w-full rounded-2xl flex items-center justify-center h-20 lg:h-80 global-transition hover:border-border-secondary hover:border-dashed"
               >
                 <img
-                  src="{{ img | image_url: width: 200 }}"
+                  src="{{ img | image_url: width: 100 }}"
                   width="auto"
                   height="24"
                   class="w-auto h-6"
