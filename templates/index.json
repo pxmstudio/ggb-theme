@@ -57,6 +57,7 @@
         },
         "brand_FbQCVt": {
           "type": "brand",
+          "name": "Chipolino",
           "settings": {
             "img": "shopify://shop_images/chipolino_1533027344.jpg",
             "url": ""
