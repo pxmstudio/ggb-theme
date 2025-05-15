@@ -22,6 +22,7 @@
         },
         "contact_info_3VjU7q": {
           "type": "contact_info",
+          "name": "Numar de telefon",
           "settings": {
             "icon": "phone",
             "richtext": "<p>+40724.207.773</p>"
