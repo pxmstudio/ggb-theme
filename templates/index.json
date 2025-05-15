@@ -58,6 +58,7 @@
         "brand_FbQCVt": {
           "type": "brand",
           "settings": {
+            "img": "shopify://shop_images/chipolino_1533027344.jpg",
             "url": ""
           }
         },
@@ -87,7 +88,6 @@
         "brand_r4BNdj",
         "brand_WyEw9y"
       ],
-      "disabled": true,
       "settings": {
         "title": "Brandurile noastre"
       }
