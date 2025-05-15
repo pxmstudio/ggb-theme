@@ -38,9 +38,10 @@
         },
         "contact_info_TdCkbA": {
           "type": "contact_info",
+          "name": "Program de lucru",
           "settings": {
             "icon": "clock",
-            "richtext": "<p>Program de lucru:</p><ul><li>De Luni pana Vineri intre orele 9-17</li><li>Sambata inchis</li><li>Duminica inchis</li></ul>"
+            "richtext": "<p>Program de lucru:</p><ul><li>De Luni până Vineri între orele <strong>9:30-15:30</strong></li><li>Sambata <strong>INCHIS</strong></li><li>Duminica <strong>INCHIS</strong></li></ul>"
           }
         }
       },
