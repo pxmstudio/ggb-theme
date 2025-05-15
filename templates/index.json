@@ -65,19 +65,33 @@
         },
         "brand_H3Rnzw": {
           "type": "brand",
+          "name": "FreeON",
           "settings": {
+            "img": "shopify://shop_images/freeon-logo-cavilla-bababolt-1.jpg",
             "url": ""
           }
         },
         "brand_r4BNdj": {
           "type": "brand",
+          "name": "i-Size",
           "settings": {
+            "img": "shopify://shop_images/i-size_1.png",
             "url": ""
           }
         },
         "brand_WyEw9y": {
           "type": "brand",
+          "name": "ChillaFish",
           "settings": {
+            "img": "shopify://shop_images/CF_Logo_Standard_play_longer_red_M_985x_c9820d9f-8feb-47ec-9a9f-5c01fccd321e.webp",
+            "url": ""
+          }
+        },
+        "brand_LcXtDq": {
+          "type": "brand",
+          "name": "BocioLand",
+          "settings": {
+            "img": "shopify://shop_images/bc577082-b8a9-486c-a4fd-427d29be48da.png",
             "url": ""
           }
         }
@@ -87,7 +101,8 @@
         "brand_FbQCVt",
         "brand_H3Rnzw",
         "brand_r4BNdj",
-        "brand_WyEw9y"
+        "brand_WyEw9y",
+        "brand_LcXtDq"
       ],
       "settings": {
         "title": "Brandurile noastre"
