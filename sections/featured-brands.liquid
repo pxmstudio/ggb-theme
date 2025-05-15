@@ -10,13 +10,14 @@
             {% if img != blank %}
               <a
                 href="{{ url }}"
-                class="w-full rounded-2xl flex items-center justify-center h-20 lg:h-80 global-transition hover:border-border-secondary hover:border-dashed"
+                class="brand-link w-full rounded-2xl flex items-center justify-center h-auto lg:h-auto global-transition hover:border-border-secondary hover:border-dashed"
               >
                 <img
-                  src="{{ img | image_url: width: 100 }}"
+                  src="{{ img | image_url: master }}"
                   width="auto"
-                  height="24"
-                  class="w-auto h-6"
+                  height="auto"
+                  class="brand-image w-auto h-auto"
+                  style="max-width: 100%; max-height: 100%; object-fit: contain;"
                 >
               </a>
             {% endif %}
