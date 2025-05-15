@@ -28,14 +28,6 @@
             "link": "https://www.gogobaby.ro/products/carucior-sport-chipolino-pixie-ash-grey"
           }
         },
-        "slide_jBcriz": {
-          "type": "slide",
-          "name": "Reduceri",
-          "settings": {
-            "image": "shopify://shop_images/REDUCERI.jpg",
-            "link": "shopify://collections/accesorii-masa"
-          }
-        },
         "slide_maDLFw": {
           "type": "slide",
           "name": "Bun venit",
@@ -48,7 +40,6 @@
       "block_order": [
         "slide_AxJWgz",
         "slide_brtGAW",
-        "slide_jBcriz",
         "slide_maDLFw"
       ],
       "settings": {}
