@@ -51,7 +51,7 @@
           "type": "brand",
           "name": "Lionelo",
           "settings": {
-            "img": "shopify://shop_images/ivBLJrH6w22k4QhqvlSR.jpg",
+            "img": "shopify://shop_images/lionelo_1200_x_628_px.png",
             "url": ""
           }
         },
@@ -87,6 +87,7 @@
         "brand_r4BNdj",
         "brand_WyEw9y"
       ],
+      "disabled": true,
       "settings": {
         "title": "Brandurile noastre"
       }
