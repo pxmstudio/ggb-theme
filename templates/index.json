@@ -94,6 +94,22 @@
             "img": "shopify://shop_images/bc577082-b8a9-486c-a4fd-427d29be48da.png",
             "url": ""
           }
+        },
+        "brand_LfXfVP": {
+          "type": "brand",
+          "name": "Coccolle",
+          "settings": {
+            "img": "shopify://shop_images/coccolle_cu_logotip.webp",
+            "url": ""
+          }
+        },
+        "brand_TXAdF4": {
+          "type": "brand",
+          "name": "BocioLand",
+          "settings": {
+            "img": "shopify://shop_images/bc577082-b8a9-486c-a4fd-427d29be48da.png",
+            "url": ""
+          }
         }
       },
       "block_order": [
@@ -102,7 +118,9 @@
         "brand_H3Rnzw",
         "brand_r4BNdj",
         "brand_WyEw9y",
-        "brand_LcXtDq"
+        "brand_LcXtDq",
+        "brand_LfXfVP",
+        "brand_TXAdF4"
       ],
       "settings": {
         "title": "Brandurile noastre"
