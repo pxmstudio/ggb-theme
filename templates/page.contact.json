@@ -14,6 +14,7 @@
       "blocks": {
         "contact_info_jQQxE7": {
           "type": "contact_info",
+          "name": "Locatie si informatii",
           "settings": {
             "icon": "location",
             "richtext": "<p>S.C. GOGO BABY S.R.L<br/>Punct de lucru: Ploiești, Aleea Berceni, Nr. 6<br/>Cod unic de inregistrare: RO42181921<br/>Numar registrul comertului: J20/20000/177294<br/>IBAN: RO68 INGB 0000 9999 1522 0248</p><p>Banca: ING Bank, Sucursala Ploiești</p>"
@@ -23,14 +24,14 @@
           "type": "contact_info",
           "settings": {
             "icon": "phone",
-            "richtext": "<p><a href=\"tel:+40727-565056\" target=\"_blank\" title=\"tel:+40727565056\">+4</a>0724.207.773</p>"
+            "richtext": "<p>+40724.207.773</p>"
           }
         },
         "contact_info_CVCNRt": {
           "type": "contact_info",
           "settings": {
             "icon": "mail",
-            "richtext": "<p><a href=\"mailto:office@hubners.ro\" target=\"_blank\" title=\"mailto:office@hubners.ro\">office@hubners.ro</a></p>"
+            "richtext": "<p><a href=\"mailto:web@gogobaby.ro\" title=\"mailto:web@gogobaby.ro\">web@gogobaby.ro</a></p>"
           }
         },
         "contact_info_TdCkbA": {
