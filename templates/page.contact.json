@@ -30,6 +30,7 @@
         },
         "contact_info_CVCNRt": {
           "type": "contact_info",
+          "name": "Adresa de e-mail",
           "settings": {
             "icon": "mail",
             "richtext": "<p><a href=\"mailto:web@gogobaby.ro\" title=\"mailto:web@gogobaby.ro\">web@gogobaby.ro</a></p>"
