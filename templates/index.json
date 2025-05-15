@@ -110,6 +110,14 @@
             "img": "shopify://shop_images/89612a1b-48af-46a1-8262-f23b355859f2.png",
             "url": ""
           }
+        },
+        "brand_bUCKGW": {
+          "type": "brand",
+          "name": "DHS",
+          "settings": {
+            "img": "shopify://shop_images/dhs-logo-600x315w.png",
+            "url": ""
+          }
         }
       },
       "block_order": [
@@ -120,7 +128,8 @@
         "brand_WyEw9y",
         "brand_LcXtDq",
         "brand_LfXfVP",
-        "brand_TXAdF4"
+        "brand_TXAdF4",
+        "brand_bUCKGW"
       ],
       "settings": {
         "title": "Brandurile noastre"
