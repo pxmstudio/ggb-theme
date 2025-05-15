@@ -30,6 +30,7 @@
         },
         "slide_jBcriz": {
           "type": "slide",
+          "name": "Reduceri",
           "settings": {
             "image": "shopify://shop_images/REDUCERI.jpg",
             "link": "shopify://collections/accesorii-masa"
