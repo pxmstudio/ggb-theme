@@ -40,7 +40,7 @@
         "settings": {
           "newsletter_title": "Abonează-te la newsletter-ul nostru ca sa afli primul despre cele mai bune oferte!",
           "newsletter_button": "Abonează-te",
-          "newsletter_disclaimer": "<p>Sunt de acord cu <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">politica de confidențialitate</a>.</p>",
+          "newsletter_disclaimer": "<p>Sunt de acord cu <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\"><strong>politica de confidențialitate</strong></a><strong>.</strong></p>",
           "footer_menu": "footer-1",
           "footer_secondary_menu": "footer-secondary-menu",
           "facebook_url": "https://www.facebook.com/gogobaby.ro/",
