@@ -35,12 +35,21 @@
             "image": "shopify://shop_images/REDUCERI.jpg",
             "link": "shopify://collections/accesorii-masa"
           }
+        },
+        "slide_maDLFw": {
+          "type": "slide",
+          "name": "Reduceri",
+          "settings": {
+            "image": "shopify://shop_images/38_2.jpg",
+            "link": "https://www.gogobaby.ro"
+          }
         }
       },
       "block_order": [
         "slide_AxJWgz",
         "slide_brtGAW",
-        "slide_jBcriz"
+        "slide_jBcriz",
+        "slide_maDLFw"
       ],
       "settings": {}
     },
