@@ -167,6 +167,53 @@
       "settings": {
         "title": "Descoperă toate produsele!"
       }
+    },
+    "1748265199aaa5e873": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17482652941c42c19f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5fee96e_HQHea3": {
+          "type": "ai_gen_block_5fee96e",
+          "settings": {
+            "heading": "Featured Brands",
+            "heading_alignment": "center",
+            "placeholder_count": 5,
+            "brand_logo_1": "shopify://shop_images/miminu.png",
+            "brand_link_1": "",
+            "brand_link_2": "",
+            "brand_link_3": "",
+            "brand_link_4": "",
+            "brand_link_5": "",
+            "brand_link_6": "",
+            "brand_link_7": "",
+            "brand_link_8": "",
+            "brands_per_view": 5,
+            "brands_per_view_mobile": "2",
+            "logo_height": 80,
+            "slide_padding": 15,
+            "hover_opacity": 80,
+            "open_in_new_tab": true,
+            "enable_autoplay": true,
+            "autoplay_speed": 5,
+            "heading_size": 28,
+            "heading_color": "#000000",
+            "nav_button_color": "#ffffff",
+            "nav_button_text_color": "#000000",
+            "nav_button_hover_color": "#f5f5f5",
+            "placeholder_bg_color": "#f4f4f4",
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5fee96e_HQHea3"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -174,6 +221,8 @@
     "featured-brands",
     "featured-products",
     "cta",
-    "collections-slider"
+    "collections-slider",
+    "1748265199aaa5e873",
+    "17482652941c42c19f"
   ]
 }
