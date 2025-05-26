@@ -1,6 +1,618 @@
+{% doc %}
+  @prompt
+    Create a slider for Featured Brands section that displays brand logos in a carousel format with navigation controls
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .brand-slider-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding: 0 40px;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px;
+  }
+
+  .brand-slider-heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    margin-bottom: 30px;
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .brand-slider-track-{{ ai_gen_id }} {
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .brand-slider-slide-{{ ai_gen_id }} {
+    flex: 0 0 calc(100% / {{ block.settings.brands_per_view }});
+    min-width: calc(100% / {{ block.settings.brands_per_view }});
+    padding: 0 {{ block.settings.slide_padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-slider-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.logo_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-slider-image-{{ ai_gen_id }} {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: opacity 0.3s;
+  }
+
+  .brand-slider-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-slider-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-height: {{ block.settings.logo_height }}px;
+    object-fit: contain;
+    background-color: {{ block.settings.placeholder_bg_color }};
+    border-radius: 4px;
+  }
+
+  .brand-slider-nav-button-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: {{ block.settings.nav_button_color }};
+    color: {{ block.settings.nav_button_text_color }};
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .brand-slider-nav-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_color }};
+  }
+
+  .brand-slider-prev-{{ ai_gen_id }} {
+    left: 0;
+  }
+
+  .brand-slider-next-{{ ai_gen_id }} {
+    right: 0;
+  }
+
+  .brand-slider-nav-icon-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+  }
+
+  .brand-slider-link-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+
+  .brand-slider-link-{{ ai_gen_id }}:hover .brand-slider-image-{{ ai_gen_id }} {
+    opacity: {{ block.settings.hover_opacity | divided_by: 100.0 }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .brand-slider-slide-{{ ai_gen_id }} {
+      flex: 0 0 calc(100% / {{ block.settings.brands_per_view_mobile }});
+      min-width: calc(100% / {{ block.settings.brands_per_view_mobile }});
+    }
+    
+    .brand-slider-{{ ai_gen_id }} {
+      padding: 0 30px;
+    }
+    
+    .brand-slider-nav-button-{{ ai_gen_id }} {
+      width: 30px;
+      height: 30px;
+    }
+  }
+{% endstyle %}
+
+<brand-slider-{{ ai_gen_id }} 
+  class="brand-slider-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.heading != blank %}
+    <h2 class="brand-slider-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+  {% endif %}
+
+  <button 
+    class="brand-slider-nav-button-{{ ai_gen_id }} brand-slider-prev-{{ ai_gen_id }}" 
+    aria-label="Previous brands"
+  >
+    <svg class="brand-slider-nav-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="brand-slider-track-{{ ai_gen_id }}">
+    {% for i in (1..8) %}
+      {% assign logo_key = 'brand_logo_' | append: i %}
+      {% assign link_key = 'brand_link_' | append: i %}
+      {% assign logo = block.settings[logo_key] %}
+      {% assign link = block.settings[link_key] %}
+
+      {% if logo != blank or forloop.index <= block.settings.placeholder_count %}
+        <div class="brand-slider-slide-{{ ai_gen_id }}">
+          {% if link != blank %}
+            <a href="{{ link }}" class="brand-slider-link-{{ ai_gen_id }}" {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+          {% endif %}
+          
+          <div class="brand-slider-image-wrapper-{{ ai_gen_id }}">
+            {% if logo != blank %}
+              <img 
+                src="{{ logo | img_url: 'medium' }}" 
+                alt="{{ logo.alt | escape }}" 
+                loading="lazy"
+                class="brand-slider-image-{{ ai_gen_id }}"
+                width="{{ logo.width }}"
+                height="{{ logo.height }}"
+              >
+            {% else %}
+              <div class="brand-slider-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+          
+          {% if link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <button 
+    class="brand-slider-nav-button-{{ ai_gen_id }} brand-slider-next-{{ ai_gen_id }}" 
+    aria-label="Next brands"
+  >
+    <svg class="brand-slider-nav-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</brand-slider-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BrandSlider{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.track = this.querySelector('.brand-slider-track-{{ ai_gen_id }}');
+        this.slides = this.querySelectorAll('.brand-slider-slide-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.brand-slider-prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.brand-slider-next-{{ ai_gen_id }}');
+        this.slidesPerView = {{ block.settings.brands_per_view }};
+        this.currentIndex = 0;
+        this.slideCount = this.slides.length;
+        this.autoplayInterval = null;
+      }
+
+      connectedCallback() {
+        if (this.slides.length <= this.slidesPerView) {
+          this.prevButton.style.display = 'none';
+          this.nextButton.style.display = 'none';
+          return;
+        }
+
+        this.setupEventListeners();
+        this.updateButtonStates();
+        this.setupAutoplay();
+      }
+
+      setupEventListeners() {
+        this.prevButton.addEventListener('click', () => this.slidePrev());
+        this.nextButton.addEventListener('click', () => this.slideNext());
+        
+        // Pause autoplay on hover
+        this.addEventListener('mouseenter', () => this.pauseAutoplay());
+        this.addEventListener('mouseleave', () => this.setupAutoplay());
+        
+        // Handle responsive changes
+        window.addEventListener('resize', () => {
+          this.updateSlidesPerView();
+          this.updateButtonStates();
+        });
+      }
+      
+      updateSlidesPerView() {
+        if (window.innerWidth <= 749) {
+          this.slidesPerView = {{ block.settings.brands_per_view_mobile }};
+        } else {
+          this.slidesPerView = {{ block.settings.brands_per_view }};
+        }
+      }
+
+      slidePrev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.updateSlidePosition();
+        }
+      }
+
+      slideNext() {
+        if (this.currentIndex < this.slideCount - this.slidesPerView) {
+          this.currentIndex++;
+          this.updateSlidePosition();
+        }
+      }
+
+      updateSlidePosition() {
+        const slideWidth = this.slides[0].offsetWidth;
+        this.track.scrollLeft = this.currentIndex * slideWidth;
+        this.updateButtonStates();
+      }
+
+      updateButtonStates() {
+        this.prevButton.disabled = this.currentIndex === 0;
+        this.nextButton.disabled = this.currentIndex >= this.slideCount - this.slidesPerView;
+        
+        this.prevButton.style.opacity = this.prevButton.disabled ? '0.5' : '1';
+        this.nextButton.style.opacity = this.nextButton.disabled ? '0.5' : '1';
+      }
+      
+      setupAutoplay() {
+        if (!{{ block.settings.enable_autoplay }}) return;
+        
+        this.pauseAutoplay();
+        this.autoplayInterval = setInterval(() => {
+          if (this.currentIndex >= this.slideCount - this.slidesPerView) {
+            this.currentIndex = 0;
+          } else {
+            this.currentIndex++;
+          }
+          this.updateSlidePosition();
+        }, {{ block.settings.autoplay_speed }} * 1000);
+      }
+      
+      pauseAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+          this.autoplayInterval = null;
+        }
+      }
+
+      disconnectedCallback() {
+        this.pauseAutoplay();
+      }
+    }
+
+    customElements.define('brand-slider-{{ ai_gen_id }}', BrandSlider{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Featured Brands Slider",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Brands"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "placeholder_count",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "label": "Number of placeholder logos",
+      "default": 5,
+      "info": "Used when no brand logos are uploaded"
+    },
+    {
+      "type": "header",
+      "content": "Brand 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_1",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_1",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_2",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_2",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_3",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_3",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_4",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_4",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_5",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_5",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_6",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_6",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_7",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_7",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Brand 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_8",
+      "label": "Brand logo"
+    },
+    {
+      "type": "url",
+      "id": "brand_link_8",
+      "label": "Brand link"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "brands_per_view",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Brands per view (desktop)",
+      "default": 5
+    },
+    {
+      "type": "select",
+      "id": "brands_per_view_mobile",
+      "label": "Brands per view (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo height",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "slide_padding",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Slide padding",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "hover_opacity",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Hover opacity",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open links in new tab",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 9,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay speed",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Navigation button color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_text_color",
+      "label": "Navigation button icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_color",
+      "label": "Navigation button hover color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_bg_color",
+      "label": "Placeholder background color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Brands Slider"
+    }
+  ]
+}
 {% endschema %}
