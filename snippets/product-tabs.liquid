@@ -11,6 +11,10 @@
   <div pxm-tabs="content">
     <div data-value="features" aria-hidden="false" class="aria-[hidden=false]:block hidden pt-3">
       <div class="text-text-secondary">{{ product.description }}</div>
+      {% assign current_variant = product.selected_or_first_available_variant %}
+      {% if current_variant.sku != blank %}
+        <div class="text-text-secondary mt-4"><span class="font-medium">SKU:</span> {{ current_variant.sku }}</div>
+      {% endif %}
     </div>
     <div data-value="delivery" aria-hidden="true" class="aria-[hidden=false]:block hidden pt-3">
       <div class="text-text-secondary">

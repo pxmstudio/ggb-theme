@@ -31,6 +31,7 @@
               {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
             </p>
           </div>
+
           <div class="flex flex-col gap-6 mb-4 lg:mb-8">
             <px-add-to-cart>
               {% form 'product', product, class: 'flex items-center gap-8  flex-wrap', data-product-form: '' %}

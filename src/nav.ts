@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (searchForm && searchInput) {
     searchForm.addEventListener("submit", (e) => {
-      console.log("Form submitted in nav.ts");
       e.preventDefault();
       const searchQuery = searchInput.value.trim();
       if (!searchQuery) return;
@@ -113,9 +112,14 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         if (searchResultsContainer) {
           searchResultsContainer.innerHTML = "";
-          searchInput.value = "";
+          //searchInput.value = "";
         }
       }
     });
   }
+
+  const allInputs = document.querySelectorAll<HTMLInputElement>('input[name="q"]');
+  allInputs.forEach(input => {
+    //console.log('Input:', input, 'Value:', input.value, 'Hidden:', input.offsetParent === null);
+  });
 });
