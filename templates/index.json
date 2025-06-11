@@ -16,7 +16,7 @@
           "type": "slide",
           "name": "Bun venit",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2025-06-10_at_20.54.51_3cd5e1ee.jpg",
+            "image": "shopify://shop_images/WhatsApp_Image_2025-06-11_at_12.25.09_9a95af99.jpg",
             "link": "https://www.gogobaby.ro"
           }
         },
@@ -24,7 +24,7 @@
           "type": "slide",
           "name": "Reduceri Carucioare 3 in 1",
           "settings": {
-            "image": "shopify://shop_images/Reduceri_Chipolino.png",
+            "image": "shopify://shop_images/IMG-20250611-WA0022.jpg",
             "link": "https://www.gogobaby.ro/products/carucior-sport-chipolino-miley-princess"
           }
         },
@@ -32,7 +32,7 @@
           "type": "slide",
           "name": "Reducere carucioare sport Lionelo",
           "settings": {
-            "image": "shopify://shop_images/Reduceri_Lionelo_Sport.png",
+            "image": "shopify://shop_images/IMG-20250611-WA0021.jpg",
             "link": "https://www.gogobaby.ro/products/carucior-sport-chipolino-pixie-ash-grey"
           }
         },
@@ -40,7 +40,15 @@
           "type": "slide",
           "name": "Reducere Carucioare 2 in 1 Lionelo",
           "settings": {
-            "image": "shopify://shop_images/Reduceri_amber_si_mika.png",
+            "image": "shopify://shop_images/IMG-20250611-WA0024.jpg",
+            "link": ""
+          }
+        },
+        "slide_8gRNJU": {
+          "type": "slide",
+          "name": "Reducere Carucioare 2 in 1 Lionelo",
+          "settings": {
+            "image": "shopify://shop_images/IMG-20250611-WA0023.jpg",
             "link": ""
           }
         }
@@ -49,7 +57,8 @@
         "slide_maDLFw",
         "slide_AxJWgz",
         "slide_brtGAW",
-        "slide_MPrKxi"
+        "slide_MPrKxi",
+        "slide_8gRNJU"
       ],
       "settings": {}
     },
