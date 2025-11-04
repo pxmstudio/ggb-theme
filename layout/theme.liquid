@@ -30,6 +30,10 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     >
+    <link
+      href="https://db.onlinewebfonts.com/c/7986c4739d7a5bc8f1a6ad292ea40f7a?family=CCPassThePort+Regular"
+      rel="stylesheet"
+    >
     {% comment %}
       <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -62,6 +66,7 @@
     {% if content_for_layout contains 'collections-slider'
       or content_for_layout contains 'about-reviews'
       or content_for_layout contains 'px-product-gallery-modal'
+      or content_for_layout contains 'filters-bf'
     %}
       <link
         rel="stylesheet"
@@ -132,13 +137,21 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {% section 'header' %}
+    {% if page and page.handle == 'black-friday' %}
+      {% section 'header-black-friday' %}
+    {% elsif page and page.handle == 'black-friday' %}
+      {% comment %} No header for black-friday page {% endcomment %}
+    {% else %}
+      {% section 'header' %}
+    {% endif %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
 
-    {% section 'footer' %}
+    {% unless page and page.handle == 'black-friday' %}
+      {% section 'footer' %}
+    {% endunless %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
@@ -169,7 +182,10 @@
       {% endif %}
     {% endif %}
 
-    {% if content_for_layout contains 'collections-slider' or content_for_layout contains 'about-reviews' %}
+    {% if content_for_layout contains 'collections-slider'
+      or content_for_layout contains 'about-reviews'
+      or content_for_layout contains 'filters-bf'
+    %}
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
       <script src="{{ 'swiper.js' | asset_url }}" defer></script>
     {% endif %}
@@ -184,6 +200,10 @@
 
     {% if content_for_layout contains 'add-to-cart' %}
       <script src="{{ 'add-to-cart.js' | asset_url }}" type="module" defer></script>
+    {% endif %}
+
+    {% if page and page.handle == 'black-friday' %}
+      <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
     {% if content_for_layout contains 'main-collection' %}

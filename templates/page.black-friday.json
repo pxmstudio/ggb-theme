@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-black-friday"
+    },
+    "blog-listing": {
+      "type": "black-friday-collection"
+    }
+  },
+  "order": ["main", "blog-listing"]
+}
