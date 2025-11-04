@@ -4,20 +4,22 @@
 
   <div class=" bf-hero-section container-large z-index-40 position-relative global-padding">
     <div class="text-center lg:py-16 py-8">
-      <h1 class="bf-hero-title">Spooky Deals</h1>
-      <p class="bf-hero-subtitle lg:heading-h5 heading-h6 font-semibold">
-        Bucură-te de oferte speciale, de până la <span class="bf-hero-discount">60%</span> reducere!
-      </p>
+      <h1 class="bf-hero-title">{{ section.settings.hero_title | default: 'Spooky Deals' }}</h1>
+      <div class="bf-hero-subtitle lg:heading-h5 heading-h6 font-semibold">
+        {{ section.settings.subtitle_before | default: 'Bucură-te de oferte speciale, de până la' }}
+        <span class="bf-hero-discount">{{ section.settings.subtitle_highlight | default: '60%' }}</span>
+        {{ section.settings.subtitle_after | default: 'reducere!' }}
+      </div>
     </div>
     <img
-      src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-image-2.png?v=1761919728"
+      src="{% if section.settings.image_left != blank %}{{ section.settings.image_left | image_url: width: 260 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-image-2.png?v=1761919728{% endif %}"
       alt="Black Friday"
       class="bf-hero-image bf-hero-image--left"
       width="260"
       height="260"
     >
     <img
-      src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-image-2.png?v=1761919728"
+      src="{% if section.settings.image_right != blank %}{{ section.settings.image_right | image_url: width: 260 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-image-2.png?v=1761919728{% endif %}"
       alt="Black Friday"
       class="bf-hero-image bf-hero-image--right"
       width="260"
@@ -26,14 +28,16 @@
   </div>
   <div class="bf-hero-image-wrapper">
     <img
-      src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bf-image.png?v=1761919728"
+      src="{% if section.settings.image_figure != blank %}{{ section.settings.image_figure | image_url: width: 300 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bf-image.png?v=1761919728{% endif %}"
       alt="Black Friday"
       class="bf-hero-figure z-index-10"
       width="300"
       height="200"
     >
+  </div>
+  <div class="bf-hero-line-wrapper">
     <img
-      src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-line.png?v=1761919727"
+      src="{% if section.settings.image_line != blank %}{{ section.settings.image_line | image_url: width: 1100 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-line.png?v=1761919727{% endif %}"
       alt="Black Friday"
       class="bf-hero-line"
       width="1100"
@@ -58,12 +62,19 @@
       line-height: 1;
       position: relative;
       top: 10px;
+      padding-bottom: 16px; /* space for underline graphic */
+      background-image: url('https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Hand-drawn_pen_scribble.svg?v=1762250681');
+      background-repeat: no-repeat;
+      background-position: center bottom; /* bottom center underline */
+      background-size: 80px 15px; /* tune width/height of scribble */
     }
     .bf-hero-subtitle {
-      max-width: 500px;
+      max-width: 450px;
       margin-left: auto;
       margin-right: auto;
+
     }
+    .bf-hero-subtitle strong { font-weight: 700; }
     .bf-hero-background {
       position: absolute;
       top: 0;
@@ -126,12 +137,11 @@
     }
     .bf-hero-line {
       position: absolute;
-      left: 50vw;
       bottom: 0;
-      transform: translateX(-50%);
-      width: 120vw;
+      width: 100%;
+      max-width: 100%;
       height: auto;
-      max-width: none;
+      overflow: hidden;
     }
     .bf-hero-section {
       overflow: hidden;
@@ -139,7 +149,8 @@
       padding-top: 6rem;
     }
     .bf-hero-image-wrapper {
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: visible;
       max-width: 100vw;
       position: relative;
     }
@@ -199,5 +210,74 @@
         height: 120px;
 
       }
+      .bf-hero-line {
+        width: 200vw;
+        max-width: 200vw;
+      }
+      .bf-hero-line-wrapper {
+        position: absolute;
+        bottom: 0;
+        height: 50%;
+        max-height: 50%;
+        overflow: hidden;
+        width: 100%;
+      }
     }
 </style>
+
+{% schema %}
+{
+  "name": "Main Black Friday",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "Spooky Deals"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_before",
+      "label": "Subtitle - text before highlight",
+      "default": "Bucură-te de oferte speciale, de până la"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_highlight",
+      "label": "Subtitle - highlighted text",
+      "default": "60%"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_after",
+      "label": "Subtitle - text after highlight",
+      "default": "reducere!"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left image (260x260)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right image (260x260)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_figure",
+      "label": "Center figure image (300x200)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_line",
+      "label": "Bottom line image (wide)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Black Friday"
+    }
+  ]
+}
+{% endschema %}

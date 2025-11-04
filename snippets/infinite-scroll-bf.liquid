@@ -218,7 +218,7 @@
       this.init();
       this.page = 1;
       this.isLoading = false;
-      this.minDiscount = 30; // threshold for initial pruning and future consistency
+      this.minDiscount = 30;
       this.scrollToTopBtn = document.querySelector('.scrollToTopButton');
       if (this.scrollToTopBtn) {
         this.scrollToTopBtn.addEventListener('click', this.scrollToTopFx.bind(this));
@@ -240,35 +240,24 @@
         if (grid) {
           this.gridName = gridName;
           this.gridContainer = grid;
-          //console.log('Found grid container with selector:', gridName);
+
           break;
         }
       }
 
       if (!this.gridContainer) {
-        console.error('No valid product container found.');
       }
-      // Initial discounts logging removed
-      // Prune initial items below threshold so first page shows only qualifying products
       try {
         this.pruneInitialDiscount();
       } catch (e) {}
-      // no filtering on subsequent appends (handled later)
     }
 
     init() {
       if (!this.gridContainer) {
-        console.error('Cannot initialize infinite scroll without a valid container');
         return;
       }
 
-      // Use the infinite-scroll element itself as the trigger
       this.triggerElement = this;
-      // Make sure it's visible or has some height if needed
-      // this.style.display = 'block';
-      // this.style.height = '10px';
-
-      // console.log('Using infinite-scroll element as trigger');
 
       const options = {
         root: null, // viewport
@@ -279,33 +268,25 @@
       this.observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !this.isLoading) {
-            // console.log('Trigger element is visible, calling loadMore()');
             this.loadMore();
           }
         });
       }, options);
 
       this.observer.observe(this.triggerElement);
-      // console.log('Intersection Observer started, watching trigger element');
-
-      // simple observer; no prefill logic
     }
 
     loadMore() {
-      // Check if we have already loaded the last page OR if we are currently loading
       if (this.isLoading || this.page >= parseInt(this.dataset.pageSize, 10)) {
-        // If it's the end, display the end text and ensure observer is stopped
         if (!this.isLoading && this.page >= parseInt(this.dataset.pageSize, 10)) {
           this.displayEndText();
         }
-        return; // Stop if already loading or all pages are loaded
+        return;
       }
 
-      this.isLoading = true; // Set loading flag
-      this.page++; // Increment page *before* fetching
-      // console.log(`Loading page ${this.page} of ${this.dataset.pageSize}`);
+      this.isLoading = true;
+      this.page++;
 
-      // Show loading indicator (optional)
       const loadingBox = this.querySelector('.loadingBox');
       if (loadingBox) loadingBox.style.display = 'block';
 
@@ -313,29 +294,24 @@
     }
 
     displayEndText() {
-      // console.log('All pages loaded. Displaying end text and disconnecting observer.');
-      this.innerHTML = `<h2>${this.dataset.endText}</h2>`; // Display end text
+      this.innerHTML = `<h2>${this.dataset.endText}</h2>`;
       if (this.observer) {
         this.observer.disconnect(); // Disconnect observer
       }
-      // No need to remove the trigger element if it's the component itself
     }
 
-    // fetchNextPage remains largely the same but needs to reset isLoading flag
     fetchNextPage(e) {
       if (!this.gridContainer) {
-        console.error('Cannot load next page without a valid container');
-        this.isLoading = false; // Reset flag on error
+        //console.error('Cannot load next page without a valid container');
+        this.isLoading = false;
         return;
       }
 
-      // This check is technically redundant now because loadMore handles it, but keep as safety
       if (e > parseInt(this.dataset.pageSize, 10)) {
         this.isLoading = false;
         return;
       }
 
-      // Build fetch URL. Prefer collection URL (keeps selected collection context)
       const sectionId = this.dataset.sectionId || 'black-friday-collection';
       const collectionUrl = this.dataset.collectionUrl;
       let finalUrl = '';
@@ -360,9 +336,7 @@
           return response.text();
         })
         .then((htmlContent) => {
-          // Reset loading flag whether successful or not inside .then
-          // this.isLoading = false; // Moved to finally block
-          // console.log('Received response from server');
+          // console.log('[InfiniteScrollBF] Received response from server');
           if (!htmlContent || htmlContent.trim() === '') {
             throw new Error('Response is empty');
           }
@@ -382,34 +356,32 @@
             const container = tempContainer.querySelector(selector);
             if (container) {
               productContainer = container;
-              // console.log(`Found products with selector: ${selector}`);
+              //  console.log('[InfiniteScrollBF] Found products with selector:', selector);
               break;
             }
           }
           if (!productContainer) {
-            // console.log('No product container found. Looking for individual products.');
             const products = tempContainer.querySelectorAll(
               '[class*="product-card"], [class*="product-item"], [class*="product"]'
             );
             if (products && products.length > 0) {
-              // console.log(`Found ${products.length} individual products`);
               products.forEach((product) => {
                 this.gridContainer.appendChild(product.cloneNode(true));
               });
+              //console.log('[InfiniteScrollBF] Appended', products.length, 'individual products');
               // Still need to check if this load completed the set
               if (this.page >= parseInt(this.dataset.pageSize, 10)) {
                 this.displayEndText();
               }
               return; // Return after adding individual products
             } else {
-              console.error('No products found in response.');
+              // console.error('No products found in response.');
               // console.log('Response received:', htmlContent.substring(0, 500) + '...');
               throw new Error('No products found in response');
             }
           }
           const temp = document.createElement('div');
           temp.innerHTML = productContainer.innerHTML;
-          // Append only products with discount >= 30%
           const nodes = temp.querySelectorAll('[pxm-product="item"]');
           let appended = 0;
           let skipped = 0;
@@ -423,6 +395,8 @@
             }
           });
 
+          // console.log('[InfiniteScrollBF] Appended', appended, 'items; skipped', skipped, 'from page', e);
+
           // console.log(`Products from page ${e} successfully added!`);
 
           // Check if this load completed the set
@@ -431,7 +405,7 @@
           }
         })
         .catch((error) => {
-          console.error('Error fetching products:', error);
+          // console.error('[InfiniteScrollBF] Error fetching products:', error);
           // Also display end text or some message on error?
           // this.displayEndText(); // Or maybe a specific error message
           // this.innerHTML = `<h2>Error loading products.</h2>`;
@@ -441,6 +415,22 @@
           // Hide loading indicator (optional)
           const loadingBox = this.querySelector('.loadingBox');
           if (loadingBox) loadingBox.style.display = 'none';
+          //  console.log('[InfiniteScrollBF] Finished load for page', e, 'isLoading reset');
+          // If the trigger is still visible after render, nudge one more load
+          try {
+            const rect = this.getBoundingClientRect();
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            const stillVisible = rect.top <= vh + 400 && rect.bottom >= 0;
+            const morePages = this.page < parseInt(this.dataset.pageSize, 10);
+            if (!this.isLoading && morePages && stillVisible) {
+              //  console.log('[InfiniteScrollBF] Sentinel still visible → prefill next page');
+              setTimeout(() => {
+                if (!this.isLoading) this.loadMore();
+              }, 0);
+            }
+          } catch (prefillErr) {
+            // console.log('[InfiniteScrollBF] Prefill check error (ignored):', prefillErr);
+          }
         });
     }
 
@@ -458,7 +448,7 @@
           removed++;
         }
       });
-      // no console output in production
+      //  console.log('[InfiniteScrollBF] Pruned', removed, 'initial items below', this.minDiscount, '%');
     }
 
     scrollToTopFx(e) {
@@ -468,6 +458,7 @@
       if (e && e.currentTarget) {
         e.currentTarget.style.display = 'none';
       }
+      // console.log('[InfiniteScrollBF] Scroll to top clicked');
     }
   }
   customElements.define('infinite-scroll-bf', InfiniteScrollBF);
