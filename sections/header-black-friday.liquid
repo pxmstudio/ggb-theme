@@ -61,7 +61,9 @@
                 <div class="font-medium  ">sec</div>
               </div>
             </div>
-            <p class="lg:text-xl text-sm block text-white font-semibold">până la finalul promoției</p>
+            <p class="lg:text-xl text-sm block text-white font-semibold">
+              {{ section.settings.promo_text | default: 'până la finalul promoției' }}
+            </p>
           </div>
           <div class="hidden lg:block relative" pxm-nav="menu">
             <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
@@ -70,7 +72,7 @@
 
                 <!-- Account Links -->
                 <div class="flex items-center gap-2 lg:gap-3 bg-bg-alternate">
-                  {% render 'button-bf', type: 'link', hierarchy: 'primary', href: '/', text: 'Înapoi la website' %}
+                  {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
                   <div class="hidden lg:block">
                     {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
                   </div>
@@ -114,6 +116,9 @@
 <style>
   .header-black-friday_wrapper {
     padding-top: 1.5rem;
+  }
+  .header-black-friday {
+    background-color: #ea8050;
   }
   /* Ensure digits have equal width to avoid jitter */
   [data-countdown-value] {
@@ -162,3 +167,34 @@
     }
   }
 </style>
+
+{% schema %}
+{
+  "name": "Header Black Friday",
+  "settings": [
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo message",
+      "default": "până la finalul promoției"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Înapoi la website"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header Black Friday"
+    }
+  ]
+}
+{% endschema %}

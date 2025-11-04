@@ -3,9 +3,9 @@
     "main": {
       "type": "main-black-friday"
     },
-    "blog-listing": {
+    "products": {
       "type": "black-friday-collection"
     }
   },
-  "order": ["main", "blog-listing"]
+  "order": ["main", "products"]
 }

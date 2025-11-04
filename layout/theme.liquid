@@ -137,10 +137,8 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {% if page and page.handle == 'black-friday' %}
+    {% if template.name == 'page' and template.suffix == 'black-friday' %}
       {% section 'header-black-friday' %}
-    {% elsif page and page.handle == 'black-friday' %}
-      {% comment %} No header for black-friday page {% endcomment %}
     {% else %}
       {% section 'header' %}
     {% endif %}
@@ -149,9 +147,11 @@
       {{ content_for_layout }}
     </main>
 
-    {% unless page and page.handle == 'black-friday' %}
+    {% if template.name == 'page' and template.suffix == 'black-friday' %}
+      {% comment %} No footer on black-friday page template {% endcomment %}
+    {% else %}
       {% section 'footer' %}
-    {% endunless %}
+    {% endif %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
@@ -202,7 +202,7 @@
       <script src="{{ 'add-to-cart.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
-    {% if page and page.handle == 'black-friday' %}
+    {% if template.name == 'page' and template.suffix == 'black-friday' %}
       <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
