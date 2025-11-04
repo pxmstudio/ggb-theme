@@ -1,0 +1,355 @@
+{% assign products = collection.products %}
+{% assign filters = collection.filters %}
+{% assign sort_by = collection.sort_by %}
+{% assign current_url = collection.url %}
+
+{% if location == 'search' %}
+  {% assign products = search.results %}
+  {% assign filters = search.filters %}
+  {% assign sort_by = search.sort_by %}
+  {% assign current_url = search.url %}
+{% endif %}
+
+{%- unless location == 'search' -%}
+  {%- if collection == blank -%}
+    {%- assign collection = collections.all -%}
+  {%- endif -%}
+  {%- assign products = collection.products -%}
+  {%- assign filters = collection.filters -%}
+  {%- assign sort_by = collection.sort_by -%}
+  {%- assign current_url = collection.url -%}
+{%- endunless -%}
+
+<form
+  id="filter-form"
+  novalidate
+  method="get"
+  action="{{ request.path }}"
+  data-collection-url="{{ collection.url }}"
+  data-target-section-id="{{ target_section_id }}"
+>
+  <input
+    type="hidden"
+    name="sort_by"
+    value="{{ sort_by }}"
+  >
+  {% if location == 'search' %}
+    <input
+      type="hidden"
+      id="search-query-input"
+      type="text"
+      name="q"
+      value="{{ search.terms | escape }}"
+    >
+    <input type="hidden" name="type" value="product">
+  {% endif %}
+  <div class="filters-bf-wrapper flex flex-col gap-8 p-3">
+    <div class=" items-center justify-between w-full gap-4 hidden">
+      <h2 class="heading-h5 text-text-primary hidden">Filtre</h2>
+    </div>
+    <div class=" overflow-hidden flex flex-col gap-8" pxm-filter="filters">
+      <div class="flex flex-col gap-3">
+        <div class="flex lg:gap-10 gap-4" data-bf-slider>
+          <button type="button" class="bf-slider-btn bf-slider-prev" aria-label="Previous" data-bf-prev>
+            {% render 'icon-arrow-left', width: 24, height: 24 %}
+          </button>
+          <div class="max-w-full overflow-x-hidden swiper" data-bf-viewport>
+            <div class="flex swiper-wrapper" data-bf-track>
+              <div class="bf-slider-item swiper-slide ">
+                <a href="#" data-bf-handle="" class="bf-chip">Toate produsele</a>
+              </div>
+              {% for bf_collection in collections %}
+                {% if bf_collection.metafields.custom.is_displayed != false
+                  and bf_collection.metafields.custom.is_displayed != blank
+                %}
+                  <div class="bf-slider-item swiper-slide">
+                    <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
+                      {{- bf_collection.title -}}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          <button type="button" class="bf-slider-btn bf-slider-next" aria-label="Next" data-bf-next>
+            {% render 'icon-arrow-right', width: 24, height: 24 %}
+          </button>
+        </div>
+      </div>
+      {% for filter in filters %}
+        {% assign skip_filter = false %}
+        {% if filter.param_name contains 'product_type' or filter.label == 'Tip produs' %}
+          {% assign skip_filter = true %}
+        {% endif %}
+        {% if skip_filter %}
+          {% continue %}
+        {% endif %}
+        <div>
+          {% render 'filter-title', title: filter.label %}
+          {% case filter.type %}
+            {% when 'boolean' %}
+
+            {% when 'list' %}
+              {% case filter.label %}
+                {% when 'Culoare' %}
+                  <div class="grid grid-cols-5 gap-2">
+                    {% for filter_value in filter.values %}
+                      {% render 'filter-color',
+                        index: forloop.index,
+                        id: filter.param_name,
+                        name: filter_value.param_name,
+                        color: filter_value.label,
+                        active: filter_value.active,
+                        value: filter_value.value
+                      %}
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <ul>
+                    {% for filter_value in filter.values %}
+                      {% assign candidate_collection = collections[filter_value.value] %}
+                      {% if candidate_collection == blank %}
+                        <li>
+                          {% render 'input-checkbox',
+                            index: forloop.index,
+                            id: filter.param_name,
+                            name: filter_value.param_name,
+                            label: filter_value.label,
+                            active: filter_value.active,
+                            value: filter_value.value,
+                            count: filter_value.count
+                          %}
+                        </li>
+                      {% elsif candidate_collection.metafields.custom.is_displayed != false
+                        and candidate_collection.metafields.custom.is_displayed != blank
+                      %}
+                        <li>
+                          {% render 'input-checkbox',
+                            index: forloop.index,
+                            id: filter.param_name,
+                            name: filter_value.param_name,
+                            label: filter_value.label,
+                            active: filter_value.active,
+                            value: filter_value.value,
+                            count: filter_value.count
+                          %}
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+              {% endcase %}
+            {% when 'price_range' %}
+              <div>
+                <div class="flex flex-col">
+                  <div class="flex flex-col"></div>
+                  {% assign max_price = 100 %}
+                  {% for product in products %}
+                    {% if product.price > max_price %}
+                      {% assign max_price = product.price %}
+                    {% endif %}
+                  {% endfor %}
+                  <div>
+                    <div
+                      pxm-filter="price"
+                      data-min="0"
+                      data-max="{{ max_price | divided_by: 100 | plus: 0 }}"
+                      data-min-current="{{ filter.min_value.value | divided_by: 100 | default: 0 }}"
+                      data-max-current="{{ filter.max_value.value | default: max_price | divided_by: 100 }}"
+                      class="mb-2"
+                    ></div>
+                    <div class="flex items-center justify-between">
+                      <p>
+                        {{ filter.min_value.value | default: 0 | money_without_trailing_zeros }}
+                      </p>
+                      <p>
+                        {{ max_price | money_without_trailing_zeros }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  type="hidden"
+                  id="placeholder-gte"
+                  name="filter.v.price.gte"
+                  value="{{ filter.min_value.value | divided_by: 100 | default: 0 }}"
+                >
+                <input
+                  type="hidden"
+                  id="placeholder-lte"
+                  name="filter.v.price.lte"
+                  value="{{ filter.max_value.value | default: max_price | divided_by: 100 }}"
+                >
+              </div>
+          {% endcase %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</form>
+
+<style>
+  .bf-slider-item {
+    border-radius: 60px;
+    border: 1px solid #ea8050;
+    background: #f7f7f7;
+    padding: 8px 16px;
+    font-weight: 500;
+    width: fit-content;
+  }
+  .bf-slider-item.is-active {
+    border: none;
+    background: #ea8050;
+    color: #fff;
+  }
+  .swiper {
+    overflow: hidden;
+  }
+  .swiper-wrapper {
+    display: flex;
+  }
+  .bf-slider-btn {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6e6e6e;
+    transition: all 0.3s ease;
+  }
+  .bf-slider-btn:hover {
+    color: white;
+    border: 1px solid #ea8050;
+    background: #ea8050;
+  }
+  .filters-bf-wrapper {
+    border-bottom: 1px solid #dcdcdc;
+  }
+  @media (max-width: 1024px) {
+    .bf-slider-item {
+      padding: 4px 8px;
+      font-size: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('filter-form');
+    if (!form) return;
+
+    function bindCollectionLinks() {
+      var links = document.querySelectorAll('[data-bf-handle]');
+      links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var handle = a.getAttribute('data-bf-handle') || '';
+          var params = new URLSearchParams(window.location.search);
+          if (handle) params.set('bf_collection', handle);
+          else params.delete('bf_collection');
+          params.delete('page');
+          var targetSectionId = form.dataset.targetSectionId;
+          var fetchUrl =
+            '/collections/' +
+            encodeURIComponent(handle || 'all') +
+            '?' +
+            params.toString() +
+            '&section_id=' +
+            encodeURIComponent(targetSectionId);
+          fetch(fetchUrl)
+            .then(function (r) {
+              return r.text();
+            })
+            .then(function (html) {
+              var temp = document.createElement('div');
+              temp.innerHTML = html;
+              var incomingGrid = temp.querySelector('#product-grid');
+              var grid = document.querySelector('#product-grid');
+              if (incomingGrid && grid) grid.innerHTML = incomingGrid.innerHTML;
+              // Replace infinite scroll element to carry correct collection URL
+              var incomingIS = temp.querySelector('infinite-scroll-bf');
+              var currentIS = document.querySelector('infinite-scroll-bf');
+              if (incomingIS && currentIS) currentIS.replaceWith(incomingIS);
+              // Update active chip locally (no full filters replace)
+              document.querySelectorAll('.bf-slider-item').forEach(function (el) {
+                el.classList.remove('is-active');
+              });
+              var chip = a.closest('.bf-slider-item');
+              if (chip) chip.classList.add('is-active');
+              var newUrl = window.location.pathname + '?' + params.toString();
+              window.history.replaceState({}, '', newUrl);
+            })
+            .catch(function () {});
+        });
+      });
+    }
+
+    function applyFilters() {
+      try {
+        var params = new URLSearchParams(new FormData(form));
+        var basePath = window.location.pathname; // keep same page
+        var targetSectionId = form.dataset.targetSectionId;
+        var collectionUrl = form.dataset.collectionUrl;
+
+        if (targetSectionId && collectionUrl) {
+          var fetchUrl = collectionUrl + '?' + params.toString() + '&section_id=' + encodeURIComponent(targetSectionId);
+          fetch(fetchUrl)
+            .then(function (r) {
+              return r.text();
+            })
+            .then(function (html) {
+              var temp = document.createElement('div');
+              temp.innerHTML = html;
+              var incomingGrid = temp.querySelector('#product-grid');
+              var grid = document.querySelector('#product-grid');
+              if (incomingGrid && grid) grid.innerHTML = incomingGrid.innerHTML;
+              var incomingIS = temp.querySelector('infinite-scroll-bf');
+              var currentIS = document.querySelector('infinite-scroll-bf');
+              if (incomingIS && currentIS) currentIS.replaceWith(incomingIS);
+            })
+            .catch(function () {});
+        }
+        var newUrl = basePath + '?' + params.toString();
+        window.history.replaceState({}, '', newUrl);
+      } catch (_) {}
+    }
+
+    var debounceTimer;
+    function debouncedApply() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(applyFilters, 300);
+    }
+
+    // Submit button fallback
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      applyFilters();
+    });
+    // Auto-apply on any change/input so checkboxes reflect immediately
+    form.addEventListener('change', debouncedApply);
+    form.addEventListener('input', debouncedApply);
+
+    // Prevent programmatic submits from other scripts causing a page navigation
+    try {
+      var originalSubmit = HTMLFormElement.prototype.submit;
+      HTMLFormElement.prototype.submit = function () {
+        if (this && this.id === 'filter-form') {
+          applyFilters();
+          return;
+        }
+        return originalSubmit.apply(this, arguments);
+      };
+    } catch (_) {}
+
+    // Initial collection link binding
+    bindCollectionLinks();
+  });
+</script>

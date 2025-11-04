@@ -8,7 +8,14 @@
   {% assign is_new = true %}
 {% endif %}
 
-<a href="{{ product.url }}" class="w-full h-full group" pxm-product="item">
+<a
+  href="{{ product.url }}"
+  class="w-full h-full group relative"
+  pxm-product="item"
+  data-price="{{ product.price }}"
+  data-compare-at="{{ product.compare_at_price_max }}"
+  data-discount="{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | round }}"
+>
   <div class="w-full aspect-square relative rounded-2xl overflow-hidden border border-border-primary">
     <img
       src="{{ product.featured_image | image_url: height: 300 }}"
@@ -22,7 +29,7 @@
         class="absolute top-0 left-0 bg-error-red text-white px-2 py-1 rounded-br-2xl text-sm font-medium"
         pxm-product="discount"
       >
-        Reducere
+        -
         {{
           product.compare_at_price
           | minus: product.price
@@ -56,5 +63,34 @@
         {{ product.price | money_without_trailing_zeros }}
       </p>
     </div>
+    {% assign _compare_at = product.compare_at_price %}
+    {% assign _price = product.price %}
+    {% if _compare_at > _price and _compare_at > 0 %}
+      {% assign _savings = _compare_at | minus: _price %}
+      {% assign _discount_percent = _savings | times: 100.0 | divided_by: _compare_at | round %}
+      {% if _discount_percent >= 30 %}
+        <img
+          src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/star.png?v=1762239054"
+          width="80"
+          height="80"
+          class="card-star"
+        >
+      {% endif %}
+    {% endif %}
   </div>
 </a>
+
+<style>
+  .card-star {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+  }
+  @media (max-width: 640px) {
+    .card-star {
+      width: 60px;
+      height: 60px;
+    }
+  }
+</style>

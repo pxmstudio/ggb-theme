@@ -1,0 +1,23 @@
+{% assign defaultClasses = 'inline-flex items-center gap-4 rounded-[5rem] text-lg font-semibold bg-white text-black global-transition' %}
+
+{% if href %}
+  <a
+    href="{{ href }}"
+    class="{{ defaultClasses }} {{ classes }}"
+    style="padding-left: 0.5rem; padding-right: 1.5rem; padding-top: 0.5rem; padding-bottom: 0.5rem;"
+  >
+    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-alternate text-white">
+      {% render 'icon-arrow-left', width: 20, height: 20 %}
+    </div>
+    {{- text -}}
+  </a>
+{% else %}
+  <button
+    class="{{ defaultClasses }} {{ classes }}"
+  >
+    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-alternate text-white">
+      {% render 'icon-arrow-left', width: 20, height: 20 %}
+    </div>
+    {{- text -}}
+  </button>
+{% endif %}
