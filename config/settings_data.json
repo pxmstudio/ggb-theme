@@ -47,6 +47,14 @@
           "facebook_url": "https://www.facebook.com/gogobaby.ro/",
           "instagram_url": "https://www.instagram.com/gogobaby.ro/"
         }
+      },
+      "header-black-friday": {
+        "type": "header-black-friday",
+        "settings": {
+          "promo_text": "până la promoții",
+          "button_text": "Înapoi la website",
+          "button_link": "/"
+        }
       }
     },
     "content_for_index": [],
