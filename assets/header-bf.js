@@ -19,7 +19,7 @@
     }
 
     // Months are 0-based: 10 = November
-    const endDate = new Date(2025, 10, 7, 23, 59, 59);
+    const endDate = new Date(2025, 10, 6, 23, 59, 59);
 
     let intervalId = null;
 
