@@ -81,7 +81,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".bf-hero-title{margin-top:2rem}"
+      ".bf-hero-title {margin-top: 4rem;}",
+      "@media (max-width: 420px) {.bf-hero-title {margin-top: 10rem; }}"
     ]
   }
 }
