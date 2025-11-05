@@ -7,7 +7,7 @@
   <header class="header-black-friday fixed top-0 left-1/2 transform -translate-x-1/2 bg-bg-orange w-full m-0 mx-auto z-50 ">
     <div class="global-padding">
       <div class="container-large">
-        <div class="header-black-friday_wrapper w-full flex justify-between items-center gap-8">
+        <div class="header-black-friday_wrapper w-full flex justify-between items-center lg:gap-8 gap-4">
           {% if template.name == 'index' %}
             <h1 class="relative z-100">
               <span class="sr-only">GoGoBaby</span>
@@ -22,7 +22,7 @@
           {% if template.name == 'index' %}
             </h1>
           {% endif %}
-          <div data-countdown="timer" class=" flex items-center  gap-2 ">
+          <div data-countdown="timer" class=" flex items-center  gap-2 ml-auto ">
             <div class="flex items-center  gap-2" aria-label="Black Friday countdown timer">
               <div
                 class="bg-bg-primary rounded-lg p-2 flex lg:gap-2 gap-1"
@@ -65,6 +65,9 @@
               {{ section.settings.promo_text | default: 'până la finalul promoției' }}
             </p>
           </div>
+          <div class="button-bf-container">
+            {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
+          </div>
           <div class="hidden lg:block relative" pxm-nav="menu">
             <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
               <div class="flex items-center gap-2 lg:justify-end">
@@ -72,7 +75,6 @@
 
                 <!-- Account Links -->
                 <div class="flex items-center gap-2 lg:gap-3 bg-bg-alternate">
-                  {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
                   <div class="hidden lg:block">
                     {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
                   </div>
@@ -129,6 +131,9 @@
     font-weight: 600;
     width: 2ch;
   }
+  .button-bf-container {
+    margin-left: auto;
+  }
   @media (max-width: 1024px) {
     [data-countdown-value] {
       font-size: 1.25rem;
@@ -139,7 +144,14 @@
       font-size: 1rem;
     }
   }
-  @media (max-width: 640px) {
+  @media (max-width: 1024px) {
+    .button-bf {
+      padding-right: 0.5rem !important;
+      font-size: 0.875rem !important;
+      padding-top: 0.25rem !important;
+      padding-bottom: 0.25rem !important;
+      padding-left: 0.25rem !important;
+    }
     [data-countdown-value] {
       font-size: 1.125rem;
       width: 2ch;
@@ -164,6 +176,18 @@
     }
     [data-countdown-box] {
       padding: 0.25rem;
+    }
+  }
+  @media (max-width: 420px) {
+    .button-bf-icon {
+      display: none;
+    }
+    .button-bf {
+      padding-right: 0.5rem !important;
+      font-size: 0.875rem !important;
+      padding-top: 0.25rem !important;
+      padding-bottom: 0.25rem !important;
+      padding-left: 0.5rem !important;
     }
   }
 </style>

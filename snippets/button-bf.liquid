@@ -3,10 +3,10 @@
 {% if href %}
   <a
     href="{{ href }}"
-    class="{{ defaultClasses }} {{ classes }}"
+    class="{{ defaultClasses }} {{ classes }} button-bf"
     style="padding-left: 0.5rem; padding-right: 1.5rem; padding-top: 0.5rem; padding-bottom: 0.5rem;"
   >
-    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-alternate text-white">
+    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-alternate text-white button-bf-icon">
       {% render 'icon-arrow-left', width: 20, height: 20 %}
     </div>
     {{- text -}}
@@ -15,7 +15,7 @@
   <button
     class="{{ defaultClasses }} {{ classes }}"
   >
-    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-bg-alternate text-white">
+    <div class="lg:w-8 lg:h-8 w-6 h-6 flex items-center justify-center rounded-full bg-bg-alternate text-white button-bf-icon">
       {% render 'icon-arrow-left', width: 20, height: 20 %}
     </div>
     {{- text -}}
