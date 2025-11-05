@@ -1,11 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-black-friday"
+      "type": "main-black-friday",
+      "settings": {
+        "hero_title": "Black Friday Deals",
+        "subtitle_before": "Bucură-te de oferte speciale, de până la",
+        "subtitle_highlight": "60%",
+        "subtitle_after": "reducere!"
+      }
     },
     "products": {
-      "type": "black-friday-collection"
+      "type": "black-friday-collection",
+      "settings": {}
     }
   },
-  "order": ["main", "products"]
+  "order": [
+    "main",
+    "products"
+  ]
 }
