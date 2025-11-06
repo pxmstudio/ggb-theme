@@ -11,7 +11,16 @@
   "sections": {
     "main": {
       "type": "main-black-friday",
-      "settings": {}
+      "settings": {
+        "subtitle": "Dăm startul din 7 Noiembrie!",
+        "title": "Black Week",
+        "description": "Găsești tot ce ai nevoie pentru o creștere sigură, confortabilă și plină de bucurii!",
+        "button_text": "Descoperă ofertele",
+        "button_link": "",
+        "link1_url": "",
+        "link2_url": "",
+        "link3_url": ""
+      }
     },
     "products": {
       "type": "black-friday-collection",
