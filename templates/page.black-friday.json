@@ -12,10 +12,17 @@
     "main": {
       "type": "main-black-friday",
       "settings": {
-        "hero_title": "Black Friday Deals",
-        "subtitle_before": "Bucură-te de oferte speciale, de până la",
-        "subtitle_highlight": "60%",
-        "subtitle_after": "reducere!"
+        "subtitle": "Dăm startul din 7 Noiembrie!",
+        "title": "Black Friday Deals",
+        "description": "Găsești tot ce ai nevoie pentru o creștere sigură, confortabilă și plină de bucurii!",
+        "button_text": "Descoperă ofertele",
+        "button_link": "",
+        "link1_image": "shopify://shop_images/Group_40.png",
+        "link1_url": "shopify://products/scaun-auto-isize-40-150-cm-coccolle-vigo-emerald-green-1",
+        "link2_image": "shopify://shop_images/Group_38.png",
+        "link2_url": "shopify://products/tricicleta-ultrapliabila-qplay-comfo-max-gri",
+        "link3_image": "shopify://shop_images/Group_39.png",
+        "link3_url": "shopify://products/carucior-modular-2in1-coccolle-serry-jet-black-scoica-auto-isize-coccolle-knox-black"
       }
     },
     "products": {
