@@ -1,4 +1,4 @@
-// Countdown for Black Friday header to 2025-11-07 23:59:59 (local time)
+// Dynamic countdown for Black Friday / Black Week using dates from header data attributes
 (() => {
   function initializeCountdown() {
     const headerElement = document.querySelector('.header-black-friday');
@@ -18,8 +18,47 @@
       return;
     }
 
-    // Months are 0-based: 10 = November
-    const endDate = new Date(2025, 10, 6, 23, 59, 59);
+    // Read config from data attributes
+    const template = headerElement.dataset.template || '';
+    const bfStart = headerElement.dataset.bfStart || '';
+    const bfEnd = headerElement.dataset.bfEnd || '';
+    const bwStart = headerElement.dataset.bwStart || '';
+    const bwEnd = headerElement.dataset.bwEnd || '';
+    const beforeText = headerElement.dataset.beforeText || '';
+    const duringText = headerElement.dataset.duringText || '';
+
+    const messageEl = headerElement.querySelector('[data-countdown-message]');
+
+    function parseISO(iso) {
+      if (!iso) return null;
+      const d = new Date(iso);
+      return isNaN(d.getTime()) ? null : d;
+    }
+
+    function getPhase() {
+      // Returns { target: Date|null, label: string }
+      let start = null;
+      let end = null;
+      if (template === 'black-friday') {
+        start = parseISO(bfStart);
+        end = parseISO(bfEnd);
+      } else if (template === 'black-week') {
+        start = parseISO(bwStart);
+        end = parseISO(bwEnd);
+      }
+
+      const now = new Date();
+      if (start && now < start) {
+        return { target: start, label: beforeText || 'until promo starts' };
+      }
+      if (end && now < end) {
+        return { target: end, label: duringText || 'until promo ends' };
+      }
+      return { target: null, label: '' };
+    }
+
+    let phase = getPhase();
+    if (messageEl && phase.label) messageEl.textContent = phase.label;
 
     let intervalId = null;
 
@@ -28,8 +67,27 @@
     }
 
     function updateCountdown() {
+      // Re-evaluate phase so it flips from BEFORE -> DURING at runtime
+      const newPhase = getPhase();
+      if (newPhase.label !== phase.label || newPhase.target?.getTime() !== phase.target?.getTime()) {
+        phase = newPhase;
+        if (messageEl) messageEl.textContent = phase.label;
+      }
+
+      if (!phase.target) {
+        numberElements.days.textContent = '00';
+        numberElements.hours.textContent = '00';
+        numberElements.minutes.textContent = '00';
+        numberElements.seconds.textContent = '00';
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+        return;
+      }
+
       const now = Date.now();
-      const distance = endDate.getTime() - now;
+      const distance = phase.target.getTime() - now;
 
       if (distance <= 0) {
         numberElements.days.textContent = '00';

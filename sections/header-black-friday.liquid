@@ -4,7 +4,16 @@
     w-full z-100 mb-[-2rem]
   "
 >
-  <header class="header-black-friday  bg-yellow fixed top-0 left-1/2 transform -translate-x-1/2 w-full m-0 mx-auto z-50 ">
+  <header
+    class="header-black-friday  bg-yellow fixed top-0 left-1/2 transform -translate-x-1/2 w-full m-0 mx-auto z-50 "
+    data-template="{{ template.suffix }}"
+    data-bf-start="{{ section.settings.black_friday_start }}"
+    data-bf-end="{{ section.settings.black_friday_end }}"
+    data-bw-start="{{ section.settings.black_week_start }}"
+    data-bw-end="{{ section.settings.black_week_end }}"
+    data-before-text="{{ section.settings.promo_text_before | escape }}"
+    data-during-text="{{ section.settings.promo_text_during | escape }}"
+  >
     <div class="global-padding">
       <div class="container-large">
         <div class="header-black-friday_wrapper w-full flex justify-between items-center lg:gap-8 gap-4">
@@ -61,8 +70,8 @@
                 <div class="font-medium  ">sec</div>
               </div>
             </div>
-            <p class="lg:text-xl text-sm block text-white font-semibold">
-              {{ section.settings.promo_text | default: 'până la finalul promoției' }}
+            <p class="lg:text-xl text-sm block text-white font-semibold" data-countdown-message>
+              {{ section.settings.promo_text_before | default: 'până la startul promoției' }}
             </p>
           </div>
           <div class="button-bf-container">
@@ -198,9 +207,39 @@
   "settings": [
     {
       "type": "text",
-      "id": "promo_text",
-      "label": "Promo message",
+      "id": "promo_text_before",
+      "label": "Message before start",
+      "default": "până la startul promoției"
+    },
+    {
+      "type": "text",
+      "id": "promo_text_during",
+      "label": "Message during promo",
       "default": "până la finalul promoției"
+    },
+    {
+      "type": "text",
+      "id": "black_friday_start",
+      "label": "Start datetime – Black Friday (ISO 8601)",
+      "info": "Example: 2025-11-07T23:59:59+02:00"
+    },
+    {
+      "type": "text",
+      "id": "black_friday_end",
+      "label": "End datetime – Black Friday (ISO 8601)",
+      "info": "Example: 2025-11-08T23:59:59+02:00"
+    },
+    {
+      "type": "text",
+      "id": "black_week_start",
+      "label": "Start datetime – Black Week (ISO 8601)",
+      "info": "Example: 2025-11-29T23:59:59+02:00"
+    },
+    {
+      "type": "text",
+      "id": "black_week_end",
+      "label": "End datetime – Black Week (ISO 8601)",
+      "info": "Example: 2025-12-06T23:59:59+02:00"
     },
     {
       "type": "text",
