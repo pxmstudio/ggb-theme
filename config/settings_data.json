@@ -11,6 +11,13 @@
   "current": {
     "favicon": "shopify://shop_images/Favicon.jpg",
     "whatsapp_number": "+40724207773",
+    "enable_black_friday": true,
+    "black_friday_start": "2025-11-06T23:59:59+02:00",
+    "black_friday_end": "2025-11-09T23:59:59+02:00",
+    "black_week_start": "2025-11-09T23:59:59+02:00",
+    "black_week_end": "2025-11-15T23:59:59+02:00",
+    "black_friday_link": "shopify://pages/black-friday-deals",
+    "black_week_link": "/page/black-week",
     "sections": {
       "header": {
         "type": "header",
@@ -51,7 +58,6 @@
       "header-black-friday": {
         "type": "header-black-friday",
         "settings": {
-          "promo_text": "până la promoții",
           "button_text": "Înapoi la website",
           "button_link": "/"
         }
