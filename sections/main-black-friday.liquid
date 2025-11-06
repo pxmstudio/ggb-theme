@@ -1,283 +1,328 @@
-<section class="position-relative ">
-  <div class="bf-hero-background max-w-full"></div>
+<div class="bf-hero-background max-w-full"></div>
+<section class="relative bf-hero-section">
   <div class="bf-hero-background-2 max-w-full"></div>
+  <img
+    src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/line.svg?v=1762442424"
+    alt="Black Friday"
+    width="100"
+    height="100"
+    class="bf-hero-image-line"
+  >
+  <div class="global-padding">
+    <div class="container-large flex flex-col lg:flex-row items-center justify-center relative z-10">
+      <div class="bf-hero-content flex flex-col items-start justify-start pb-3">
+        <p class="bf-hero-subtitle mb-3">{{ section.settings.subtitle | default: 'Dăm startul din 7 Noiembrie!' }}</p>
+        <h1 class="bf-hero-title mb-6">{{ section.settings.title | default: 'Black Friday Deals' }}</h1>
+        <p class="bf-hero-description mb-8 text-text-primary text-lg font-semibold">
+          {{
+            section.settings.description
+            | default: 'Găsești tot ce ai nevoie pentru o creștere sigură, confortabilă și plină de bucurii!'
+          }}
+        </p>
+        <a href="{{ section.settings.button_link | default: '#offers' }}" class="bf-hero-button">
+          {{- section.settings.button_text | default: 'Descoperă ofertele' }}
+          <span class="bf-hero-button-icon">{% render 'icon-arrow-right', width: 20, height: 20 -%}</span>
+        </a>
+      </div>
+      <div class="bf-hero-links">
+        <a class="bf-hero-link-1" href="{{ section.settings.link1_url | default: '#' }}">
+          <img
+            src="{{ section.settings.link1_image | image_url: width: 520 | default: 'https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Group_40.png?v=1762440957' }}"
+            alt="Black Friday"
+            width="260"
+            height="260"
+            class="bf-hero-link-image"
+        ></a>
+        <a class="bf-hero-link-2" href="{{ section.settings.link2_url | default: '#' }}"
+          ><img
+            src="{{ section.settings.link2_image | image_url: width: 780 | default: 'https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Group_38.png?v=1762440958' }}"
+            alt="Black Friday"
+            width="260"
+            height="260"
+            class="bf-hero-link-image"
+        ></a>
+        <a class="bf-hero-link-3" href="{{ section.settings.link3_url | default: '#' }}"
+          ><img
+            src="{{ section.settings.link3_image | image_url: width: 520 | default: 'https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Group_39.png?v=1762440957' }}"
+            alt="Black Friday"
+            width="260"
+            height="260"
+            class="bf-hero-link-image"
+        ></a>
 
-  <div class=" bf-hero-section container-large z-index-40 position-relative global-padding">
-    <div class="text-center lg:py-16 py-8">
-      <h1 class="bf-hero-title">{{ section.settings.hero_title | default: 'Spooky Deals' }}</h1>
-      <div class="bf-hero-subtitle lg:heading-h5 heading-h6 font-semibold">
-        {{ section.settings.subtitle_before | default: 'Bucură-te de oferte speciale, de până la' }}
-        <span class="bf-hero-discount">{{ section.settings.subtitle_highlight | default: '60%' }}</span>
-        {{ section.settings.subtitle_after | default: 'reducere!' }}
+        <img
+          src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Frame_375.png?v=1762440956"
+          alt="Black Friday"
+          width="100"
+          height="100"
+          class="bf-hero-image"
+        >
+        <img
+          src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Frame_375.png?v=1762440956"
+          alt="Black Friday"
+          width="100"
+          height="100"
+          class="bf-hero-image is-secondary"
+        >
       </div>
     </div>
-    <img
-      src="{% if section.settings.image_left != blank %}{{ section.settings.image_left | image_url: width: 260 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-image-2.png?v=1761919728{% endif %}"
-      alt="Black Friday"
-      class="bf-hero-image bf-hero-image--left"
-      width="260"
-      height="260"
-    >
-    <img
-      src="{% if section.settings.image_right != blank %}{{ section.settings.image_right | image_url: width: 260 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-image-2.png?v=1761919728{% endif %}"
-      alt="Black Friday"
-      class="bf-hero-image bf-hero-image--right"
-      width="260"
-      height="260"
-    >
-  </div>
-  <div class="bf-hero-image-wrapper">
-    <img
-      src="{% if section.settings.image_figure != blank %}{{ section.settings.image_figure | image_url: width: 300 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bf-image.png?v=1761919728{% endif %}"
-      alt="Black Friday"
-      class="bf-hero-figure z-index-10"
-      width="300"
-      height="200"
-    >
-  </div>
-  <div class="bf-hero-line-wrapper">
-    <img
-      src="{% if section.settings.image_line != blank %}{{ section.settings.image_line | image_url: width: 1100 }}{% else %}https://cdn.shopify.com/s/files/1/0431/6663/0052/files/bg-line.png?v=1761919727{% endif %}"
-      alt="Black Friday"
-      class="bf-hero-line"
-      width="1100"
-      height="100"
-    >
   </div>
 </section>
 
 <style>
-    .bf-hero-title {
-      font-family: 'CCPassThePort Regular', sans-serif;
-      font-size: 120px;
-      text-transform: uppercase;
-      color: #fb5f09;
-      text-shadow: 0 4px 0 #1b1b1b;
-    }
-    .bf-hero-discount {
-      font-family: 'CCPassThePort Regular', sans-serif;
-      color: #fb5f09;
-      text-shadow: 0 1px 0 #1b1b1b;
-      font-size: 48px;
-      line-height: 1;
+    .bf-hero-section {
       position: relative;
-      top: 10px;
-      padding-bottom: 16px; /* space for underline graphic */
-      background-image: url('https://cdn.shopify.com/s/files/1/0431/6663/0052/files/Hand-drawn_pen_scribble.svg?v=1762250681');
-      background-repeat: no-repeat;
-      background-position: center bottom; /* bottom center underline */
-      background-size: 80px 15px; /* tune width/height of scribble */
+      padding-bottom: 2rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
     }
     .bf-hero-subtitle {
-      max-width: 450px;
-      margin-left: auto;
-      margin-right: auto;
-
+      padding: 0.25rem 0.75rem;
+      background-color: #fcca1a;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #383838;
     }
-    .bf-hero-subtitle strong { font-weight: 700; }
+    .bf-hero-title {
+      font-size: 5rem;
+      font-weight: 800;
+      color: #f43636;
+      line-height: 1;
+    }
+    .bf-hero-content {
+      max-width: 42%;
+      min-width: 42%;
+    }
+    .bf-hero-button {
+      padding: 0.5rem;
+      padding-left: 1.5rem;
+      background-color: #ea8050;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .bf-hero-button-icon {
+      display: flex;
+      background-color: #ffffff;
+      border-radius: 100px;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      color: #ea8050;
+    }
+    .bf-hero-links {
+      left: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60%;
+      min-width: 60%;
+      position: relative;
+      aspect-ratio: 7/5;
+    }
+    .bf-hero-link-1,
+    .bf-hero-link-2,
+    .bf-hero-link-3 {
+      transition: transform 0.2s ease;
+    }
+    .bf-hero-link-1:hover {
+      transform: scale(1.05);
+    }
+    .bf-hero-link-2:hover {
+      transform: scale(1.05);
+    }
+    .bf-hero-link-3:hover {
+      transform: scale(1.05);
+    }
+    .bf-hero-link-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .bf-hero-link-1 {
+      position: absolute;
+      bottom: 25%;
+      left: 5%;
+      max-width: 30%;
+      width: 100%;
+      aspect-ratio: 1/1;
+      z-index: 3;
+    }
+    .bf-hero-link-2 {
+      position: absolute;
+      top: 0%;
+      left: auto;
+      right: auto;
+      max-width: 60%;
+      width: 100%;
+      aspect-ratio: 1/1;
+      z-index: 1;
+    }
+    .bf-hero-link-3 {
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      max-width: 30%;
+      width: 100%;
+      aspect-ratio: 1/1;
+      z-index: 2;
+    }
+    .bf-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 14%;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+      top: 20%;
+      left: 18%;
+      z-index: 4;
+    }
+    .bf-hero-image.is-secondary {
+      left: auto;
+      top: auto;
+      bottom: 14%;
+      right: 35%;
+      z-index: 5;
+    }
+    .bf-hero-image-line {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 90%%;
+      object-fit: cover;
+      top: 0%;
+      left: 0%;
+    }
+    .position-relative {
+      position: relative;
+    }
     .bf-hero-background {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 150vh;
+      background: linear-gradient(180deg, #e3d6a9 0%, rgba(255, 255, 255, 0) 100%);
+    }
+    {% comment %} .bf-hero-background::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      background-color: #e5ddcc;
+      background-blend-mode: multiply;
+      opacity: 0.18;
+    } {% endcomment %}
+    @media (max-width: 1024px) {
+      .bf-hero-content {
+        max-width: 100%;
+        min-width: 100%;
+      }
+      .bf-hero-links {
+        margin-top: 2rem;
+        width: 100%;
+        min-width: 100%;
+        left: 0;
+      }
+      .bf-hero-image-line {
+  bottom: 20%;
+        width: 100%;
+        top: auto;
+        left: 0%;
+      }
+      .bf-hero-title {
+        font-size: 2.5rem;
+      }
+      .bf-hero-section {
+        padding-bottom: 0rem;
+      }
+    }
+</style>
+
+{% comment %}
+  <style>
+    .bf-hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 170%;
+        background: linear-gradient(180deg, #f7ece4 67%, rgba(255, 255, 255, 0) 100%);
+        z-index: -2;
+      }
+    .bf-hero-background-2{
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 170%;
-      background: linear-gradient(180deg, #f7ece4 67%, rgba(255, 255, 255, 0) 100%);
-      z-index: -2;
-    }
-  .bf-hero-background-2{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 170%;
-    background: linear-gradient(180deg, rgba(255,255,255,0) 70%, rgba(255,255,255,1) 100%);
-    z-index: -1;
-  }
-
-    .bf-hero-background::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      /* SVG noise overlay; adjust size/opacity to taste */
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-      {% comment %} background-size: 220px 220px; /* grain size */ {% endcomment %}
-      background-repeat: repeat;
-      background-color: #e5d4cc; /* tint color */
-      background-blend-mode: multiply;
-      opacity: 0.18; /* intensity */
-    }
-    .position-relative {
-      position: relative;
-    }
-    .bf-hero-image {
-      top: 10%;
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      object-fit: contain;
-    }
-    .bf-hero-image--left {
-      left: 0;
-    }
-    .bf-hero-image--right {
-
-      right: 0;
-      transform: scaleX(-1);
-    }
-    .bf-hero-figure {
-      position: relative;
-      z-index: 10;
-      display: block;
-      width: 300px;
-      height: 200px;
-      margin-left: auto;
-      margin-right: auto;
-      object-fit: contain;
-    }
-    .bf-hero-line {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      overflow: hidden;
-    }
-    .bf-hero-section {
-      overflow: hidden;
-      width: 100%;
-      padding-top: 6rem;
-    }
-    .bf-hero-image-wrapper {
-      overflow-x: hidden;
-      overflow-y: visible;
-      max-width: 100vw;
-      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 70%, rgba(255,255,255,1) 100%);
+      z-index: -1;
     }
 
-    @media (max-width: 1024px) {
-      .bf-hero-image {
-        top: 10%;
+      .bf-hero-background::after {
+        content: '';
         position: absolute;
-        width: 150px;
-        height: 150px;
-        object-fit: contain;
+        inset: 0;
+        pointer-events: none;
+        /* SVG noise overlay; adjust size/opacity to taste */
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        {% comment %} background-size: 220px 220px; /* grain size */ {% endcomment %}
+        background-repeat: repeat;
+        background-color: #e5d4cc; /* tint color */
+        background-blend-mode: multiply;
+        opacity: 0.18; /* intensity */
       }
-      .bf-hero-title {
-        font-size: 80px;
 
-      }
-      .bf-hero-section {
 
-        padding-top: 3rem;
+      @media (max-width: 1024px) {
+        .bf-hero-image {
+          top: 10%;
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+        }
       }
-      .bf-hero-discount {
 
-        font-size: 36px;
-        top: 5px;
-      }
-      .bf-hero-figure {
+      @media (max-width: 640px) {
 
-        width: 210px;
-        height: 140px;
-
-      }
-    }
-
-    @media (max-width: 640px) {
-      .bf-hero-image {
-        top: 10%;
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        object-fit: contain;
-      }
-      .bf-hero-title {
-        font-size: 60px;
-      }
-      .bf-hero-section {
-
-        padding-top: 4rem;
-      }
-      .bf-hero-discount {
-
-        font-size: 32px;
-        top: 5px;
-      }
-      .bf-hero-figure {
-
-        width: 180px;
-        height: 120px;
-
-      }
-      .bf-hero-line {
-        width: 200vw;
-        max-width: 200vw;
-      }
-      .bf-hero-line-wrapper {
-        position: absolute;
-        bottom: 0;
-        height: 50%;
-        max-height: 50%;
-        overflow: hidden;
-        width: 100%;
-      }
-    }
-</style>
+        }
+  </style>
+{% endcomment %}
 
 {% schema %}
 {
   "name": "Main Black Friday",
   "settings": [
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Dăm startul din 7 Noiembrie!" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Black Friday Deals" },
     {
-      "type": "text",
-      "id": "hero_title",
-      "label": "Hero title",
-      "default": "Spooky Deals"
+      "type": "textarea",
+      "id": "description",
+      "label": "Paragraph",
+      "default": "Găsești tot ce ai nevoie pentru o creștere sigură, confortabilă și plină de bucurii!"
     },
-    {
-      "type": "text",
-      "id": "subtitle_before",
-      "label": "Subtitle - text before highlight",
-      "default": "Bucură-te de oferte speciale, de până la"
-    },
-    {
-      "type": "text",
-      "id": "subtitle_highlight",
-      "label": "Subtitle - highlighted text",
-      "default": "60%"
-    },
-    {
-      "type": "text",
-      "id": "subtitle_after",
-      "label": "Subtitle - text after highlight",
-      "default": "reducere!"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_left",
-      "label": "Left image (260x260)"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_right",
-      "label": "Right image (260x260)"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_figure",
-      "label": "Center figure image (300x200)"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_line",
-      "label": "Bottom line image (wide)"
-    }
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Descoperă ofertele" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+
+    { "type": "image_picker", "id": "link1_image", "label": "Card 1 image" },
+    { "type": "url", "id": "link1_url", "label": "Card 1 link" },
+    { "type": "image_picker", "id": "link2_image", "label": "Card 2 image" },
+    { "type": "url", "id": "link2_url", "label": "Card 2 link" },
+    { "type": "image_picker", "id": "link3_image", "label": "Card 3 image" },
+    { "type": "url", "id": "link3_url", "label": "Card 3 link" }
   ],
-  "presets": [
-    {
-      "name": "Main Black Friday"
-    }
-  ]
+  "presets": [{ "name": "Main Black Friday" }]
 }
 {% endschema %}
