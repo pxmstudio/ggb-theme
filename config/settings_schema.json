@@ -28,5 +28,50 @@
         "default": "+40727565056"
       }
     ]
+  },
+  {
+    "name": "Black Friday",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_black_friday",
+        "label": "Enable Black Friday mode",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "black_friday_start",
+        "label": "Start datetime – Black Friday (ISO 8601)",
+        "info": "Example: 2025-11-07T23:59:59+02:00"
+      },
+      {
+        "type": "text",
+        "id": "black_friday_end",
+        "label": "End datetime – Black Friday (ISO 8601)",
+        "info": "Example: 2025-11-08T23:59:59+02:00"
+      },
+      {
+        "type": "text",
+        "id": "black_week_start",
+        "label": "Start datetime – Black Week (ISO 8601)",
+        "info": "Example: 2025-11-29T23:59:59+02:00"
+      },
+      {
+        "type": "text",
+        "id": "black_week_end",
+        "label": "End datetime – Black Week (ISO 8601)",
+        "info": "Example: 2025-12-06T23:59:59+02:00"
+      },
+      {
+        "type": "url",
+        "id": "black_friday_link",
+        "label": "Black Friday link"
+      },
+      {
+        "type": "url",
+        "id": "black_week_link",
+        "label": "Black Week link"
+      }
+    ]
   }
 ]

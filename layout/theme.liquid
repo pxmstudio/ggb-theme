@@ -139,6 +139,8 @@
 
     {% if template.name == 'page' and template.suffix == 'black-friday' %}
       {% section 'header-black-friday' %}
+    {% elsif template.name == 'page' and template.suffix == 'black-week' %}
+      {% section 'header-black-friday' %}
     {% else %}
       {% section 'header' %}
     {% endif %}
@@ -149,6 +151,8 @@
 
     {% if template.name == 'page' and template.suffix == 'black-friday' %}
       {% comment %} No footer on black-friday page template {% endcomment %}
+    {% elsif template.name == 'page' and template.suffix == 'black-week' %}
+      {% comment %} No footer on black-week page template {% endcomment %}
     {% else %}
       {% section 'footer' %}
     {% endif %}
@@ -204,6 +208,8 @@
 
     {% if template.name == 'page' and template.suffix == 'black-friday' %}
       <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
+    {% elsif template.name == 'page' and template.suffix == 'black-week' %}
+      <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
     {% if content_for_layout contains 'main-collection' %}
@@ -241,6 +247,67 @@
       }
 
       getShopCurrency();
+
+
+      // Black Friday / Black Week first-visit redirect
+      (function () {
+        var featureEnabled = {{ settings.enable_black_friday | json }};
+        if (!featureEnabled) return;
+
+        var bfStart = {{ settings.black_friday_start | json }};
+        var bfEnd = {{ settings.black_friday_end | json }};
+        var bfLink = {{ settings.black_friday_link | json }};
+        var bwStart = {{ settings.black_week_start | json }};
+        var bwEnd = {{ settings.black_week_end | json }};
+        var bwLink = {{ settings.black_week_link | json }};
+
+        function parseISO(val) {
+          if (!val) return null;
+          var d = new Date(val);
+          return isNaN(d.getTime()) ? null : d;
+        }
+
+        function isOnTarget(target) {
+          try {
+            var url = new URL(target, window.location.origin);
+            return window.location.origin === url.origin && window.location.pathname === url.pathname;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function shouldRedirect(start, end, link, key) {
+          if (!start || !end || !link) return false;
+          try {
+            if (localStorage.getItem(key) === '1') return false;
+          } catch (e) {}
+          var now = new Date();
+          var s = parseISO(start);
+          var eDate = parseISO(end);
+          if (!s || !eDate) return false;
+          if (now < s || now > eDate) return false;
+          if (isOnTarget(link)) return false;
+          return true;
+        }
+
+        function doRedirect(link, key) {
+          try {
+            localStorage.setItem(key, '1');
+          } catch (e) {}
+          window.location.href = link;
+        }
+
+        var bfKey = 'ggb_bf_redirect_' + (bfStart || '');
+        var bwKey = 'ggb_bw_redirect_' + (bwStart || '');
+
+        if (shouldRedirect(bfStart, bfEnd, bfLink, bfKey)) {
+          doRedirect(bfLink, bfKey);
+          return;
+        }
+        if (shouldRedirect(bwStart, bwEnd, bwLink, bwKey)) {
+          doRedirect(bwLink, bwKey);
+        }
+      })();
     </script>
 
     {% comment %}
