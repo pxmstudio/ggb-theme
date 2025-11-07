@@ -16,49 +16,13 @@
           "type": "slide",
           "name": "Bun venit",
           "settings": {
-            "image": "shopify://shop_images/White_Blue_Fact_About_Baby_Instagram_Post.png",
+            "image": "shopify://shop_images/White_Blue_Fact_About_Baby_Instagram_Post_900_x_800_px_cfeed02a-0486-4f84-9d60-502b588c0c4a.png",
             "link": "https://www.gogobaby.ro"
-          }
-        },
-        "slide_AxJWgz": {
-          "type": "slide",
-          "name": "Carucioare",
-          "settings": {
-            "image": "shopify://shop_images/IMG-20250611-WA0027.jpg",
-            "link": "https://www.gogobaby.ro/collections/carucioare"
-          }
-        },
-        "slide_brtGAW": {
-          "type": "slide",
-          "name": "Camera bebelusului",
-          "settings": {
-            "image": "shopify://shop_images/IMG-20250611-WA0030.jpg",
-            "link": "https://www.gogobaby.ro/collections/camera-bebelusului"
-          }
-        },
-        "slide_MPrKxi": {
-          "type": "slide",
-          "name": "Triciclete",
-          "settings": {
-            "image": "shopify://shop_images/IMG-20250611-WA0029.jpg",
-            "link": "https://www.gogobaby.ro/collections/triciclete-copii"
-          }
-        },
-        "slide_8gRNJU": {
-          "type": "slide",
-          "name": "Vehicule pentru copii",
-          "settings": {
-            "image": "shopify://shop_images/IMG-20250611-WA0028.jpg",
-            "link": "https://www.gogobaby.ro/collections/vehicule-pentru-copii"
           }
         }
       },
       "block_order": [
-        "slide_maDLFw",
-        "slide_AxJWgz",
-        "slide_brtGAW",
-        "slide_MPrKxi",
-        "slide_8gRNJU"
+        "slide_maDLFw"
       ],
       "settings": {}
     },
