@@ -1,6 +1,6 @@
 <a href="{{ article.handle }}" class="block group">
   {% if article.image %}
-    <div class="w-full aspect-video rounded-lg overflow-hidden border border-transparent group-hover:border-border-secondary global-transition">
+    <div class="w-full aspect-video rounded-lg custom-gog-container overflow-hidden border border-transparent group-hover:border-border-secondary global-transition">
       <img
         src="{{ article.image.src | image_url: width: 600 }}"
         width="413"
