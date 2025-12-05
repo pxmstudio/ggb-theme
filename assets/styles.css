@@ -593,9 +593,18 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   padding-top:50px;
 }
 
-
 #MainContent{
   padding-top:50px;
+}
+
+@media(max-width:650px){
+  .gog-class-header{
+  padding-top:150px;
+}
+
+#MainContent{
+  padding-top:150px;
+}
 }
 
 input::placeholder,textarea::placeholder {
