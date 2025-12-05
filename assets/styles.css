@@ -594,6 +594,10 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 }
 
 
+#MainContent{
+  padding-top:50px;
+}
+
 input::placeholder,textarea::placeholder {
   color: #6b7280;
   opacity: 1;
