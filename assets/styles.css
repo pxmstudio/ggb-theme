@@ -589,6 +589,11 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
 }
 
+.gog-class-header{
+  padding-top:50px;
+}
+
+
 input::placeholder,textarea::placeholder {
   color: #6b7280;
   opacity: 1;
