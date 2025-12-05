@@ -15,7 +15,7 @@
       "settings": {
         "promo_text_before": "până la startul promoției",
         "promo_text_during": "până la finalul promoției",
-        "black_friday_start": "2025-11-05T23:59:59+02:00",
+        "black_friday_start": "2025-11-04T23:59:59+02:00",
         "black_friday_end": "2025-11-07T23:59:59+02:00",
         "black_week_start": "",
         "black_week_end": "",
