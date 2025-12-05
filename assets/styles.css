@@ -589,7 +589,7 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
 }
 
-.gog-class-header{
+/* .gog-class-header{
   padding-top:50px;
 }
 
@@ -605,7 +605,41 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 #MainContent{
   padding-top:60px;
 }
+} */
+
+.gog-top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: red;
+  color: #fff;
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 9999;
 }
+
+.scroll-wrapper {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: scroll 15s linear infinite;
+}
+
+.scroll-text {
+  padding-right: 60px; /* spațiu între repetări */
+}
+
+/* animație fluidă, GPU-accelerată */
+@keyframes scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 
 input::placeholder,textarea::placeholder {
   color: #6b7280;
