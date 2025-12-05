@@ -599,11 +599,11 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 
 @media(max-width:650px){
   .gog-class-header{
-  padding-top:150px;
+  padding-top:120px;
 }
 
 #MainContent{
-  padding-top:150px;
+  padding-top:120px;
 }
 }
 
