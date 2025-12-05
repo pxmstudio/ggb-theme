@@ -589,7 +589,7 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
 }
 
-/* .gog-class-header{
+.gog-class-header{
   padding-top:50px;
 }
 
@@ -605,7 +605,7 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 #MainContent{
   padding-top:60px;
 }
-} */
+}
 
 .gog-top-bar {
   position: fixed;
