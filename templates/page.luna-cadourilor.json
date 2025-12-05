@@ -27,7 +27,13 @@
     },
     "products": {
       "type": "giftweek-collection",
-      "settings": {}
+      "settings": {
+        "forced_collection_handle": "",
+        "collection_1": "jucarii-copii-si-bebelusi",
+        "collection_2": "vehicule-pentru-copii",
+        "collection_3": "",
+        "products_per_page": 16
+      }
     }
   },
   "order": [
