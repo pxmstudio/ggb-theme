@@ -628,6 +628,7 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 
 .scroll-text {
   padding-right: 60px; /* spațiu între repetări */
+  margin-left:60px;
 }
 
 /* animație fluidă, GPU-accelerată */
