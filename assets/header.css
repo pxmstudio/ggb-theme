@@ -10,6 +10,10 @@
   margin: 0 auto;
 }
 
+.gog-class-header{
+  padding-top:50px;
+}
+
 .header_button {
   display: flex;
   justify-content: center;
