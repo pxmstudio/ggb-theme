@@ -1,38 +1,7 @@
 <div class="h-20 lg:h-28 w-full z-100">
-  <div class="gog-top-bar" style="position:fixed; top:0; width:100%; background-color:red; padding:12px; text-align:center; color:white; z-index:9999; #scroll-text {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scroll-left 12s linear infinite;
-  white-space: nowrap;
-}
-
-@keyframes scroll-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-">
+  <div class="gog-top-bar" style="position:fixed; top:0; width:100%; background-color:red; padding:12px; text-align:center; color:white; z-index:9999;">
       <marquee>Livrarile sunt suspendate in perioadele 24–28 dec, 31 dec–4 ian si 6 ian. Expedierea se face in prima zi lucratoare, 24–72h dupa confirmarea telefonica.</marquee>
     </div>
-    <script>
-      function restartScroll() {
-  const el = document.getElementById("scroll-text");
-  el.style.animation = "none";
-  void el.offsetWidth; // trigger reflow
-  el.style.animation = "";
-}
-
-// Dacă vrei să actualizezi textul dinamic:
-function setScrollText(msg) {
-  const el = document.getElementById("scroll-text");
-  el.textContent = msg;
-  restartScroll();
-}
-
-      </script>
   <header class="fixed top-0 left-1/2 gog-class-header transform -translate-x-1/2 bg-bg-primary w-full m-0 mx-auto z-50">
     <div class="global-padding">
       <div class="container-large">
