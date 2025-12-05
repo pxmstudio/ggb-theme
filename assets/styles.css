@@ -607,7 +607,7 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 }
 } */
 
-..gog-top-bar {
+.gog-top-bar {
   position: fixed;
   top: 0;
   width: 100%;
@@ -615,31 +615,20 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   color: #fff;
   padding: 12px 0;
   overflow: hidden;
+  white-space: nowrap;
   z-index: 9999;
-  white-space: nowrap;
 }
 
-.ticker {
+.scroll-wrapper {
   display: flex;
+  width: max-content;
   will-change: transform;
-  animation: tickerAnim linear infinite;
+  animation: scroll 15s linear infinite;
 }
 
-.ticker__item {
+.scroll-text {
   padding-right: 60px; /* spațiu între repetări */
-  white-space: nowrap;
 }
-
-/* Animația nu are durată fixă, JS o calculează în funcție de lățimea textului. */
-@keyframes tickerAnim {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(var(--ticker-move), 0, 0);
-  }
-}
-
 
 /* animație fluidă, GPU-accelerată */
 @keyframes scroll {
