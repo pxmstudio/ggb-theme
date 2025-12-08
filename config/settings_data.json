@@ -22,7 +22,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "main_menu": ""
+          "main_menu": "new-menu"
         }
       },
       "footer": {
