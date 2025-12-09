@@ -1,7 +1,9 @@
-// Dynamic countdown for Black Friday / Black Week using dates from header data attributes
+// Universal countdown for Black Friday / Black Week / Luna Cadourilor
 (() => {
   function initializeCountdown() {
-    const headerElement = document.querySelector('.header-black-friday');
+    const headerElement = document.querySelector(
+      '.header-black-friday, .header-luna-cadourilor'
+    );
     if (!headerElement) return;
 
     const countdownContainer = headerElement.querySelector('[data-countdown="timer"]');
@@ -14,62 +16,72 @@
       seconds: countdownContainer.querySelector('[data-countdown-part="seconds"] [data-countdown-value]'),
     };
 
-    if (!numberElements.days || !numberElements.hours || !numberElements.minutes || !numberElements.seconds) {
-      return;
-    }
+    if (!numberElements.days) return;
 
-    // Read config from data attributes
+    // Which template is active?
     const template = headerElement.dataset.template || '';
+
+    // Date sources
     const bfStart = headerElement.dataset.bfStart || '';
-    const bfEnd = headerElement.dataset.bfEnd || '';
+    const bfEnd   = headerElement.dataset.bfEnd || '';
     const bwStart = headerElement.dataset.bwStart || '';
-    const bwEnd = headerElement.dataset.bwEnd || '';
+    const bwEnd   = headerElement.dataset.bwEnd || '';
+    const lcStart = headerElement.dataset.lcStart || headerElement.dataset.bfStart || '';
+    const lcEnd   = headerElement.dataset.lcEnd   || headerElement.dataset.bfEnd   || '';
+
+    // Texts
     const beforeText = headerElement.dataset.beforeText || '';
     const duringText = headerElement.dataset.duringText || '';
-
     const messageEl = headerElement.querySelector('[data-countdown-message]');
 
-    function parseISO(iso) {
-      if (!iso) return null;
-      const d = new Date(iso);
+    function parseISO(str) {
+      if (!str) return null;
+      const d = new Date(str);
       return isNaN(d.getTime()) ? null : d;
     }
 
     function getPhase() {
-      // Returns { target: Date|null, label: string }
       let start = null;
       let end = null;
+
+      // PRIORITY BASED ON TEMPLATE
       if (template === 'black-friday') {
         start = parseISO(bfStart);
         end = parseISO(bfEnd);
       } else if (template === 'black-week') {
         start = parseISO(bwStart);
         end = parseISO(bwEnd);
+      } else if (template === 'luna-cadourilor') {
+        start = parseISO(lcStart);
+        end   = parseISO(lcEnd);
       }
 
       const now = new Date();
+
       if (start && now < start) {
-        return { target: start, label: beforeText || 'until promo starts' };
+        return { target: start, label: beforeText };
       }
       if (end && now < end) {
-        return { target: end, label: duringText || 'until promo ends' };
+        return { target: end, label: duringText };
       }
+
       return { target: null, label: '' };
     }
 
     let phase = getPhase();
-    if (messageEl && phase.label) messageEl.textContent = phase.label;
+    if (messageEl) messageEl.textContent = phase.label;
 
     let intervalId = null;
 
-    function pad2(value) {
-      return String(value).padStart(2, '0');
+    function pad2(n) {
+      return String(n).padStart(2, '0');
     }
 
     function updateCountdown() {
-      // Re-evaluate phase so it flips from BEFORE -> DURING at runtime
       const newPhase = getPhase();
-      if (newPhase.label !== phase.label || newPhase.target?.getTime() !== phase.target?.getTime()) {
+
+      // If phase changed (before → during)
+      if (newPhase.target !== phase.target) {
         phase = newPhase;
         if (messageEl) messageEl.textContent = phase.label;
       }
@@ -79,32 +91,24 @@
         numberElements.hours.textContent = '00';
         numberElements.minutes.textContent = '00';
         numberElements.seconds.textContent = '00';
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
         return;
       }
 
       const now = Date.now();
-      const distance = phase.target.getTime() - now;
+      const distance = phase.target - now;
 
       if (distance <= 0) {
         numberElements.days.textContent = '00';
         numberElements.hours.textContent = '00';
         numberElements.minutes.textContent = '00';
         numberElements.seconds.textContent = '00';
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.floor(distance / 86400000);
+      const hours = Math.floor((distance % 86400000) / 3600000);
+      const minutes = Math.floor((distance % 3600000) / 60000);
+      const seconds = Math.floor((distance % 60000) / 1000);
 
       numberElements.days.textContent = pad2(days);
       numberElements.hours.textContent = pad2(hours);
@@ -112,7 +116,6 @@
       numberElements.seconds.textContent = pad2(seconds);
     }
 
-    // Initial update and start interval
     updateCountdown();
     intervalId = setInterval(updateCountdown, 1000);
   }
