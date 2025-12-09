@@ -1,0 +1,58 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_luna_cadourilor_cMMJ6n": {
+      "type": "header-luna-cadourilor",
+      "name": "Header Luna Cadourilor",
+      "settings": {
+        "promo_text_before": "până la startul promoției",
+        "promo_text_during": "până la finalul promoției",
+        "black_friday_start": "",
+        "black_friday_end": "",
+        "black_week_start": "",
+        "black_week_end": "",
+        "button_text": "Înapoi la website",
+        "button_link": "/"
+      }
+    },
+    "main": {
+      "type": "main-black-friday",
+      "settings": {
+        "subtitle": "Magia sărbătorilor a început!",
+        "title": "Luna cadourilor",
+        "description": "Găsești tot ce ai nevoie pentru ca cei mici să se bucure de Sărbători în siguranță și confort.",
+        "button_text": "Descoperă ofertele",
+        "button_link": "shopify://collections/jucarii-copii-si-bebelusi",
+        "link1_image": "shopify://shop_images/3_d40262a8-14bf-4eff-9e30-a08cbdf6b3c6.png",
+        "link1_url": "shopify://products/bucatarie-copii-lemn-free2play-mini-chef-cu-efecte-de-sunet-si-lumina-cu-accesorii-70-x-30-x-104-cm-conform-cu-standardele-europene-en71-1-2018-en71-2-2020-en71-3-2023",
+        "link2_image": "shopify://shop_images/2_1.png",
+        "link2_url": "shopify://products/set-masuta-si-doua-scaune-freeon-athena-pentru-copii-din-lemn-conform-cu-standardele-europene-de-securitate-en71-1-2018-en71-2-2020-en71-3-2021-alb-1",
+        "link3_image": "shopify://shop_images/1_f85e3d64-05c7-4a86-9736-a1285205e77d.png",
+        "link3_url": "shopify://products/banc-de-lucru-free2play-my-first-wooden-work-bench-cu-diverse-unelte-si-accesorii-pliabil-55-x-28-5-x-85-cm-36-luni-multicolor"
+      }
+    },
+    "products": {
+      "type": "giftweek-collection",
+      "settings": {
+        "forced_collection_handle": "",
+        "collection_1": "jucarii-copii-si-bebelusi",
+        "collection_2": "vehicule-pentru-copii",
+        "collection_3": "",
+        "products_per_page": 16
+      }
+    }
+  },
+  "order": [
+    "header_luna_cadourilor_cMMJ6n",
+    "main",
+    "products"
+  ]
+}
