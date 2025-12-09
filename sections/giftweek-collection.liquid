@@ -2,35 +2,8 @@
   <div class="global-padding py-6">
     <div class="container-large">
       <div class="flex flex-col bg-white rounded-xl border border-border-primary">
-        {% comment %}
-          Pick active collection in this order, DAR doar din cele 3 colectii setate:
-          forced setting > URL param > current collection (daca e una din cele 3) > prima colectie definita
-        {% endcomment %}
+        {% comment %} Pick active collection in this order: forced setting > URL param > current collection > all {% endcomment %}
         {% assign forced_handle = section.settings.forced_collection_handle | strip %}
-
-        {%- comment -%}
-          Cele 3 colectii pe care vrei sa le folosesti in sectiune.
-          In schema trebuie sa ai:
-          - section.settings.collection_1
-          - section.settings.collection_2
-          - section.settings.collection_3
-        {%- endcomment -%}
-        {% assign primary_collection   = section.settings.collection_1 %}
-        {% assign secondary_collection = section.settings.collection_2 %}
-        {% assign tertiary_collection  = section.settings.collection_3 %}
-
-        {%- comment -%} Construim string cu handle-urile permise (doar aceste 3) {%- endcomment -%}
-        {% assign allowed_handles = '' %}
-        {% if primary_collection %}
-          {% assign allowed_handles = allowed_handles | append: primary_collection.handle | append: ',' %}
-        {% endif %}
-        {% if secondary_collection %}
-          {% assign allowed_handles = allowed_handles | append: secondary_collection.handle | append: ',' %}
-        {% endif %}
-        {% if tertiary_collection %}
-          {% assign allowed_handles = allowed_handles | append: tertiary_collection.handle | append: ',' %}
-        {% endif %}
-
         {% assign bf_handle = '' %}
         {% if request.query_string contains 'bf_collection=' %}
           {% assign bf_handle = request.query_string
@@ -41,63 +14,49 @@
             | url_decode
           %}
         {% endif %}
-
-        {%- comment -%}
-          Alegem active_collection DOAR dintre cele 3 colectii permise.
-        {%- endcomment -%}
-        {% if forced_handle != '' and allowed_handles contains forced_handle and collections[forced_handle] != blank %}
+        {% if forced_handle != '' and collections[forced_handle] != blank %}
           {% assign active_collection = collections[forced_handle] %}
-        {% elsif bf_handle != '' and allowed_handles contains bf_handle and collections[bf_handle] != blank %}
+        {% elsif bf_handle != '' and collections[bf_handle] != blank %}
           {% assign active_collection = collections[bf_handle] %}
-        {% elsif collection and allowed_handles contains collection.handle %}
+        {% elsif collection %}
           {% assign active_collection = collection %}
-        {% elsif primary_collection %}
-          {% assign active_collection = primary_collection %}
         {% else %}
-          {% assign active_collection = nil %}
+          {% assign active_collection = collections.all %}
         {% endif %}
-
-        <div class="lg:col-span-3 gog-class-top-filters">
-          {% if active_collection %}
-            {% render 'filters-bf',
-              location: 'collection',
-              collection: active_collection,
-              target_section_id: section.id
-            %}
-          {% endif %}
+        <div class="lg:col-span-3">
+          {% render 'filters-bf',
+            location: 'collection',
+            collection: active_collection,
+            target_section_id: section.id
+          %}
         </div>
-
-        <div class="lg:col-span-9 gog-class-products">
+        <div class="lg:col-span-9">
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
-            {% if active_collection %}
-              {% paginate active_collection.products by section.settings.products_per_page %}
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
-                  {% assign initial_rendered = 0 %}
-                  {% for product in active_collection.products %}
-                    {% assign compare_at = product.compare_at_price_max %}
-                    {% if compare_at > product.price and compare_at > 0 %}
-                      {% assign savings = compare_at | minus: product.price %}
-                      {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-                      {% if discount_percent >= 30 %}
-                        {% render 'product-card', product: product %}
-                        {% assign initial_rendered = initial_rendered | plus: 1 %}
-                      {% endif %}
+            {% paginate active_collection.products by section.settings.products_per_page %}
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
+                {% assign initial_rendered = 0 %}
+                {% for product in active_collection.products %}
+                  {% assign compare_at = product.compare_at_price_max %}
+                  {% if compare_at > product.price and compare_at > 0 %}
+                    {% assign savings = compare_at | minus: product.price %}
+                    {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+                    {% if discount_percent >= 30 %}
+                      {% render 'product-card', product: product %}
+                      {% assign initial_rendered = initial_rendered | plus: 1 %}
                     {% endif %}
-                  {% endfor %}
-                </div>
-                {% if initial_rendered == 0 %}
-                  <p class="text-text-secondary">Nu exista produse cu discount ≥ 30% pe aceasta pagina.</p>
-                {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+              {% if initial_rendered == 0 %}
+                <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
+              {% endif %}
 
-                {% render 'infinite-scroll-bf',
-                  next_page: paginate.next.url,
-                  page_size: paginate.pages,
-                  collection_url: active_collection.url
-                %}
-              {% endpaginate %}
-            {% else %}
-              <p class="text-text-secondary">Nu este configurata nicio colectie activa pentru aceasta sectiune.</p>
-            {% endif %}
+              {% render 'infinite-scroll-bf',
+                next_page: paginate.next.url,
+                page_size: paginate.pages,
+                collection_url: active_collection.url
+              %}
+            {% endpaginate %}
           </div>
         </div>
       </div>
@@ -136,25 +95,26 @@
   .bf-collection-products {
     min-height: 50vh;
   }
-  .bf-collection-footer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
-    padding-top: 4rem;
-  }
-  .bf-collection_background {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40rem;
-    background: linear-gradient(180deg, #f7ece4 67%, rgba(255, 255, 255, 0) 100%);
-    z-index: -2;
-  }
+    .bf-collection-footer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      padding-top: 4rem;
+    }
+    .bf-collection_background {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40rem;
+      background: linear-gradient(180deg, #f7ece4 67%, rgba(255, 255, 255, 0) 100%);
+      z-index: -2;
+    }
   .bf-collection_background-2{
+
     position: absolute;
     bottom: 0;
     left: 0;
@@ -164,86 +124,40 @@
     z-index: -1;
   }
 
-  .bf-collection_background::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    /* SVG noise overlay; adjust size/opacity to taste */
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    {% comment %} background-size: 220px 220px; /* grain size */ {% endcomment %}
-    background-repeat: repeat;
-    background-color: #e5d4cc; /* tint color */
-    background-blend-mode: multiply;
-    opacity: 0.18; /* intensity */
-  }
-  @media (max-width: 1024px) {
-    .bf-collection-footer-image {
-      width: 150px;
-      height: 150px;
+    .bf-collection_background::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      /* SVG noise overlay; adjust size/opacity to taste */
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      {% comment %} background-size: 220px 220px; /* grain size */ {% endcomment %}
+      background-repeat: repeat;
+      background-color: #e5d4cc; /* tint color */
+      background-blend-mode: multiply;
+      opacity: 0.18; /* intensity */
     }
-  }
-  @media (max-width: 640px) {
-    .bf-collection-footer-image {
-      width: 100px;
-      height: 100px;
-      display: none;
+    @media (max-width: 1024px) {
+      .bf-collection-footer-image {
+        width: 150px;
+        height: 150px;
+      }
     }
-    .bf-collection-footer {
-      padding-top: 2rem;
-      gap: 1rem;
-      padding-bottom: 5rem;
+    @media (max-width: 640px) {
+      .bf-collection-footer-image {
+        width: 100px;
+        height: 100px;
+        display: none;
+      }
+      .bf-collection-footer {
+        padding-top: 2rem;
+        gap: 1rem;
+        padding-bottom: 5rem;
+      }
     }
-  }
 </style>
-
 {%- comment -%}
   Ensure filters-bf.js is loaded whenever this section is present,
   instead of relying on a fragile content_for_layout substring check.
 {%- endcomment -%}
 <script src="{{ 'filters-bf.js' | asset_url }}" defer></script>
-
-
-
-{% schema %}
-{
-  "name": "GiftWeekCollectionLP",
-  "settings": [
-    {
-      "type": "text",
-      "id": "forced_collection_handle",
-      "label": "Forced collection handle (optional)"
-    },
-    {
-      "type": "collection",
-      "id": "collection_1",
-      "label": "Colectie 1"
-    },
-    {
-      "type": "collection",
-      "id": "collection_2",
-      "label": "Colectie 2"
-    },
-    {
-      "type": "collection",
-      "id": "collection_3",
-      "label": "Colectie 3"
-    },
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "label": "Produse pe pagina",
-      "min": 4,
-      "max": 40,
-      "step": 4,
-      "default": 16
-    }
-  ],
-  "presets": [
-    {
-      "name": "BF Collection – 3 categorii"
-    }
-  ]
-}
-{% endschema %}
-
