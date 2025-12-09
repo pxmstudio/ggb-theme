@@ -26,8 +26,8 @@
     const bfEnd   = headerElement.dataset.bfEnd || '';
     const bwStart = headerElement.dataset.bwStart || '';
     const bwEnd   = headerElement.dataset.bwEnd || '';
-    const lcStart = headerElement.dataset.lcStart || headerElement.dataset.bfStart || '';
-    const lcEnd   = headerElement.dataset.lcEnd   || headerElement.dataset.bfEnd   || '';
+    const lcStart = headerElement.dataset.lcStart || '';
+    const lcEnd   = headerElement.dataset.lcEnd  || '';
 
     // Texts
     const beforeText = headerElement.dataset.beforeText || '';
