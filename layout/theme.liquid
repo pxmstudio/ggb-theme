@@ -155,6 +155,8 @@
       {% comment %} No footer on black-friday page template {% endcomment %}
     {% elsif template.name == 'page' and template.suffix == 'black-week' %}
       {% comment %} No footer on black-week page template {% endcomment %}
+    {% elsif template.name == 'page' and template.suffix == 'luna-cadourilor' %}
+      {% comment %} No footer on black-week page template {% endcomment %}
     {% else %}
       {% section 'footer' %}
     {% endif %}
@@ -211,6 +213,8 @@
     {% if template.name == 'page' and template.suffix == 'black-friday' %}
       <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% elsif template.name == 'page' and template.suffix == 'black-week' %}
+      <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
+    {% elsif template.name == 'page' and template.suffix == 'luna-cadourilor' %}
       <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
