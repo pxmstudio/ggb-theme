@@ -74,7 +74,7 @@
       "header-luna-cadourilor": {
         "type": "header-luna-cadourilor",
         "settings": {
-          "promo_text_before": "până la startul promoției",
+          "promo_text_before": "până la finalul promoției",
           "promo_text_during": "până la finalul promoției",
           "luna_cadourilor_start": "2025-12-12T23:59:59+02:00",
           "luna_cadourilor_end": "2025-12-19T23:59:59+02:00",
