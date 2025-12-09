@@ -39,12 +39,9 @@
       // Returns { target: Date|null, label: string }
       let start = null;
       let end = null;
-      if (template === 'black-friday') {
+      if (template === 'luna-cadourilor') {
         start = parseISO(bfStart);
         end = parseISO(bfEnd);
-      } else if (template === 'black-week') {
-        start = parseISO(bwStart);
-        end = parseISO(bwEnd);
       }
 
       const now = new Date();
