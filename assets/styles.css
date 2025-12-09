@@ -607,6 +607,10 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 }
 }
 
+.header-luna-cadourilor_wrapper{
+  padding: 20px 0 20px 0;
+}
+
 .gog-top-bar {
   position: fixed;
   top: 0;
