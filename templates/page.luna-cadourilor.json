@@ -17,8 +17,8 @@
         "promo_text_during": "până la finalul promoției",
         "black_friday_start": "2025-12-04T23:59:59+02:00",
         "black_friday_end": "2025-12-12T23:59:59+02:00",
-        "black_week_start": "",
-        "black_week_end": "",
+        "black_week_start": "2025-12-04T23:59:59+02:00",
+        "black_week_end": "2025-12-12T23:59:59+02:00",
         "button_text": "Înapoi la website",
         "button_link": "/"
       }
