@@ -28,7 +28,8 @@
     "products": {
       "type": "giftweek-collection",
       "custom_css": [
-        ".gog-filters-hidden .filters-bf-wrapper ul, h3 {display: none;}"
+        ".gog-filters-hidden .filters-bf-wrapper ul,h3 {display: none;}",
+        ".gog-filters-hidden .filters-bf-wrapper .swiper-initialized div:nth-child(2) {display: none;}"
       ],
       "settings": {}
     }
