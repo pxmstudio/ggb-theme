@@ -598,8 +598,8 @@ input::-moz-placeholder, textarea::-moz-placeholder {
 }
 
 .ptb-2{
-  padding-top:15px!important;
-  padding-bottom:15px!important;
+  padding-top:7px!important;
+  padding-bottom:7px!important;
 }
 
 @media(max-width:650px){
