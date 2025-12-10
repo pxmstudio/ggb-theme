@@ -602,6 +602,11 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   padding-top:60px;
 }
 
+.ptb-2{
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
 #MainContent{
   padding-top:60px;
 }
