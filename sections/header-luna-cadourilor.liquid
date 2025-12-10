@@ -76,7 +76,7 @@
             {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
           </div>
           <div class="hidden lg:block relative" pxm-nav="menu">
-            <nav class="flex lg:flex-row flex-col pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
+            <nav class="flex lg:flex-row flex-col bradius-50 pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
               <div class="flex items-center gap-2 lg:justify-end">
                 <!-- Search and Category Dropdown Form -->
 
@@ -196,6 +196,10 @@
       padding-bottom: 0.25rem !important;
       padding-left: 0.5rem !important;
     }
+  }
+
+  .bradius-50{
+    border-radius:50%;
   }
 </style>
 
