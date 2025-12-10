@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-black-friday",
+      "disabled": true,
       "settings": {
         "subtitle": "Magia sărbătorilor a început!",
         "title": "Luna cadourilor",
@@ -25,6 +26,20 @@
         "link3_url": "shopify://products/banc-de-lucru-free2play-my-first-wooden-work-bench-cu-diverse-unelte-si-accesorii-pliabil-55-x-28-5-x-85-cm-36-luni-multicolor"
       }
     },
+    "main_luna_cadourilor_q6wjgJ": {
+      "type": "main-luna-cadourilor",
+      "name": "Main Luna Cadourilor",
+      "settings": {
+        "subtitle": "Dăm startul din 7 Noiembrie!",
+        "title": "Black Friday Deals",
+        "description": "Găsești tot ce ai nevoie pentru o creștere sigură, confortabilă și plină de bucurii!",
+        "button_text": "Descoperă ofertele",
+        "button_link": "",
+        "link1_url": "",
+        "link2_url": "",
+        "link3_url": ""
+      }
+    },
     "products": {
       "type": "giftweek-collection",
       "custom_css": [
@@ -36,6 +51,7 @@
   },
   "order": [
     "main",
+    "main_luna_cadourilor_q6wjgJ",
     "products"
   ]
 }
