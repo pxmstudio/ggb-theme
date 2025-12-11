@@ -23,7 +23,6 @@
         {% else %}
           {% assign active_collection = collections.all %}
         {% endif %}
-
         <div class="lg:col-span-3">
           {% render 'filters-bf',
             location: 'collection',
@@ -31,48 +30,26 @@
             target_section_id: section.id
           %}
         </div>
-
         <div class="lg:col-span-9">
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
             {% paginate active_collection.products by section.settings.products_per_page %}
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
-                
-                {% assign priority_products = '' | split: ',' %}
-                {% assign other_products = '' | split: ',' %}
-
+                {% assign initial_rendered = 0 %}
                 {% for product in active_collection.products %}
                   {% assign compare_at = product.compare_at_price_max %}
-                  {% assign discount_percent = 0 %}
                   {% if compare_at > product.price and compare_at > 0 %}
                     {% assign savings = compare_at | minus: product.price %}
                     {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-                  {% endif %}
-
-                  {% if discount_percent >= 30 %}
-                    {% if product.tags contains 'Vehicule pentru copii' or product.tags contains 'Jucarii & Cadouri' %}
-                      {% assign priority_products = priority_products | push: product %}
-                    {% else %}
-                      {% assign other_products = other_products | push: product %}
+                    {% if discount_percent >= 30 %}
+                      {% render 'product-card', product: product %}
+                      {% assign initial_rendered = initial_rendered | plus: 1 %}
                     {% endif %}
                   {% endif %}
                 {% endfor %}
-
-                {% assign initial_rendered = 0 %}
-                {% for product in priority_products %}
-                  {% render 'product-card', product: product %}
-                  {% assign initial_rendered = initial_rendered | plus: 1 %}
-                {% endfor %}
-
-                {% for product in other_products %}
-                  {% render 'product-card', product: product %}
-                  {% assign initial_rendered = initial_rendered | plus: 1 %}
-                {% endfor %}
-
-                {% if initial_rendered == 0 %}
-                  <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
-                {% endif %}
-
               </div>
+              {% if initial_rendered == 0 %}
+                <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
+              {% endif %}
 
               {% render 'infinite-scroll-bf',
                 next_page: paginate.next.url,
@@ -84,18 +61,15 @@
         </div>
       </div>
     </div>
-
     <div class="container-large">
       <div class="bf-collection-footer flex center">
         {% render 'button-bf', type: 'link', hierarchy: 'primary', href: '/', text: 'Înapoi la website' %}
       </div>
     </div>
   </div>
-
   <div class="lc-collection_background max-w-full"></div>
   <div class="lc-collection_background-2 max-w-full"></div>
 </section>
-
 
 {%- comment -%}
   Client-side section replacement removed. The section is rendered server-side
