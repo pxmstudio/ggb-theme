@@ -23,7 +23,6 @@
         {% else %}
           {% assign active_collection = collections.all %}
         {% endif %}
-
         <div class="lg:col-span-3">
           {% render 'filters-bf',
             location: 'collection',
@@ -31,55 +30,26 @@
             target_section_id: section.id
           %}
         </div>
-
         <div class="lg:col-span-9">
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
             {% paginate active_collection.products by section.settings.products_per_page %}
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
                 {% assign initial_rendered = 0 %}
-
-                {% comment %} Afișăm mai întâi produsele prioritare {% endcomment %}
                 {% for product in active_collection.products %}
                   {% assign compare_at = product.compare_at_price_max %}
                   {% if compare_at > product.price and compare_at > 0 %}
                     {% assign savings = compare_at | minus: product.price %}
                     {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-
                     {% if discount_percent >= 30 %}
-                      {% if product.tags contains 'Vehicule pentru copii' %}
-                        {% render 'product-card', product: product %}
-                        {% assign initial_rendered = initial_rendered | plus: 1 %}
-                      {% elsif product.tags contains 'Jucarii & Cadouri' %}
-                        {% render 'product-card', product: product %}
-                        {% assign initial_rendered = initial_rendered | plus: 1 %}
-                      {% endif %}
+                      {% render 'product-card', product: product %}
+                      {% assign initial_rendered = initial_rendered | plus: 1 %}
                     {% endif %}
-
                   {% endif %}
                 {% endfor %}
-
-                {% comment %} Afișăm restul produselor cu discount ≥ 30% {% endcomment %}
-                {% for product in active_collection.products %}
-                  {% assign compare_at = product.compare_at_price_max %}
-                  {% if compare_at > product.price and compare_at > 0 %}
-                    {% assign savings = compare_at | minus: product.price %}
-                    {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-
-                    {% if discount_percent >= 30 %}
-                      {% unless product.tags contains 'Vehicule pentru copii' or product.tags contains 'Jucarii & Cadouri' %}
-                        {% render 'product-card', product: product %}
-                        {% assign initial_rendered = initial_rendered | plus: 1 %}
-                      {% endunless %}
-                    {% endif %}
-
-                  {% endif %}
-                {% endfor %}
-
-                {% if initial_rendered == 0 %}
-                  <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
-                {% endif %}
-
               </div>
+              {% if initial_rendered == 0 %}
+                <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
+              {% endif %}
 
               {% render 'infinite-scroll-bf',
                 next_page: paginate.next.url,
@@ -91,14 +61,12 @@
         </div>
       </div>
     </div>
-
     <div class="container-large">
       <div class="bf-collection-footer flex center">
         {% render 'button-bf', type: 'link', hierarchy: 'primary', href: '/', text: 'Înapoi la website' %}
       </div>
     </div>
   </div>
-
   <div class="lc-collection_background max-w-full"></div>
   <div class="lc-collection_background-2 max-w-full"></div>
 </section>
