@@ -593,6 +593,11 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   padding-top:50px;
 }
 
+.gog-flexy{
+  display:flex;
+  flex-direction:row;
+}
+
 #MainContent{
   padding-top:50px;
 }
