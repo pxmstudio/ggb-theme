@@ -598,6 +598,10 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   flex-direction:row;
 }
 
+.gog-pad-left{
+  padding-left: 50px;
+}
+
 #MainContent{
   padding-top:50px;
 }
