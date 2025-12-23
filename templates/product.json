@@ -11,9 +11,7 @@
   "sections": {
     "main-product": {
       "type": "main-product",
-      "custom_css": [
-        "@media (min-width: 1024px) {.heading-h3 {font-size: 1.5rem; }}"
-      ],
+      "custom_css": [],
       "settings": {}
     },
     "recently-viewed-products": {
