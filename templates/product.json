@@ -11,7 +11,9 @@
   "sections": {
     "main-product": {
       "type": "main-product",
-      "custom_css": [],
+      "custom_css": [
+        ".heading-h3 {font-size: 1.5rem; font-weight: 600; line-height: 1.25;}"
+      ],
       "settings": {}
     },
     "recently-viewed-products": {
