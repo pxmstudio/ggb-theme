@@ -675,7 +675,7 @@ input::placeholder,textarea::placeholder {
 }
 
 section_home-hero{
-  padding-top:60px;
+  padding-top:60px!important;
 }
 
 ::-webkit-datetime-edit {
