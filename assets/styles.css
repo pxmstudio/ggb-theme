@@ -674,6 +674,10 @@ input::placeholder,textarea::placeholder {
   text-align: inherit;
 }
 
+section_home-hero{
+  padding-top:60px;
+}
+
 ::-webkit-datetime-edit {
   display: inline-flex;
 }
