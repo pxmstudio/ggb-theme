@@ -589,9 +589,9 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   opacity: 1;
 }
 
-.gog-class-header{
+/*.gog-class-header{
   padding-top:50px;
-}
+}*/
 
 .gog-flexy{
   display:flex;
