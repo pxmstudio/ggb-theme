@@ -674,10 +674,6 @@ input::placeholder,textarea::placeholder {
   text-align: inherit;
 }
 
-section_home-hero{
-  padding-top:60px!important;
-}
-
 ::-webkit-datetime-edit {
   display: inline-flex;
 }
@@ -2454,6 +2450,10 @@ input[type='number']::-webkit-inner-spin-button {
 .focus\:border-brand-turquoise:focus {
   --tw-border-opacity: 1;
   border-color: rgb(84 191 199 / var(--tw-border-opacity, 1));
+}
+
+.section_home-hero{
+  padding-top:60px!important;
 }
 
 .focus\:outline-none:focus {
