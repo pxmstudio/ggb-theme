@@ -12,59 +12,9 @@
     "main-cart": {
       "type": "main-cart",
       "settings": {}
-    },
-    "176839579207306d38": {
-      "type": "apps",
-      "blocks": {
-        "cross_sell_upsell_by_ssc_app_general_hJJ4mJ": {
-          "type": "shopify://apps/cross-sell-upsell-by-ssc/blocks/app-general/d57b28bc-34f0-4ebc-b397-9eb9c6ea4220",
-          "settings": {
-            "titleproductpage": "You may also like...",
-            "titleproductpagedefault": "Our Bestsellers...",
-            "titlecheckoutpage": "Before you checkout, have you considered..."
-          }
-        },
-        "cross_sell_upsell_by_ssc_app_block_kAqK4f": {
-          "type": "shopify://apps/cross-sell-upsell-by-ssc/blocks/app-block/d57b28bc-34f0-4ebc-b397-9eb9c6ea4220",
-          "settings": {
-            "quickview_enabled": true,
-            "quick_add_to_cart_enabled": true
-          }
-        },
-        "cross_sell_upsell_by_ssc_app_theme_jnQrXV": {
-          "type": "shopify://apps/cross-sell-upsell-by-ssc/blocks/app-theme/d57b28bc-34f0-4ebc-b397-9eb9c6ea4220",
-          "settings": {
-            "use_recommendations": true,
-            "xsrandomize": true,
-            "xsdisplayvendor": true,
-            "xsdisplaysalebadge": true,
-            "xsdisplaycompareatprice": true,
-            "xsmustbeavailable": true,
-            "xshideifincart": false,
-            "xsdisplaypricevarieslabel": true,
-            "from_label": "From",
-            "hide_prices": false,
-            "carousel_enabled": false,
-            "carousel_auto_play": false,
-            "carousel_page_dots": false,
-            "image_width": "",
-            "image_height": "",
-            "font_family": "sans_serif_n4",
-            "font_size": "",
-            "font_color": ""
-          }
-        }
-      },
-      "block_order": [
-        "cross_sell_upsell_by_ssc_app_general_hJJ4mJ",
-        "cross_sell_upsell_by_ssc_app_block_kAqK4f",
-        "cross_sell_upsell_by_ssc_app_theme_jnQrXV"
-      ],
-      "settings": {}
     }
   },
   "order": [
-    "main-cart",
-    "176839579207306d38"
+    "main-cart"
   ]
 }
