@@ -18,22 +18,22 @@
       ],
       "settings": {}
     },
-    "recently-viewed-products": {
-      "type": "recently-viewed-products",
-      "settings": {
-        "title": "Vizualizate recent"
-      }
-    },
     "product-recommendations": {
       "type": "product-recommendations",
       "settings": {
         "title": "Produse recomandate"
       }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "title": "Vizualizate recent"
+      }
     }
   },
   "order": [
     "main-product",
-    "recently-viewed-products",
-    "product-recommendations"
+    "product-recommendations",
+    "recently-viewed-products"
   ]
 }
