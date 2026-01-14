@@ -20,12 +20,18 @@
     },
     "product-recommendations": {
       "type": "product-recommendations",
+      "custom_css": [
+        "h2 {font-size: 26px;}"
+      ],
       "settings": {
         "title": "Produse recomandate"
       }
     },
     "recently-viewed-products": {
       "type": "recently-viewed-products",
+      "custom_css": [
+        "h2 {font-size: 26px;}"
+      ],
       "settings": {
         "title": "Vizualizate recent"
       }
