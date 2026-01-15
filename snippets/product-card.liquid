@@ -40,6 +40,14 @@
         %
       </span>
     {% endif %}
+    {% unless product.available %}
+      <span
+        class="absolute top-0 right-0 bg-gray-500 text-white px-2 py-1 rounded-br-2xl text-sm font-medium"
+        pxm-product="sold-out"
+      >
+        Stoc epuizat
+      </span>
+    {% endunless %}
     {% if is_new %}
       <span
         class="absolute bottom-0 left-0 bg-[#54BFC7] text-white px-2 py-1 rounded-tr-2xl text-sm font-medium z-10"
