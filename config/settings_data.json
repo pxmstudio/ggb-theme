@@ -104,6 +104,11 @@
         "type": "shopify://apps/cross-sell-upsell-by-ssc/blocks/app-embedded/d57b28bc-34f0-4ebc-b397-9eb9c6ea4220",
         "disabled": false,
         "settings": {}
+      },
+      "11038922299930075240": {
+        "type": "shopify://apps/stok-back-in-stock-alert/blocks/app-embed/efd73fb9-4943-460f-9877-08a22c111961",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
