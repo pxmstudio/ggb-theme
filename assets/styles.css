@@ -606,6 +606,10 @@ input::-moz-placeholder, textarea::-moz-placeholder {
   padding-top:50px;
 }
 
+.rounded-tl-2xl{
+  border-top-left-radius: 1rem;
+}
+
 .ptb-2{
   padding-top:7px!important;
   padding-bottom:7px!important;
