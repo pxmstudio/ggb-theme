@@ -18,19 +18,6 @@
       ],
       "settings": {}
     },
-    "1768470051634f7c0e": {
-      "type": "apps",
-      "blocks": {
-        "stok_back_in_stock_alert_app_block_7ckBpW": {
-          "type": "shopify://apps/stok-back-in-stock-alert/blocks/app-block/efd73fb9-4943-460f-9877-08a22c111961",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "stok_back_in_stock_alert_app_block_7ckBpW"
-      ],
-      "settings": {}
-    },
     "product-recommendations": {
       "type": "product-recommendations",
       "custom_css": [
@@ -52,7 +39,6 @@
   },
   "order": [
     "main-product",
-    "1768470051634f7c0e",
     "product-recommendations",
     "recently-viewed-products"
   ]
