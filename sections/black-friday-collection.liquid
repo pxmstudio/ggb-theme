@@ -36,6 +36,9 @@
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
                 {% assign initial_rendered = 0 %}
                 {% for product in active_collection.products %}
+                  {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+                    {% continue %}
+                  {% endif %}
                   {% assign compare_at = product.compare_at_price_max %}
                   {% if compare_at > product.price and compare_at > 0 %}
                     {% assign savings = compare_at | minus: product.price %}

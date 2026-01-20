@@ -13,12 +13,6 @@ interface NumberInputConfig {
   onChange?: (value: number) => void;
 }
 
-interface ProductGalleryConfig {
-  container: HTMLElement;
-  mainImage: HTMLImageElement;
-  thumbnailButtons: NodeListOf<HTMLButtonElement>;
-}
-
 class NumberInput {
   private config: NumberInputConfig;
   private currentValue: number;
@@ -190,123 +184,6 @@ class Tabs {
   }
 }
 
-class ProductGallery {
-  private config: ProductGalleryConfig;
-  private activeButton: HTMLButtonElement | null = null;
-
-  constructor(config: ProductGalleryConfig) {
-    this.config = config;
-    this.init();
-  }
-
-  private init(): void {
-    // Set initial active button
-    this.activeButton = this.config.thumbnailButtons[0] || null;
-
-    // Add click listeners to thumbnail buttons
-    this.config.thumbnailButtons.forEach((button) => {
-      button.addEventListener('click', () => this.handleThumbnailClick(button));
-
-      // Set initial active state
-      if (button.dataset.active === 'true') {
-        this.activeButton = button;
-      }
-    });
-
-    // Add keyboard navigation
-    this.config.container.addEventListener('keydown', (e) => this.handleKeyboardNavigation(e));
-  }
-
-  private handleThumbnailClick(button: HTMLButtonElement): void {
-    if (this.activeButton === button) return;
-
-    // Update active states
-    this.setActiveButton(button);
-
-    // Update main image
-    const thumbnailImg = button.querySelector('img');
-    if (thumbnailImg) {
-      const newSrc = this.getFullSizeUrl(thumbnailImg.src);
-      this.updateMainImage(newSrc, thumbnailImg.alt);
-    }
-  }
-
-  private handleKeyboardNavigation(event: KeyboardEvent): void {
-    if (!this.activeButton || !['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
-
-    const buttons = Array.from(this.config.thumbnailButtons);
-    const currentIndex = buttons.indexOf(this.activeButton);
-    let nextIndex = currentIndex;
-
-    switch (event.key) {
-      case 'ArrowUp':
-        nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
-        break;
-      case 'ArrowDown':
-        nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
-        break;
-      case 'Home':
-        nextIndex = 0;
-        break;
-      case 'End':
-        nextIndex = buttons.length - 1;
-        break;
-      default:
-        return;
-    }
-
-    event.preventDefault();
-    const nextButton = buttons[nextIndex];
-    if (nextButton) {
-      nextButton.focus();
-      this.handleThumbnailClick(nextButton);
-    }
-  }
-
-  private setActiveButton(newActiveButton: HTMLButtonElement): void {
-    // Remove active state from current button
-    if (this.activeButton) {
-      this.activeButton.setAttribute('data-active', 'false');
-      this.activeButton.setAttribute('aria-selected', 'false');
-    }
-
-    // Set new active button
-    this.activeButton = newActiveButton;
-    newActiveButton.setAttribute('data-active', 'true');
-    newActiveButton.setAttribute('aria-selected', 'true');
-
-    // Dispatch custom event
-    this.config.container.dispatchEvent(
-      new CustomEvent('gallery-change', {
-        detail: {
-          button: newActiveButton,
-          index: Array.from(this.config.thumbnailButtons).indexOf(newActiveButton),
-        },
-        bubbles: true,
-      })
-    );
-  }
-
-  private updateMainImage(src: string, alt: string): void {
-    // Add loading state
-    this.config.mainImage.style.opacity = '0.5';
-
-    // Create new image to preload
-    const newImage = new Image();
-    newImage.onload = () => {
-      this.config.mainImage.src = src;
-      this.config.mainImage.alt = alt;
-      this.config.mainImage.style.opacity = '1';
-    };
-    newImage.src = src;
-  }
-
-  private getFullSizeUrl(thumbnailUrl: string): string {
-    // Convert thumbnail URL to full-size URL by replacing width parameter
-    return thumbnailUrl.replace(/width=\d+/, 'width=1000');
-  }
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
   // Initialize number inputs
   document.querySelectorAll<HTMLElement>('[pxm-input="number"]').forEach((container) => {
@@ -343,20 +220,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       new Tabs({ triggers: triggersElement, content: contentElement });
     }
   });
-
-  // Initialize product image galleries
-  // document.querySelectorAll<HTMLElement>('[pxm-product="image-gallery"]').forEach((container) => {
-  //   const mainImage = container.querySelector<HTMLImageElement>('[pxm-product="image-gallery-img"]');
-  //   const thumbnailButtons = container.querySelectorAll<HTMLButtonElement>('[pxm-product="image-gallery-btn"]');
-
-  //   if (mainImage && thumbnailButtons.length > 0) {
-  //     new ProductGallery({
-  //       container,
-  //       mainImage,
-  //       thumbnailButtons,
-  //     });
-  //   }
-  // });
 
   // Recently viewed products
   const recentlyViewedProductsElement = document.getElementById('recently-viewed-products');

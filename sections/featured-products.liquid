@@ -11,8 +11,13 @@
         %}
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-        {% for product in section.settings.collection.products limit: 4 %}
-          {% render 'product-card', product: product %}
+        {% assign shown_count = 0 %}
+        {% for product in section.settings.collection.products %}
+          {% if shown_count >= 4 %}{% break %}{% endif %}
+          {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
+            {% render 'product-card', product: product %}
+            {% assign shown_count = shown_count | plus: 1 %}
+          {% endif %}
         {% endfor %}
       </div>
     </div>

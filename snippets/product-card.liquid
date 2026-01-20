@@ -8,6 +8,12 @@
   {% assign is_new = true %}
 {% endif %}
 
+{% comment %} Check if product is out of stock based on inventory quantity {% endcomment %}
+{% assign is_sold_out = false %}
+{% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+  {% assign is_sold_out = true %}
+{% endif %}
+
 <a
   href="{{ product.url }}"
   class="w-full h-full group relative"
@@ -21,7 +27,7 @@
       src="{{ product.featured_image | image_url: height: 300 }}"
       width="auto"
       height="300"
-      class="absolute top-0 bottom-0 left-0 right-0 object-cover object-center w-full h-full group-hover:scale-110 global-transition"
+      class="absolute top-0 bottom-0 left-0 right-0 object-cover object-center w-full h-full group-hover:scale-110 global-transition {% if is_sold_out %}grayscale-[70%] brightness-95 group-hover:grayscale-[50%] group-hover:scale-[1.02]{% endif %}"
       pxm-product="image"
     >
     {% if product.compare_at_price > product.price %}
@@ -40,14 +46,14 @@
         %
       </span>
     {% endif %}
-    {% unless product.available %}
+    {% if is_sold_out %}
       <span
-        class="absolute bottom-0 right-0 bg-gray-gog text-white border-0 px-2 py-1 rounded-tl-2xl text-sm font-medium"
+        class="absolute top-0 right-0 bg-neutral-darker text-white px-3 py-1.5 rounded-bl-2xl text-xs font-semibold uppercase tracking-wide z-10"
         pxm-product="sold-out"
       >
         Stoc epuizat
       </span>
-    {% endunless %}
+    {% endif %}
     {% if is_new %}
       <span
         class="absolute bottom-0 left-0 bg-[#54BFC7] text-white px-2 py-1 rounded-tr-2xl text-sm font-medium z-10">
@@ -72,7 +78,7 @@
     </div>
     {% assign _compare_at = product.compare_at_price %}
     {% assign _price = product.price %}
-    {% if _compare_at > _price and _compare_at > 0 %}
+    {% if _compare_at > _price and _compare_at > 0 and is_sold_out == false %}
       {% assign _savings = _compare_at | minus: _price %}
       {% assign _discount_percent = _savings | times: 100.0 | divided_by: _compare_at | round %}
       {% if _discount_percent >= 30 %}

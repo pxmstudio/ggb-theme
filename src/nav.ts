@@ -118,8 +118,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const allInputs = document.querySelectorAll<HTMLInputElement>('input[name="q"]');
-  allInputs.forEach(input => {
-    //console.log('Input:', input, 'Value:', input.value, 'Hidden:', input.offsetParent === null);
-  });
 });
