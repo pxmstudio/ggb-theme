@@ -79,6 +79,23 @@
         "id": "black_friday_link",
         "label": "Black Friday link"
       },
+       {
+        "type": "text",
+        "id": "promotii_start",
+        "label": "Start datetime – Luna cadourilor (ISO 8601)",
+        "info": "Example: 2025-11-29T23:59:59+02:00"
+      },
+      {
+        "type": "text",
+        "id": "promotii_end",
+        "label": "End datetime – Luna cadourilor (ISO 8601)",
+        "info": "Example: 2025-12-06T23:59:59+02:00"
+      },
+      {
+        "type": "url",
+        "id": "promotii_link",
+        "label": "Black Friday link"
+      },
       {
         "type": "url",
         "id": "black_week_link",
