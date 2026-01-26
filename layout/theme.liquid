@@ -146,6 +146,8 @@
       {% section 'header-black-friday' %}
     {% elsif template.name == 'page' and template.suffix == 'luna-cadourilor' %}
       {% section 'header-luna-cadourilor' %}
+    {% elsif template.name == 'page' and template.suffix == 'promotii' %}
+      {% section 'header-promotii' %}
     {% else %}
       {% section 'header' %}
     {% endif %}
@@ -159,6 +161,8 @@
     {% elsif template.name == 'page' and template.suffix == 'black-week' %}
       {% comment %} No footer on black-week page template {% endcomment %}
     {% elsif template.name == 'page' and template.suffix == 'luna-cadourilor' %}
+      {% comment %} No footer on black-week page template {% endcomment %}
+    {% elsif template.name == 'page' and template.suffix == 'promotii' %}
       {% comment %} No footer on black-week page template {% endcomment %}
     {% else %}
       {% section 'footer' %}
@@ -219,6 +223,8 @@
       <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% elsif template.name == 'page' and template.suffix == 'luna-cadourilor' %}
       <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
+    {% elsif template.name == 'page' and template.suffix == 'promotii' %}
+      <script src="{{ 'header-bf.js' | asset_url }}" type="module" defer></script>
     {% endif %}
 
     {% if content_for_layout contains 'main-collection' %}
@@ -274,6 +280,9 @@
         var lcStart = {{ settings.luna_cadourilor_start | json }};
         var lcEnd = {{ settings.luna_cadourilor_end | json }};
         var lcLink = {{ settings.luna_cadourilor_link | json }};
+        var proStart = {{ settings.promotii_start | json }};
+        var proEnd = {{ settings.promotii_end | json }};
+        var proLink = {{ settings.promotii_link | json }};
 
         function parseISO(val) {
           if (!val) return null;
@@ -314,6 +323,7 @@
         var bfKey = 'ggb_bf_redirect_' + (bfStart || '');
         var bwKey = 'ggb_bw_redirect_' + (bwStart || '');
         var lcKey = 'ggb_lc_redirect_' + (lcStart || '');
+        var proKey = 'ggb_pro_redirect_' + (proStart || '');
 
         if (shouldRedirect(bfStart, bfEnd, bfLink, bfKey)) {
           doRedirect(bfLink, bfKey);
@@ -324,6 +334,9 @@
         }
         if (shouldRedirect(lcStart, lcEnd, lcLink, lcKey)) {
           doRedirect(lcLink, lcKey);
+        }
+        if (shouldRedirect(proStart, proEnd, proLink, proKey)) {
+          doRedirect(proLink, proKey);
         }
       })();
       {% endif %}
