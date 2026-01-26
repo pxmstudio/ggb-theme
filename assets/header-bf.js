@@ -1,8 +1,8 @@
-// Universal countdown for Black Friday / Black Week / Luna Cadourilor
+// Universal countdown for Black Friday / Black Week / Luna Cadourilor / Promotii
 (() => {
   function initializeCountdown() {
     const headerElement = document.querySelector(
-      '.header-black-friday, .header-luna-cadourilor'
+      '.header-black-friday, .header-luna-cadourilor, .header-promotii'
     );
     if (!headerElement) return;
 
@@ -28,6 +28,8 @@
     const bwEnd   = headerElement.dataset.bwEnd || '';
     const lcStart = headerElement.dataset.lcStart || '';
     const lcEnd   = headerElement.dataset.lcEnd  || '';
+    const proStart = headerElement.dataset.proStart || '';
+    const proEnd   = headerElement.dataset.proEnd  || '';
 
     // Texts
     const beforeText = headerElement.dataset.beforeText || '';
@@ -54,6 +56,9 @@
       } else if (template === 'luna-cadourilor') {
         start = parseISO(lcStart);
         end   = parseISO(lcEnd);
+      } else if (template === 'promotii') {
+        start = parseISO(proStart);
+        end   = parseISO(proEnd);
       }
 
       const now = new Date();
