@@ -29,6 +29,7 @@
     "main_luna_cadourilor_q6wjgJ": {
       "type": "main-promotii",
       "custom_css": [
+        "@media (max-width: 768px) {h1 {font-size: 34px; }}",
         "h1 {font-size: 58px; color: white;}",
         "p {font-size: 16px; color: #f5f5f5;}"
       ],
