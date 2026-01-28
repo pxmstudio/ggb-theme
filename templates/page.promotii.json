@@ -28,18 +28,22 @@
     },
     "main_luna_cadourilor_q6wjgJ": {
       "type": "main-promotii",
+      "custom_css": [
+        "h1 {font-size: 58px; color: white;}",
+        "p {font-size: 16px; color: #F5F5F5;}"
+      ],
       "name": "Main Promotii",
       "settings": {
-        "subtitle": "Magia sărbătorilor a început!",
-        "title": "Luna Cadourilor",
-        "description": "Găsești tot ce ai nevoie pentru ca cei mici să se bucure de Sărbători în siguranță și confort.",
+        "subtitle": "Gandit pentru mami. Iubit de bebe.",
+        "title": "Confort pentru mami si copil",
+        "description": "Produse practice, sigure si confortabile, create pentru nevoile reale ale mamicilor si ale copiilor.",
         "button_text": "Descoperă ofertele",
         "button_link": "shopify://collections/jucarii-copii-si-bebelusi",
-        "link1_image": "shopify://shop_images/10_d58264f0-c5d1-47ef-a60a-4f62e2187093.png",
+        "link1_image": "shopify://shop_images/10_f7290d6c-5b2f-45f0-b39f-8fd255231a49.png",
         "link1_url": "shopify://products/pista-de-masini-smoby-big-garage-cu-masinuta-si-elicopter",
-        "link2_image": "shopify://shop_images/1_f0c3679c-2e8f-46e9-8913-2880f2205002.png",
+        "link2_image": "shopify://shop_images/1_ffe3a5e9-91de-46ed-a418-d5c7ea448ff1.png",
         "link2_url": "shopify://products/magazin-pentru-copii-smoby-maxi-market-cu-50-accesorii",
-        "link3_image": "shopify://shop_images/17_99e65975-005d-41e8-8bd7-f36410d82267.png",
+        "link3_image": "shopify://shop_images/13_1be6a20a-8dd3-4f24-b3e3-ea6a9255e7e7.png",
         "link3_url": "shopify://products/jucarie-smoby-set-curatenie-cu-troller-si-aspirator-electronic-rowenta-negru"
       }
     },
