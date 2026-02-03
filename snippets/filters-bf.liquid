@@ -58,17 +58,38 @@
               <div class="bf-slider-item swiper-slide ">
                 <a href="#" data-bf-handle="" class="bf-chip">Toate produsele</a>
               </div>
-              {% for bf_collection in collections %}
-                {% if bf_collection.metafields.custom.is_displayed != false
-                  and bf_collection.metafields.custom.is_displayed != blank
-                %}
-                  <div class="bf-slider-item swiper-slide">
-                    <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
-                      {{- bf_collection.title -}}
-                    </a>
-                  </div>
-                {% endif %}
-              {% endfor %}
+              {% assign ordered_collections = "" | split: "," %}
+
+{%- comment -%} 
+  1. Adaugă colecțiile vizibile inițiale, excluzând pe cele 2 speciale
+{%- endcomment -%}
+{% for bf_collection in collections %}
+  {% if bf_collection.metafields.custom.is_displayed != false and bf_collection.metafields.custom.is_displayed != blank %}
+    {% unless bf_collection.handle == 'carucioare-bebelusi' or bf_collection.handle == 'scaune-auto-2' %}
+      {% assign ordered_collections = ordered_collections | push: bf_collection %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{%- comment -%} 
+  2. Adaugă colecțiile speciale după ele
+{%- endcomment -%}
+{% assign special1 = collections['carucioare-bebelusi'] %}
+{% assign special2 = collections['scaune-auto-2'] %}
+{% if special1 != blank %}{% assign ordered_collections = ordered_collections | push: special1 %}{% endif %}
+{% if special2 != blank %}{% assign ordered_collections = ordered_collections | push: special2 %}{% endif %}
+
+{%- comment -%} 
+  3. Loop prin array-ul reordonat
+{%- endcomment -%}
+{% for bf_collection in ordered_collections %}
+  <div class="bf-slider-item swiper-slide">
+    <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
+      {{ bf_collection.title }}
+    </a>
+  </div>
+{% endfor %}
+
             </div>
           </div>
           <button type="button" class="bf-slider-btn bf-slider-next" aria-label="Next" data-bf-next>
