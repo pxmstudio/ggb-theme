@@ -5,7 +5,7 @@
         {% comment %} Pick active collection in this order: forced setting > URL param > current collection > all {% endcomment %}
         {% assign forced_handle = section.settings.forced_collection_handle | strip %}
         {% assign bf_handle = '' %}
-        {% if request.query_string contains 'bf_collection=' %}
+        {% if request.query_string contains 'promotii_collection=' %}
           {% assign bf_handle = request.query_string
             | split: 'promotii_collection='
             | last
