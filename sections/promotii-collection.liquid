@@ -7,7 +7,7 @@
         {% assign bf_handle = '' %}
         {% if request.query_string contains 'bf_collection=' %}
           {% assign bf_handle = request.query_string
-            | split: 'bf_collection='
+            | split: 'promotii_collection='
             | last
             | split: '&'
             | first
