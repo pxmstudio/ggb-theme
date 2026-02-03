@@ -33,31 +33,24 @@
         <div class="lg:col-span-9">
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
             {% paginate active_collection.products by section.settings.products_per_page %}
-              <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-  {% for collection in collections %}
-    {% if collection.products_count > 0 %}
-      <a href="{{ collection.url }}" class="collection-card">
-        <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-          {% if collection.image %}
-            <img
-              src="{{ collection.image | image_url: width: 600 }}"
-              alt="{{ collection.title }}"
-              class="w-full h-full object-cover"
-            >
-          {% endif %}
-        </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
+  {% assign initial_rendered = 0 %}
 
-        <h3 class="mt-3 font-medium text-lg">
-          {{ collection.title }}
-        </h3>
-
-        <p class="text-sm text-text-secondary">
-          {{ collection.products_count }} produse
-        </p>
-      </a>
+  {% for product in active_collection.products %}
+    {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+      {% continue %}
     {% endif %}
+
+    {% render 'product-card', product: product %}
+    {% assign initial_rendered = initial_rendered | plus: 1 %}
   {% endfor %}
 </div>
+
+{% if initial_rendered == 0 %}
+  <p class="text-text-secondary">
+    Nu există produse disponibile în această colecție.
+  </p>
+{% endif %}
 
               {% if initial_rendered == 0 %}
                 <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
