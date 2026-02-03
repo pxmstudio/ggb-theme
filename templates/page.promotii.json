@@ -55,7 +55,6 @@
       "custom_css": [
         ".gog-filters-hidden .filters-bf-wrapper .flex-col ul,h3 {display: none;}",
         ".gog-filters-hidden .pt-4 h3 {display: initial !important;}",
-        ".gog-filters-hidden .filters-bf-wrapper .swiper-initialized div:nth-child(2) {display: none;}",
         ".gog-filters-hidden .bf-slider-item.is-active {border: none; background-color: #33a3de; color: #fff;}",
         ".gog-filters-hidden .bf-slider-item {border-radius: 60px; border: 1px solid #33a3de; background: #ffffff; padding: 8px 16px; font-weight: 500; width: fit-content;}"
       ],
