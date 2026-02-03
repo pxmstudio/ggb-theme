@@ -29,7 +29,7 @@
           {% if template.name == 'index' %}
             </h1>
           {% endif %}
-          <div data-countdown="timer" class=" flex items-center  gap-2 ml-auto ">
+          {% comment %} <div data-countdown="timer" class=" flex items-center  gap-2 ml-auto ">
             <div class="flex items-center  gap-2" aria-label="Black Friday countdown timer">
               <div
                 class="bg-bg-primary rounded-lg p-2 flex lg:gap-2 gap-1"
@@ -71,7 +71,7 @@
             <p class="lg:text-xl text-sm block text-white font-semibold" data-countdown-message>
               {{ section.settings.promo_text_before | default: 'până la finalul promoției' }}
             </p>
-          </div>
+          </div> {% endcomment %}
           <div class="button-bf-container">
             {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
           </div>
