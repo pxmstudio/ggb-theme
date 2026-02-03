@@ -54,28 +54,41 @@
             {% render 'icon-arrow-left', width: 24, height: 24 %}
           </button>
           <div class="max-w-full overflow-x-hidden swiper" data-bf-viewport>
-            <div class="flex swiper-wrapper" data-bf-track>
-              <div class="bf-slider-item swiper-slide ">
-                <a href="#" data-bf-handle="" class="bf-chip">Toate produsele</a>
-              </div>
+  <div class="flex swiper-wrapper" data-bf-track>
+    <!-- Primul chip: Toate produsele -->
+    <div class="bf-slider-item swiper-slide">
+      <a href="#" data-bf-handle="" class="bf-chip">Toate produsele</a>
+    </div>
 
-              <div class="bf-slider-item swiper-slide ">
-                <a href="#" data-bf-handle="carucioare-bebelusi" class="bf-chip">Carucioare bebelusi</a>
-              </div>
-              
-              {% for bf_collection in collections %}
-                {% if bf_collection.metafields.custom.is_displayed != false
-                  and bf_collection.metafields.custom.is_displayed != blank
-                %}
-                  <div class="bf-slider-item swiper-slide">
-                    <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
-                      {{- bf_collection.title -}}
-                    </a>
-                  </div>
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
+    <!-- Colecțiile speciale fix după "Toate produsele" -->
+    {% assign special_collections = "carucioare-bebelusi,scaune-auto-2" | split: "," %}
+    {% for handle in special_collections %}
+      {% assign col = collections[handle] %}
+      {% if col != blank %}
+        <div class="bf-slider-item swiper-slide">
+          <a href="#" data-bf-handle="{{ col.handle }}" class="bf-chip">{{ col.title }}</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Restul colecțiilor vizibile -->
+    {% for bf_collection in collections %}
+      {% if bf_collection.metafields.custom.is_displayed != false
+        and bf_collection.metafields.custom.is_displayed != blank
+        and bf_collection.handle != 'carucioare-bebelusi'
+        and bf_collection.handle != 'scaune-auto-2'
+      %}
+        <div class="bf-slider-item swiper-slide">
+          <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
+            {{ bf_collection.title }}
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+</div>
+
           <button type="button" class="bf-slider-btn bf-slider-next" aria-label="Next" data-bf-next>
             {% render 'icon-arrow-right', width: 24, height: 24 %}
           </button>
