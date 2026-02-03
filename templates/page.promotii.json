@@ -51,7 +51,7 @@
       }
     },
     "products": {
-      "type": "giftweek-collection",
+      "type": "promotii-collection",
       "custom_css": [
         ".gog-filters-hidden .filters-bf-wrapper .flex-col ul,h3 {display: none;}",
         ".gog-filters-hidden .pt-4 h3 {display: initial !important;}",
