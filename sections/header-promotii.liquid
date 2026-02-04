@@ -7,8 +7,8 @@
   <header
     class="header-promotii bg-promotii fixed top-0 left-1/2 transform -translate-x-1/2 w-full m-0 mx-auto z-50 "
     data-template="{{ template.suffix }}"
-    data-promo-start="{{ section.settings.promotii_start }}"
-    data-promo-end="{{ section.settings.promotii_end }}"
+    data-pro-start="{{ section.settings.promotii_start }}"
+    data-pro-end="{{ section.settings.promotii_end }}"
     data-before-text="{{ section.settings.promo_text_before | escape }}"
     data-during-text="{{ section.settings.promo_text_during | escape }}"
   >
@@ -29,7 +29,7 @@
           {% if template.name == 'index' %}
             </h1>
           {% endif %}
-          {% comment %} <div data-countdown="timer" class=" flex items-center  gap-2 ml-auto ">
+          <div data-countdown="timer" class=" flex items-center  gap-2 ml-auto ">
             <div class="flex items-center  gap-2" aria-label="Black Friday countdown timer">
               <div
                 class="bg-bg-primary rounded-lg p-2 flex lg:gap-2 gap-1"
@@ -71,7 +71,7 @@
             <p class="lg:text-xl text-sm block text-white font-semibold" data-countdown-message>
               {{ section.settings.promo_text_before | default: 'până la finalul promoției' }}
             </p>
-          </div> {% endcomment %}
+          </div>
           <div class="button-bf-container">
             {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
           </div>

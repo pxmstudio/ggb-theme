@@ -63,7 +63,7 @@
               {% assign special_collections = "carucioare-bebelusi,scaune-auto-2" | split: "," %}
               {% for handle in special_collections %}
                 {% assign col = collections[handle] %}
-                {% if col != blank and col.products_count > 0 %}
+                {% if col != blank %}
                   <div class="bf-slider-item swiper-slide">
                     <a href="#" data-bf-handle="{{ col.handle }}" class="bf-chip">{{ col.title }}</a>
                   </div>
