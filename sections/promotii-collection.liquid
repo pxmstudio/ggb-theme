@@ -34,58 +34,83 @@
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
             {% paginate active_collection.products by section.settings.products_per_page %}
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
-               {% assign rendered_ids = '' %}
-{% assign initial_rendered = 0 %}
+               {% assign initial_rendered = 0 %}
 
-{%- assign priority_collections = 'scaune-auto-2,carucioare-bebelusi' | split: ',' -%}
+{% if active_collection.handle == 'all' %}
 
-{%- comment -%} 1️⃣ Produse prioritare {%- endcomment -%}
-{% for handle in priority_collections %}
-  {% assign col = collections[handle] %}
-  {% if col != blank %}
-    {% for product in col.products %}
-      {% if rendered_ids contains product.id %}
-        {% continue %}
-      {% endif %}
+  {%- comment -%} 🔥 DOAR pentru "Toate produsele" {%- endcomment -%}
 
-      {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
-        {% continue %}
-      {% endif %}
+  {% assign rendered_ids = '' %}
+  {% assign priority_collections = 'scaune-auto-2,carucioare-bebelusi' | split: ',' %}
 
-      {% assign compare_at = product.compare_at_price_max %}
-      {% if compare_at > product.price and compare_at > 0 %}
-        {% assign savings = compare_at | minus: product.price %}
-        {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-        {% if discount_percent >= 30 %}
-          {% render 'product-card', product: product %}
-          {% assign rendered_ids = rendered_ids | append: product.id | append: ',' %}
-          {% assign initial_rendered = initial_rendered | plus: 1 %}
+  {%- comment -%} 1️⃣ Produse prioritare {%- endcomment -%}
+  {% for handle in priority_collections %}
+    {% assign col = collections[handle] %}
+    {% if col != blank %}
+      {% for product in col.products %}
+        {% if rendered_ids contains product.id %}
+          {% continue %}
         {% endif %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
 
-{%- comment -%} 2️⃣ Restul produselor {%- endcomment -%}
-{% for product in active_collection.products %}
-  {% if rendered_ids contains product.id %}
-    {% continue %}
-  {% endif %}
+        {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+          {% continue %}
+        {% endif %}
 
-  {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
-    {% continue %}
-  {% endif %}
-
-  {% assign compare_at = product.compare_at_price_max %}
-  {% if compare_at > product.price and compare_at > 0 %}
-    {% assign savings = compare_at | minus: product.price %}
-    {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-    {% if discount_percent >= 30 %}
-      {% render 'product-card', product: product %}
-      {% assign initial_rendered = initial_rendered | plus: 1 %}
+        {% assign compare_at = product.compare_at_price_max %}
+        {% if compare_at > product.price and compare_at > 0 %}
+          {% assign savings = compare_at | minus: product.price %}
+          {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+          {% if discount_percent >= 30 %}
+            {% render 'product-card', product: product %}
+            {% assign rendered_ids = rendered_ids | append: product.id | append: ',' %}
+            {% assign initial_rendered = initial_rendered | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     {% endif %}
-  {% endif %}
-{% endfor %}
+  {% endfor %}
+
+  {%- comment -%} 2️⃣ Restul produselor {%- endcomment -%}
+  {% for product in active_collection.products %}
+    {% if rendered_ids contains product.id %}
+      {% continue %}
+    {% endif %}
+
+    {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+      {% continue %}
+    {% endif %}
+
+    {% assign compare_at = product.compare_at_price_max %}
+    {% if compare_at > product.price and compare_at > 0 %}
+      {% assign savings = compare_at | minus: product.price %}
+      {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+      {% if discount_percent >= 30 %}
+        {% render 'product-card', product: product %}
+        {% assign initial_rendered = initial_rendered | plus: 1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+{% else %}
+
+  {%- comment -%} ✅ Comportament NORMAL (codul tău original) {%- endcomment -%}
+  {% for product in active_collection.products %}
+    {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+      {% continue %}
+    {% endif %}
+
+    {% assign compare_at = product.compare_at_price_max %}
+    {% if compare_at > product.price and compare_at > 0 %}
+      {% assign savings = compare_at | minus: product.price %}
+      {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+      {% if discount_percent >= 30 %}
+        {% render 'product-card', product: product %}
+        {% assign initial_rendered = initial_rendered | plus: 1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+{% endif %}
 
               </div>
               {% if initial_rendered == 0 %}
