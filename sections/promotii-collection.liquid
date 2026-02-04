@@ -38,12 +38,9 @@
 
 {% if active_collection.handle == 'all' %}
 
-  {%- comment -%} 🔥 DOAR pentru "Toate produsele" {%- endcomment -%}
-
   {% assign rendered_ids = '' %}
   {% assign priority_collections = 'scaune-auto-2,carucioare-bebelusi' | split: ',' %}
 
-  {%- comment -%} 1️⃣ Produse prioritare {%- endcomment -%}
   {% for handle in priority_collections %}
     {% assign col = collections[handle] %}
     {% if col != blank %}
@@ -70,7 +67,6 @@
     {% endif %}
   {% endfor %}
 
-  {%- comment -%} 2️⃣ Restul produselor {%- endcomment -%}
   {% for product in active_collection.products %}
     {% if rendered_ids contains product.id %}
       {% continue %}
@@ -93,7 +89,6 @@
 
 {% else %}
 
-  {%- comment -%} ✅ Comportament NORMAL (codul tău original) {%- endcomment -%}
   {% for product in active_collection.products %}
     {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
       {% continue %}
