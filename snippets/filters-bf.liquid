@@ -72,7 +72,8 @@
 
 
               {% for bf_collection in collections %}
-                {% if bf_collection.metafields.custom.is_displayed != false
+                {% if bf_collection.products_count > 0
+                  and bf_collection.metafields.custom.is_displayed != false
                   and bf_collection.metafields.custom.is_displayed != blank
                   and bf_collection.handle != 'carucioare-bebelusi'
                   and bf_collection.handle != 'scaune-auto-2'
