@@ -63,38 +63,40 @@
               {% assign special_collections = "carucioare-bebelusi,scaune-auto-2" | split: "," %}
               {% for handle in special_collections %}
                 {% assign col = collections[handle] %}
-               {% if col != blank %}
+                {% if col != blank %}
+                  <div class="bf-slider-item swiper-slide">
+                    <a href="#" data-bf-handle="{{ col.handle }}" class="bf-chip">{{ col.title }}</a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+
+             {% for bf_collection in collections %}
+
   {% assign has_min_price = false %}
-  {% for p in col.products limit: 50 %}
+  {% for p in bf_collection.products limit: 50 %}
     {% if p.price >= 50000 %}
       {% assign has_min_price = true %}
       {% break %}
     {% endif %}
   {% endfor %}
 
-  {% if has_min_price %}
+  {% if has_min_price
+    and bf_collection.products_count > 0
+    and bf_collection.metafields.custom.is_displayed != false
+    and bf_collection.metafields.custom.is_displayed != blank
+    and bf_collection.handle != 'carucioare-bebelusi'
+    and bf_collection.handle != 'scaune-auto-2'
+  %}
     <div class="bf-slider-item swiper-slide">
-      <a href="#" data-bf-handle="{{ col.handle }}" class="bf-chip">{{ col.title }}</a>
+      <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
+        {{ bf_collection.title }}
+      </a>
     </div>
   {% endif %}
-{% endif %}
-              {% endfor %}
 
+{% endfor %}
 
-              {% for bf_collection in collections %}
-                {% if bf_collection.products_count > 0
-                  and bf_collection.metafields.custom.is_displayed != false
-                  and bf_collection.metafields.custom.is_displayed != blank
-                  and bf_collection.handle != 'carucioare-bebelusi'
-                  and bf_collection.handle != 'scaune-auto-2'
-                %}
-                  <div class="bf-slider-item swiper-slide">
-                    <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
-                      {{ bf_collection.title }}
-                    </a>
-                  </div>
-                {% endif %}
-              {% endfor %}
 
             </div>
           </div>
