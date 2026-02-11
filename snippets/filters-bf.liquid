@@ -72,30 +72,19 @@
 
 
               {% for bf_collection in collections %}
-
-  {% assign has_min_price = false %}
-  {% for product in bf_collection.products limit: 50 %}
-    {% if product.price >= 50000 %}
-      {% assign has_min_price = true %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-
-  {% if has_min_price
-    and bf_collection.products_count > 0
-    and bf_collection.metafields.custom.is_displayed != false
-    and bf_collection.metafields.custom.is_displayed != blank
-    and bf_collection.handle != 'carucioare-bebelusi'
-    and bf_collection.handle != 'scaune-auto-2'
-  %}
-    <div class="bf-slider-item swiper-slide">
-      <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
-        {{ bf_collection.title }}
-      </a>
-    </div>
-  {% endif %}
-
-{% endfor %}
+                {% if bf_collection.products_count > 0
+                  and bf_collection.metafields.custom.is_displayed != false
+                  and bf_collection.metafields.custom.is_displayed != blank
+                  and bf_collection.handle != 'carucioare-bebelusi'
+                  and bf_collection.handle != 'scaune-auto-2'
+                %}
+                  <div class="bf-slider-item swiper-slide">
+                    <a href="#" data-bf-handle="{{ bf_collection.handle }}" class="bf-chip">
+                      {{ bf_collection.title }}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
 
             </div>
           </div>
@@ -171,7 +160,7 @@
               <div>
                 <div class="flex flex-col">
                   <div class="flex flex-col"></div>
-                  {% assign max_price = 100 %}
+                  {% assign max_price = 500 %}
                   {% for product in products %}
                     {% if product.price > max_price %}
                       {% assign max_price = product.price %}
