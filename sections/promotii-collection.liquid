@@ -57,7 +57,7 @@
         {% if compare_at > product.price and compare_at > 0 %}
           {% assign savings = compare_at | minus: product.price %}
           {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-          {% if discount_percent >= 30 %}
+         {% if discount_percent >= 30 and product.price >= 50000 %}
             {% render 'product-card', product: product %}
             {% assign rendered_ids = rendered_ids | append: product.id | append: ',' %}
             {% assign initial_rendered = initial_rendered | plus: 1 %}
