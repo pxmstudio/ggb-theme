@@ -35,42 +35,89 @@
         <div class="lg:col-span-9">
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
             {% paginate active_collection.products by section.settings.products_per_page %}
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
+                {% assign initial_rendered = 0 %}
 
-            {%- comment -%} Construim array-ul produselor valide pentru afișare {% endcomment -%}
-            {% assign products_to_render = '' | split: ',' %}
-            {% for product in active_collection.products %}
-              {% if product.selected_or_first_available_variant.inventory_quantity > 0 %}
-                {% assign compare_at = product.compare_at_price_max %}
-                {% if compare_at > product.price and compare_at > 0 %}
-                  {% assign savings = compare_at | minus: product.price %}
-                  {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-                  {% if discount_percent >= 30 and product.price >= 50000 %}
-                    {% assign products_to_render = products_to_render | push: product %}
-                  {% endif %}
-                {% endif %}
+{% if active_collection.handle == 'all' %}
+
+  {% assign rendered_ids = '' %}
+  {% assign priority_collections = 'scaune-auto-2,carucioare-bebelusi' | split: ',' %}
+
+  {% for handle in priority_collections %}
+    {% assign col = collections[handle] %}
+    {% if col != blank %}
+      {% assign sorted_products = col.products | sort: 'price' | reverse %}
+      {% for product in sorted_products %}
+        {% if rendered_ids contains product.id %}
+          {% continue %}
+        {% endif %}
+        {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+          {% continue %}
+        {% endif %}
+        {% assign compare_at = product.compare_at_price_max %}
+        {% if compare_at > product.price and compare_at > 0 %}
+          {% assign savings = compare_at | minus: product.price %}
+          {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+          {% if discount_percent >= 30 and product.price >= 50000 %}
+            {% render 'product-card', product: product %}
+            {% assign rendered_ids = rendered_ids | append: product.id | append: ',' %}
+            {% assign initial_rendered = initial_rendered | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign sorted_active_products = active_collection.products | sort: 'price' | reverse %}
+  {% for product in sorted_active_products %}
+    {% if rendered_ids contains product.id %}
+      {% continue %}
+    {% endif %}
+    {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+      {% continue %}
+    {% endif %}
+    {% assign compare_at = product.compare_at_price_max %}
+    {% if compare_at > product.price and compare_at > 0 %}
+      {% assign savings = compare_at | minus: product.price %}
+      {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+      {% if discount_percent >= 30 and product.price >= 50000 %}
+        {% render 'product-card', product: product %}
+        {% assign initial_rendered = initial_rendered | plus: 1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+{% else %}
+
+  {% assign sorted_active_products = active_collection.products | sort: 'price' | reverse %}
+  {% for product in sorted_active_products %}
+    {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+      {% continue %}
+    {% endif %}
+    {% assign compare_at = product.compare_at_price_max %}
+    {% if compare_at > product.price and compare_at > 0 %}
+      {% assign savings = compare_at | minus: product.price %}
+      {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
+      {% if discount_percent >= 30 and product.price >= 50000 %}
+        {% render 'product-card', product: product %}
+        {% assign initial_rendered = initial_rendered | plus: 1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+{% endif %}
+
+              </div>
+
+              {% if initial_rendered == 0 %}
+                <p class="text-text-secondary">Nu există produse cu discount ≥ 30% și preț ≥ 500 lei pe această pagină.</p>
               {% endif %}
-            {% endfor %}
 
-            {%- comment -%} Sortăm descrescător după preț {% endcomment -%}
-            {% assign products_sorted = products_to_render | sort: 'price' | reverse %}
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
-              {% assign initial_rendered = 0 %}
-              {% for product in products_sorted %}
-                {% render 'product-card', product: product %}
-                {% assign initial_rendered = initial_rendered | plus: 1 %}
-              {% endfor %}
-            </div>
-
-            {% if initial_rendered == 0 %}
-              <p class="text-text-secondary">Nu există produse cu discount ≥ 30% și preț ≥ 500 lei pe această pagină.</p>
-            {% endif %}
-
-            {% render 'infinite-scroll-bf',
-              next_page: paginate.next.url,
-              page_size: paginate.pages,
-              collection_url: active_collection.url
-            %}
+              {% render 'infinite-scroll-bf',
+                next_page: paginate.next.url,
+                page_size: paginate.pages,
+                collection_url: active_collection.url
+              %}
             {% endpaginate %}
           </div>
         </div>
