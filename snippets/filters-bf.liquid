@@ -139,31 +139,20 @@
                           %}
                         </li>
                       {% elsif candidate_collection.metafields.custom.is_displayed != false
-  and candidate_collection.metafields.custom.is_displayed != blank
-%}
-
-  {% assign has_min_price = false %}
-  {% for p in candidate_collection.products limit: 50 %}
-    {% if p.price >= 50000 %}
-      {% assign has_min_price = true %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-
-  {% if has_min_price %}
-    <li>
-      {% render 'input-checkbox',
-        index: forloop.index,
-        id: filter.param_name,
-        name: filter_value.param_name,
-        label: filter_value.label,
-        active: filter_value.active,
-        value: filter_value.value,
-        count: filter_value.count
-      %}
-    </li>
-  {% endif %}
-{% endif %}
+                        and candidate_collection.metafields.custom.is_displayed != blank
+                      %}
+                        <li>
+                          {% render 'input-checkbox',
+                            index: forloop.index,
+                            id: filter.param_name,
+                            name: filter_value.param_name,
+                            label: filter_value.label,
+                            active: filter_value.active,
+                            value: filter_value.value,
+                            count: filter_value.count
+                          %}
+                        </li>
+                      {% endif %}
                     {% endfor %}
                   </ul>
               {% endcase %}
