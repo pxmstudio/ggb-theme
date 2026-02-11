@@ -72,7 +72,7 @@
               {{ section.settings.promo_text_before | default: 'până la finalul promoției' }}
             </p>
           </div>
-          <div class="button-bf-container">
+          <div class="button-bf-container gog-but">
             {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
           </div>
           <div class="hidden lg:block relative" pxm-nav="menu">
@@ -197,6 +197,14 @@
       padding-left: 0.5rem !important;
     }
   }
+
+  .button-bf {
+      padding-right: 0.5rem !important;
+      font-size: 5rem !important;
+      padding-top: 0.25rem !important;
+      padding-bottom: 0.25rem !important;
+      padding-left: 0.5rem !important;
+    }
 
   .bradius-50{
     border-radius:50%;
