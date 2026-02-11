@@ -23,7 +23,6 @@
         {% else %}
           {% assign active_collection = collections.all %}
         {% endif %}
-
         <div class="lg:col-span-3">
           {% render 'filters-bf',
             location: 'collection',
@@ -31,12 +30,11 @@
             target_section_id: section.id
           %}
         </div>
-
         <div class="lg:col-span-9">
           <div class="flex flex-col gap-4 lg:p-8 p-4 bf-collection-products">
             {% paginate active_collection.products by section.settings.products_per_page %}
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" id="product-grid">
-                {% assign initial_rendered = 0 %}
+               {% assign initial_rendered = 0 %}
 
 {% if active_collection.handle == 'all' %}
 
@@ -46,19 +44,20 @@
   {% for handle in priority_collections %}
     {% assign col = collections[handle] %}
     {% if col != blank %}
-      {% assign sorted_products = col.products | sort: 'price' | reverse %}
-      {% for product in sorted_products %}
+      {% for product in col.products %}
         {% if rendered_ids contains product.id %}
           {% continue %}
         {% endif %}
+
         {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
           {% continue %}
         {% endif %}
+
         {% assign compare_at = product.compare_at_price_max %}
         {% if compare_at > product.price and compare_at > 0 %}
           {% assign savings = compare_at | minus: product.price %}
           {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-          {% if discount_percent >= 30 and product.price >= 50000 %}
+         {% if discount_percent >= 30 and product.price >= 50000 %}
             {% render 'product-card', product: product %}
             {% assign rendered_ids = rendered_ids | append: product.id | append: ',' %}
             {% assign initial_rendered = initial_rendered | plus: 1 %}
@@ -68,19 +67,20 @@
     {% endif %}
   {% endfor %}
 
-  {% assign sorted_active_products = active_collection.products | sort: 'price' | reverse %}
-  {% for product in sorted_active_products %}
+  {% for product in active_collection.products %}
     {% if rendered_ids contains product.id %}
       {% continue %}
     {% endif %}
+
     {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
       {% continue %}
     {% endif %}
+
     {% assign compare_at = product.compare_at_price_max %}
     {% if compare_at > product.price and compare_at > 0 %}
       {% assign savings = compare_at | minus: product.price %}
       {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-      {% if discount_percent >= 30 and product.price >= 50000 %}
+      {% if discount_percent >= 30 %}
         {% render 'product-card', product: product %}
         {% assign initial_rendered = initial_rendered | plus: 1 %}
       {% endif %}
@@ -89,16 +89,16 @@
 
 {% else %}
 
-  {% assign sorted_active_products = active_collection.products | sort: 'price' | reverse %}
-  {% for product in sorted_active_products %}
+  {% for product in active_collection.products %}
     {% if product.selected_or_first_available_variant.inventory_quantity <= 0 %}
       {% continue %}
     {% endif %}
+
     {% assign compare_at = product.compare_at_price_max %}
     {% if compare_at > product.price and compare_at > 0 %}
       {% assign savings = compare_at | minus: product.price %}
       {% assign discount_percent = savings | times: 100 | divided_by: compare_at %}
-      {% if discount_percent >= 30 and product.price >= 50000 %}
+      {% if discount_percent >= 30 %}
         {% render 'product-card', product: product %}
         {% assign initial_rendered = initial_rendered | plus: 1 %}
       {% endif %}
@@ -108,9 +108,8 @@
 {% endif %}
 
               </div>
-
               {% if initial_rendered == 0 %}
-                <p class="text-text-secondary">Nu există produse cu discount ≥ 30% și preț ≥ 500 lei pe această pagină.</p>
+                <p class="text-text-secondary">Nu există produse cu discount ≥ 30% pe această pagină.</p>
               {% endif %}
 
               {% render 'infinite-scroll-bf',
@@ -123,18 +122,15 @@
         </div>
       </div>
     </div>
-
     <div class="container-large">
       <div class="bf-collection-footer flex center">
         {% render 'button-bf', type: 'link', hierarchy: 'primary', href: '/', text: 'Acasa' %}
       </div>
     </div>
   </div>
-
   <div class="lc-collection_background max-w-full"></div>
   <div class="lc-collection_background-2 max-w-full"></div>
 </section>
-
 
 {%- comment -%}
   Client-side section replacement removed. The section is rendered server-side
