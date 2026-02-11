@@ -73,7 +73,7 @@
             </p>
           </div>
           <div class="button-bf-container">
-            {% render 'button-bf', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
+            {% render 'button-bf-gog', type: 'link', hierarchy: 'primary', href: section.settings.button_link | default: '/', text: section.settings.button_text | default: 'Înapoi la website' %}
           </div>
           <div class="hidden lg:block relative" pxm-nav="menu">
             <nav class="flex lg:flex-row flex-col bradius-50 pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
@@ -192,6 +192,14 @@
     .button-bf {
       padding-right: 0.5rem !important;
       font-size: 0.875rem !important;
+      padding-top: 0.25rem !important;
+      padding-bottom: 0.25rem !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .button-bf-gog {
+      padding-right: 0.5rem !important;
+      font-size: 0.6rem !important;
       padding-top: 0.25rem !important;
       padding-bottom: 0.25rem !important;
       padding-left: 0.5rem !important;
