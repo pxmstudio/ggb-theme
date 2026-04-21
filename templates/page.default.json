@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "page-default",
+      "type": "page-default-gog",
       "settings": {}
     }
   },
