@@ -55,6 +55,27 @@
                 </div>
               {% endform %}
             </px-add-to-cart>
+            {% if product.vendor == "Lionelo" %}
+              <div class="lionelo-button-wrapper">
+                <a href="https://www.gogobaby.ro/pages/lionelo-protect/" class="lionelo-btn">Garantie extinsa 12 ani</a>
+              </div>
+
+              <style>
+                .lionelo-btn {
+                  display: inline-block;
+                  background: #ff6600;
+                  color: #fff;
+                  padding: 12px 20px;
+                  text-decoration: none;
+                  border-radius: 6px;
+                  font-weight: bold;
+                  transition: 0.3s;
+                }
+                .lionelo-btn:hover {
+                  background: #e65c00;
+                }
+              </style>
+            {% endif %}
           </div>
           {% render 'product-tabs', product: product %}
         </div>
