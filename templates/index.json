@@ -12,17 +12,16 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
-        "slide_maDLFw": {
+        "slide_EVBem3": {
           "type": "slide",
-          "name": "Bun venit",
           "settings": {
-            "image": "shopify://shop_images/hero_gogo_baby_Februarie_2.png",
-            "link": "https://www.gogobaby.ro"
+            "image": "shopify://shop_images/Articole_pentru_gravide.png",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "slide_maDLFw"
+        "slide_EVBem3"
       ],
       "settings": {}
     },
