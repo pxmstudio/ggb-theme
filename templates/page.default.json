@@ -10,12 +10,9 @@
 {
   "sections": {
     "main": {
-      "type": "main-404",
-      "name": "Garanție",
+      "type": "page-default",
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
