@@ -10,8 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-404",
-      "name": "Garanție",
+      "type": "page-default-gog",
       "settings": {}
     }
   },
