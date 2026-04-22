@@ -12,16 +12,16 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
-        "slide_MPETnM": {
+        "slide_cDQWey": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Articole_pentru_gravide_1.png",
+            "image": "shopify://shop_images/Articole_pentru_gravide_c54edc44-3b8a-4baf-a56f-852e6e7fea74.png",
             "link": ""
           }
         }
       },
       "block_order": [
-        "slide_MPETnM"
+        "slide_cDQWey"
       ],
       "settings": {}
     },
