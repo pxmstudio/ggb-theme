@@ -31,40 +31,35 @@
               class: 'w-full lg:w-fit'
             %}
           </div>
-          <div class="flex flex-col gap-4">
-            {% paginate collection.products by section.settings.products_per_page %}
-              <div class="grid grid-cols-2 lg:grid-cols-3 gap-5" id="product-grid">
-                {% for product in collection.products %}
+  <div class="flex flex-col gap-4">
 
-                  {% assign has_stock = false %}
+  {% assign available_products = collection.products | where: 'available', true %}
 
-                  {% for variant in product.variants %}
-                    {% if variant.available %}
-                      {% assign has_stock = true %}
-                      {% break %}
-                    {% endif %}
-                  {% endfor %}
+  {% paginate available_products by section.settings.products_per_page %}
 
-                  {% if has_stock %}
-                    {% render 'product-card', product: product %}
-                  {% endif %}
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-5" id="product-grid">
 
-                {% endfor %}
-              </div>
+      {% for product in available_products %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
 
-              <div class="mt-auto">
-                {%- if paginate.pages > 1 -%}
-                  {% render 'pagination', paginate: paginate, anchor: '' %}
-                {%- endif -%}
-              </div>
+    </div>
 
-              {% render 'infinite-scroll',
-                next_page: paginate.next.url,
-                page_size: paginate.pages,
-                end_text: 'Nu mai sunt produse de afișat.'
-              %}
-            {% endpaginate %}
-          </div>
+    <div class="mt-auto">
+      {%- if paginate.pages > 1 -%}
+        {% render 'pagination', paginate: paginate, anchor: '' %}
+      {%- endif -%}
+    </div>
+
+    {% render 'infinite-scroll',
+      next_page: paginate.next.url,
+      page_size: paginate.pages,
+      end_text: 'Nu mai sunt produse de afișat.'
+    %}
+
+  {% endpaginate %}
+
+</div>
         </div>
       </div>
     </div>
