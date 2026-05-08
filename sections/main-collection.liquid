@@ -35,13 +35,7 @@
             {% paginate collection.products by section.settings.products_per_page %}
               <div class="grid grid-cols-2 lg:grid-cols-3 gap-5" id="product-grid">
                 {% for product in collection.products %}
-                 {% assign total_stock = 0 %}
-                    {% for variant in product.variants %}
-                      {% assign total_stock = total_stock | plus: variant.inventory_quantity %}
-                    {% endfor %}
-
-                    {% if total_stock > 0 %}
-                  {% endif %}
+                    {% render 'product-card', product: product %}
                 {% endfor %}
               </div>
 
