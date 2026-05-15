@@ -12,16 +12,48 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
-        "slide_XeJf4G": {
+        "slide_rWMBPJ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Articole_pentru_gravide_1_b214ae8e-6f41-452e-875a-84a4015fd7fe.png",
+            "image": "shopify://shop_images/2.jpg",
+            "link": ""
+          }
+        },
+        "slide_znWQ6Y": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/1.jpg",
+            "link": ""
+          }
+        },
+        "slide_KFLxNA": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/3.jpg",
+            "link": ""
+          }
+        },
+        "slide_kQjWjw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/4_0989d643-3c8d-4f5a-97cf-dbf791419bb1.jpg",
+            "link": ""
+          }
+        },
+        "slide_PFT4hc": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/5.jpg",
             "link": ""
           }
         }
       },
       "block_order": [
-        "slide_XeJf4G"
+        "slide_rWMBPJ",
+        "slide_znWQ6Y",
+        "slide_KFLxNA",
+        "slide_kQjWjw",
+        "slide_PFT4hc"
       ],
       "settings": {}
     },
