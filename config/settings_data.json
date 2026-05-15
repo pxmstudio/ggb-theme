@@ -99,11 +99,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "mktr_core": {
-        "type": "shopify://apps/themarketer-com-app/blocks/mktr_core/d9993ada-e1dd-43d7-9e04-04a5454109b4",
-        "disabled": false,
-        "settings": {}
-      },
       "14327677521557774844": {
         "type": "shopify://apps/simprosys-google-shopping-feed/blocks/core_settings_block/1f0b859e-9fa6-4007-97e8-4513aff5ff3b",
         "disabled": false,
@@ -114,11 +109,6 @@
         "disabled": false,
         "settings": {}
       },
-      "4159492616563116687": {
-        "type": "shopify://apps/cross-sell-upsell-by-ssc/blocks/app-embedded/d57b28bc-34f0-4ebc-b397-9eb9c6ea4220",
-        "disabled": false,
-        "settings": {}
-      },
       "11038922299930075240": {
         "type": "shopify://apps/stok-back-in-stock-alert/blocks/app-embed/efd73fb9-4943-460f-9877-08a22c111961",
         "disabled": false,
@@ -126,6 +116,11 @@
       },
       "12299401951132817225": {
         "type": "shopify://apps/primy-form-builder/blocks/form-embed/d289c924-a475-431b-9665-27880d1ed18c",
+        "disabled": false,
+        "settings": {}
+      },
+      "5134484470793087125": {
+        "type": "shopify://apps/vitals/blocks/app-embed/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
         "disabled": false,
         "settings": {}
       }
