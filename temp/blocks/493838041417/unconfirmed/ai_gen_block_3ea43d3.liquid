@@ -1,6 +1,83 @@
+{% doc %}
+  @prompt
+    Replace the existing hero carousel section with a custom HTML block that allows the merchant to insert any custom HTML, CSS, and JavaScript code directly in the hero area of the homepage. The block should be flexible and render the custom code as-is, without any wrapper styling that would interfere with the layout.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-custom-html-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+{% endstyle %}
+
+<div class="ai-custom-html-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.custom_html != blank %}
+    {{ block.settings.custom_html }}
+  {% else %}
+    <div style="padding: 60px 20px; text-align: center; background-color: #f4f4f4; color: #666;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 20px; opacity: 0.3;">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+      <p style="margin: 0; font-size: 16px;">Adaugă codul HTML personalizat în setările blocului</p>
+    </div>
+  {% endif %}
+</div>
+
+{% if block.settings.custom_css != blank %}
+  <style>
+    {{ block.settings.custom_css }}
+  </style>
+{% endif %}
+
+{% if block.settings.custom_js != blank %}
+  <script>
+    (function() {
+      {{ block.settings.custom_js }}
+    })();
+  </script>
+{% endif %}
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Custom HTML hero",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cod personalizat"
+    },
+    {
+      "type": "html",
+      "id": "custom_html",
+      "label": "HTML"
+    },
+    {
+      "type": "html",
+      "id": "custom_css",
+      "label": "CSS"
+    },
+    {
+      "type": "html",
+      "id": "custom_js",
+      "label": "JavaScript"
+    },
+    {
+      "type": "header",
+      "content": "Instrucțiuni"
+    },
+    {
+      "type": "paragraph",
+      "content": "Adaugă codul HTML, CSS și JavaScript direct în câmpurile de mai sus. Codul va fi randat exact așa cum este introdus, fără wrapper-e sau stiluri care să interfereze cu layout-ul."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom HTML hero"
+    }
+  ]
+}
 {% endschema %}
