@@ -428,3 +428,8 @@
     overflow: hidden; /* Prevent overflowing content */
   }
 }
+
+
+.vtl-pr-review-stars-snippet-container .Vtl-ProductReviewsStars__Wrapper {
+  display: none !important;
+}
