@@ -429,7 +429,6 @@
   }
 }
 
-
-.vtl-pr-review-stars-snippet-container .Vtl-ProductReviewsStars__Wrapper {
+.vtl-pr-review-stars-snippet-container.Vtl-ProductReviewsStars__Wrapper.Vtl-ProductReviewsStars__Wrapper {
   display: none !important;
 }
