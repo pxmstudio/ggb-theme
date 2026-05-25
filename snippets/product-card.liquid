@@ -61,36 +61,45 @@
       </span>
     {% endif %}
   </div>
-  <div class="pt-4">
-    <h3 class="text-text-primary lg:text-lg font-semibold leading-normal line-clamp-3 mb-2" pxm-product="title">
-      {{ product.title }}
-    </h3>
-    <div class="flex items-center gap-4">
+<div class="pt-4">
+  <h3 class="text-text-primary lg:text-lg font-semibold leading-normal line-clamp-3 mb-2" pxm-product="title">
+    {{ product.title }}
+  </h3>
+
+  <div class="flex items-center gap-4">
+    
+    {% if product.compare_at_price > product.price and product.compare_at_price > 0 %}
       <p class="text-text-secondary lg:text-lg font-semibold line-through" pxm-product="compare-price">
         {{ product.compare_at_price | money_without_trailing_zeros }}
       </p>
-      <p
-        class="{% if on_sale %}text-error-red{% else %}text-text-primary{% endif %} font-semibold lg:text-lg"
-        pxm-product="price"
-      >
-        {{ product.price | money_without_trailing_zeros }}
-      </p>
-    </div>
-    {% assign _compare_at = product.compare_at_price %}
-    {% assign _price = product.price %}
-    {% if _compare_at > _price and _compare_at > 0 and is_sold_out == false %}
-      {% assign _savings = _compare_at | minus: _price %}
-      {% assign _discount_percent = _savings | times: 100.0 | divided_by: _compare_at | round %}
-      {% if _discount_percent >= 30 %}
-        <img
-          src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/star.png?v=1762239054"
-          width="80"
-          height="80"
-          class="card-star"
-        >
-      {% endif %}
     {% endif %}
+
+    <p
+      class="{% if product.compare_at_price > product.price %}text-error-red{% else %}text-text-primary{% endif %} font-semibold lg:text-lg"
+      pxm-product="price"
+    >
+      {{ product.price | money_without_trailing_zeros }}
+    </p>
+
   </div>
+
+  {% assign _compare_at = product.compare_at_price %}
+  {% assign _price = product.price %}
+
+  {% if _compare_at > _price and _compare_at > 0 and is_sold_out == false %}
+    {% assign _savings = _compare_at | minus: _price %}
+    {% assign _discount_percent = _savings | times: 100.0 | divided_by: _compare_at | round %}
+
+    {% if _discount_percent >= 30 %}
+      <img
+        src="https://cdn.shopify.com/s/files/1/0431/6663/0052/files/star.png?v=1762239054"
+        width="80"
+        height="80"
+        class="card-star"
+      >
+    {% endif %}
+  {% endif %}
+</div>
 </a>
 
 <style>
