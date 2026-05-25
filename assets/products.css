@@ -130,7 +130,3 @@
 .product-card_image-wrapper:hover .product-card_actions {
   opacity: 1;
 }
-
-.Vtl-ProductReviewsStars__Wrapper {
-  display: none !important;
-}
