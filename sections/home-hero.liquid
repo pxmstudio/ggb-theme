@@ -1,21 +1,34 @@
 <link rel="stylesheet" href="{{ 'home-hero.css' | asset_url }}">
-<script defer src="{{ 'home-hero.js' | asset_url }}"></script>
 
-<section class="section_home-hero">
+<section
+  class="section_home-hero"
+  data-home-hero-section="{{ section.id }}"
+>
   <div class="global-padding">
     <div class="container-large">
       <div class="padding-section-medium">
+
         <div class="home-hero_wrapper overflow-hidden">
-          <h1 style="display: none;">gogobady</h1>
-          <div class="home-hero_left">
+
+          <h1 style="display: none;">gogobaby</h1>
+
+          <!-- Categorii -->
+          <div class="home-hero_left" data-home-hero-menu>
+
             {% for link in linklists['main-menu'].links %}
               {% unless forloop.first or forloop.last %}
+
                 <a
                   href="{{ link.url }}"
                   class="home-hero_category"
+                  data-home-hero-category
+                  data-category-name="{{ link.title | escape }}"
                   data-has-subcategories="{% if link.links.size > 0 %}true{% else %}false{% endif %}"
                 >
-                  <h2 class="home-hero_category-title">{{ link.title }}</h2>
+                  <h2 class="home-hero_category-title">
+                    {{ link.title }}
+                  </h2>
+
                   {% if link.links.size > 0 %}
                     <svg
                       class="home-hero_category-arrow"
@@ -25,95 +38,501 @@
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M5 12H19M19 12L12 4.99998M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path
+                        d="M5 12H19M19 12L12 4.99998M19 12L12 19"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
                     </svg>
                   {% endif %}
                 </a>
+
               {% endunless %}
             {% endfor %}
 
-            <div class="home-hero_subcategories-wrapper">
+            <!-- Subcategorii -->
+            <div
+              class="home-hero_subcategories-wrapper"
+              data-home-hero-subcategories-wrapper
+            >
               <div class="home-hero_subcategories-inner">
-                <h3 class="heading-h4 text-text-primary">Category name</h3>
-                <div class="home-hero_subcategories-list" data-subcategories>
+
+                <h3
+                  class="heading-h4 text-text-primary"
+                  data-home-hero-subcategories-title
+                >
+                  Category name
+                </h3>
+
+                <div
+                  class="home-hero_subcategories-list"
+                  data-subcategories
+                >
                   {% for link in linklists['main-menu'].links %}
+
                     {% if link.links.size > 0 %}
-                      <div class="subcategory-group  hidden" data-category="{{ link.title }}">
+                      <div
+                        class="subcategory-group hidden"
+                        data-subcategory-group
+                        data-category="{{ link.title | escape }}"
+                      >
                         {% for childlink in link.links %}
                           <a
                             href="{{ childlink.url }}"
                             class="home-hero_subcategories-item hover:bg-brand-orange"
                           >
-                            {{- childlink.title -}}
+                            {{ childlink.title }}
                           </a>
                         {% endfor %}
                       </div>
                     {% endif %}
+
                   {% endfor %}
                 </div>
+
               </div>
             </div>
+
           </div>
 
+          <!-- Carusel -->
           <div class="home-hero_right">
-            <div class="home-hero_swiper swiper">
-              <div class="home-hero_swiper-wrapper swiper-wrapper">
-                {% render 'hero-slide' %}
+
+            <div
+              class="home-hero_swiper"
+              data-home-hero-carousel
+            >
+
+              <div
+                class="home-hero_swiper-wrapper"
+                data-home-hero-track
+              >
+
+                {% for block in section.blocks %}
+
+                  {% if block.type == 'slide' %}
+
+                    {% assign image_loading = 'lazy' %}
+
+                    {% if forloop.first %}
+                      {% assign image_loading = 'eager' %}
+                    {% endif %}
+
+                    <div
+                      class="home-hero_slide"
+                      data-home-hero-slide
+                      {{ block.shopify_attributes }}
+                    >
+
+                      {% if block.settings.link != blank %}
+                        <a
+                          href="{{ block.settings.link }}"
+                          class="home-hero_slide-link"
+                        >
+                      {% endif %}
+
+                      {% if block.settings.image != blank %}
+
+                        {% assign image_alt = block.settings.image.alt
+                          | default: 'Banner promoțional'
+                        %}
+
+                        <img
+                          src="{{ block.settings.image | image_url: width: 1800 }}"
+                          srcset="
+                            {{ block.settings.image | image_url: width: 600 }} 600w,
+                            {{ block.settings.image | image_url: width: 900 }} 900w,
+                            {{ block.settings.image | image_url: width: 1200 }} 1200w,
+                            {{ block.settings.image | image_url: width: 1800 }} 1800w
+                          "
+                          sizes="(min-width: 990px) 70vw, 100vw"
+                          alt="{{ image_alt | escape }}"
+                          class="home-hero_slide-image"
+                          loading="{{ image_loading }}"
+                          width="{{ block.settings.image.width }}"
+                          height="{{ block.settings.image.height }}"
+                        >
+
+                      {% else %}
+
+                        {{ 'lifestyle-1'
+                          | placeholder_svg_tag:
+                            'home-hero_slide-placeholder'
+                        }}
+
+                      {% endif %}
+
+                      {% if block.settings.link != blank %}
+                        </a>
+                      {% endif %}
+
+                    </div>
+
+                  {% endif %}
+
+                {% endfor %}
+
               </div>
-              <div class="swiper-pagination home-hero_swiper-pagination"></div>
-              
+
+              <!-- Puncte navigare -->
+              <div
+                class="home-hero_swiper-pagination"
+                data-home-hero-pagination
+                aria-label="Navigare carusel"
+              >
+                {% for block in section.blocks %}
+                  {% if block.type == 'slide' %}
+                    <button
+                      type="button"
+                      class="home-hero_pagination-dot{% if forloop.first %} is-active{% endif %}"
+                      data-home-hero-dot
+                      data-slide-index="{{ forloop.index0 }}"
+                      aria-label="Afișează imaginea {{ forloop.index }}"
+                    ></button>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
     </div>
   </div>
 </section>
 
-{% comment %}
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "mainEntity": {
-        "@type": "ItemList",
-        "name": "Hero Section",
-        "itemListElement": [
-          {% for link in linklists.categories.links %}
-          {
-            "@type": "ListItem",
-            "position": {{ forloop.index }},
-            "name": "{{ link.title }}",
-            "url": "{{ link.url }}",
-            "itemListElement": [
-              {
-                "@type": "CategoryCode",
-                "codeValue": "{{ link.title }}",
-                "name": "Subcategory",
-                "url": "your-subcategory-link-here"
-              }
-            ]
-          }{% if forloop.last == false %},{% endif %}
-          {% endfor %}
-        ]
-      },
-      "hasPart": {
-        "@type": "ImageGallery",
-        "name": "Hero Carousel",
-        "image": [
-          {% for slide in hero_slides %}
-          {
-            "@type": "ImageObject",
-            "url": "{{ slide.image | asset_url }}",
-            "name": "Slide {{ forloop.index }}",
-            "caption": "Hero slide description {{ forloop.index }}"
-          }{% if forloop.last == false %},{% endif %}
-          {% endfor %}
-        ]
+<style>
+  /*
+    CARUSEL
+  */
+
+  .home-hero_right {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .home-hero_swiper {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .home-hero_swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+    max-width: 100%;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.55s ease;
+    will-change: transform;
+  }
+
+  .home-hero_slide {
+    display: block;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .home-hero_slide-link {
+    display: block;
+    width: 100%;
+  }
+
+  .home-hero_slide-image,
+  .home-hero_slide-placeholder {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /*
+    PUNCTE DE NAVIGARE
+  */
+
+  .home-hero_swiper-pagination {
+    position: absolute;
+    right: 0;
+    bottom: 14px;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .home-hero_pagination-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    transition:
+      width 0.25s ease,
+      border-radius 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .home-hero_pagination-dot.is-active {
+    width: 28px;
+    border-radius: 999px;
+    background-color: #ffffff;
+  }
+
+  /*
+    SUBCATEGORII
+  */
+
+  .home-hero_subcategories-wrapper {
+    display: none;
+  }
+
+  .home-hero_subcategories-wrapper.is-active {
+    display: block;
+  }
+
+  @media screen and (max-width: 989px) {
+    .home-hero_swiper-pagination {
+      bottom: 10px;
+    }
+
+    .home-hero_pagination-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .home-hero_pagination-dot.is-active {
+      width: 22px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const AUTOPLAY_DELAY = 4000;
+
+    function initializeHomeHero(section) {
+      if (!section || section.dataset.homeHeroInitialized === 'true') {
+        return;
+      }
+
+      section.dataset.homeHeroInitialized = 'true';
+
+      const carousel = section.querySelector('[data-home-hero-carousel]');
+      const track = section.querySelector('[data-home-hero-track]');
+      const slides = Array.from(
+        section.querySelectorAll('[data-home-hero-slide]')
+      );
+      const dots = Array.from(
+        section.querySelectorAll('[data-home-hero-dot]')
+      );
+
+      let currentIndex = 0;
+      let autoplayTimer = null;
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      function updateCarousel(nextIndex) {
+        if (!track || slides.length === 0) {
+          return;
+        }
+
+        if (nextIndex >= slides.length) {
+          currentIndex = 0;
+        } else if (nextIndex < 0) {
+          currentIndex = slides.length - 1;
+        } else {
+          currentIndex = nextIndex;
+        }
+
+        track.style.transform =
+          'translate3d(-' + currentIndex * 100 + '%, 0, 0)';
+
+        dots.forEach(function (dot, index) {
+          const isActive = index === currentIndex;
+
+          dot.classList.toggle('is-active', isActive);
+          dot.setAttribute(
+            'aria-current',
+            isActive ? 'true' : 'false'
+          );
+        });
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          window.clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+
+        if (slides.length <= 1) {
+          return;
+        }
+
+        autoplayTimer = window.setInterval(function () {
+          updateCarousel(currentIndex + 1);
+        }, AUTOPLAY_DELAY);
+      }
+
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          const nextIndex = Number(dot.dataset.slideIndex);
+
+          updateCarousel(nextIndex);
+          startAutoplay();
+        });
+      });
+
+      if (carousel) {
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+
+        carousel.addEventListener(
+          'touchstart',
+          function (event) {
+            touchStartX = event.touches[0].clientX;
+            touchEndX = touchStartX;
+            stopAutoplay();
+          },
+          { passive: true }
+        );
+
+        carousel.addEventListener(
+          'touchmove',
+          function (event) {
+            touchEndX = event.touches[0].clientX;
+          },
+          { passive: true }
+        );
+
+        carousel.addEventListener('touchend', function () {
+          const difference = touchStartX - touchEndX;
+
+          if (Math.abs(difference) > 45) {
+            if (difference > 0) {
+              updateCarousel(currentIndex + 1);
+            } else {
+              updateCarousel(currentIndex - 1);
+            }
+          }
+
+          startAutoplay();
+        });
+      }
+
+      updateCarousel(0);
+      startAutoplay();
+
+      /*
+        MENIU CATEGORII ȘI SUBCATEGORII
+      */
+
+      const menu = section.querySelector('[data-home-hero-menu]');
+      const subcategoriesWrapper = section.querySelector(
+        '[data-home-hero-subcategories-wrapper]'
+      );
+      const subcategoriesTitle = section.querySelector(
+        '[data-home-hero-subcategories-title]'
+      );
+      const categories = Array.from(
+        section.querySelectorAll('[data-home-hero-category]')
+      );
+      const groups = Array.from(
+        section.querySelectorAll('[data-subcategory-group]')
+      );
+
+      function closeSubcategories() {
+        if (!subcategoriesWrapper) {
+          return;
+        }
+
+        subcategoriesWrapper.classList.remove('is-active');
+
+        groups.forEach(function (group) {
+          group.classList.add('hidden');
+        });
+      }
+
+      categories.forEach(function (category) {
+        category.addEventListener('mouseenter', function () {
+          if (
+            window.innerWidth < 990 ||
+            category.dataset.hasSubcategories !== 'true'
+          ) {
+            return;
+          }
+
+          const categoryName = category.dataset.categoryName;
+
+          if (subcategoriesTitle) {
+            subcategoriesTitle.textContent = categoryName;
+          }
+
+          groups.forEach(function (group) {
+            const isCurrent =
+              group.dataset.category === categoryName;
+
+            group.classList.toggle('hidden', !isCurrent);
+          });
+
+          if (subcategoriesWrapper) {
+            subcategoriesWrapper.classList.add('is-active');
+          }
+        });
+      });
+
+      if (menu) {
+        menu.addEventListener('mouseleave', closeSubcategories);
       }
     }
-  </script>
-{% endcomment %}
+
+    function initializeAllHomeHeroSections() {
+      document
+        .querySelectorAll('[data-home-hero-section]')
+        .forEach(initializeHomeHero);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        initializeAllHomeHeroSections
+      );
+    } else {
+      initializeAllHomeHeroSections();
+    }
+
+    document.addEventListener(
+      'shopify:section:load',
+      function (event) {
+        const section = event.target.querySelector(
+          '[data-home-hero-section]'
+        );
+
+        initializeHomeHero(section);
+      }
+    );
+  })();
+</script>
 
 {% schema %}
 {
@@ -128,7 +547,7 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Imagine"
         },
         {
           "type": "url",
