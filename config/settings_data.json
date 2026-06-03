@@ -88,10 +88,10 @@
       "header-promotii": {
         "type": "header-promotii",
         "settings": {
-          "promo_text_before": "până la finalul promoției",
-          "promo_text_during": "până la finalul promoției",
-          "promotii_start": "2026-01-01T23:59:59+02:00",
-          "promotii_end": "2026-03-01T23:59:59+02:00",
+          "promo_text_before": "",
+          "promo_text_during": "Profită de reducerile de vară!",
+          "promotii_start": "",
+          "promotii_end": "",
           "button_text": "Acasa",
           "button_link": "/"
         }
@@ -101,11 +101,6 @@
     "blocks": {
       "14327677521557774844": {
         "type": "shopify://apps/simprosys-google-shopping-feed/blocks/core_settings_block/1f0b859e-9fa6-4007-97e8-4513aff5ff3b",
-        "disabled": false,
-        "settings": {}
-      },
-      "4918592460924562117": {
-        "type": "shopify://apps/optimonk-popup-cro-a-b-test/blocks/app-embed/0b488be1-fc0a-4fe6-8793-f2bef383dba8",
         "disabled": false,
         "settings": {}
       },
