@@ -10,7 +10,7 @@
 
           <h1 style="display: none;">gogobaby</h1>
 
-          <!-- Categorii în partea stângă -->
+          <!-- Categorii -->
           <div class="home-hero_left">
 
             {% for link in linklists['main-menu'].links %}
@@ -86,7 +86,7 @@
 
           </div>
 
-          <!-- Carusel în partea dreaptă -->
+          <!-- Carusel -->
           <div class="home-hero_right">
 
             <div class="home-hero_swiper swiper">
@@ -97,10 +97,10 @@
 
                   {% if block.type == 'slide' %}
 
-                    {% assign slide_loading = 'lazy' %}
+                    {% assign image_loading = 'lazy' %}
 
                     {% if forloop.first %}
-                      {% assign slide_loading = 'eager' %}
+                      {% assign image_loading = 'eager' %}
                     {% endif %}
 
                     <div
@@ -117,7 +117,7 @@
 
                       {% if block.settings.image != blank %}
 
-                        {% assign slide_alt = block.settings.image.alt | default: 'Banner promoțional' %}
+                        {% assign image_alt = block.settings.image.alt | default: 'Banner promoțional' %}
 
                         <img
                           src="{{ block.settings.image | image_url: width: 1800 }}"
@@ -128,9 +128,9 @@
                             {{ block.settings.image | image_url: width: 1800 }} 1800w
                           "
                           sizes="(min-width: 990px) 70vw, 100vw"
-                          alt="{{ slide_alt | escape }}"
+                          alt="{{ image_alt | escape }}"
                           class="home-hero_slide-image"
-                          loading="{{ slide_loading }}"
+                          loading="{{ image_loading }}"
                           width="{{ block.settings.image.width }}"
                           height="{{ block.settings.image.height }}"
                         >
@@ -170,22 +170,66 @@
 </section>
 
 <style>
-  .home-hero_swiper,
-  .home-hero_swiper-wrapper,
-  .home-hero_slide {
+  /*
+    Repară poziționarea caruselului:
+    imaginile sunt așezate orizontal și este vizibil un singur slide.
+  */
+
+  .home-hero_right {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .home-hero_swiper {
+    position: relative;
+    display: block;
     width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .home-hero_swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: content-box;
+    transition-property: transform;
+  }
+
+  .home-hero_slide {
+    display: block;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
   }
 
   .home-hero_slide-link {
     display: block;
     width: 100%;
+    height: 100%;
   }
 
   .home-hero_slide-image,
   .home-hero_slide-placeholder {
     display: block;
     width: 100%;
+    max-width: 100%;
     height: auto;
+  }
+
+  .home-hero_swiper-pagination {
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    text-align: center;
   }
 </style>
 
