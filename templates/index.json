@@ -159,47 +159,6 @@
     },
     "17804729752e01eeca": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_2a85c9f_VT9tpa": {
-          "type": "ai_gen_block_2a85c9f",
-          "settings": {
-            "heading": "Reduceri mari",
-            "subheading": "Produse cu reduceri de peste 30%",
-            "heading_alignment": "center",
-            "collection": "biciclete-copii-accesorii",
-            "minimum_discount_percent": 30,
-            "desktop_width_percent": 100,
-            "section_padding": 40,
-            "products_per_row": 4,
-            "products_per_row_tablet": 3,
-            "product_gap": 20,
-            "background_color": "#ffffff",
-            "heading_color": "#000000",
-            "subheading_color": "#666666",
-            "card_background": "#ffffff",
-            "product_title_color": "#000000",
-            "product_title_hover_color": "#666666",
-            "original_price_color": "#999999",
-            "sale_price_color": "#e74c3c",
-            "badge_background": "#e74c3c",
-            "badge_text_color": "#ffffff",
-            "badge_font_size": 14,
-            "badge_border_radius": 4,
-            "nav_button_background": "#000000",
-            "nav_button_hover_background": "#333333",
-            "nav_button_color": "#ffffff",
-            "heading_size": 40,
-            "subheading_size": 20,
-            "product_title_size": 16,
-            "price_size": 16,
-            "card_border_radius": 8
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_2a85c9f_VT9tpa"
-      ],
       "settings": {}
     },
     "cta": {
