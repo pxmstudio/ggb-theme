@@ -10,8 +10,8 @@
   >
     <div class="global-padding ptb-2">
       <div class="container-large">
-        <div class="header-promotii_wrapper w-full flex justify-between items-center lg:gap-8 gap-4">
-          
+        <div class="header-promotii_wrapper w-full flex justify-between items-center lg:gap-8 gap-2">
+
           {% if template.name == 'index' %}
             <h1 class="relative z-100">
               <span class="sr-only">GoGoBaby</span>
@@ -29,6 +29,12 @@
             </h1>
           {% endif %}
 
+          <!-- Text promoțional -->
+          <p class="promo-summer-text flex-1 text-center text-white font-semibold text-sm lg:text-xl leading-tight">
+            Profită de reducerile de vară!
+          </p>
+
+          <!-- Buton configurabil -->
           <div class="button-bf-container gog-but">
             {% render 'button-bf',
               type: 'link',
@@ -38,6 +44,7 @@
             %}
           </div>
 
+          <!-- Navigație desktop -->
           <div class="hidden lg:block relative" pxm-nav="menu">
             <nav class="flex lg:flex-row flex-col bradius-50 pt-52 px-28 lg:pt-0 lg:px-0 lg:justify-end items-center gap-8 lg:gap-6 fixed lg:static top-0 left-0 right-0 bottom-0 z-40 h-screen lg:h-auto bg-bg-primary w-full lg:opacity-100">
               <div class="flex items-center gap-2 lg:justify-end">
@@ -52,7 +59,7 @@
             {% render 'mobile-categories' %}
           </div>
 
-          <!-- Buton coș pe mobil -->
+          <!-- Coș pe mobil -->
           <div class="flex items-center gap-4 lg:hidden">
             <div class="z-50">
               {% render 'nav-acc-btn', path: '/cart', icon: 'cart' %}
@@ -83,6 +90,10 @@
     background-color: #33a3de;
   }
 
+  .promo-summer-text {
+    padding: 0 0.5rem;
+  }
+
   .button-bf-container {
     margin-left: auto;
   }
@@ -100,22 +111,36 @@
   }
 
   @media (max-width: 1024px) {
+    .promo-summer-text {
+      font-size: 0.85rem;
+      line-height: 1.15;
+      padding: 0 0.25rem;
+    }
+
     .button-bf {
       padding-right: 0.5rem !important;
       padding-left: 0.25rem !important;
       padding-top: 0.25rem !important;
       padding-bottom: 0.25rem !important;
-      font-size: 0.875rem !important;
+      font-size: 0.75rem !important;
     }
   }
 
   @media (max-width: 420px) {
+    .promo-summer-text {
+      font-size: 0.7rem;
+      line-height: 1.1;
+      padding: 0 0.15rem;
+    }
+
     .button-bf-icon {
       display: none;
     }
 
     .button-bf {
-      padding-left: 0.5rem !important;
+      padding-right: 0.4rem !important;
+      padding-left: 0.4rem !important;
+      font-size: 0.7rem !important;
     }
   }
 </style>
