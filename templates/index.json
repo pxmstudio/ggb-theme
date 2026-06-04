@@ -12,15 +12,16 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
-        "slide_YWmEE3": {
+        "slide_dapLfM": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/set-pentru-bebe-new-baby-i-am-7-piese-cu-botosei-jacheta-maneca-lunga-caciulita-body-cu-maneca-lunga-pantalonasi-si-salopeta-cu-botosei-si-manusi-100-bumbac-marime-56-0-3-luni-white-3.jpg",
             "link": ""
           }
         }
       },
       "block_order": [
-        "slide_YWmEE3"
+        "slide_dapLfM"
       ],
       "settings": {}
     },
