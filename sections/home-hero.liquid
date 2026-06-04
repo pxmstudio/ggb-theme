@@ -5,26 +5,17 @@
   <div class="global-padding">
     <div class="container-large">
       <div class="padding-section-medium">
-
         <div class="home-hero_wrapper overflow-hidden">
-
-          <h1 style="display: none;">gogobaby</h1>
-
-          <!-- Categorii în partea stângă -->
+          <h1 style="display: none;">gogobady</h1>
           <div class="home-hero_left">
-
             {% for link in linklists['main-menu'].links %}
               {% unless forloop.first or forloop.last %}
-
                 <a
                   href="{{ link.url }}"
                   class="home-hero_category"
                   data-has-subcategories="{% if link.links.size > 0 %}true{% else %}false{% endif %}"
                 >
-                  <h2 class="home-hero_category-title">
-                    {{ link.title }}
-                  </h2>
-
+                  <h2 class="home-hero_category-title">{{ link.title }}</h2>
                   {% if link.links.size > 0 %}
                     <svg
                       class="home-hero_category-arrow"
@@ -34,160 +25,95 @@
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M5 12H19M19 12L12 4.99998M19 12L12 19"
-                        stroke="white"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
+                      <path d="M5 12H19M19 12L12 4.99998M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   {% endif %}
                 </a>
-
               {% endunless %}
             {% endfor %}
 
-            <!-- Subcategorii -->
             <div class="home-hero_subcategories-wrapper">
               <div class="home-hero_subcategories-inner">
-
-                <h3 class="heading-h4 text-text-primary">
-                  Category name
-                </h3>
-
-                <div
-                  class="home-hero_subcategories-list"
-                  data-subcategories
-                >
+                <h3 class="heading-h4 text-text-primary">Category name</h3>
+                <div class="home-hero_subcategories-list" data-subcategories>
                   {% for link in linklists['main-menu'].links %}
-
                     {% if link.links.size > 0 %}
-                      <div
-                        class="subcategory-group hidden"
-                        data-category="{{ link.title | escape }}"
-                      >
+                      <div class="subcategory-group  hidden" data-category="{{ link.title }}">
                         {% for childlink in link.links %}
                           <a
                             href="{{ childlink.url }}"
                             class="home-hero_subcategories-item hover:bg-brand-orange"
                           >
-                            {{ childlink.title }}
+                            {{- childlink.title -}}
                           </a>
                         {% endfor %}
                       </div>
                     {% endif %}
-
                   {% endfor %}
                 </div>
-
               </div>
             </div>
-
           </div>
 
-          <!-- Carusel în partea dreaptă -->
           <div class="home-hero_right">
-
             <div class="home-hero_swiper swiper">
-
               <div class="home-hero_swiper-wrapper swiper-wrapper">
-
-                {% for block in section.blocks %}
-
-                  {% if block.type == 'slide' %}
-
-                    {% assign slide_loading = 'lazy' %}
-
-                    {% if forloop.first %}
-                      {% assign slide_loading = 'eager' %}
-                    {% endif %}
-
-                    <div
-                      class="home-hero_slide swiper-slide"
-                      {{ block.shopify_attributes }}
-                    >
-
-                      {% if block.settings.link != blank %}
-                        <a
-                          href="{{ block.settings.link }}"
-                          class="home-hero_slide-link"
-                        >
-                      {% endif %}
-
-                      {% if block.settings.image != blank %}
-
-                        {% assign slide_alt = block.settings.image.alt | default: 'Banner promoțional' %}
-
-                        <img
-                          src="{{ block.settings.image | image_url: width: 1800 }}"
-                          srcset="
-                            {{ block.settings.image | image_url: width: 600 }} 600w,
-                            {{ block.settings.image | image_url: width: 900 }} 900w,
-                            {{ block.settings.image | image_url: width: 1200 }} 1200w,
-                            {{ block.settings.image | image_url: width: 1800 }} 1800w
-                          "
-                          sizes="(min-width: 990px) 70vw, 100vw"
-                          alt="{{ slide_alt | escape }}"
-                          class="home-hero_slide-image"
-                          loading="{{ slide_loading }}"
-                          width="{{ block.settings.image.width }}"
-                          height="{{ block.settings.image.height }}"
-                        >
-
-                      {% else %}
-
-                        {{ 'lifestyle-1'
-                          | placeholder_svg_tag:
-                            'home-hero_slide-placeholder'
-                        }}
-
-                      {% endif %}
-
-                      {% if block.settings.link != blank %}
-                        </a>
-                      {% endif %}
-
-                    </div>
-
-                  {% endif %}
-
-                {% endfor %}
-
+                {% render 'hero-slide' %}
               </div>
-
               <div class="swiper-pagination home-hero_swiper-pagination"></div>
-
+              
             </div>
-
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  .home-hero_swiper,
-  .home-hero_swiper-wrapper,
-  .home-hero_slide {
-    width: 100%;
-  }
-
-  .home-hero_slide-link {
-    display: block;
-    width: 100%;
-  }
-
-  .home-hero_slide-image,
-  .home-hero_slide-placeholder {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-</style>
+{% comment %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Hero Section",
+        "itemListElement": [
+          {% for link in linklists.categories.links %}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "name": "{{ link.title }}",
+            "url": "{{ link.url }}",
+            "itemListElement": [
+              {
+                "@type": "CategoryCode",
+                "codeValue": "{{ link.title }}",
+                "name": "Subcategory",
+                "url": "your-subcategory-link-here"
+              }
+            ]
+          }{% if forloop.last == false %},{% endif %}
+          {% endfor %}
+        ]
+      },
+      "hasPart": {
+        "@type": "ImageGallery",
+        "name": "Hero Carousel",
+        "image": [
+          {% for slide in hero_slides %}
+          {
+            "@type": "ImageObject",
+            "url": "{{ slide.image | asset_url }}",
+            "name": "Slide {{ forloop.index }}",
+            "caption": "Hero slide description {{ forloop.index }}"
+          }{% if forloop.last == false %},{% endif %}
+          {% endfor %}
+        ]
+      }
+    }
+  </script>
+{% endcomment %}
 
 {% schema %}
 {
@@ -202,7 +128,7 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Imagine"
+          "label": "Image"
         },
         {
           "type": "url",
