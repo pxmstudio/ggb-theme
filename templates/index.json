@@ -12,16 +12,48 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
-        "slide_z6dKkP": {
+        "slide_UC38cR": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/IMG-20251030-WA0174.jpg",
+            "image": "shopify://shop_images/1_420425f3-38a6-4c5b-9bdb-e349659fc1fa.jpg",
+            "link": ""
+          }
+        },
+        "slide_MCFdrX": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2_2fcd875f-3b35-434d-9664-bbc915ac7e6e.jpg",
+            "link": ""
+          }
+        },
+        "slide_4T4C34": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/3_cb4a90ed-d291-48d3-b170-dbdfb0f7dd81.jpg",
+            "link": ""
+          }
+        },
+        "slide_EAiWbt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/5_5d734d52-d59e-4023-a06d-04cf85ae0e32.jpg",
+            "link": ""
+          }
+        },
+        "slide_wbWTDw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/4_ca060d41-f8f3-4f6d-b0f0-2bfb779e0928.jpg",
             "link": ""
           }
         }
       },
       "block_order": [
-        "slide_z6dKkP"
+        "slide_UC38cR",
+        "slide_MCFdrX",
+        "slide_4T4C34",
+        "slide_EAiWbt",
+        "slide_wbWTDw"
       ],
       "settings": {}
     },
