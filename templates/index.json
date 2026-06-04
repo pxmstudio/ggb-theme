@@ -12,48 +12,15 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
-        "slide_KNGQrX": {
+        "slide_YWmEE3": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/1_420425f3-38a6-4c5b-9bdb-e349659fc1fa.jpg",
-            "link": ""
-          }
-        },
-        "slide_UPGzt7": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/4_ca060d41-f8f3-4f6d-b0f0-2bfb779e0928.jpg",
-            "link": ""
-          }
-        },
-        "slide_mpKNmr": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/5_5d734d52-d59e-4023-a06d-04cf85ae0e32.jpg",
-            "link": ""
-          }
-        },
-        "slide_w9p9Mk": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/3_cb4a90ed-d291-48d3-b170-dbdfb0f7dd81.jpg",
-            "link": ""
-          }
-        },
-        "slide_VjkYzA": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/2_2fcd875f-3b35-434d-9664-bbc915ac7e6e.jpg",
             "link": ""
           }
         }
       },
       "block_order": [
-        "slide_KNGQrX",
-        "slide_UPGzt7",
-        "slide_mpKNmr",
-        "slide_w9p9Mk",
-        "slide_VjkYzA"
+        "slide_YWmEE3"
       ],
       "settings": {}
     },
