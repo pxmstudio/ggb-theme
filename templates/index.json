@@ -18,10 +18,26 @@
             "image": "shopify://shop_images/1.Biciclete_Dino_Bikes_56256ce1-aa96-47b2-9cc0-729e3311076c.jpg",
             "link": ""
           }
+        },
+        "slide_mnP4b6": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/2.Produse_LIONELO.jpg",
+            "link": ""
+          }
+        },
+        "slide_EpaWJb": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/3.Produse_Chipolino.jpg",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "slide_wbWTDw"
+        "slide_wbWTDw",
+        "slide_mnP4b6",
+        "slide_EpaWJb"
       ],
       "settings": {}
     },
