@@ -208,36 +208,39 @@
 
 <style>
   /*
-    CARUSEL FIXAT + SCALE GLOBAL
-    Se scalează tot caruselul:
-    - imaginea
-    - punctele de navigare
-    - corner radius
-    - tot containerul caruselului
+    CARUSEL FIXAT + SCALE REAL ÎN LAYOUT
+
+    Modifică dimensiunea caruselului de aici:
+    --home-hero-carousel-scale: 0.55;
+
+    Exemple:
+    0.45 = mai mic
+    0.55 = mediu mic
+    0.70 = mai mare
+    1 = dimensiune completă
   */
 
   .home-hero_right {
+    --home-hero-carousel-scale: 0.55;
+    --home-hero-carousel-radius: calc(24px * var(--home-hero-carousel-scale));
+
     min-width: 0;
     overflow: hidden;
+
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
 
   .home-hero_swiper {
-    --home-hero-carousel-scale: 0.4;
-    --home-hero-carousel-radius: 24px;
-
     position: relative;
     display: block;
-    width: 100%;
-    max-width: 100%;
+
+    width: calc(100% * var(--home-hero-carousel-scale));
+    max-width: calc(100% * var(--home-hero-carousel-scale));
+
     overflow: hidden;
-
     border-radius: var(--home-hero-carousel-radius);
-
-    transform: scale(var(--home-hero-carousel-scale));
-    transform-origin: center center;
 
     touch-action: pan-y;
   }
@@ -288,27 +291,28 @@
 
   /*
     PUNCTE DE NAVIGARE
+    Se scalează împreună cu caruselul
   */
 
   .home-hero_swiper-pagination {
     position: absolute;
     right: 0;
-    bottom: 50px;
+    bottom: calc(50px * var(--home-hero-carousel-scale));
     left: 0;
     z-index: 5;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: calc(8px * var(--home-hero-carousel-scale));
 
     width: 100%;
   }
 
   .home-hero_pagination-dot {
     display: block;
-    width: 10px;
-    height: 10px;
+    width: calc(10px * var(--home-hero-carousel-scale));
+    height: calc(10px * var(--home-hero-carousel-scale));
     padding: 0;
 
     border: 0;
@@ -326,7 +330,7 @@
   }
 
   .home-hero_pagination-dot.is-active {
-    width: 28px;
+    width: calc(28px * var(--home-hero-carousel-scale));
     border-radius: 999px;
     background-color: #ffffff;
   }
@@ -344,13 +348,17 @@
   }
 
   @media screen and (max-width: 989px) {
-    .home-hero_swiper {
+    .home-hero_right {
       --home-hero-carousel-scale: 0.94;
       --home-hero-carousel-radius: 18px;
+
+      align-items: center;
+      justify-content: center;
     }
 
     .home-hero_swiper-pagination {
       bottom: 10px;
+      gap: 8px;
     }
 
     .home-hero_pagination-dot {
