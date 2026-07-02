@@ -208,7 +208,10 @@
 
 <style>
   /*
-    CARUSEL
+    CARUSEL FIXAT
+    - afișează o singură imagine
+    - imaginea este centrată
+    - fiecare swipe mută exact la următoarea imagine centrată
   */
 
   .home-hero_right {
@@ -222,6 +225,7 @@
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+    touch-action: pan-y;
   }
 
   .home-hero_swiper-wrapper {
@@ -236,15 +240,22 @@
   }
 
   .home-hero_slide {
-    display: block;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
     flex: 0 0 100% !important;
     width: 100% !important;
-    min-width: 10% !important;
-    max-width: 94% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box;
   }
 
   .home-hero_slide-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
   }
 
@@ -252,8 +263,10 @@
   .home-hero_slide-placeholder {
     display: block;
     width: 94%;
-    max-width: 100%;
+    max-width: 94%;
     height: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /*
@@ -319,6 +332,12 @@
 
     .home-hero_pagination-dot.is-active {
       width: 22px;
+    }
+
+    .home-hero_slide-image,
+    .home-hero_slide-placeholder {
+      width: 94%;
+      max-width: 94%;
     }
   }
 </style>
@@ -443,6 +462,10 @@
       updateCarousel(0);
       startAutoplay();
 
+      window.addEventListener('resize', function () {
+        updateCarousel(currentIndex);
+      });
+
       /*
         MENIU CATEGORII ȘI SUBCATEGORII
       */
@@ -524,9 +547,10 @@
     document.addEventListener(
       'shopify:section:load',
       function (event) {
-        const section = event.target.querySelector(
-          '[data-home-hero-section]'
-        );
+        const section =
+          event.target.matches('[data-home-hero-section]')
+            ? event.target
+            : event.target.querySelector('[data-home-hero-section]');
 
         initializeHomeHero(section);
       }
