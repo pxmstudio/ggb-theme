@@ -437,7 +437,9 @@
 
   /*
     SUBCATEGORII LA HOVER
-    Pe desktop cardul pornește exact din dreptul elementului de meniu activ.
+    - pornesc din dreptul elementului activ
+    - se deschid complet în jos
+    - nu mai sunt limitate la înălțimea hero-ului
   */
 
   .home-hero_subcategories-wrapper {
@@ -450,8 +452,8 @@
 
     width: 430px !important;
     height: auto !important;
-    min-height: 0 !important;
-    max-height: calc(var(--home-hero-dynamic-height) - var(--home-hero-subcategory-top)) !important;
+    min-height: 160px !important;
+    max-height: none !important;
 
     background: #ffffff !important;
 
@@ -465,8 +467,7 @@
     margin: 0 !important;
 
     pointer-events: auto !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    overflow: visible !important;
   }
 
   .home-hero_subcategories-wrapper.is-active {
@@ -1042,10 +1043,6 @@
           startAutoplay();
         });
       }
-
-      /*
-        SUBCATEGORII LA HOVER
-      */
 
       const subcategoriesWrapper = section.querySelector(
         '[data-home-hero-subcategories-wrapper]'
