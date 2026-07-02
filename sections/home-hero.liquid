@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="{{ 'home-hero.css' | asset_url }}">
 
 <section
-  class="section_home-hero"
+  class="section_home-hero home-hero-full-page"
   data-home-hero-section="{{ section.id }}"
 >
   <div class="global-padding">
     <div class="container-large">
       <div class="padding-section-medium">
 
-        <div class="home-hero_wrapper overflow-hidden">
+        <div class="home-hero_wrapper">
 
           <h1 style="display: none;">gogobaby</h1>
 
@@ -25,6 +25,24 @@
                   data-category-name="{{ link.title | escape }}"
                   data-has-subcategories="{% if link.links.size > 0 %}true{% else %}false{% endif %}"
                 >
+                  <span class="home-hero_category-icon" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 7.5H20M6 7.5L7.3 19H16.7L18 7.5M9 7.5V5.8C9 4.25 10.25 3 11.8 3H12.2C13.75 3 15 4.25 15 5.8V7.5"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+
                   <h2 class="home-hero_category-title">
                     {{ link.title }}
                   </h2>
@@ -32,15 +50,15 @@
                   {% if link.links.size > 0 %}
                     <svg
                       class="home-hero_category-arrow"
-                      width="24"
-                      height="24"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M5 12H19M19 12L12 4.99998M19 12L12 19"
-                        stroke="white"
+                        d="M9 5L16 12L9 19"
+                        stroke="currentColor"
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -140,14 +158,15 @@
                         %}
 
                         <img
-                          src="{{ block.settings.image | image_url: width: 1000 }}"
+                          src="{{ block.settings.image | image_url: width: 1400 }}"
                           srcset="
-                            {{ block.settings.image | image_url: width: 600 }} 600w,
-                            {{ block.settings.image | image_url: width: 900 }} 900w,
-                            {{ block.settings.image | image_url: width: 1200 }} 1200w,
-                            {{ block.settings.image | image_url: width: 1800 }} 1800w
+                            {{ block.settings.image | image_url: width: 700 }} 700w,
+                            {{ block.settings.image | image_url: width: 1000 }} 1000w,
+                            {{ block.settings.image | image_url: width: 1400 }} 1400w,
+                            {{ block.settings.image | image_url: width: 1800 }} 1800w,
+                            {{ block.settings.image | image_url: width: 2200 }} 2200w
                           "
-                          sizes="(min-width: 990px) 55vw, 86vw"
+                          sizes="(min-width: 990px) calc(100vw - 232px), 100vw"
                           alt="{{ image_alt | escape }}"
                           class="home-hero_slide-image"
                           loading="{{ image_loading }}"
@@ -208,49 +227,293 @@
 
 <style>
   /*
-    CARUSEL FINAL
-    - o singură imagine centrată
-    - toate slide-urile merg la swipe
-    - spațiul din jur este redus real
-    - imaginile sunt setate pe cover
-    - nav-ul este peste imagine
-    - colțurile rotunde funcționează pe desktop și mobil
+    HOME HERO FULL PAGE
+    - meniu categorii în stânga
+    - carusel mare în dreapta
+    - layout pe toată lățimea paginii
+    - fără carusel pătrat
+    - imagine setată pe cover
+  */
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .section_home-hero.home-hero-full-page {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+  }
+
+  .section_home-hero.home-hero-full-page .global-padding,
+  .section_home-hero.home-hero-full-page .container-large,
+  .section_home-hero.home-hero-full-page .padding-section-medium {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section_home-hero.home-hero-full-page *,
+  .section_home-hero.home-hero-full-page *::before,
+  .section_home-hero.home-hero-full-page *::after {
+    box-sizing: border-box;
+  }
+
+  .home-hero_wrapper {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: 232px minmax(0, 1fr) !important;
+    align-items: stretch !important;
+
+    background: #ffffff !important;
+    overflow: visible !important;
+
+    border-top: 1px solid #7057f4 !important;
+  }
+
+  /*
+    MENIU STÂNGA
+  */
+
+  .home-hero_left {
+    position: relative !important;
+    z-index: 20 !important;
+
+    width: 232px !important;
+    min-width: 232px !important;
+    max-width: 232px !important;
+
+    min-height: 460px !important;
+    height: 460px !important;
+
+    background: #ffffff !important;
+
+    border-right: 1px solid #e7e7e7 !important;
+    border-bottom: 1px solid #e7e7e7 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+  }
+
+  .home-hero_category {
+    width: 100% !important;
+    min-height: 38px !important;
+    height: 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 11px !important;
+
+    padding: 0 14px 0 21px !important;
+    margin: 0 !important;
+
+    color: #5d5d5d !important;
+    background: #ffffff !important;
+    text-decoration: none !important;
+
+    border: 0 !important;
+    border-bottom: 0 !important;
+
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+
+    transition:
+      background-color 0.22s ease,
+      color 0.22s ease,
+      padding-left 0.22s ease;
+  }
+
+  .home-hero_category:hover {
+    background: #f7f7ff !important;
+    color: #5a54e8 !important;
+    padding-left: 25px !important;
+  }
+
+  .home-hero_category-icon {
+    width: 19px !important;
+    min-width: 19px !important;
+    height: 19px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #625eea !important;
+    line-height: 0 !important;
+  }
+
+  .home-hero_category-icon svg {
+    width: 19px !important;
+    height: 19px !important;
+    display: block !important;
+  }
+
+  .home-hero_category-title {
+    flex: 1 1 auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: inherit !important;
+
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .home-hero_category-arrow {
+    width: 16px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+
+    color: #625eea !important;
+    margin-left: auto !important;
+    opacity: 0.7 !important;
+  }
+
+  /*
+    SUBCATEGORII DESKTOP
+  */
+
+  .home-hero_subcategories-wrapper {
+    display: none !important;
+
+    position: absolute !important;
+    top: 0 !important;
+    left: 100% !important;
+    z-index: 80 !important;
+
+    width: 280px !important;
+    min-height: 460px !important;
+    height: 460px !important;
+
+    background: #ffffff !important;
+    border-right: 1px solid #eeeeee !important;
+    border-bottom: 1px solid #eeeeee !important;
+
+    box-shadow: 18px 0 35px rgba(0, 0, 0, 0.08) !important;
+
+    padding: 22px !important;
+    margin: 0 !important;
+  }
+
+  .home-hero_subcategories-wrapper.is-active {
+    display: block !important;
+  }
+
+  .home-hero_subcategories-inner {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .home-hero_subcategories-inner h3 {
+    margin: 0 0 16px 0 !important;
+    padding: 0 !important;
+    color: #252525 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+
+  .home-hero_subcategories-list {
+    display: block !important;
+  }
+
+  .subcategory-group.hidden {
+    display: none !important;
+  }
+
+  .home-hero_subcategories-item {
+    display: block !important;
+
+    width: 100% !important;
+    padding: 10px 12px !important;
+    margin: 0 !important;
+
+    color: #555555 !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+
+    text-decoration: none !important;
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      padding-left 0.2s ease;
+  }
+
+  .home-hero_subcategories-item:hover {
+    background: #f7f7ff !important;
+    color: #5a54e8 !important;
+    padding-left: 16px !important;
+  }
+
+  /*
+    CARUSEL DREAPTA
   */
 
   .home-hero_right {
-    --home-hero-carousel-width: 55%;
-    --home-hero-carousel-radius: 24px;
-
     min-width: 0 !important;
     width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
+    height: 460px !important;
+    min-height: 460px !important;
 
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
+    display: block !important;
+    position: relative !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+    background: #f7f7f7 !important;
   }
 
   .home-hero_swiper {
     position: relative !important;
     display: block !important;
 
-    width: var(--home-hero-carousel-width) !important;
-    max-width: var(--home-hero-carousel-width) !important;
+    width: 100% !important;
+    max-width: 100% !important;
 
-    aspect-ratio: 1 / 1 !important;
+    height: 460px !important;
+    min-height: 460px !important;
+    max-height: 460px !important;
 
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 
     overflow: hidden !important;
-    border-radius: var(--home-hero-carousel-radius) !important;
+    border-radius: 0 !important;
 
     isolation: isolate !important;
     line-height: 0 !important;
-    touch-action: pan-y;
+    touch-action: pan-y !important;
+
+    background: #f7f7f7 !important;
   }
 
   .home-hero_swiper-wrapper {
@@ -264,6 +527,9 @@
 
     height: 100% !important;
     min-height: 100% !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
 
     overflow: visible !important;
     border-radius: 0 !important;
@@ -286,23 +552,27 @@
     height: 100% !important;
     min-height: 100% !important;
 
+    padding: 0 !important;
+    margin: 0 !important;
+
     overflow: hidden !important;
-    border-radius: var(--home-hero-carousel-radius) !important;
+    border-radius: 0 !important;
 
     box-sizing: border-box !important;
     line-height: 0 !important;
   }
 
   .home-hero_slide-link {
-    display: flex !important;
-    align-items: stretch !important;
-    justify-content: center !important;
+    display: block !important;
 
     width: 100% !important;
     height: 100% !important;
 
+    padding: 0 !important;
+    margin: 0 !important;
+
     overflow: hidden !important;
-    border-radius: var(--home-hero-carousel-radius) !important;
+    border-radius: 0 !important;
 
     line-height: 0 !important;
   }
@@ -317,25 +587,26 @@
     height: 100% !important;
     max-height: 100% !important;
 
-    margin: 0 auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
 
     object-fit: cover !important;
     object-position: center center !important;
 
-    border-radius: var(--home-hero-carousel-radius) !important;
+    border-radius: 0 !important;
     overflow: hidden !important;
   }
 
   /*
-    PUNCTE NAVIGARE
+    DOTS CARUSEL
   */
 
   .home-hero_swiper-pagination {
     position: absolute !important;
+    left: 0 !important;
     right: 0 !important;
     bottom: 12px !important;
-    left: 0 !important;
-    z-index: 999 !important;
+    z-index: 50 !important;
 
     display: flex !important;
     align-items: center !important;
@@ -344,6 +615,9 @@
 
     width: 100% !important;
     height: auto !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
 
     pointer-events: auto !important;
     line-height: 1 !important;
@@ -355,10 +629,10 @@
   .home-hero_pagination-dot {
     display: block !important;
 
-    width: 8px !important;
-    min-width: 8px !important;
-    height: 8px !important;
-    min-height: 8px !important;
+    width: 12px !important;
+    min-width: 12px !important;
+    height: 12px !important;
+    min-height: 12px !important;
 
     padding: 0 !important;
     margin: 0 !important;
@@ -366,188 +640,186 @@
     border: 0 !important;
     border-radius: 999px !important;
 
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35) !important;
+    background-color: rgba(225, 225, 225, 0.95) !important;
+    box-shadow: none !important;
 
     opacity: 1 !important;
     visibility: visible !important;
     cursor: pointer !important;
 
     transition:
-      width 0.25s ease,
-      border-radius 0.25s ease,
-      background-color 0.25s ease;
+      background-color 0.25s ease,
+      transform 0.25s ease;
   }
 
   .home-hero_pagination-dot.is-active {
-    width: 24px !important;
-    min-width: 24px !important;
-    border-radius: 999px !important;
-    background-color: #ffffff !important;
+    width: 12px !important;
+    min-width: 12px !important;
+    background-color: #ff9f43 !important;
+    transform: scale(1.08) !important;
   }
 
   /*
-    SUBCATEGORII
-  */
-
-  .home-hero_subcategories-wrapper {
-    display: none;
-  }
-
-  .home-hero_subcategories-wrapper.is-active {
-    display: block;
-  }
-
-  /*
-    MOBIL
+    TABLETĂ / MOBIL
   */
 
   @media screen and (max-width: 989px) {
-    .home-hero_right {
-      --home-hero-carousel-width: 86%;
-      --home-hero-carousel-radius: 18px;
-
-      width: 100% !important;
-      min-width: 0 !important;
-      height: auto !important;
-      min-height: 0 !important;
-
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-
-      overflow: visible !important;
-    }
-
-    .home-hero_swiper {
-      position: relative !important;
-
-      width: var(--home-hero-carousel-width) !important;
-      max-width: var(--home-hero-carousel-width) !important;
-
-      aspect-ratio: 1 / 1 !important;
-
-      height: auto !important;
-      min-height: 0 !important;
-      max-height: none !important;
-
-      overflow: hidden !important;
-      border-radius: var(--home-hero-carousel-radius) !important;
-
-      isolation: isolate !important;
-      line-height: 0 !important;
-    }
-
-    .home-hero_swiper-wrapper {
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
-      align-items: stretch !important;
-
+    .section_home-hero.home-hero-full-page {
       width: 100% !important;
       max-width: 100% !important;
-
-      height: 100% !important;
-      min-height: 100% !important;
-
-      overflow: visible !important;
-      border-radius: 0 !important;
-
-      transform: translate3d(0, 0, 0);
-      transition: transform 0.55s ease;
-      will-change: transform;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
     }
 
-    .home-hero_slide {
+    .home-hero_wrapper {
       display: flex !important;
-      align-items: stretch !important;
-      justify-content: center !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      border-top: 0 !important;
+    }
 
-      flex: 0 0 100% !important;
+    .home-hero_left {
       width: 100% !important;
       min-width: 100% !important;
       max-width: 100% !important;
 
-      height: 100% !important;
-      min-height: 100% !important;
+      min-height: auto !important;
+      height: auto !important;
 
-      border-radius: var(--home-hero-carousel-radius) !important;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 8px !important;
+
+      padding: 8px !important;
+
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+
+      border-right: 0 !important;
+      border-bottom: 1px solid #eeeeee !important;
+
+      scrollbar-width: none;
+    }
+
+    .home-hero_left::-webkit-scrollbar {
+      display: none;
+    }
+
+    .home-hero_category {
+      flex: 0 0 auto !important;
+
+      width: auto !important;
+      min-width: auto !important;
+
+      height: 38px !important;
+      min-height: 38px !important;
+
+      padding: 0 14px !important;
+
+      border: 1px solid #eeeeee !important;
+      border-radius: 999px !important;
+
+      background: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+
+      font-size: 13px !important;
+    }
+
+    .home-hero_category:hover {
+      padding-left: 14px !important;
+    }
+
+    .home-hero_category-title {
+      font-size: 13px !important;
+    }
+
+    .home-hero_category-icon {
+      width: 17px !important;
+      min-width: 17px !important;
+      height: 17px !important;
+    }
+
+    .home-hero_category-icon svg {
+      width: 17px !important;
+      height: 17px !important;
+    }
+
+    .home-hero_category-arrow {
+      display: none !important;
+    }
+
+    .home-hero_subcategories-wrapper,
+    .home-hero_subcategories-wrapper.is-active {
+      display: none !important;
+    }
+
+    .home-hero_right {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
       overflow: hidden !important;
     }
 
-    .home-hero_slide-link {
+    .home-hero_swiper {
       width: 100% !important;
-      height: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
 
-      border-radius: var(--home-hero-carousel-radius) !important;
+      aspect-ratio: 16 / 9 !important;
+
       overflow: hidden !important;
+    }
+
+    .home-hero_swiper-wrapper {
+      height: 100% !important;
+      min-height: 100% !important;
+    }
+
+    .home-hero_slide {
+      height: 100% !important;
+      min-height: 100% !important;
+    }
+
+    .home-hero_slide-link {
+      height: 100% !important;
     }
 
     .home-hero_slide-image,
     .home-hero_slide-placeholder {
-      width: 100% !important;
-      max-width: 100% !important;
-
       height: 100% !important;
-      max-height: 100% !important;
-
-      display: block !important;
-
       object-fit: cover !important;
       object-position: center center !important;
-
-      border-radius: var(--home-hero-carousel-radius) !important;
-      overflow: hidden !important;
     }
 
     .home-hero_swiper-pagination {
-      position: absolute !important;
-      left: 0 !important;
-      right: 0 !important;
       bottom: 10px !important;
-
-      z-index: 999 !important;
-
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 8px !important;
-
-      width: 100% !important;
-      height: auto !important;
-
-      opacity: 1 !important;
-      visibility: visible !important;
-
-      pointer-events: auto !important;
-      line-height: 1 !important;
+      gap: 7px !important;
     }
 
-    .home-hero_pagination-dot {
-      display: block !important;
-
-      width: 8px !important;
-      min-width: 8px !important;
-      height: 8px !important;
-      min-height: 8px !important;
-
-      padding: 0 !important;
-      margin: 0 !important;
-
-      border: 0 !important;
-      border-radius: 999px !important;
-
-      background-color: rgba(255, 255, 255, 0.85) !important;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35) !important;
-
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-
+    .home-hero_pagination-dot,
     .home-hero_pagination-dot.is-active {
-      width: 22px !important;
-      min-width: 22px !important;
-      background-color: #ffffff !important;
+      width: 9px !important;
+      min-width: 9px !important;
+      height: 9px !important;
+      min-height: 9px !important;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .home-hero_swiper {
+      aspect-ratio: 16 / 10 !important;
+    }
+
+    .home-hero_category {
+      height: 36px !important;
+      min-height: 36px !important;
+      font-size: 12px !important;
+    }
+
+    .home-hero_category-title {
+      font-size: 12px !important;
     }
   }
 </style>
