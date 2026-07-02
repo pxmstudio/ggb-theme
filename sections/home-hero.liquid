@@ -208,23 +208,37 @@
 
 <style>
   /*
-    CARUSEL FIXAT
-    - afișează o singură imagine
-    - imaginea este centrată
-    - fiecare swipe mută exact la următoarea imagine centrată
+    CARUSEL FIXAT + SCALE GLOBAL
+    Se scalează tot caruselul:
+    - imaginea
+    - punctele de navigare
+    - corner radius
+    - tot containerul caruselului
   */
 
   .home-hero_right {
     min-width: 0;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .home-hero_swiper {
+    --home-hero-carousel-scale: 0.94;
+    --home-hero-carousel-radius: 24px;
+
     position: relative;
     display: block;
-    width: 50%;
-    max-width: 60%;
+    width: 100%;
+    max-width: 100%;
     overflow: hidden;
+
+    border-radius: var(--home-hero-carousel-radius);
+
+    transform: scale(var(--home-hero-carousel-scale));
+    transform-origin: center center;
+
     touch-action: pan-y;
   }
 
@@ -232,8 +246,10 @@
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
+
     width: 100%;
     max-width: 100%;
+
     transform: translate3d(0, 0, 0);
     transition: transform 0.55s ease;
     will-change: transform;
@@ -262,9 +278,10 @@
   .home-hero_slide-image,
   .home-hero_slide-placeholder {
     display: block;
-    width: 94%;
-    max-width: 94%;
+    width: 100%;
+    max-width: 100%;
     height: auto;
+
     margin-left: auto;
     margin-right: auto;
   }
@@ -279,10 +296,12 @@
     bottom: 50px;
     left: 0;
     z-index: 5;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+
     width: 100%;
   }
 
@@ -291,11 +310,15 @@
     width: 10px;
     height: 10px;
     padding: 0;
+
     border: 0;
     border-radius: 50%;
+
     background-color: rgba(255, 255, 255, 0.65);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+
     cursor: pointer;
+
     transition:
       width 0.25s ease,
       border-radius 0.25s ease,
@@ -321,6 +344,11 @@
   }
 
   @media screen and (max-width: 989px) {
+    .home-hero_swiper {
+      --home-hero-carousel-scale: 0.94;
+      --home-hero-carousel-radius: 18px;
+    }
+
     .home-hero_swiper-pagination {
       bottom: 10px;
     }
@@ -332,12 +360,6 @@
 
     .home-hero_pagination-dot.is-active {
       width: 22px;
-    }
-
-    .home-hero_slide-image,
-    .home-hero_slide-placeholder {
-      width: 94%;
-      max-width: 94%;
     }
   }
 </style>
