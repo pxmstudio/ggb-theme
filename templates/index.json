@@ -12,32 +12,64 @@
     "home-hero": {
       "type": "home-hero",
       "blocks": {
+        "slide_PX3fUP": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Carucuor_3_in1_Luxmom.jpg",
+            "link": "shopify://products/carucior-luxmom-breath-3-in-1-verde"
+          }
+        },
         "slide_wbWTDw": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/1.Biciclete_Dino_Bikes_56256ce1-aa96-47b2-9cc0-729e3311076c.jpg",
-            "link": ""
+            "link": "https://www.gogobaby.ro/search?q=dino+bikes"
           }
         },
         "slide_mnP4b6": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/2.Produse_LIONELO.jpg",
-            "link": ""
+            "link": "https://www.gogobaby.ro/search?q=lionelo"
           }
         },
         "slide_EpaWJb": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/3.Produse_Chipolino.jpg",
-            "link": ""
+            "link": "https://www.gogobaby.ro/search?q=CHIPOLINO"
+          }
+        },
+        "slide_Bj3bhj": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/4.Produse_Coccolle_1.jpg",
+            "link": "https://www.gogobaby.ro/search?q=Coccolle"
+          }
+        },
+        "slide_6WQppw": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/5.Produse_Qplay.jpg",
+            "link": "https://www.gogobaby.ro/search?q=QPLAY"
+          }
+        },
+        "slide_feEJJD": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/6.Produse_Qmini.jpg",
+            "link": "https://www.gogobaby.ro/search?q=QMINI"
           }
         }
       },
       "block_order": [
+        "slide_PX3fUP",
         "slide_wbWTDw",
         "slide_mnP4b6",
-        "slide_EpaWJb"
+        "slide_EpaWJb",
+        "slide_Bj3bhj",
+        "slide_6WQppw",
+        "slide_feEJJD"
       ],
       "settings": {}
     },
