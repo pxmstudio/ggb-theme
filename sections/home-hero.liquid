@@ -19,7 +19,7 @@
               {% unless forloop.first or forloop.last %}
 
                 {% assign title_downcase = link.title | downcase %}
-                {% assign category_emoji = '🛍️' %}
+                {% assign category_emoji = '' %}
 
                 {% if title_downcase contains 'transport' %}
                   {% assign category_emoji = '🚚' %}
