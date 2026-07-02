@@ -19,7 +19,7 @@
               {% unless forloop.first or forloop.last %}
 
                 {% assign title_downcase = link.title | downcase %}
-                {% assign category_emoji = '' %}
+                {% assign category_emoji = '🛍️' %}
 
                 {% if title_downcase contains 'transport' %}
                   {% assign category_emoji = '🚚' %}
@@ -258,6 +258,7 @@
     --home-hero-width: 1120px;
     --home-hero-menu-width: 232px;
     --home-hero-dynamic-height: auto;
+    --home-hero-subcategory-top: 0px;
     --home-hero-blue: #635bff;
     --home-hero-text: #5f5f5f;
 
@@ -311,10 +312,6 @@
     outline: 0 !important;
     box-shadow: none !important;
   }
-
-  /*
-    MENIU STÂNGA
-  */
 
   .home-hero_left {
     position: relative !important;
@@ -440,23 +437,21 @@
 
   /*
     SUBCATEGORII LA HOVER
-    Fix important:
-    cardul nu mai are height: 100%;
-    acum are înălțime doar cât conținutul.
+    Pe desktop cardul pornește exact din dreptul elementului de meniu activ.
   */
 
   .home-hero_subcategories-wrapper {
     display: none !important;
 
     position: absolute !important;
-    top: 0 !important;
+    top: var(--home-hero-subcategory-top) !important;
     left: 100% !important;
     z-index: 999 !important;
 
     width: 430px !important;
     height: auto !important;
     min-height: 0 !important;
-    max-height: var(--home-hero-dynamic-height) !important;
+    max-height: calc(var(--home-hero-dynamic-height) - var(--home-hero-subcategory-top)) !important;
 
     background: #ffffff !important;
 
@@ -547,10 +542,6 @@
     color: var(--home-hero-blue) !important;
     padding-left: 8px !important;
   }
-
-  /*
-    CARUSEL DREAPTA
-  */
 
   .home-hero_right {
     width: 100% !important;
@@ -695,10 +686,6 @@
     box-shadow: none !important;
   }
 
-  /*
-    DOTS CARUSEL
-  */
-
   .home-hero_swiper-pagination {
     position: absolute !important;
     left: 0 !important;
@@ -755,10 +742,6 @@
     transform: scale(1.08) !important;
   }
 
-  /*
-    FIX SUPLIMENTAR LINIE SUS
-  */
-
   .section_home-hero.home-hero-page-fixed::before,
   .section_home-hero.home-hero-page-fixed::after,
   .home-hero_wrapper::before,
@@ -769,11 +752,11 @@
     content: none !important;
   }
 
-  /*
-    TABLETĂ / MOBIL
-  */
-
   @media screen and (max-width: 989px) {
+    .section_home-hero.home-hero-page-fixed {
+      --home-hero-subcategory-top: 0px;
+    }
+
     .section_home-hero.home-hero-page-fixed .global-padding,
     .section_home-hero.home-hero-page-fixed .container-large,
     .section_home-hero.home-hero-page-fixed .padding-section-medium {
@@ -942,6 +925,7 @@
 
         if (window.innerWidth < 990) {
           section.style.setProperty('--home-hero-dynamic-height', 'auto');
+          section.style.setProperty('--home-hero-subcategory-top', '0px');
           return;
         }
 
@@ -950,6 +934,20 @@
         section.style.setProperty(
           '--home-hero-dynamic-height',
           menuHeight + 'px'
+        );
+      }
+
+      function setSubcategoryPosition(category) {
+        if (!category || !menu || window.innerWidth < 990) {
+          section.style.setProperty('--home-hero-subcategory-top', '0px');
+          return;
+        }
+
+        const categoryTop = Math.max(0, Math.floor(category.offsetTop));
+
+        section.style.setProperty(
+          '--home-hero-subcategory-top',
+          categoryTop + 'px'
         );
       }
 
@@ -1084,6 +1082,8 @@
           closeSubcategories();
           return;
         }
+
+        setSubcategoryPosition(category);
 
         const categoryName = category.dataset.categoryName;
 
