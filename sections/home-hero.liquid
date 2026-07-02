@@ -208,15 +208,12 @@
 
 <style>
   /*
-    CARUSEL FIXAT
-    Desktop:
-    - o singură imagine centrată
-    - spațiu redus în jur
-    - nav peste imagine
-    - colțuri rotunde
-
-    Modifică dimensiunea desktop de aici:
-    --home-hero-carousel-width: 55%;
+    CARUSEL FIXAT FINAL
+    - afișează o singură imagine centrată
+    - toate slide-urile rămân vizibile la swipe
+    - spațiul din jur se reduce real
+    - nav-ul rămâne peste imagine
+    - colțurile rotunde funcționează și pe desktop, și pe mobil
   */
 
   .home-hero_right {
@@ -265,8 +262,8 @@
     height: auto !important;
     min-height: 0 !important;
 
-    overflow: hidden !important;
-    border-radius: var(--home-hero-carousel-radius) !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
 
     transform: translate3d(0, 0, 0);
     transition: transform 0.55s ease;
@@ -344,6 +341,9 @@
 
     pointer-events: auto !important;
     line-height: 1 !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .home-hero_pagination-dot {
@@ -360,7 +360,7 @@
     border: 0 !important;
     border-radius: 999px !important;
 
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35) !important;
 
     opacity: 1 !important;
@@ -394,8 +394,6 @@
 
   /*
     MOBIL
-    Modifică dimensiunea mobil de aici:
-    --home-hero-carousel-width: 86%;
   */
 
   @media screen and (max-width: 989px) {
@@ -433,14 +431,31 @@
     }
 
     .home-hero_swiper-wrapper {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: flex-start !important;
+
+      width: 100% !important;
+      max-width: 100% !important;
+
       height: auto !important;
       min-height: 0 !important;
 
-      border-radius: var(--home-hero-carousel-radius) !important;
-      overflow: hidden !important;
+      overflow: visible !important;
+      border-radius: 0 !important;
+
+      transform: translate3d(0, 0, 0);
+      transition: transform 0.55s ease;
+      will-change: transform;
     }
 
     .home-hero_slide {
+      flex: 0 0 100% !important;
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+
       height: auto !important;
       min-height: 0 !important;
 
