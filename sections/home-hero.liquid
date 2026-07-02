@@ -18,6 +18,7 @@
             {% for link in linklists['main-menu'].links %}
               {% unless forloop.first or forloop.last %}
 
+                {% assign title_downcase = link.title | downcase %}
                 
 
                 {% if title_downcase contains 'transport' %}
