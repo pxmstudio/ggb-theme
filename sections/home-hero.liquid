@@ -147,7 +147,7 @@
                             {{ block.settings.image | image_url: width: 1200 }} 1200w,
                             {{ block.settings.image | image_url: width: 1800 }} 1800w
                           "
-                          sizes="(min-width: 990px) 70vw, 100vw"
+                          sizes="(min-width: 990px) 55vw, 94vw"
                           alt="{{ image_alt | escape }}"
                           class="home-hero_slide-image"
                           loading="{{ image_loading }}"
@@ -208,40 +208,43 @@
 
 <style>
   /*
-    CARUSEL FIXAT + SCALE REAL ÎN LAYOUT
-
-    Modifică dimensiunea caruselului de aici:
-    --home-hero-carousel-scale: 0.55;
-
-    Exemple:
-    0.45 = mai mic
-    0.55 = mediu mic
-    0.70 = mai mare
-    1 = dimensiune completă
+    CARUSEL FIXAT
+    - afișează o singură imagine centrată
+    - spațiul din jur se reduce real
+    - nav-ul rămâne peste imagine
+    - radius-ul rămâne aplicat
   */
 
   .home-hero_right {
-    --home-hero-carousel-scale: 0.55;
-    --home-hero-carousel-radius: calc(24px * var(--home-hero-carousel-scale));
+    --home-hero-carousel-width: 55%;
+    --home-hero-carousel-radius: 24px;
 
-    min-width: 0;
-    overflow: hidden;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
   }
 
   .home-hero_swiper {
-    position: relative;
-    display: block;
+    position: relative !important;
+    display: block !important;
 
-    width: calc(100% * var(--home-hero-carousel-scale));
-    max-width: calc(100% * var(--home-hero-carousel-scale));
+    width: var(--home-hero-carousel-width) !important;
+    max-width: var(--home-hero-carousel-width) !important;
 
-    overflow: hidden;
-    border-radius: var(--home-hero-carousel-radius);
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
 
+    overflow: hidden !important;
+    border-radius: var(--home-hero-carousel-radius) !important;
+
+    line-height: 0 !important;
     touch-action: pan-y;
   }
 
@@ -249,9 +252,13 @@
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
+    align-items: flex-start !important;
 
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+    min-height: 0 !important;
 
     transform: translate3d(0, 0, 0);
     transition: transform 0.55s ease;
@@ -260,68 +267,91 @@
 
   .home-hero_slide {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
+    align-items: center !important;
+    justify-content: center !important;
 
     flex: 0 0 100% !important;
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
 
-    box-sizing: border-box;
+    height: auto !important;
+    min-height: 0 !important;
+
+    overflow: hidden !important;
+    border-radius: var(--home-hero-carousel-radius) !important;
+
+    box-sizing: border-box !important;
+    line-height: 0 !important;
   }
 
   .home-hero_slide-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+    height: auto !important;
+
+    overflow: hidden !important;
+    border-radius: var(--home-hero-carousel-radius) !important;
+
+    line-height: 0 !important;
   }
 
   .home-hero_slide-image,
   .home-hero_slide-placeholder {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
+    display: block !important;
 
-    margin-left: auto;
-    margin-right: auto;
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+    max-height: none !important;
+
+    margin: 0 auto !important;
+
+    border-radius: var(--home-hero-carousel-radius) !important;
+    object-fit: cover !important;
   }
 
   /*
-    PUNCTE DE NAVIGARE
-    Se scalează împreună cu caruselul
+    PUNCTE NAVIGARE
   */
 
   .home-hero_swiper-pagination {
-    position: absolute;
-    right: 0;
-    bottom: calc(50px * var(--home-hero-carousel-scale));
-    left: 0;
-    z-index: 5;
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 14px !important;
+    left: 0 !important;
+    z-index: 20 !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: calc(8px * var(--home-hero-carousel-scale));
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
 
-    width: 100%;
+    width: 100% !important;
+    height: auto !important;
+
+    pointer-events: auto !important;
+    line-height: 1 !important;
   }
 
   .home-hero_pagination-dot {
-    display: block;
-    width: calc(10px * var(--home-hero-carousel-scale));
-    height: calc(10px * var(--home-hero-carousel-scale));
-    padding: 0;
+    display: block !important;
 
-    border: 0;
-    border-radius: 50%;
+    width: 8px !important;
+    height: 8px !important;
+    padding: 0 !important;
 
-    background-color: rgba(255, 255, 255, 0.65);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+    border: 0 !important;
+    border-radius: 50% !important;
 
-    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.65) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22) !important;
+
+    cursor: pointer !important;
 
     transition:
       width 0.25s ease,
@@ -330,9 +360,9 @@
   }
 
   .home-hero_pagination-dot.is-active {
-    width: calc(28px * var(--home-hero-carousel-scale));
-    border-radius: 999px;
-    background-color: #ffffff;
+    width: 24px !important;
+    border-radius: 999px !important;
+    background-color: #ffffff !important;
   }
 
   /*
@@ -347,27 +377,31 @@
     display: block;
   }
 
+  /*
+    MOBIL
+  */
+
   @media screen and (max-width: 989px) {
     .home-hero_right {
-      --home-hero-carousel-scale: 0.94;
+      --home-hero-carousel-width: 94%;
       --home-hero-carousel-radius: 18px;
 
-      align-items: center;
-      justify-content: center;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     .home-hero_swiper-pagination {
-      bottom: 10px;
-      gap: 8px;
+      bottom: 10px !important;
+      gap: 8px !important;
     }
 
     .home-hero_pagination-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px !important;
+      height: 8px !important;
     }
 
     .home-hero_pagination-dot.is-active {
-      width: 22px;
+      width: 22px !important;
     }
   }
 </style>
