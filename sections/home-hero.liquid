@@ -1,3 +1,859 @@
+<link rel="stylesheet" href="{{ 'home-hero.css' | asset_url }}">
+
+<section
+  class="section_home-hero home-hero-page-fixed"
+  data-home-hero-section="{{ section.id }}"
+>
+  <div class="global-padding">
+    <div class="container-large">
+      <div class="padding-section-medium">
+
+        <div class="home-hero_wrapper">
+
+          <h1 style="display: none;">gogobaby</h1>
+
+          <!-- MENIU CATEGORII -->
+          <div class="home-hero_left" data-home-hero-menu>
+
+            {% for link in linklists['main-menu'].links %}
+              {% unless forloop.first or forloop.last %}
+
+                {% assign title_downcase = link.title | downcase %}
+                {% assign category_emoji = '🛍️' %}
+
+                {% if title_downcase contains 'transport' %}
+                  {% assign category_emoji = '🚚' %}
+                {% elsif title_downcase contains 'masa' or title_downcase contains 'masă' %}
+                  {% assign category_emoji = '🍼' %}
+                {% elsif title_downcase contains 'camera' %}
+                  {% assign category_emoji = '🛏️' %}
+                {% elsif title_downcase contains 'parinti' or title_downcase contains 'părinți' %}
+                  {% assign category_emoji = '👨‍👩‍👧' %}
+                {% elsif title_downcase contains 'curat' or title_downcase contains 'sanatos' or title_downcase contains 'sănătos' %}
+                  {% assign category_emoji = '🧼' %}
+                {% elsif title_downcase contains 'hainute' or title_downcase contains 'hăinuțe' or title_downcase contains 'incaltaminte' or title_downcase contains 'încălțăminte' %}
+                  {% assign category_emoji = '👕' %}
+                {% elsif title_downcase contains 'exterior' %}
+                  {% assign category_emoji = '🛝' %}
+                {% elsif title_downcase contains 'jucarii' or title_downcase contains 'jucării' or title_downcase contains 'jocuri' %}
+                  {% assign category_emoji = '🧸' %}
+                {% elsif title_downcase contains 'cadouri' %}
+                  {% assign category_emoji = '🎁' %}
+                {% elsif title_downcase contains 'plimbare' or title_downcase contains 'relaxare' %}
+                  {% assign category_emoji = '🚲' %}
+                {% elsif title_downcase contains 'siguranta' or title_downcase contains 'siguranța' %}
+                  {% assign category_emoji = '🛡️' %}
+                {% elsif title_downcase contains 'gradinita' or title_downcase contains 'grădinița' or title_downcase contains 'scoala' or title_downcase contains 'școala' %}
+                  {% assign category_emoji = '🎒' %}
+                {% elsif title_downcase contains 'igiena' or title_downcase contains 'igienă' or title_downcase contains 'sănătate' %}
+                  {% assign category_emoji = '🧴' %}
+                {% elsif title_downcase contains 'triciclete' or title_downcase contains 'biciclete' %}
+                  {% assign category_emoji = '🚴' %}
+                {% elsif title_downcase contains 'vehicule' %}
+                  {% assign category_emoji = '🛴' %}
+                {% elsif title_downcase contains 'resigilate' %}
+                  {% assign category_emoji = '📦' %}
+                {% endif %}
+
+                <a
+                  href="{{ link.url }}"
+                  class="home-hero_category"
+                  data-home-hero-category
+                  data-category-name="{{ link.title | escape }}"
+                  data-has-subcategories="{% if link.links.size > 0 %}true{% else %}false{% endif %}"
+                >
+                  <span class="home-hero_category-icon" aria-hidden="true">
+                    {{ category_emoji }}
+                  </span>
+
+                  <h2 class="home-hero_category-title">
+                    {{ link.title }}
+                  </h2>
+
+                  {% if link.links.size > 0 %}
+                    <svg
+                      class="home-hero_category-arrow"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 5L16 12L9 19"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  {% endif %}
+                </a>
+
+              {% endunless %}
+            {% endfor %}
+
+            <!-- SUBCATEGORII -->
+            <div
+              class="home-hero_subcategories-wrapper"
+              data-home-hero-subcategories-wrapper
+            >
+              <div class="home-hero_subcategories-inner">
+
+                <h3
+                  class="home-hero_subcategories-title"
+                  data-home-hero-subcategories-title
+                >
+                  Category name
+                </h3>
+
+                <div
+                  class="home-hero_subcategories-list"
+                  data-subcategories
+                >
+                  {% for link in linklists['main-menu'].links %}
+
+                    {% if link.links.size > 0 %}
+                      <div
+                        class="subcategory-group hidden"
+                        data-subcategory-group
+                        data-category="{{ link.title | escape }}"
+                      >
+                        {% for childlink in link.links %}
+                          <a
+                            href="{{ childlink.url }}"
+                            class="home-hero_subcategories-item"
+                          >
+                            {{ childlink.title }}
+                          </a>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+
+                  {% endfor %}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CARUSEL -->
+          <div class="home-hero_right">
+
+            <div
+              class="home-hero_swiper"
+              data-home-hero-carousel
+            >
+
+              <div
+                class="home-hero_swiper-wrapper"
+                data-home-hero-track
+              >
+
+                {% for block in section.blocks %}
+
+                  {% if block.type == 'slide' %}
+
+                    {% assign image_loading = 'lazy' %}
+
+                    {% if forloop.first %}
+                      {% assign image_loading = 'eager' %}
+                    {% endif %}
+
+                    <div
+                      class="home-hero_slide"
+                      data-home-hero-slide
+                      {{ block.shopify_attributes }}
+                    >
+
+                      {% if block.settings.link != blank %}
+                        <a
+                          href="{{ block.settings.link }}"
+                          class="home-hero_slide-link"
+                        >
+                      {% endif %}
+
+                      {% if block.settings.image != blank %}
+
+                        {% assign image_alt = block.settings.image.alt
+                          | default: 'Banner promoțional'
+                        %}
+
+                        <img
+                          src="{{ block.settings.image | image_url: width: 1400 }}"
+                          srcset="
+                            {{ block.settings.image | image_url: width: 700 }} 700w,
+                            {{ block.settings.image | image_url: width: 1000 }} 1000w,
+                            {{ block.settings.image | image_url: width: 1400 }} 1400w,
+                            {{ block.settings.image | image_url: width: 1800 }} 1800w,
+                            {{ block.settings.image | image_url: width: 2200 }} 2200w
+                          "
+                          sizes="(min-width: 990px) 888px, 100vw"
+                          alt="{{ image_alt | escape }}"
+                          class="home-hero_slide-image"
+                          loading="{{ image_loading }}"
+                          width="{{ block.settings.image.width }}"
+                          height="{{ block.settings.image.height }}"
+                        >
+
+                      {% else %}
+
+                        {{ 'lifestyle-1'
+                          | placeholder_svg_tag:
+                            'home-hero_slide-placeholder'
+                        }}
+
+                      {% endif %}
+
+                      {% if block.settings.link != blank %}
+                        </a>
+                      {% endif %}
+
+                    </div>
+
+                  {% endif %}
+
+                {% endfor %}
+
+              </div>
+
+              <!-- PUNCTE NAVIGARE -->
+              <div
+                class="home-hero_swiper-pagination"
+                data-home-hero-pagination
+                aria-label="Navigare carusel"
+              >
+                {% for block in section.blocks %}
+                  {% if block.type == 'slide' %}
+                    <button
+                      type="button"
+                      class="home-hero_pagination-dot{% if forloop.first %} is-active{% endif %}"
+                      data-home-hero-dot
+                      data-slide-index="{{ forloop.index0 }}"
+                      aria-label="Afișează imaginea {{ forloop.index }}"
+                    ></button>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .section_home-hero.home-hero-page-fixed {
+    --home-hero-width: 1120px;
+    --home-hero-menu-width: 232px;
+    --home-hero-dynamic-height: auto;
+    --home-hero-border-color: #7057f4;
+    --home-hero-blue: #635bff;
+    --home-hero-text: #5f5f5f;
+
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section_home-hero.home-hero-page-fixed .global-padding,
+  .section_home-hero.home-hero-page-fixed .container-large,
+  .section_home-hero.home-hero-page-fixed .padding-section-medium {
+    width: 100% !important;
+    max-width: var(--home-hero-width) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 !important;
+  }
+
+  .section_home-hero.home-hero-page-fixed *,
+  .section_home-hero.home-hero-page-fixed *::before,
+  .section_home-hero.home-hero-page-fixed *::after {
+    box-sizing: border-box !important;
+  }
+
+  .home-hero_wrapper {
+    width: 100% !important;
+    max-width: var(--home-hero-width) !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: var(--home-hero-menu-width) minmax(0, 1fr) !important;
+    align-items: stretch !important;
+
+    background: #ffffff !important;
+    overflow: visible !important;
+
+    border-top: 1px solid var(--home-hero-border-color) !important;
+  }
+
+  /*
+    MENIU STÂNGA
+  */
+
+  .home-hero_left {
+    position: relative !important;
+    z-index: 90 !important;
+
+    width: var(--home-hero-menu-width) !important;
+    min-width: var(--home-hero-menu-width) !important;
+    max-width: var(--home-hero-menu-width) !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    background: #ffffff !important;
+
+    border-left: 1px solid #eeeeee !important;
+    border-right: 1px solid #e5e5e5 !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+    border-radius: 0 0 8px 8px !important;
+  }
+
+  .home-hero_category {
+    width: 100% !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+
+    padding: 0 10px 0 18px !important;
+    margin: 0 !important;
+
+    color: var(--home-hero-text) !important;
+    background: #ffffff !important;
+    text-decoration: none !important;
+
+    border: 0 !important;
+
+    font-family: inherit !important;
+    font-size: 13.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+
+    overflow: hidden !important;
+
+    transition:
+      background-color 0.22s ease,
+      color 0.22s ease,
+      padding-left 0.22s ease;
+  }
+
+  .home-hero_category:hover {
+    background: #f7f7ff !important;
+    color: var(--home-hero-blue) !important;
+    padding-left: 22px !important;
+  }
+
+  .home-hero_category-icon {
+    width: 18px !important;
+    min-width: 18px !important;
+    max-width: 18px !important;
+    height: 18px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: 15px !important;
+    line-height: 1 !important;
+
+    overflow: hidden !important;
+  }
+
+  .home-hero_category-title {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: inherit !important;
+
+    font-family: inherit !important;
+    font-size: 13.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .home-hero_category-arrow {
+    width: 14px !important;
+    min-width: 14px !important;
+    max-width: 14px !important;
+    height: 14px !important;
+
+    margin-left: auto !important;
+    color: var(--home-hero-blue) !important;
+    opacity: 0.75 !important;
+
+    flex: 0 0 14px !important;
+  }
+
+  /*
+    SUBCATEGORII LA HOVER
+  */
+
+  .home-hero_subcategories-wrapper {
+    display: none !important;
+
+    position: absolute !important;
+    top: -1px !important;
+    left: 100% !important;
+    z-index: 999 !important;
+
+    width: 290px !important;
+    min-height: 100% !important;
+    height: 100% !important;
+
+    background: #ffffff !important;
+
+    border-top: 1px solid var(--home-hero-border-color) !important;
+    border-right: 1px solid #eeeeee !important;
+    border-bottom: 1px solid #eeeeee !important;
+
+    box-shadow: 18px 0 35px rgba(0, 0, 0, 0.10) !important;
+
+    padding: 22px !important;
+    margin: 0 !important;
+
+    pointer-events: auto !important;
+  }
+
+  .home-hero_subcategories-wrapper.is-active {
+    display: block !important;
+  }
+
+  .home-hero_subcategories-inner {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .home-hero_subcategories-title {
+    margin: 0 0 16px 0 !important;
+    padding: 0 !important;
+
+    color: #252525 !important;
+
+    font-family: inherit !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .home-hero_subcategories-list {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .subcategory-group.hidden {
+    display: none !important;
+  }
+
+  .subcategory-group:not(.hidden) {
+    display: block !important;
+  }
+
+  .home-hero_subcategories-item {
+    display: block !important;
+
+    width: 100% !important;
+    padding: 10px 12px !important;
+    margin: 0 0 4px 0 !important;
+
+    color: #555555 !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      padding-left 0.2s ease;
+  }
+
+  .home-hero_subcategories-item:hover {
+    background: #f7f7ff !important;
+    color: var(--home-hero-blue) !important;
+    padding-left: 16px !important;
+  }
+
+  /*
+    CARUSEL DREAPTA
+    Înălțimea se setează automat din JS după înălțimea meniului.
+  */
+
+  .home-hero_right {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    height: var(--home-hero-dynamic-height) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    display: block !important;
+    position: relative !important;
+    z-index: 1 !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+    background: #f7f7f7 !important;
+  }
+
+  .home-hero_swiper {
+    position: relative !important;
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: var(--home-hero-dynamic-height) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+    border-radius: 0 0 8px 0 !important;
+
+    isolation: isolate !important;
+    line-height: 0 !important;
+    touch-action: pan-y !important;
+
+    background: #f7f7f7 !important;
+  }
+
+  .home-hero_swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 100% !important;
+    min-height: 100% !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+    border-radius: 0 !important;
+
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.55s ease;
+    will-change: transform;
+  }
+
+  .home-hero_slide {
+    flex: 0 0 100% !important;
+
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+
+    height: 100% !important;
+    min-height: 100% !important;
+
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+    border-radius: 0 !important;
+
+    line-height: 0 !important;
+  }
+
+  .home-hero_slide-link {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: hidden !important;
+    border-radius: 0 !important;
+
+    line-height: 0 !important;
+  }
+
+  .home-hero_slide-image,
+  .home-hero_slide-placeholder {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 100% !important;
+    max-height: 100% !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    object-fit: cover !important;
+    object-position: center center !important;
+
+    background: #f7f7f7 !important;
+
+    border-radius: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /*
+    DOTS CARUSEL
+  */
+
+  .home-hero_swiper-pagination {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 8px !important;
+    z-index: 50 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+
+    width: 100% !important;
+    height: auto !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    pointer-events: auto !important;
+    line-height: 1 !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .home-hero_pagination-dot {
+    display: block !important;
+
+    width: 8px !important;
+    min-width: 8px !important;
+    height: 8px !important;
+    min-height: 8px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+
+    background-color: rgba(225, 225, 225, 0.95) !important;
+    box-shadow: none !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    cursor: pointer !important;
+
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .home-hero_pagination-dot.is-active {
+    background-color: #ff9f43 !important;
+    transform: scale(1.08) !important;
+  }
+
+  /*
+    TABLETĂ / MOBIL
+  */
+
+  @media screen and (max-width: 989px) {
+    .section_home-hero.home-hero-page-fixed .global-padding,
+    .section_home-hero.home-hero-page-fixed .container-large,
+    .section_home-hero.home-hero-page-fixed .padding-section-medium {
+      max-width: none !important;
+      width: 100% !important;
+      padding: 0 !important;
+    }
+
+    .home-hero_wrapper {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      max-width: none !important;
+      border-top: 0 !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .home-hero_left {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+
+      height: auto !important;
+      min-height: auto !important;
+      max-height: none !important;
+
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 8px !important;
+
+      padding: 8px !important;
+
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+
+      border-left: 0 !important;
+      border-right: 0 !important;
+      border-bottom: 1px solid #eeeeee !important;
+      border-radius: 0 !important;
+
+      scrollbar-width: none;
+    }
+
+    .home-hero_left::-webkit-scrollbar {
+      display: none;
+    }
+
+    .home-hero_category {
+      flex: 0 0 auto !important;
+
+      width: auto !important;
+      min-width: auto !important;
+      max-width: 220px !important;
+
+      height: 38px !important;
+      min-height: 38px !important;
+      max-height: 38px !important;
+
+      padding: 0 14px !important;
+
+      border: 1px solid #eeeeee !important;
+      border-radius: 999px !important;
+
+      background: #ffffff !important;
+
+      font-size: 13px !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .home-hero_category:hover {
+      padding-left: 14px !important;
+    }
+
+    .home-hero_category-title {
+      font-size: 13px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .home-hero_category-icon {
+      width: 17px !important;
+      min-width: 17px !important;
+      height: 17px !important;
+      font-size: 15px !important;
+    }
+
+    .home-hero_category-arrow {
+      display: none !important;
+    }
+
+    .home-hero_subcategories-wrapper,
+    .home-hero_subcategories-wrapper.is-active {
+      display: none !important;
+    }
+
+    .home-hero_right {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    .home-hero_swiper {
+      width: 100% !important;
+
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+
+      aspect-ratio: 16 / 10 !important;
+      border-radius: 0 !important;
+    }
+
+    .home-hero_slide-image,
+    .home-hero_slide-placeholder {
+      object-fit: cover !important;
+      object-position: center center !important;
+    }
+
+    .home-hero_swiper-pagination {
+      bottom: 8px !important;
+    }
+
+    .home-hero_pagination-dot,
+    .home-hero_pagination-dot.is-active {
+      width: 8px !important;
+      min-width: 8px !important;
+      height: 8px !important;
+      min-height: 8px !important;
+    }
+  }
+</style>
+
 <script>
   (function () {
     const AUTOPLAY_DELAY = 4000;
@@ -34,6 +890,7 @@
         }
 
         const menuHeight = Math.ceil(menu.scrollHeight);
+
         section.style.setProperty(
           '--home-hero-dynamic-height',
           menuHeight + 'px'
@@ -247,6 +1104,7 @@
 
       setTimeout(syncHeroHeight, 250);
       setTimeout(syncHeroHeight, 750);
+      setTimeout(syncHeroHeight, 1200);
     }
 
     function initializeAllHomeHeroSections() {
@@ -277,3 +1135,45 @@
     );
   })();
 </script>
+
+{% schema %}
+{
+  "name": "Home Hero",
+  "tag": "section",
+  "class": "section_home-hero",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagine"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Hero",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
