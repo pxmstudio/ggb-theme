@@ -208,12 +208,13 @@
 
 <style>
   /*
-    CARUSEL FIXAT FINAL
-    - afișează o singură imagine centrată
-    - toate slide-urile rămân vizibile la swipe
-    - spațiul din jur se reduce real
-    - nav-ul rămâne peste imagine
-    - colțurile rotunde funcționează și pe desktop, și pe mobil
+    CARUSEL FINAL
+    - o singură imagine centrată
+    - toate slide-urile merg la swipe
+    - spațiul din jur este redus real
+    - imaginile sunt setate pe cover
+    - nav-ul este peste imagine
+    - colțurile rotunde funcționează pe desktop și mobil
   */
 
   .home-hero_right {
@@ -221,6 +222,7 @@
     --home-hero-carousel-radius: 24px;
 
     min-width: 0 !important;
+    width: 100% !important;
     height: auto !important;
     min-height: 0 !important;
     overflow: visible !important;
@@ -237,10 +239,11 @@
     width: var(--home-hero-carousel-width) !important;
     max-width: var(--home-hero-carousel-width) !important;
 
+    aspect-ratio: 1 / 1 !important;
+
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    aspect-ratio: auto !important;
 
     overflow: hidden !important;
     border-radius: var(--home-hero-carousel-radius) !important;
@@ -254,13 +257,13 @@
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    align-items: flex-start !important;
+    align-items: stretch !important;
 
     width: 100% !important;
     max-width: 100% !important;
 
-    height: auto !important;
-    min-height: 0 !important;
+    height: 100% !important;
+    min-height: 100% !important;
 
     overflow: visible !important;
     border-radius: 0 !important;
@@ -272,7 +275,7 @@
 
   .home-hero_slide {
     display: flex !important;
-    align-items: center !important;
+    align-items: stretch !important;
     justify-content: center !important;
 
     flex: 0 0 100% !important;
@@ -280,8 +283,8 @@
     min-width: 100% !important;
     max-width: 100% !important;
 
-    height: auto !important;
-    min-height: 0 !important;
+    height: 100% !important;
+    min-height: 100% !important;
 
     overflow: hidden !important;
     border-radius: var(--home-hero-carousel-radius) !important;
@@ -292,11 +295,11 @@
 
   .home-hero_slide-link {
     display: flex !important;
-    align-items: center !important;
+    align-items: stretch !important;
     justify-content: center !important;
 
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
 
     overflow: hidden !important;
     border-radius: var(--home-hero-carousel-radius) !important;
@@ -311,13 +314,16 @@
     width: 100% !important;
     max-width: 100% !important;
 
-    height: auto !important;
-    max-height: none !important;
+    height: 100% !important;
+    max-height: 100% !important;
 
     margin: 0 auto !important;
 
-    border-radius: var(--home-hero-carousel-radius) !important;
     object-fit: cover !important;
+    object-position: center center !important;
+
+    border-radius: var(--home-hero-carousel-radius) !important;
+    overflow: hidden !important;
   }
 
   /*
@@ -327,7 +333,7 @@
   .home-hero_swiper-pagination {
     position: absolute !important;
     right: 0 !important;
-    bottom: 14px !important;
+    bottom: 12px !important;
     left: 0 !important;
     z-index: 999 !important;
 
@@ -419,6 +425,8 @@
       width: var(--home-hero-carousel-width) !important;
       max-width: var(--home-hero-carousel-width) !important;
 
+      aspect-ratio: 1 / 1 !important;
+
       height: auto !important;
       min-height: 0 !important;
       max-height: none !important;
@@ -434,13 +442,13 @@
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: nowrap !important;
-      align-items: flex-start !important;
+      align-items: stretch !important;
 
       width: 100% !important;
       max-width: 100% !important;
 
-      height: auto !important;
-      min-height: 0 !important;
+      height: 100% !important;
+      min-height: 100% !important;
 
       overflow: visible !important;
       border-radius: 0 !important;
@@ -451,20 +459,25 @@
     }
 
     .home-hero_slide {
+      display: flex !important;
+      align-items: stretch !important;
+      justify-content: center !important;
+
       flex: 0 0 100% !important;
       width: 100% !important;
       min-width: 100% !important;
       max-width: 100% !important;
 
-      height: auto !important;
-      min-height: 0 !important;
+      height: 100% !important;
+      min-height: 100% !important;
 
       border-radius: var(--home-hero-carousel-radius) !important;
       overflow: hidden !important;
     }
 
     .home-hero_slide-link {
-      height: auto !important;
+      width: 100% !important;
+      height: 100% !important;
 
       border-radius: var(--home-hero-carousel-radius) !important;
       overflow: hidden !important;
@@ -475,22 +488,23 @@
       width: 100% !important;
       max-width: 100% !important;
 
-      height: auto !important;
-      max-height: none !important;
+      height: 100% !important;
+      max-height: 100% !important;
 
       display: block !important;
 
+      object-fit: cover !important;
+      object-position: center center !important;
+
       border-radius: var(--home-hero-carousel-radius) !important;
       overflow: hidden !important;
-
-      object-fit: cover !important;
     }
 
     .home-hero_swiper-pagination {
       position: absolute !important;
       left: 0 !important;
       right: 0 !important;
-      bottom: 12px !important;
+      bottom: 10px !important;
 
       z-index: 999 !important;
 
