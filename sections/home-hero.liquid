@@ -892,6 +892,75 @@
       min-height: 8px !important;
     }
   }
+
+  /*
+    FIX DOAR MOBIL
+    - elimină spațiul de dedesubtul caruselului
+    - oprește tăierea marginilor stânga/dreapta
+    - nu afectează desktop-ul
+  */
+
+  @media screen and (max-width: 989px) {
+    .section_home-hero.home-hero-page-fixed,
+    .section_home-hero.home-hero-page-fixed .global-padding,
+    .section_home-hero.home-hero-page-fixed .container-large,
+    .section_home-hero.home-hero-page-fixed .padding-section-medium,
+    .home-hero_wrapper,
+    .home-hero_right,
+    .home-hero_swiper,
+    .home-hero_swiper-wrapper,
+    .home-hero_slide,
+    .home-hero_slide-link {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+      min-height: 0 !important;
+      max-height: none !important;
+    }
+
+    .home-hero_right {
+      overflow: visible !important;
+    }
+
+    .home-hero_swiper {
+      aspect-ratio: auto !important;
+      line-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .home-hero_swiper-wrapper {
+      height: auto !important;
+      align-items: flex-start !important;
+    }
+
+    .home-hero_slide {
+      height: auto !important;
+      align-items: flex-start !important;
+    }
+
+    .home-hero_slide-link {
+      height: auto !important;
+      display: block !important;
+    }
+
+    .home-hero_slide-image,
+    .home-hero_slide-placeholder {
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+
+      display: block !important;
+
+      object-fit: contain !important;
+      object-position: center center !important;
+
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .home-hero_swiper-pagination {
+      bottom: 8px !important;
+    }
+  }
 </style>
 
 <script>
