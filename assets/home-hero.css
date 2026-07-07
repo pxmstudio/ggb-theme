@@ -97,7 +97,7 @@
 .home-hero_subcategories-inner {
   position: static;
   z-index: 2;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 0.75rem;
   display: flex;
   flex-direction: column;
