@@ -1,179 +1,1041 @@
-<link rel="stylesheet" href=" {{ 'home-hero.css' | asset_url }} ">
-<section class="section_home-hero home-hero-page-fixed" data-home-hero-section=" {{ section.id }} " >
-<div class="container-large">
-<div class="padding-section-medium">
-<div class="home-hero_wrapper">
-<h1 style="display: none;">gogobaby</h1>
-<!-- MENIU CATEGORII -->
-<div class="home-hero_left" data-home-hero-menu> 
-{% for link in linklists['main-menu'].links %}
- 
-{% unless forloop.first or forloop.last %}
- 
-{% assign title_downcase = link.title | downcase %}
- 
-{% assign category_emoji = '🛍️' %}
- 
-{% if title_downcase contains 'transport' %}
- 
-{% assign category_emoji = '🚚' %}
- 
-{% elsif title_downcase contains 'masa' or title_downcase contains 'masă' %}
- 
-{% assign category_emoji = '🍼' %}
- 
-{% elsif title_downcase contains 'camera' %}
- 
-{% assign category_emoji = '🛏️' %}
- 
-{% elsif title_downcase contains 'parinti' or title_downcase contains 'părinți' %}
- 
-{% assign category_emoji = '👨‍👩‍👧' %}
- 
-{% elsif title_downcase contains 'curat' or title_downcase contains 'sanatos' or title_downcase contains 'sănătos' %}
- 
-{% assign category_emoji = '🧼' %}
- 
-{% elsif title_downcase contains 'hainute' or title_downcase contains 'hăinuțe' or title_downcase contains 'incaltaminte' or title_downcase contains 'încălțăminte' %}
- 
-{% assign category_emoji = '👕' %}
- 
-{% elsif title_downcase contains 'exterior' %}
- 
-{% assign category_emoji = '🛝' %}
- 
-{% elsif title_downcase contains 'jucarii' or title_downcase contains 'jucării' or title_downcase contains 'jocuri' %}
- 
-{% assign category_emoji = '🧸' %}
- 
-{% elsif title_downcase contains 'cadouri' %}
- 
-{% assign category_emoji = '🎁' %}
- 
-{% elsif title_downcase contains 'plimbare' or title_downcase contains 'relaxare' %}
- 
-{% assign category_emoji = '🚲' %}
- 
-{% elsif title_downcase contains 'siguranta' or title_downcase contains 'siguranța' %}
- 
-{% assign category_emoji = '🛡️' %}
- 
-{% elsif title_downcase contains 'gradinita' or title_downcase contains 'grădinița' or title_downcase contains 'scoala' or title_downcase contains 'școala' %}
- 
-{% assign category_emoji = '🎒' %}
- 
-{% elsif title_downcase contains 'igiena' or title_downcase contains 'igienă' or title_downcase contains 'sănătate' %}
- 
-{% assign category_emoji = '🧴' %}
- 
-{% elsif title_downcase contains 'triciclete' or title_downcase contains 'biciclete' %}
- 
-{% assign category_emoji = '🚴' %}
- 
-{% elsif title_downcase contains 'vehicule' %}
- 
-{% assign category_emoji = '🛴' %}
- 
-{% elsif title_downcase contains 'resigilate' %}
- 
-{% assign category_emoji = '📦' %}
- 
-{% endif %}
- <a href=" {{ link.url }} " class="home-hero_category" data-home-hero-category data-category-name=" {{ link.title | escape }} " data-has-subcategories="
-{% if link.links.size > 0 %}
-true
-{% else %}
-false
-{% endif %}
-" >
-<span class="home-hero_category-icon" aria-hidden="true">  {{ category_emoji }}  </span>
-<h2 class="home-hero_category-title">  {{ link.title }}  </h2> 
-{% if link.links.size > 0 %}
- <svg class="home-hero_category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-<path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-</svg> 
-{% endif %}
- </a> 
-{% endunless %}
- 
-{% endfor %}
- <!-- SUBCATEGORII -->
-<div class="home-hero_subcategories-wrapper" data-home-hero-subcategories-wrapper >
-<div class="home-hero_subcategories-inner">
-<h3 class="home-hero_subcategories-title" data-home-hero-subcategories-title > Category name </h3>
-<div class="home-hero_subcategories-list" data-subcategories > 
-{% for link in linklists['main-menu'].links %}
- 
-{% if link.links.size > 0 %}
- <div class="subcategory-group hidden" data-subcategory-group data-category=" {{ link.title | escape }} " > 
-{% for childlink in link.links %}
- <a href=" {{ childlink.url }} " class="home-hero_subcategories-item" >  {{ childlink.title }}  </a> 
-{% endfor %}
- </div> 
-{% endif %}
- 
-{% endfor %}
- </div>
-</div>
-</div>
-</div>
-<!-- CARUSEL -->
-<div class="home-hero_right">
-<div class="home-hero_swiper" data-home-hero-carousel >
-<div class="home-hero_swiper-wrapper" data-home-hero-track > 
-{% for block in section.blocks %}
- 
-{% if block.type == 'slide' %}
- 
-{% assign image_loading = 'lazy' %}
- 
-{% if forloop.first %}
- 
-{% assign image_loading = 'eager' %}
- 
-{% endif %}
- <div class="home-hero_slide" data-home-hero-slide  {{ block.shopify_attributes }}  > 
-{% if block.settings.link != blank %}
- <a href=" {{ block.settings.link }} " class="home-hero_slide-link" > 
-{% endif %}
- 
-{% if block.settings.image != blank %}
- 
-{% assign image_alt = block.settings.image.alt | default: 'Banner promoțional' %}
- <img src=" {{ block.settings.image | image_url: width: 1400 }} " srcset="  {{ block.settings.image | image_url: width: 700 }}  700w,  {{ block.settings.image | image_url: width: 1000 }}  1000w,  {{ block.settings.image | image_url: width: 1400 }}  1400w,  {{ block.settings.image | image_url: width: 1800 }}  1800w,  {{ block.settings.image | image_url: width: 2200 }}  2200w " sizes="(min-width: 990px) 888px, 100vw" alt=" {{ image_alt | escape }} " class="home-hero_slide-image" loading=" {{ image_loading }} " width=" {{ block.settings.image.width }} " height=" {{ block.settings.image.height }} " > 
-{% else %}
-  {{ 'lifestyle-1' | placeholder_svg_tag: 'home-hero_slide-placeholder' }}  
-{% endif %}
- 
-{% if block.settings.link != blank %}
- </a> 
-{% endif %}
- </div> 
-{% endif %}
- 
-{% endfor %}
- </div>
-<div class="home-hero_swiper-pagination" data-home-hero-pagination aria-label="Navigare carusel" > 
-{% for block in section.blocks %}
- 
-{% if block.type == 'slide' %}
- <button type="button" class="home-hero_pagination-dot
-{% if forloop.first %}
- is-active
-{% endif %}
-" data-home-hero-dot data-slide-index=" {{ forloop.index0 }} " aria-label="Afișează imaginea  {{ forloop.index }} " ></button> 
-{% endif %}
- 
-{% endfor %}
- </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<link rel="stylesheet" href="{{ 'home-hero.css' | asset_url }}">
+
+<section class="section_home-hero home-hero-page-fixed" data-home-hero-section="{{ section.id }}">
+  <div class="container-large">
+    <div class="padding-section-medium">
+      <div class="home-hero_wrapper">
+        <h1 style="display: none;">gogobaby</h1>
+
+        <!-- MENIU CATEGORII -->
+        <div class="home-hero_left" data-home-hero-menu>
+          {% for link in linklists['main-menu'].links %}
+            {% unless forloop.first or forloop.last %}
+              {% assign title_downcase = link.title | downcase %}
+              {% assign category_icon = 'default' %}
+
+              {% if title_downcase contains 'transport' %}
+                {% assign category_icon = 'transport' %}
+              {% elsif title_downcase contains 'masa' or title_downcase contains 'masă' %}
+                {% assign category_icon = 'feeding' %}
+              {% elsif title_downcase contains 'camera' %}
+                {% assign category_icon = 'room' %}
+              {% elsif title_downcase contains 'parinti' or title_downcase contains 'părinți' %}
+                {% assign category_icon = 'parents' %}
+              {% elsif title_downcase contains 'curat' or title_downcase contains 'sanatos' or title_downcase contains 'sănătos' %}
+                {% assign category_icon = 'clean' %}
+              {% elsif title_downcase contains 'hainute' or title_downcase contains 'hăinuțe' or title_downcase contains 'incaltaminte' or title_downcase contains 'încălțăminte' %}
+                {% assign category_icon = 'clothes' %}
+              {% elsif title_downcase contains 'exterior' %}
+                {% assign category_icon = 'outdoor' %}
+              {% elsif title_downcase contains 'jucarii' or title_downcase contains 'jucării' or title_downcase contains 'jocuri' %}
+                {% assign category_icon = 'toys' %}
+              {% elsif title_downcase contains 'cadouri' %}
+                {% assign category_icon = 'gifts' %}
+              {% elsif title_downcase contains 'plimbare' or title_downcase contains 'relaxare' %}
+                {% assign category_icon = 'bike' %}
+              {% elsif title_downcase contains 'siguranta' or title_downcase contains 'siguranța' %}
+                {% assign category_icon = 'safety' %}
+              {% elsif title_downcase contains 'gradinita' or title_downcase contains 'grădinița' or title_downcase contains 'scoala' or title_downcase contains 'școala' %}
+                {% assign category_icon = 'school' %}
+              {% elsif title_downcase contains 'igiena' or title_downcase contains 'igienă' or title_downcase contains 'sănătate' %}
+                {% assign category_icon = 'hygiene' %}
+              {% elsif title_downcase contains 'triciclete' or title_downcase contains 'biciclete' %}
+                {% assign category_icon = 'bike' %}
+              {% elsif title_downcase contains 'vehicule' %}
+                {% assign category_icon = 'car' %}
+              {% elsif title_downcase contains 'resigilate' %}
+                {% assign category_icon = 'box' %}
+              {% endif %}
+
+              <a href="{{ link.url }}"
+                 class="home-hero_category"
+                 data-home-hero-category
+                 data-category-name="{{ link.title | escape }}"
+                 data-has-subcategories="{% if link.links.size > 0 %}true{% else %}false{% endif %}">
+                <span class="home-hero_category-icon" aria-hidden="true">
+                  {%- case category_icon -%}
+                    {%- when 'transport' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h1.6a1 1 0 0 1 .96.72L9 12"/><path d="M20 4a9 9 0 0 0-9 8h8a1 1 0 0 0 1-1V4z"/><path d="M9 12l-2 5"/><path d="M15 12v5"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+                    {%- when 'feeding' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v2.4c0 .5-.2 1-.55 1.35L8 8.2V20a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V8.2l-1.45-1.45A1.9 1.9 0 0 1 14 5.4V3"/><path d="M8 11h8"/><path d="M9 14.5h3.5"/></svg>
+                    {%- when 'room' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8v11"/><path d="M21 8v11"/><path d="M3 13h18"/><path d="M3 10h18"/><path d="M6 8V6"/><path d="M9.5 8V6"/><path d="M13 8V6"/><path d="M16.5 8V6"/></svg>
+                    {%- when 'parents' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.3a3.2 3.2 0 0 1 0 5.4"/><path d="M17 15.2A5.5 5.5 0 0 1 20.5 20"/></svg>
+                    {%- when 'clean' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3l1.7 4.3L17 9l-4.3 1.7L11 15l-1.7-4.3L5 9l4.3-1.7z"/><path d="M18 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>
+                    {%- when 'clothes' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3L5 5.5 3 9l3 1.5V20a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9.5L21 9l-2-3.5L15.5 3a3.5 3.5 0 0 1-7 0z"/></svg>
+                    {%- when 'outdoor' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                    {%- when 'toys' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="6" r="2"/><circle cx="17" cy="6" r="2"/><circle cx="12" cy="13" r="7"/><circle cx="9.5" cy="12" r=".6"/><circle cx="14.5" cy="12" r=".6"/><path d="M10.3 15.3a2.2 2.2 0 0 0 3.4 0"/></svg>
+                    {%- when 'gifts' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9"/><path d="M12 8v13"/><path d="M12 8S10.5 3 8 4.5 9.5 8 12 8z"/><path d="M12 8s1.5-5 4-3.5S14.5 8 12 8z"/></svg>
+                    {%- when 'bike' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-8h5l2.8 8"/><path d="M10 9l3 8"/><path d="M9 6h3l1 3"/></svg>
+                    {%- when 'safety' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                    {%- when 'school' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"/><path d="M9 8a3 3 0 0 1 6 0"/><path d="M6 13h12"/><path d="M10 13v3h4v-3"/></svg>
+                    {%- when 'hygiene' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>
+                    {%- when 'car' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 8l2 5"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1-1v-1H6.5v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="7" cy="15.5" r=".5"/><circle cx="17" cy="15.5" r=".5"/></svg>
+                    {%- when 'box' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4-9 4z"/><path d="M3 8v8l9 4 9-4V8"/><path d="M12 12v8"/></svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                  {%- endcase -%}
+                </span>
+                <h2 class="home-hero_category-title">{{ link.title }}</h2>
+                {% if link.links.size > 0 %}
+                  <svg class="home-hero_category-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                {% endif %}
+              </a>
+            {% endunless %}
+          {% endfor %}
+
+          <!-- SUBCATEGORII -->
+          <div class="home-hero_subcategories-wrapper" data-home-hero-subcategories-wrapper>
+            <div class="home-hero_subcategories-inner">
+              <h3 class="home-hero_subcategories-title" data-home-hero-subcategories-title>Category name</h3>
+              <div class="home-hero_subcategories-list" data-subcategories>
+                {% for link in linklists['main-menu'].links %}
+                  {% if link.links.size > 0 %}
+                    <div class="subcategory-group hidden" data-subcategory-group data-category="{{ link.title | escape }}">
+                      {% for childlink in link.links %}
+                        <a href="{{ childlink.url }}" class="home-hero_subcategories-item">{{ childlink.title }}</a>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARUSEL -->
+        <div class="home-hero_right">
+          <div class="home-hero_swiper" data-home-hero-carousel>
+            <div class="home-hero_swiper-wrapper" data-home-hero-track>
+              {% for block in section.blocks %}
+                {% if block.type == 'slide' %}
+                  {% assign image_loading = 'lazy' %}
+                  {% if forloop.first %}
+                    {% assign image_loading = 'eager' %}
+                  {% endif %}
+                  <div class="home-hero_slide" data-home-hero-slide {{ block.shopify_attributes }}>
+                    {% if block.settings.link != blank %}
+                      <a href="{{ block.settings.link }}" class="home-hero_slide-link">
+                    {% endif %}
+                    {% if block.settings.image != blank %}
+                      {% assign image_alt = block.settings.image.alt | default: 'Banner promoțional' %}
+                      <img src="{{ block.settings.image | image_url: width: 1400 }}"
+                           srcset="{{ block.settings.image | image_url: width: 700 }} 700w, {{ block.settings.image | image_url: width: 1000 }} 1000w, {{ block.settings.image | image_url: width: 1400 }} 1400w, {{ block.settings.image | image_url: width: 1800 }} 1800w, {{ block.settings.image | image_url: width: 2200 }} 2200w"
+                           sizes="(min-width: 990px) 888px, 100vw"
+                           alt="{{ image_alt | escape }}"
+                           class="home-hero_slide-image"
+                           loading="{{ image_loading }}"
+                           width="{{ block.settings.image.width }}"
+                           height="{{ block.settings.image.height }}">
+                    {% else %}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'home-hero_slide-placeholder' }}
+                    {% endif %}
+                    {% if block.settings.link != blank %}
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="home-hero_swiper-pagination" data-home-hero-pagination aria-label="Navigare carusel">
+              {% for block in section.blocks %}
+                {% if block.type == 'slide' %}
+                  <button type="button"
+                          class="home-hero_pagination-dot{% if forloop.first %} is-active{% endif %}"
+                          data-home-hero-dot
+                          data-slide-index="{{ forloop.index0 }}"
+                          aria-label="Afișează imaginea {{ forloop.index }}"></button>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<style> html, body { overflow-x: hidden; } .section_home-hero.home-hero-page-fixed { --home-hero-width: 1120px; --home-hero-menu-width: 232px; --home-hero-dynamic-height: auto; --home-hero-mobile-height: auto; --home-hero-subcategory-top: 0px; --home-hero-blue: #635bff; --home-hero-text: #5f5f5f; width: 100% !important; max-width: 100% !important; background: #ffffff !important; overflow: visible !important; margin: 0 !important; padding: 0 !important; border: 0 !important; outline: 0 !important; box-shadow: none !important; } .section_home-hero.home-hero-page-fixed .global-padding, .section_home-hero.home-hero-page-fixed .container-large, .section_home-hero.home-hero-page-fixed .padding-section-medium { width: 100% !important; margin-left: auto !important; margin-right: auto !important; padding: 0 !important; border: 0 !important; outline: 0 !important; box-shadow: none !important; } .section_home-hero.home-hero-page-fixed *, .section_home-hero.home-hero-page-fixed *::before, .section_home-hero.home-hero-page-fixed *::after { box-sizing: border-box !important; } .home-hero_wrapper { width: 100% !important; margin: 0 auto !important; padding: 0 !important; display: grid !important; grid-template-columns: var(--home-hero-menu-width) minmax(0, 1fr) !important; align-items: stretch !important; background: #ffffff !important; overflow: visible !important; border: 0 !important; outline: 0 !important; box-shadow: none !important; } /* MENIU STÂNGA */ .home-hero_left { position: relative !important; z-index: 90 !important; width: var(--home-hero-menu-width) !important; min-width: var(--home-hero-menu-width) !important; max-width: var(--home-hero-menu-width) !important; height: auto !important; min-height: 0 !important; max-height: none !important; background: #ffffff !important; border-top: 1px solid #eeeeee !important; border-left: 1px solid #eeeeee !important; border-right: 1px solid #e5e5e5 !important; border-bottom: 1px solid #e5e5e5 !important; display: flex !important; flex-direction: column !important; padding: 0 !important; margin: 0 !important; overflow: visible !important; border-radius: 0 0 8px 8px !important; outline: 0 !important; box-shadow: none !important; } .home-hero_category { width: 100% !important; height: 27px !important; min-height: 27px !important; max-height: 27px !important; display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 8px !important; padding: 0 8px 0 18px !important; margin: 0 !important; color: var(--home-hero-text) !important; background: #ffffff !important; text-decoration: none !important; border: 0 !important; outline: 0 !important; box-shadow: none !important; font-family: inherit !important; font-size: 11.5px !important; font-weight: 400 !important; line-height: 1 !important; overflow: hidden !important; transition: background-color 0.22s ease, color 0.22s ease, padding-left 0.22s ease; } .home-hero_category:hover { background: #f7f7ff !important; color: var(--home-hero-blue) !important; padding-left: 22px !important; } .home-hero_category-icon { width: 14px !important; min-width: 14px !important; max-width: 14px !important; height: 14px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 11px !important; line-height: 1 !important; overflow: hidden !important; } .home-hero_category-title { flex: 1 1 auto !important; min-width: 0 !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; color: inherit !important; font-family: inherit !important; font-size: 11.5px !important; font-weight: 400 !important; line-height: 1 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; } .home-hero_category-arrow { width: 11px !important; min-width: 11px !important; max-width: 11px !important; height: 11px !important; margin-left: auto !important; color: var(--home-hero-blue) !important; opacity: 0.75 !important; flex: 0 0 11px !important; } /* SUBCATEGORII LA HOVER */ .home-hero_subcategories-wrapper { display: none !important; position: absolute !important; top: var(--home-hero-subcategory-top) !important; left: 100% !important; z-index: 999 !important; width: 430px !important; height: auto !important; min-height: 160px !important; max-height: none !important; background: #ffffff !important; border: 1px solid #eeeeee !important; border-left: 0 !important; border-radius: 0 14px 14px 0 !important; box-shadow: 18px 0 35px rgba(0, 0, 0, 0.10) !important; padding: 28px 34px !important; margin: 0 !important; pointer-events: auto !important; overflow: visible !important; } .home-hero_subcategories-wrapper.is-active { display: block !important; } .home-hero_subcategories-inner { width: 100% !important; height: auto !important; min-height: 0 !important; } .home-hero_subcategories-title { margin: 0 0 22px 0 !important; padding: 0 !important; color: #111111 !important; font-family: inherit !important; font-size: 18px !important; font-weight: 700 !important; line-height: 1.25 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; } .home-hero_subcategories-list { display: block !important; width: 100% !important; height: auto !important; min-height: 0 !important; } .subcategory-group.hidden { display: none !important; } .subcategory-group:not(.hidden) { display: block !important; } .home-hero_subcategories-item { display: block !important; width: 100% !important; padding: 9px 0 !important; margin: 0 !important; color: #575757 !important; background: transparent !important; border-radius: 8px !important; text-decoration: none !important; font-family: inherit !important; font-size: 14px !important; font-weight: 400 !important; line-height: 1.35 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease; } .home-hero_subcategories-item:hover { background: transparent !important; color: var(--home-hero-blue) !important; padding-left: 8px !important; } /* CARUSEL DREAPTA DESKTOP */ .home-hero_right { width: 100% !important; min-width: 0 !important; height: var(--home-hero-dynamic-height) !important; min-height: 0 !important; max-height: none !important; display: block !important; position: relative !important; z-index: 1 !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; background: #f7f7f7 !important; border: 0 !important; outline: 0 !important; box-shadow: none !important; } .home-hero_swiper { position: relative !important; display: block !important; width: 100% !important; max-width: 100% !important; height: var(--home-hero-dynamic-height) !important; min-height: 0 !important; max-height: none !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; border: 0 !important; border-radius: 12px 12px 8px 0 !important; isolation: isolate !important; line-height: 0 !important; touch-action: pan-y !important; background: #f7f7f7 !important; outline: 0 !important; box-shadow: none !important; } .home-hero_swiper-wrapper { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: stretch !important; width: 100% !important; max-width: 100% !important; height: 100% !important; min-height: 100% !important; padding: 0 !important; margin: 0 !important; overflow: visible !important; border: 0 !important; border-radius: 0 !important; transform: translate3d(0, 0, 0); transition: transform 0.55s ease; will-change: transform; } .home-hero_slide { flex: 0 0 100% !important; width: 100% !important; min-width: 100% !important; max-width: 100% !important; height: 100% !important; min-height: 100% !important; display: flex !important; align-items: stretch !important; justify-content: center !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; border: 0 !important; border-radius: 0 !important; line-height: 0 !important; } .home-hero_slide-link { display: block !important; width: 100% !important; height: 100% !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; border: 0 !important; border-radius: 0 !important; line-height: 0 !important; } .home-hero_slide-image, .home-hero_slide-placeholder { display: block !important; width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100% !important; padding: 0 !important; margin: 0 !important; object-fit: cover !important; object-position: center center !important; background: #f7f7f7 !important; border: 0 !important; border-radius: 0 !important; overflow: hidden !important; outline: 0 !important; box-shadow: none !important; } .home-hero_swiper-pagination { position: absolute !important; left: 0 !important; right: 0 !important; bottom: 8px !important; z-index: 50 !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 7px !important; width: 100% !important; height: auto !important; padding: 0 !important; margin: 0 !important; pointer-events: auto !important; line-height: 1 !important; opacity: 1 !important; visibility: visible !important; } .home-hero_pagination-dot { display: block !important; width: 8px !important; min-width: 8px !important; height: 8px !important; min-height: 8px !important; padding: 0 !important; margin: 0 !important; border: 0 !important; border-radius: 999px !important; background-color: rgba(225, 225, 225, 0.95) !important; box-shadow: none !important; opacity: 1 !important; visibility: visible !important; cursor: pointer !important; transition: background-color 0.25s ease, transform 0.25s ease; } .home-hero_pagination-dot.is-active { background-color: #ff9f43 !important; transform: scale(1.08) !important; } .section_home-hero.home-hero-page-fixed::before, .section_home-hero.home-hero-page-fixed::after, .home-hero_wrapper::before, .home-hero_wrapper::after, .home-hero_swiper::before, .home-hero_swiper::after { display: none !important; content: none !important; } /* MOBIL */ @media screen and (max-width: 989px) { .section_home-hero.home-hero-page-fixed { --home-hero-subcategory-top: 0px; } .section_home-hero.home-hero-page-fixed .global-padding, .section_home-hero.home-hero-page-fixed .container-large, .section_home-hero.home-hero-page-fixed .padding-section-medium { max-width: none !important; width: 100% !important; padding: 0 !important; } .home-hero_wrapper { display: flex !important; flex-direction: column !important; width: 100% !important; max-width: none !important; border: 0 !important; border-radius: 0 !important; overflow: hidden !important; } .home-hero_left { width: 100% !important; min-width: 100% !important; max-width: 100% !important; height: auto !important; min-height: auto !important; max-height: none !important; display: flex !important; flex-direction: row !important; align-items: center !important; gap: 8px !important; padding: 8px !important; overflow-x: auto !important; overflow-y: hidden !important; border-left: 0 !important; border-right: 0 !important; border-top: 1px solid #eeeeee !important; border-bottom: 1px solid #eeeeee !important; border-radius: 0 !important; scrollbar-width: none; } .home-hero_left::-webkit-scrollbar { display: none; } .home-hero_category { flex: 0 0 auto !important; width: auto !important; min-width: auto !important; max-width: 220px !important; height: 38px !important; min-height: 38px !important; max-height: 38px !important; padding: 0 14px !important; border: 1px solid #eeeeee !important; border-radius: 999px !important; background: #ffffff !important; font-size: 13px !important; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important; } .home-hero_category:hover { padding-left: 14px !important; } .home-hero_category-title { font-size: 13px !important; overflow: hidden !important; text-overflow: ellipsis !important; } .home-hero_category-icon { width: 17px !important; min-width: 17px !important; height: 17px !important; font-size: 15px !important; } .home-hero_category-arrow { display: none !important; } .home-hero_subcategories-wrapper, .home-hero_subcategories-wrapper.is-active { display: none !important; } /* FIX FINAL DOAR MOBIL - elimină spațiul mare de sub carusel - oprește tăierea marginilor stânga/dreapta - înălțimea caruselului devine înălțimea imaginii active */ .section_home-hero.home-hero-page-fixed, .section_home-hero.home-hero-page-fixed .global-padding, .section_home-hero.home-hero-page-fixed .container-large, .section_home-hero.home-hero-page-fixed .padding-section-medium, .home-hero_wrapper, .home-hero_right { margin-bottom: 0 !important; padding-bottom: 0 !important; } .home-hero_right { width: 100% !important; height: var(--home-hero-mobile-height, auto) !important; min-height: 0 !important; max-height: none !important; overflow: hidden !important; } .home-hero_swiper { width: 100% !important; height: var(--home-hero-mobile-height, auto) !important; min-height: 0 !important; max-height: none !important; aspect-ratio: auto !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; border-radius: 0 !important; line-height: 0 !important; } .home-hero_swiper-wrapper { height: var(--home-hero-mobile-height, auto) !important; min-height: 0 !important; max-height: none !important; align-items: flex-start !important; } .home-hero_slide { height: var(--home-hero-mobile-height, auto) !important; min-height: 0 !important; max-height: none !important; align-items: flex-start !important; overflow: hidden !important; } .home-hero_slide-link { height: var(--home-hero-mobile-height, auto) !important; min-height: 0 !important; max-height: none !important; display: block !important; overflow: hidden !important; } .home-hero_slide-image, .home-hero_slide-placeholder { width: 100% !important; height: auto !important; max-height: none !important; display: block !important; object-fit: contain !important; object-position: center center !important; margin: 0 !important; padding: 0 !important; } .home-hero_swiper-pagination { bottom: 8px !important; } .home-hero_pagination-dot, .home-hero_pagination-dot.is-active { width: 8px !important; min-width: 8px !important; height: 8px !important; min-height: 8px !important; } } </style>
-<script> (function () { const AUTOPLAY_DELAY = 4000; function initializeHomeHero(section) { if (!section || section.dataset.homeHeroInitialized === 'true') { return; } section.dataset.homeHeroInitialized = 'true'; const carousel = section.querySelector('[data-home-hero-carousel]'); const track = section.querySelector('[data-home-hero-track]'); const slides = Array.from( section.querySelectorAll('[data-home-hero-slide]') ); const dots = Array.from( section.querySelectorAll('[data-home-hero-dot]') ); const menu = section.querySelector('[data-home-hero-menu]'); let currentIndex = 0; let autoplayTimer = null; let touchStartX = 0; let touchEndX = 0; function syncHeroHeight() { if (!menu) return; if (window.innerWidth < 990) { section.style.setProperty('--home-hero-dynamic-height', 'auto'); section.style.setProperty('--home-hero-subcategory-top', '0px'); return; } const menuHeight = Math.ceil(menu.scrollHeight); section.style.setProperty( '--home-hero-dynamic-height', menuHeight + 'px' ); } function syncMobileCarouselHeight() { if (window.innerWidth >= 990) { section.style.removeProperty('--home-hero-mobile-height'); return; } const activeSlide = slides[currentIndex]; if (!activeSlide) return; const activeImage = activeSlide.querySelector( '.home-hero_slide-image, .home-hero_slide-placeholder' ); if (!activeImage) return; const imageHeight = Math.ceil(activeImage.getBoundingClientRect().height); if (imageHeight > 0) { section.style.setProperty( '--home-hero-mobile-height', imageHeight + 'px' ); } } function setSubcategoryPosition(category) { if (!category || !menu || window.innerWidth < 990) { section.style.setProperty('--home-hero-subcategory-top', '0px'); return; } const categoryTop = Math.max(0, Math.floor(category.offsetTop)); section.style.setProperty( '--home-hero-subcategory-top', categoryTop + 'px' ); } function updateCarousel(nextIndex) { if (!track || slides.length === 0) { return; } if (nextIndex >= slides.length) { currentIndex = 0; } else if (nextIndex < 0) { currentIndex = slides.length - 1; } else { currentIndex = nextIndex; } track.style.transform = 'translate3d(-' + currentIndex * 100 + '%, 0, 0)'; dots.forEach(function (dot, index) { const isActive = index === currentIndex; dot.classList.toggle('is-active', isActive); dot.setAttribute( 'aria-current', isActive ? 'true' : 'false' ); }); syncMobileCarouselHeight(); } function stopAutoplay() { if (autoplayTimer) { window.clearInterval(autoplayTimer); autoplayTimer = null; } } function startAutoplay() { stopAutoplay(); if (slides.length <= 1) { return; } autoplayTimer = window.setInterval(function () { updateCarousel(currentIndex + 1); }, AUTOPLAY_DELAY); } dots.forEach(function (dot) { dot.addEventListener('click', function () { const nextIndex = Number(dot.dataset.slideIndex); updateCarousel(nextIndex); startAutoplay(); }); }); if (carousel) { carousel.addEventListener('mouseenter', stopAutoplay); carousel.addEventListener('mouseleave', startAutoplay); carousel.addEventListener( 'touchstart', function (event) { touchStartX = event.touches[0].clientX; touchEndX = touchStartX; stopAutoplay(); }, { passive: true } ); carousel.addEventListener( 'touchmove', function (event) { touchEndX = event.touches[0].clientX; }, { passive: true } ); carousel.addEventListener('touchend', function () { const difference = touchStartX - touchEndX; if (Math.abs(difference) > 45) { if (difference > 0) { updateCarousel(currentIndex + 1); } else { updateCarousel(currentIndex - 1); } } startAutoplay(); }); } const subcategoriesWrapper = section.querySelector( '[data-home-hero-subcategories-wrapper]' ); const subcategoriesTitle = section.querySelector( '[data-home-hero-subcategories-title]' ); const categories = Array.from( section.querySelectorAll('[data-home-hero-category]') ); const groups = Array.from( section.querySelectorAll('[data-subcategory-group]') ); let closeTimer = null; function closeSubcategories() { if (!subcategoriesWrapper) { return; } subcategoriesWrapper.classList.remove('is-active'); groups.forEach(function (group) { group.classList.add('hidden'); }); } function openSubcategories(category) { if ( window.innerWidth < 990 || category.dataset.hasSubcategories !== 'true' ) { closeSubcategories(); return; } setSubcategoryPosition(category); const categoryName = category.dataset.categoryName; if (subcategoriesTitle) { subcategoriesTitle.textContent = categoryName; } groups.forEach(function (group) { const isCurrent = group.dataset.category === categoryName; group.classList.toggle('hidden', !isCurrent); }); if (subcategoriesWrapper) { subcategoriesWrapper.classList.add('is-active'); } } categories.forEach(function (category) { category.addEventListener('mouseenter', function () { if (closeTimer) { window.clearTimeout(closeTimer); closeTimer = null; } openSubcategories(category); }); category.addEventListener('focus', function () { openSubcategories(category); }); }); if (menu) { menu.addEventListener('mouseleave', function () { closeTimer = window.setTimeout(closeSubcategories, 120); }); menu.addEventListener('mouseenter', function () { if (closeTimer) { window.clearTimeout(closeTimer); closeTimer = null; } }); } if (subcategoriesWrapper) { subcategoriesWrapper.addEventListener('mouseenter', function () { if (closeTimer) { window.clearTimeout(closeTimer); closeTimer = null; } }); subcategoriesWrapper.addEventListener('mouseleave', function () { closeTimer = window.setTimeout(closeSubcategories, 120); }); } slides.forEach(function (slide) { const img = slide.querySelector('.home-hero_slide-image'); if (img) { img.addEventListener('load', function () { syncMobileCarouselHeight(); }); } }); syncHeroHeight(); updateCarousel(0); syncMobileCarouselHeight(); startAutoplay(); window.addEventListener('resize', function () { syncHeroHeight(); updateCarousel(currentIndex); syncMobileCarouselHeight(); }); window.addEventListener('load', function () { syncHeroHeight(); updateCarousel(currentIndex); syncMobileCarouselHeight(); }); setTimeout(syncHeroHeight, 250); setTimeout(syncHeroHeight, 750); setTimeout(syncHeroHeight, 1200); setTimeout(syncMobileCarouselHeight, 250); setTimeout(syncMobileCarouselHeight, 750); setTimeout(syncMobileCarouselHeight, 1200); } function initializeAllHomeHeroSections() { document .querySelectorAll('[data-home-hero-section]') .forEach(initializeHomeHero); } if (document.readyState === 'loading') { document.addEventListener( 'DOMContentLoaded', initializeAllHomeHeroSections ); } else { initializeAllHomeHeroSections(); } document.addEventListener( 'shopify:section:load', function (event) { const section = event.target.matches('[data-home-hero-section]') ? event.target : event.target.querySelector('[data-home-hero-section]'); initializeHomeHero(section); } ); })(); </script> 
+
+<style>
+  html, body { overflow-x: hidden; }
+
+  .section_home-hero.home-hero-page-fixed {
+    --home-hero-width: 1120px;
+    --home-hero-menu-width: 244px;
+    --home-hero-dynamic-height: auto;
+    --home-hero-mobile-height: auto;
+    --home-hero-subcategory-top: 0px;
+    --home-hero-blue: #635bff;
+    --home-hero-blue-soft: #f4f3ff;
+    --home-hero-text: #4b4b4b;
+    --home-hero-icon: #9aa0ac;
+    --home-hero-border: #ececf1;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .section_home-hero.home-hero-page-fixed .global-padding,
+  .section_home-hero.home-hero-page-fixed .container-large,
+  .section_home-hero.home-hero-page-fixed .padding-section-medium {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .section_home-hero.home-hero-page-fixed *,
+  .section_home-hero.home-hero-page-fixed *::before,
+  .section_home-hero.home-hero-page-fixed *::after {
+    box-sizing: border-box !important;
+  }
+
+  .home-hero_wrapper {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: var(--home-hero-menu-width) minmax(0, 1fr) !important;
+    align-items: stretch !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* MENIU STÂNGA */
+  .home-hero_left {
+    position: relative !important;
+    z-index: 90 !important;
+    width: var(--home-hero-menu-width) !important;
+    min-width: var(--home-hero-menu-width) !important;
+    max-width: var(--home-hero-menu-width) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    background: #ffffff !important;
+    border: 1px solid var(--home-hero-border) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 6px !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    border-radius: 0 0 12px 12px !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .home-hero_category {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 11px !important;
+    padding: 0 10px 0 12px !important;
+    margin: 0 !important;
+    color: var(--home-hero-text) !important;
+    background: #ffffff !important;
+    text-decoration: none !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    border-radius: 9px !important;
+    font-family: inherit !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    overflow: hidden !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .home-hero_category:hover {
+    background: var(--home-hero-blue-soft) !important;
+    color: var(--home-hero-blue) !important;
+  }
+
+  .home-hero_category-icon {
+    width: 20px !important;
+    min-width: 20px !important;
+    max-width: 20px !important;
+    height: 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--home-hero-icon) !important;
+    transition: color 0.2s ease;
+    overflow: visible !important;
+  }
+
+  .home-hero_category:hover .home-hero_category-icon {
+    color: var(--home-hero-blue) !important;
+  }
+
+  .home-hero_category-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+    display: block !important;
+  }
+
+  .home-hero_category-title {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .home-hero_category-arrow {
+    width: 13px !important;
+    min-width: 13px !important;
+    max-width: 13px !important;
+    height: 13px !important;
+    margin-left: auto !important;
+    color: currentColor !important;
+    opacity: 0 !important;
+    transform: translateX(-4px) !important;
+    flex: 0 0 13px !important;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .home-hero_category:hover .home-hero_category-arrow {
+    opacity: 0.85 !important;
+    transform: translateX(0) !important;
+  }
+
+  /* SUBCATEGORII LA HOVER */
+  .home-hero_subcategories-wrapper {
+    display: none !important;
+    position: absolute !important;
+    top: var(--home-hero-subcategory-top) !important;
+    left: calc(100% + 8px) !important;
+    z-index: 999 !important;
+    width: 470px !important;
+    height: auto !important;
+    min-height: 180px !important;
+    max-height: none !important;
+    background: #ffffff !important;
+    border: 1px solid var(--home-hero-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 22px 48px rgba(20, 20, 43, 0.12) !important;
+    padding: 26px 30px !important;
+    margin: 0 !important;
+    pointer-events: auto !important;
+    overflow: visible !important;
+  }
+
+  .home-hero_subcategories-wrapper.is-active {
+    display: block !important;
+  }
+
+  .home-hero_subcategories-inner {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .home-hero_subcategories-title {
+    margin: 0 0 18px 0 !important;
+    padding: 0 0 14px 0 !important;
+    border-bottom: 1px solid var(--home-hero-border) !important;
+    color: #14142b !important;
+    font-family: inherit !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .home-hero_subcategories-list {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .subcategory-group.hidden {
+    display: none !important;
+  }
+
+  .subcategory-group:not(.hidden) {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2px 18px !important;
+    width: 100% !important;
+  }
+
+  .home-hero_subcategories-item {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 9px 10px !important;
+    margin: 0 !important;
+    color: #565672 !important;
+    background: transparent !important;
+    border-radius: 9px !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    transition: background-color 0.18s ease, color 0.18s ease;
+  }
+
+  .home-hero_subcategories-item:hover {
+    background: var(--home-hero-blue-soft) !important;
+    color: var(--home-hero-blue) !important;
+  }
+
+  /* CARUSEL DREAPTA DESKTOP */
+  .home-hero_right {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: var(--home-hero-dynamic-height) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    display: block !important;
+    position: relative !important;
+    z-index: 1 !important;
+    padding: 0 !important;
+    margin: 0 0 0 16px !important;
+    overflow: hidden !important;
+    background: #f7f7f7 !important;
+    border-radius: 14px !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .home-hero_swiper {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: var(--home-hero-dynamic-height) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 14px !important;
+    isolation: isolate !important;
+    line-height: 0 !important;
+    touch-action: pan-y !important;
+    background: #f7f7f7 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .home-hero_swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.55s ease;
+    will-change: transform;
+  }
+
+  .home-hero_slide {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    line-height: 0 !important;
+  }
+
+  .home-hero_slide-link {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    line-height: 0 !important;
+  }
+
+  .home-hero_slide-image,
+  .home-hero_slide-placeholder {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    background: #f7f7f7 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .home-hero_swiper-pagination {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 12px !important;
+    z-index: 50 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: auto !important;
+    line-height: 1 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .home-hero_pagination-dot {
+    display: block !important;
+    width: 8px !important;
+    min-width: 8px !important;
+    height: 8px !important;
+    min-height: 8px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    cursor: pointer !important;
+    transition: width 0.25s ease, background-color 0.25s ease;
+  }
+
+  .home-hero_pagination-dot.is-active {
+    width: 22px !important;
+    background-color: #ff9f43 !important;
+  }
+
+  .section_home-hero.home-hero-page-fixed::before,
+  .section_home-hero.home-hero-page-fixed::after,
+  .home-hero_wrapper::before,
+  .home-hero_wrapper::after,
+  .home-hero_swiper::before,
+  .home-hero_swiper::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* MOBIL */
+  @media screen and (max-width: 989px) {
+    .section_home-hero.home-hero-page-fixed {
+      --home-hero-subcategory-top: 0px;
+    }
+
+    .section_home-hero.home-hero-page-fixed .global-padding,
+    .section_home-hero.home-hero-page-fixed .container-large,
+    .section_home-hero.home-hero-page-fixed .padding-section-medium {
+      max-width: none !important;
+      width: 100% !important;
+      padding: 0 !important;
+    }
+
+    .home-hero_wrapper {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      max-width: none !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .home-hero_left {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      min-height: auto !important;
+      max-height: none !important;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 8px !important;
+      padding: 10px !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      border-left: 0 !important;
+      border-right: 0 !important;
+      border-top: 1px solid var(--home-hero-border) !important;
+      border-bottom: 1px solid var(--home-hero-border) !important;
+      border-radius: 0 !important;
+      scrollbar-width: none;
+    }
+
+    .home-hero_left::-webkit-scrollbar {
+      display: none;
+    }
+
+    .home-hero_category {
+      flex: 0 0 auto !important;
+      width: auto !important;
+      min-width: auto !important;
+      max-width: 220px !important;
+      min-height: 40px !important;
+      height: 40px !important;
+      padding: 0 15px !important;
+      gap: 8px !important;
+      border: 1px solid var(--home-hero-border) !important;
+      border-radius: 999px !important;
+      background: #ffffff !important;
+      font-size: 13px !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .home-hero_category-title {
+      font-size: 13px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .home-hero_category-icon {
+      width: 18px !important;
+      min-width: 18px !important;
+      height: 18px !important;
+    }
+
+    .home-hero_category-icon svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+
+    .home-hero_category-arrow {
+      display: none !important;
+    }
+
+    .home-hero_subcategories-wrapper,
+    .home-hero_subcategories-wrapper.is-active {
+      display: none !important;
+    }
+
+    /* FIX FINAL DOAR MOBIL */
+    .section_home-hero.home-hero-page-fixed,
+    .section_home-hero.home-hero-page-fixed .global-padding,
+    .section_home-hero.home-hero-page-fixed .container-large,
+    .section_home-hero.home-hero-page-fixed .padding-section-medium,
+    .home-hero_wrapper,
+    .home-hero_right {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .home-hero_right {
+      width: 100% !important;
+      height: var(--home-hero-mobile-height, auto) !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      border-radius: 0 !important;
+    }
+
+    .home-hero_swiper {
+      width: 100% !important;
+      height: var(--home-hero-mobile-height, auto) !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      aspect-ratio: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      border-radius: 0 !important;
+      line-height: 0 !important;
+    }
+
+    .home-hero_swiper-wrapper {
+      height: var(--home-hero-mobile-height, auto) !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      align-items: flex-start !important;
+    }
+
+    .home-hero_slide {
+      height: var(--home-hero-mobile-height, auto) !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      align-items: flex-start !important;
+      overflow: hidden !important;
+    }
+
+    .home-hero_slide-link {
+      height: var(--home-hero-mobile-height, auto) !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      display: block !important;
+      overflow: hidden !important;
+    }
+
+    .home-hero_slide-image,
+    .home-hero_slide-placeholder {
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      display: block !important;
+      object-fit: contain !important;
+      object-position: center center !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .home-hero_swiper-pagination {
+      bottom: 8px !important;
+    }
+
+    .home-hero_pagination-dot {
+      width: 8px !important;
+      min-width: 8px !important;
+      height: 8px !important;
+      min-height: 8px !important;
+    }
+
+    .home-hero_pagination-dot.is-active {
+      width: 20px !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const AUTOPLAY_DELAY = 4000;
+
+    function initializeHomeHero(section) {
+      if (!section || section.dataset.homeHeroInitialized === 'true') {
+        return;
+      }
+      section.dataset.homeHeroInitialized = 'true';
+
+      const carousel = section.querySelector('[data-home-hero-carousel]');
+      const track = section.querySelector('[data-home-hero-track]');
+      const slides = Array.from(section.querySelectorAll('[data-home-hero-slide]'));
+      const dots = Array.from(section.querySelectorAll('[data-home-hero-dot]'));
+      const menu = section.querySelector('[data-home-hero-menu]');
+
+      let currentIndex = 0;
+      let autoplayTimer = null;
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      function syncHeroHeight() {
+        if (!menu) return;
+        if (window.innerWidth < 990) {
+          section.style.setProperty('--home-hero-dynamic-height', 'auto');
+          section.style.setProperty('--home-hero-subcategory-top', '0px');
+          return;
+        }
+        const menuHeight = Math.ceil(menu.scrollHeight);
+        section.style.setProperty('--home-hero-dynamic-height', menuHeight + 'px');
+      }
+
+      function syncMobileCarouselHeight() {
+        if (window.innerWidth >= 990) {
+          section.style.removeProperty('--home-hero-mobile-height');
+          return;
+        }
+        const activeSlide = slides[currentIndex];
+        if (!activeSlide) return;
+        const activeImage = activeSlide.querySelector('.home-hero_slide-image, .home-hero_slide-placeholder');
+        if (!activeImage) return;
+        const imageHeight = Math.ceil(activeImage.getBoundingClientRect().height);
+        if (imageHeight > 0) {
+          section.style.setProperty('--home-hero-mobile-height', imageHeight + 'px');
+        }
+      }
+
+      function setSubcategoryPosition(category) {
+        if (!category || !menu || window.innerWidth < 990) {
+          section.style.setProperty('--home-hero-subcategory-top', '0px');
+          return;
+        }
+        const categoryTop = Math.max(0, Math.floor(category.offsetTop));
+        section.style.setProperty('--home-hero-subcategory-top', categoryTop + 'px');
+      }
+
+      function updateCarousel(nextIndex) {
+        if (!track || slides.length === 0) {
+          return;
+        }
+        if (nextIndex >= slides.length) {
+          currentIndex = 0;
+        } else if (nextIndex < 0) {
+          currentIndex = slides.length - 1;
+        } else {
+          currentIndex = nextIndex;
+        }
+        track.style.transform = 'translate3d(-' + currentIndex * 100 + '%, 0, 0)';
+        dots.forEach(function (dot, index) {
+          const isActive = index === currentIndex;
+          dot.classList.toggle('is-active', isActive);
+          dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
+        syncMobileCarouselHeight();
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          window.clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        if (slides.length <= 1) {
+          return;
+        }
+        autoplayTimer = window.setInterval(function () {
+          updateCarousel(currentIndex + 1);
+        }, AUTOPLAY_DELAY);
+      }
+
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          const nextIndex = Number(dot.dataset.slideIndex);
+          updateCarousel(nextIndex);
+          startAutoplay();
+        });
+      });
+
+      if (carousel) {
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+        carousel.addEventListener('touchstart', function (event) {
+          touchStartX = event.touches[0].clientX;
+          touchEndX = touchStartX;
+          stopAutoplay();
+        }, { passive: true });
+        carousel.addEventListener('touchmove', function (event) {
+          touchEndX = event.touches[0].clientX;
+        }, { passive: true });
+        carousel.addEventListener('touchend', function () {
+          const difference = touchStartX - touchEndX;
+          if (Math.abs(difference) > 45) {
+            if (difference > 0) {
+              updateCarousel(currentIndex + 1);
+            } else {
+              updateCarousel(currentIndex - 1);
+            }
+          }
+          startAutoplay();
+        });
+      }
+
+      const subcategoriesWrapper = section.querySelector('[data-home-hero-subcategories-wrapper]');
+      const subcategoriesTitle = section.querySelector('[data-home-hero-subcategories-title]');
+      const categories = Array.from(section.querySelectorAll('[data-home-hero-category]'));
+      const groups = Array.from(section.querySelectorAll('[data-subcategory-group]'));
+      let closeTimer = null;
+
+      function closeSubcategories() {
+        if (!subcategoriesWrapper) {
+          return;
+        }
+        subcategoriesWrapper.classList.remove('is-active');
+        groups.forEach(function (group) {
+          group.classList.add('hidden');
+        });
+      }
+
+      function openSubcategories(category) {
+        if (window.innerWidth < 990 || category.dataset.hasSubcategories !== 'true') {
+          closeSubcategories();
+          return;
+        }
+        setSubcategoryPosition(category);
+        const categoryName = category.dataset.categoryName;
+        if (subcategoriesTitle) {
+          subcategoriesTitle.textContent = categoryName;
+        }
+        groups.forEach(function (group) {
+          const isCurrent = group.dataset.category === categoryName;
+          group.classList.toggle('hidden', !isCurrent);
+        });
+        if (subcategoriesWrapper) {
+          subcategoriesWrapper.classList.add('is-active');
+        }
+      }
+
+      categories.forEach(function (category) {
+        category.addEventListener('mouseenter', function () {
+          if (closeTimer) {
+            window.clearTimeout(closeTimer);
+            closeTimer = null;
+          }
+          openSubcategories(category);
+        });
+        category.addEventListener('focus', function () {
+          openSubcategories(category);
+        });
+      });
+
+      if (menu) {
+        menu.addEventListener('mouseleave', function () {
+          closeTimer = window.setTimeout(closeSubcategories, 120);
+        });
+        menu.addEventListener('mouseenter', function () {
+          if (closeTimer) {
+            window.clearTimeout(closeTimer);
+            closeTimer = null;
+          }
+        });
+      }
+
+      if (subcategoriesWrapper) {
+        subcategoriesWrapper.addEventListener('mouseenter', function () {
+          if (closeTimer) {
+            window.clearTimeout(closeTimer);
+            closeTimer = null;
+          }
+        });
+        subcategoriesWrapper.addEventListener('mouseleave', function () {
+          closeTimer = window.setTimeout(closeSubcategories, 120);
+        });
+      }
+
+      slides.forEach(function (slide) {
+        const img = slide.querySelector('.home-hero_slide-image');
+        if (img) {
+          img.addEventListener('load', function () {
+            syncMobileCarouselHeight();
+          });
+        }
+      });
+
+      syncHeroHeight();
+      updateCarousel(0);
+      syncMobileCarouselHeight();
+      startAutoplay();
+
+      window.addEventListener('resize', function () {
+        syncHeroHeight();
+        updateCarousel(currentIndex);
+        syncMobileCarouselHeight();
+      });
+
+      window.addEventListener('load', function () {
+        syncHeroHeight();
+        updateCarousel(currentIndex);
+        syncMobileCarouselHeight();
+      });
+
+      setTimeout(syncHeroHeight, 250);
+      setTimeout(syncHeroHeight, 750);
+      setTimeout(syncHeroHeight, 1200);
+      setTimeout(syncMobileCarouselHeight, 250);
+      setTimeout(syncMobileCarouselHeight, 750);
+      setTimeout(syncMobileCarouselHeight, 1200);
+    }
+
+    function initializeAllHomeHeroSections() {
+      document.querySelectorAll('[data-home-hero-section]').forEach(initializeHomeHero);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeAllHomeHeroSections);
+    } else {
+      initializeAllHomeHeroSections();
+    }
+
+    document.addEventListener('shopify:section:load', function (event) {
+      const section = event.target.matches('[data-home-hero-section]')
+        ? event.target
+        : event.target.querySelector('[data-home-hero-section]');
+      initializeHomeHero(section);
+    });
+  })();
+</script>
+
 {% schema %}
- { "name": "Home Hero", "tag": "section", "class": "section_home-hero", "blocks": [ { "type": "slide", "name": "Slide", "settings": [ { "type": "image_picker", "id": "image", "label": "Imagine" }, { "type": "url", "id": "link", "label": "Link" } ] } ], "presets": [ { "name": "Home Hero", "blocks": [ { "type": "slide" }, { "type": "slide" }, { "type": "slide" } ] } ] } 
+{
+  "name": "Home Hero",
+  "tag": "section",
+  "class": "section_home-hero",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagine" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Hero",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
 {% endschema %}
