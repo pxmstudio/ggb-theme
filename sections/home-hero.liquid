@@ -8,43 +8,51 @@
 
         <!-- MENIU CATEGORII -->
         <div class="home-hero_left" data-home-hero-menu>
+          {%- assign fallback_icons = 'heart,star,balloon,cloud,moon,flower,smile,leaf,cup,music,book,crown,bell,umbrella,camera,key' | split: ',' -%}
+          {%- assign fallback_index = 0 -%}
           {% for link in linklists['main-menu'].links %}
             {% unless forloop.first or forloop.last %}
               {% assign title_downcase = link.title | downcase %}
-              {% assign category_icon = 'default' %}
+              {% assign category_icon = '' %}
 
-              {% if title_downcase contains 'transport' %}
+              {% if title_downcase contains 'transport' or title_downcase contains 'carucior' or title_downcase contains 'cărucior' or title_downcase contains 'landou' %}
                 {% assign category_icon = 'transport' %}
-              {% elsif title_downcase contains 'masa' or title_downcase contains 'masă' %}
+              {% elsif title_downcase contains 'masa' or title_downcase contains 'masă' or title_downcase contains 'alaptare' or title_downcase contains 'alăptare' or title_downcase contains 'hranire' or title_downcase contains 'hrănire' or title_downcase contains 'alimentat' or title_downcase contains 'biberon' %}
                 {% assign category_icon = 'feeding' %}
-              {% elsif title_downcase contains 'camera' %}
+              {% elsif title_downcase contains 'camera' or title_downcase contains 'cameră' or title_downcase contains 'somn' or title_downcase contains 'patut' or title_downcase contains 'pătuț' or title_downcase contains 'dormit' %}
                 {% assign category_icon = 'room' %}
-              {% elsif title_downcase contains 'parinti' or title_downcase contains 'părinți' %}
+              {% elsif title_downcase contains 'parinti' or title_downcase contains 'părinți' or title_downcase contains 'mamic' or title_downcase contains 'gravid' or title_downcase contains 'maternitate' %}
                 {% assign category_icon = 'parents' %}
-              {% elsif title_downcase contains 'curat' or title_downcase contains 'sanatos' or title_downcase contains 'sănătos' %}
+              {% elsif title_downcase contains 'curat' or title_downcase contains 'sanatos' or title_downcase contains 'sănătos' or title_downcase contains 'ingrijire' or title_downcase contains 'îngrijire' %}
                 {% assign category_icon = 'clean' %}
-              {% elsif title_downcase contains 'hainute' or title_downcase contains 'hăinuțe' or title_downcase contains 'incaltaminte' or title_downcase contains 'încălțăminte' %}
+              {% elsif title_downcase contains 'hainut' or title_downcase contains 'hăinuț' or title_downcase contains 'haine' or title_downcase contains 'imbracaminte' or title_downcase contains 'îmbrăcăminte' or title_downcase contains 'incaltaminte' or title_downcase contains 'încălțăminte' or title_downcase contains 'body' %}
                 {% assign category_icon = 'clothes' %}
-              {% elsif title_downcase contains 'exterior' %}
+              {% elsif title_downcase contains 'exterior' or title_downcase contains 'gradina' or title_downcase contains 'grădină' or title_downcase contains 'aer liber' %}
                 {% assign category_icon = 'outdoor' %}
-              {% elsif title_downcase contains 'jucarii' or title_downcase contains 'jucării' or title_downcase contains 'jocuri' %}
+              {% elsif title_downcase contains 'jucarii' or title_downcase contains 'jucării' or title_downcase contains 'jocuri' or title_downcase contains 'joaca' or title_downcase contains 'joacă' %}
                 {% assign category_icon = 'toys' %}
-              {% elsif title_downcase contains 'cadouri' %}
+              {% elsif title_downcase contains 'cadou' %}
                 {% assign category_icon = 'gifts' %}
               {% elsif title_downcase contains 'plimbare' or title_downcase contains 'relaxare' %}
                 {% assign category_icon = 'walk' %}
-              {% elsif title_downcase contains 'siguranta' or title_downcase contains 'siguranța' %}
+              {% elsif title_downcase contains 'siguranta' or title_downcase contains 'siguranța' or title_downcase contains 'protect' %}
                 {% assign category_icon = 'safety' %}
-              {% elsif title_downcase contains 'gradinita' or title_downcase contains 'grădinița' or title_downcase contains 'scoala' or title_downcase contains 'școala' %}
+              {% elsif title_downcase contains 'gradinita' or title_downcase contains 'grădinița' or title_downcase contains 'scoala' or title_downcase contains 'școala' or title_downcase contains 'ghiozdan' or title_downcase contains 'rechizite' %}
                 {% assign category_icon = 'school' %}
-              {% elsif title_downcase contains 'igiena' or title_downcase contains 'igienă' or title_downcase contains 'sănătate' %}
+              {% elsif title_downcase contains 'igiena' or title_downcase contains 'igienă' or title_downcase contains 'sănătate' or title_downcase contains 'baie' or title_downcase contains 'scutec' or title_downcase contains 'cosmetice' %}
                 {% assign category_icon = 'hygiene' %}
-              {% elsif title_downcase contains 'triciclete' or title_downcase contains 'biciclete' %}
+              {% elsif title_downcase contains 'triciclet' or title_downcase contains 'biciclet' or title_downcase contains 'trotinet' %}
                 {% assign category_icon = 'bike' %}
-              {% elsif title_downcase contains 'vehicule' %}
+              {% elsif title_downcase contains 'vehicul' or title_downcase contains 'masinut' or title_downcase contains 'mașinuț' or title_downcase contains 'scaun auto' or title_downcase contains 'auto' %}
                 {% assign category_icon = 'car' %}
-              {% elsif title_downcase contains 'resigilate' %}
+              {% elsif title_downcase contains 'resigilat' or title_downcase contains 'reducer' or title_downcase contains 'oferte' or title_downcase contains 'promo' or title_downcase contains 'outlet' %}
                 {% assign category_icon = 'box' %}
+              {% endif %}
+
+              {% if category_icon == '' %}
+                {% assign fb = fallback_index | modulo: fallback_icons.size %}
+                {% assign category_icon = fallback_icons[fb] %}
+                {% assign fallback_index = fallback_index | plus: 1 %}
               {% endif %}
 
               <a href="{{ link.url }}"
@@ -74,18 +82,50 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9"/><path d="M12 8v13"/><path d="M12 8S10.5 3 8 4.5 9.5 8 12 8z"/><path d="M12 8s1.5-5 4-3.5S14.5 8 12 8z"/></svg>
                     {%- when 'walk' -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.2" r="1.9"/><path d="M9 21l3-6 3 6"/><path d="M6 9l6 2 6-2"/><path d="M12 11v4"/></svg>
-                    {%- when 'bike' -%}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-8h5l2.8 8"/><path d="M10 9l3 8"/><path d="M9 6h3l1 3"/></svg>
                     {%- when 'safety' -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
                     {%- when 'school' -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"/><path d="M9 8a3 3 0 0 1 6 0"/><path d="M6 13h12"/><path d="M10 13v3h4v-3"/></svg>
                     {%- when 'hygiene' -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>
+                    {%- when 'bike' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l4-8h5l2.8 8"/><path d="M10 9l3 8"/><path d="M9 6h3l1 3"/></svg>
                     {%- when 'car' -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 8l2 5"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1-1v-1H6.5v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="7" cy="15.5" r=".5"/><circle cx="17" cy="15.5" r=".5"/></svg>
                     {%- when 'box' -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-4 9 4-9 4z"/><path d="M3 8v8l9 4 9-4V8"/><path d="M12 12v8"/></svg>
+                    {%- when 'heart' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.3-9-8.5A4.5 4.5 0 0 1 12 6a4.5 4.5 0 0 1 9 5.5c-2 4.2-9 8.5-9 8.5z"/></svg>
+                    {%- when 'star' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.4 5 5.4.6-4 3.7 1.1 5.3L12 15.4 7.1 18l1.1-5.3-4-3.7 5.4-.6z"/></svg>
+                    {%- when 'balloon' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5c3.2 0 5.5-2.9 5.5-6.2A5.5 5.5 0 0 0 6.5 8.3c0 3.3 2.3 6.2 5.5 6.2z"/><path d="M12 14.5v2.5"/><path d="M11 21c1-.6 1.8-1.6 1-3"/></svg>
+                    {%- when 'cloud' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 18a4.2 4.2 0 0 1-.3-8.4A5.2 5.2 0 0 1 17 8.6a3.7 3.7 0 0 1-.2 9.4z"/></svg>
+                    {%- when 'moon' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.6A8 8 0 1 1 10.4 4a6.2 6.2 0 0 0 9.6 9.6z"/></svg>
+                    {%- when 'flower' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="6.6" r="2.2"/><circle cx="16.8" cy="10.2" r="2.2"/><circle cx="15" cy="16" r="2.2"/><circle cx="9" cy="16" r="2.2"/><circle cx="7.2" cy="10.2" r="2.2"/></svg>
+                    {%- when 'smile' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8.8 14a3.6 3.6 0 0 0 6.4 0"/><circle cx="9" cy="10" r=".7"/><circle cx="15" cy="10" r=".7"/></svg>
+                    {%- when 'leaf' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 11 11 5 19 5c0 8-6 14-14 14z"/><path d="M6 18c3.5-6 7.5-8.5 11-10.5"/></svg>
+                    {%- when 'cup' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11v5.5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M16 9.5h2a2 2 0 0 1 0 4h-2"/><path d="M7.5 4.5v2M10 4v2M12.5 4.5v2"/></svg>
+                    {%- when 'music' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17.5V6l9-2v11.5"/><circle cx="7" cy="17.5" r="2"/><circle cx="16" cy="15.5" r="2"/></svg>
+                    {%- when 'book' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5.2 7.5 5 5 5.5v13c2.5-.5 5-.3 7 1 2-1.3 4.5-1.5 7-1v-13c-2.5-.5-5-.3-7 1z"/><path d="M12 6.5v13"/></svg>
+                    {%- when 'crown' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5l3.2 8h9.6l3.2-8-4.7 3.6L12 6 8.7 12.1z"/><path d="M6.5 19.5h11"/></svg>
+                    {%- when 'bell' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.4 1.8H4.6z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+                    {%- when 'umbrella' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2v1.8"/><path d="M3.8 13a8.2 8.2 0 0 1 16.4 0z"/><path d="M12 13v5.5a2 2 0 0 0 4 0"/></svg>
+                    {%- when 'camera' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5h2.8L8 6.5h8l1.2 2H20a1 1 0 0 1 1 1v8.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.2"/></svg>
+                    {%- when 'key' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3.8"/><path d="M11 11l8 8"/><path d="M16.5 16.5l1.8-1.8"/><path d="M19 19l1.6-1.6"/></svg>
                     {%- else -%}
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
                   {%- endcase -%}
@@ -176,7 +216,7 @@
 
   .section_home-hero.home-hero-page-fixed {
     --home-hero-width: 1120px;
-    --home-hero-menu-width: 244px;
+    --home-hero-menu-width: 272px;
     --home-hero-dynamic-height: auto;
     --home-hero-mobile-height: auto;
     --home-hero-subcategory-top: 0px;
@@ -253,12 +293,12 @@
   .home-hero_category {
     position: relative !important;
     width: 100% !important;
-    min-height: 38px !important;
+    min-height: 40px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
     gap: 11px !important;
-    padding: 0 10px 0 12px !important;
+    padding: 7px 10px 7px 12px !important;
     margin: 0 !important;
     color: var(--home-hero-text) !important;
     background: #ffffff !important;
@@ -270,8 +310,8 @@
     font-family: inherit !important;
     font-size: 13.5px !important;
     font-weight: 500 !important;
-    line-height: 1.2 !important;
-    overflow: hidden !important;
+    line-height: 1.25 !important;
+    overflow: visible !important;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
@@ -291,6 +331,7 @@
     color: var(--home-hero-icon) !important;
     transition: color 0.2s ease;
     overflow: visible !important;
+    flex: 0 0 20px !important;
   }
 
   .home-hero_category:hover .home-hero_category-icon {
@@ -303,6 +344,7 @@
     display: block !important;
   }
 
+  /* TITLUL CATEGORIEI - se vede complet, se încadrează pe 2 rânduri dacă e nevoie */
   .home-hero_category-title {
     flex: 1 1 auto !important;
     min-width: 0 !important;
@@ -313,10 +355,12 @@
     font-family: inherit !important;
     font-size: 13.5px !important;
     font-weight: 500 !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
   }
 
   .home-hero_category-arrow {
@@ -329,6 +373,7 @@
     opacity: 0 !important;
     transform: translateX(-4px) !important;
     flex: 0 0 13px !important;
+    align-self: center !important;
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
@@ -641,7 +686,7 @@
       flex: 0 0 auto !important;
       width: auto !important;
       min-width: auto !important;
-      max-width: 220px !important;
+      max-width: none !important;
       min-height: 40px !important;
       height: 40px !important;
       padding: 0 15px !important;
@@ -655,14 +700,18 @@
 
     .home-hero_category-title {
       font-size: 13px !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
     }
 
     .home-hero_category-icon {
       width: 18px !important;
       min-width: 18px !important;
       height: 18px !important;
+      flex: 0 0 18px !important;
     }
 
     .home-hero_category-icon svg {
