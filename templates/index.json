@@ -279,63 +279,50 @@
             "margin_bottom": 20
           },
           "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_5fee96e_HQHea3"
-      ],
-      "settings": {}
-    },
-    "1748265199aaa5e873": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "blocks_NXPYD4": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_5fee96e_ABEQzY": {
+        },
+        "ai_gen_block_5fee96e_p4TTib": {
           "type": "ai_gen_block_5fee96e",
+          "name": "Brand Slider",
           "settings": {
             "heading": "",
             "heading_alignment": "center",
-            "placeholder_count": 5,
-            "brand_logo_1": "shopify://shop_images/transport_2.png",
+            "placeholder_count": 8,
+            "brand_logo_1": "shopify://shop_images/cvard.png",
             "brand_link_1": "",
-            "brand_logo_2": "shopify://shop_images/retur.png",
+            "brand_logo_2": "shopify://shop_images/transport_2.png",
             "brand_link_2": "",
-            "brand_logo_3": "shopify://shop_images/fidel.png",
+            "brand_logo_3": "shopify://shop_images/retur.png",
             "brand_link_3": "",
-            "brand_logo_4": "shopify://shop_images/cvard.png",
-            "brand_link_4": "",
-            "brand_logo_5": "shopify://shop_images/supp_1.png",
+            "brand_logo_4": "shopify://shop_images/supp_1.png",
+            "brand_link_4": "https://www.gogobaby.ro/search?sort_by=relevance&q=yappikids&type=product&q=freeon",
             "brand_link_5": "",
             "brand_link_6": "",
             "brand_link_7": "",
             "brand_link_8": "",
-            "brands_per_view": 5,
-            "brands_per_view_mobile": "2",
+            "brands_per_view": 4,
+            "brands_per_view_mobile": "1",
             "logo_height": 80,
-            "slide_padding": 15,
-            "hover_opacity": 80,
+            "slide_padding": 5,
+            "hover_opacity": 100,
             "open_in_new_tab": true,
             "enable_autoplay": true,
-            "autoplay_speed": 5,
-            "heading_size": 28,
-            "heading_color": "#000000",
-            "nav_button_color": "#ffffff",
-            "nav_button_text_color": "#000000",
-            "nav_button_hover_color": "#f5f5f5",
-            "placeholder_bg_color": "#f4f4f4",
-            "margin_top": 20,
-            "margin_bottom": 20
+            "autoplay_speed": 3,
+            "heading_size": 24,
+            "heading_color": "#62BBC4",
+            "nav_button_color": "#62BBC4",
+            "nav_button_text_color": "#FFFFFF",
+            "nav_button_hover_color": "#62BBC4",
+            "placeholder_bg_color": "#FFFFFF",
+            "margin_top": 65,
+            "margin_bottom": 25
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_5fee96e_ABEQzY"
+        "ai_gen_block_5fee96e_HQHea3",
+        "ai_gen_block_5fee96e_p4TTib"
       ],
-      "name": "Featured Brands Slider",
       "settings": {}
     }
   },
@@ -346,8 +333,6 @@
     "17804729752e01eeca",
     "cta",
     "collections-slider",
-    "17482652941c42c19f",
-    "1748265199aaa5e873",
-    "blocks_NXPYD4"
+    "17482652941c42c19f"
   ]
 }
