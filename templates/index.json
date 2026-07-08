@@ -289,6 +289,54 @@
     "1748265199aaa5e873": {
       "type": "_blocks",
       "settings": {}
+    },
+    "blocks_NXPYD4": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5fee96e_ABEQzY": {
+          "type": "ai_gen_block_5fee96e",
+          "settings": {
+            "heading": "",
+            "heading_alignment": "center",
+            "placeholder_count": 5,
+            "brand_logo_1": "shopify://shop_images/transport_2.png",
+            "brand_link_1": "",
+            "brand_logo_2": "shopify://shop_images/retur.png",
+            "brand_link_2": "",
+            "brand_logo_3": "shopify://shop_images/fidel.png",
+            "brand_link_3": "",
+            "brand_logo_4": "shopify://shop_images/cvard.png",
+            "brand_link_4": "",
+            "brand_logo_5": "shopify://shop_images/supp_1.png",
+            "brand_link_5": "",
+            "brand_link_6": "",
+            "brand_link_7": "",
+            "brand_link_8": "",
+            "brands_per_view": 5,
+            "brands_per_view_mobile": "2",
+            "logo_height": 80,
+            "slide_padding": 15,
+            "hover_opacity": 80,
+            "open_in_new_tab": true,
+            "enable_autoplay": true,
+            "autoplay_speed": 5,
+            "heading_size": 28,
+            "heading_color": "#000000",
+            "nav_button_color": "#ffffff",
+            "nav_button_text_color": "#000000",
+            "nav_button_hover_color": "#f5f5f5",
+            "placeholder_bg_color": "#f4f4f4",
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5fee96e_ABEQzY"
+      ],
+      "name": "Featured Brands Slider",
+      "settings": {}
     }
   },
   "order": [
@@ -299,6 +347,7 @@
     "cta",
     "collections-slider",
     "17482652941c42c19f",
-    "1748265199aaa5e873"
+    "1748265199aaa5e873",
+    "blocks_NXPYD4"
   ]
 }

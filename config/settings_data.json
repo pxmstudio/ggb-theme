@@ -88,10 +88,6 @@
       "header-promotii": {
         "type": "header-promotii",
         "settings": {
-          "promo_text_before": "",
-          "promo_text_during": "Profită de reducerile de vară!",
-          "promotii_start": "",
-          "promotii_end": "",
           "button_text": "Acasa",
           "button_link": "/"
         }
