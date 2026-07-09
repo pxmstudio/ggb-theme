@@ -169,7 +169,7 @@
       "type": "featured-products",
       "settings": {
         "title": "Cărucioare bebeluși!",
-        "collection": "carucioare-bebelusi",
+        "collection": "reduceri-carucioare-3-in-1",
         "button_text": "Vezi toate"
       }
     },
@@ -308,11 +308,11 @@
             "enable_autoplay": true,
             "autoplay_speed": 3,
             "heading_size": 24,
-            "heading_color": "#62BBC4",
-            "nav_button_color": "#62BBC4",
-            "nav_button_text_color": "#FFFFFF",
-            "nav_button_hover_color": "#62BBC4",
-            "placeholder_bg_color": "#FFFFFF",
+            "heading_color": "#62bbc4",
+            "nav_button_color": "#62bbc4",
+            "nav_button_text_color": "#ffffff",
+            "nav_button_hover_color": "#62bbc4",
+            "placeholder_bg_color": "#ffffff",
             "margin_top": 65,
             "margin_bottom": 25
           },
