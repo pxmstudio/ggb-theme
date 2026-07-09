@@ -179,10 +179,10 @@
         "ai_gen_block_2a85c9f_VT9tpa": {
           "type": "ai_gen_block_2a85c9f",
           "settings": {
-            "heading": "Reduceri mari",
+            "heading": "Oferte speciale - Reduceri peste 30%",
             "subheading": "Produse cu reduceri de peste 30%",
             "heading_alignment": "center",
-            "collection": "biciclete-copii-accesorii",
+            "collection": "reduceri-peste-30",
             "minimum_discount_percent": 30,
             "desktop_width_percent": 100,
             "section_padding": 40,
