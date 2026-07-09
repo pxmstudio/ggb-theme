@@ -73,6 +73,19 @@
       ],
       "settings": {}
     },
+    "17835834297c72c63e": {
+      "type": "apps",
+      "blocks": {
+        "vitals_payment_logos_WddwBn": {
+          "type": "shopify://apps/vitals/blocks/payment-logos/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vitals_payment_logos_WddwBn"
+      ],
+      "settings": {}
+    },
     "featured-brands": {
       "type": "featured-brands",
       "blocks": {
@@ -328,6 +341,7 @@
   },
   "order": [
     "home-hero",
+    "17835834297c72c63e",
     "featured-brands",
     "featured-products",
     "17804729752e01eeca",
