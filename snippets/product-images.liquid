@@ -1,9 +1,9 @@
-<div class="grid grid-cols-1 gap-4" pxm-product="image-gallery">
-  <div class="order-2 flex gap-3 overflow-x-auto pb-2">
+<div class="grid grid-cols-1 lg:grid-cols-none lg:grid-flow-col gap-5 sticky top-32" pxm-product="image-gallery">
+  <div class="row-start-2 lg:row-start-auto flex flex-row lg:flex-col gap-5 h-16 lg:w-20 lg:h-[32rem] flex-shrink-0 overflow-x-auto lg:overflow-x-visible overflow-y-auto">
     {% for image in product.images %}
       <button
         data-active="{{ forloop.first }}"
-        class="w-20 h-20 relative border data-[active=true]:border-border-secondary border-border-primary rounded-[0.375rem] overflow-hidden flex-shrink-0"
+        class="lg:w-full aspect-square relative border data-[active=true]:border-border-secondary border-border-primary rounded-[0.375rem] overflow-hidden flex-shrink-0"
         data-gallery-item
         data-index="{{ forloop.index0 }}"
       >
@@ -23,10 +23,45 @@
     alt="{{ product.title }}"
     width="{{ product.featured_image.width }}"
     height="{{ product.featured_image.height }}"
-    class="order-1 border border-border-primary rounded-2xl w-full max-w-full object-contain cursor-pointer"
+    class="border border-border-primary rounded-2xl w-full flex-shrink max-w-full object-contain cursor-pointer"
     data-gallery-item
     data-index="0"
   >
 </div>
+
+<style>
+  /* Galerie: imagine principală sus, miniaturi orizontale jos */
+  [pxm-product="image-gallery"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  [pxm-product="image-gallery"] > div:first-child {
+    order: 2;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    gap: 12px !important;
+    padding: 0 0 8px;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+
+  [pxm-product="image-gallery"] > div:first-child > button {
+    width: 80px !important;
+    height: 80px !important;
+    flex: 0 0 80px !important;
+  }
+
+  [pxm-product="image-gallery"] > img[data-gallery-item] {
+    order: 1;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+</style>
 
 {% render 'product-gallery-modal', product: product %}
