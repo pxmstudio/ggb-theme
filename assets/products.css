@@ -130,3 +130,223 @@
 .product-card_image-wrapper:hover .product-card_actions {
   opacity: 1;
 }
+
+/* =========================================================
+   GO GO BABY – pagină produs modernă
+   Se aplică doar paginilor de produs Shopify
+   ========================================================= */
+
+.template-product {
+  background: #f3f7fa;
+}
+
+.template-product #MainContent {
+  padding: 28px 0 42px;
+}
+
+/* Zona principală */
+.template-product .product,
+.template-product .product-template,
+.template-product .main-product {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(28, 52, 84, .12);
+}
+
+/* Galerie */
+.template-product .product__media-wrapper,
+.template-product .product-gallery,
+.template-product .product__media {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.template-product .product__media img,
+.template-product .product-gallery img,
+.template-product .product__media-item img {
+  object-fit: contain;
+}
+
+.template-product .thumbnail,
+.template-product .product__thumbnail,
+.template-product .product__media-thumbnail {
+  border: 1px solid #dce4ed;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.template-product .thumbnail.active,
+.template-product .product__thumbnail--selected,
+.template-product .is-active .thumbnail {
+  border: 2px solid #5b88d1;
+}
+
+/* Titlu */
+.template-product .product__title,
+.template-product .product-title,
+.template-product h1 {
+  color: #5786cf;
+  font-size: clamp(26px, 2.2vw, 35px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.4px;
+}
+
+/* Preț */
+.template-product .price,
+.template-product .product__price,
+.template-product .price-item--sale,
+.template-product .sale-price {
+  color: #ed393b !important;
+  font-size: clamp(28px, 2.2vw, 36px);
+  font-weight: 800;
+}
+
+.template-product .price--compare,
+.template-product .compare-at-price,
+.template-product s {
+  color: #8090a3 !important;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Card informații cumpărare */
+.template-product .product__info-container,
+.template-product .product-info,
+.template-product .product__details {
+  padding: 22px;
+  background: #f4f8fc;
+  border-radius: 12px;
+}
+
+/* Selector variante */
+.template-product select,
+.template-product .product-form__input select,
+.template-product .variant-input label {
+  border-color: #b9c9dc;
+  border-radius: 5px;
+}
+
+/* Cantitate */
+.template-product .quantity,
+.template-product .quantity-selector {
+  border: 1px solid #b9c9dc;
+  border-radius: 5px;
+  background: #fff;
+}
+
+/* Buton adaugă în coș */
+.template-product .product-form__submit,
+.template-product .add-to-cart,
+.template-product button[name="add"],
+.template-product .single_add_to_cart_button {
+  min-height: 52px;
+  width: 100%;
+  border: 0 !important;
+  border-radius: 5px !important;
+  background: #eb393d !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.template-product .product-form__submit:hover,
+.template-product .add-to-cart:hover,
+.template-product button[name="add"]:hover {
+  background: #cc292d !important;
+  transform: translateY(-1px);
+}
+
+/* Buton cumpărare rapidă, dacă este activ */
+.template-product .shopify-payment-button__button {
+  min-height: 48px !important;
+  margin-top: 10px;
+  border-radius: 5px !important;
+}
+
+/* Descriere, SKU și livrare */
+.template-product .product__description,
+.template-product .product-description,
+.template-product .product__accordion,
+.template-product .product-meta,
+.template-product .product__sku {
+  color: #26394e;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.template-product .product__accordion,
+.template-product details {
+  border-top: 1px solid #d9e2ec;
+}
+
+/* Tab-uri */
+.template-product .product-tabs,
+.template-product .tabs,
+.template-product .product__tabs {
+  max-width: 1320px;
+  margin: 30px auto 0;
+}
+
+.template-product .tabs-nav,
+.template-product .tabs__nav,
+.template-product .product-tabs__nav {
+  background: #5786cf;
+  border-radius: 5px 5px 0 0;
+}
+
+.template-product .tabs-nav a,
+.template-product .tabs__nav a,
+.template-product .product-tabs__nav a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.template-product .tabs-nav .active,
+.template-product .tabs__nav .active,
+.template-product .product-tabs__nav .active {
+  background: #fff;
+  color: #eb393d;
+}
+
+.template-product .tab-content,
+.template-product .tabs-content,
+.template-product .product-tabs__content {
+  padding: 26px;
+  background: #fff;
+  border: 1px solid #dce4ed;
+  border-top: 0;
+}
+
+/* Mobil */
+@media screen and (max-width: 749px) {
+  .template-product #MainContent {
+    padding: 12px 0 28px;
+  }
+
+  .template-product .product,
+  .template-product .product-template,
+  .template-product .main-product {
+    margin: 0 10px;
+    padding: 15px;
+    border-radius: 7px;
+  }
+
+  .template-product .product__info-container,
+  .template-product .product-info,
+  .template-product .product__details {
+    padding: 16px;
+  }
+
+  .template-product .product__title,
+  .template-product .product-title,
+  .template-product h1 {
+    font-size: 25px;
+  }
+}
