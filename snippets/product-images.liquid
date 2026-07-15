@@ -1,14 +1,14 @@
-<div class="grid grid-cols-1 lg:grid-cols-none lg:grid-flow-col gap-5 sticky top-32" pxm-product="image-gallery">
-  <div class="row-start-2 lg:row-start-auto flex flex-row lg:flex-col gap-5 h-16 lg:w-20 lg:h-[32rem] flex-shrink-0 overflow-x-auto lg:overflow-x-visible overflow-y-auto">
+<div class="grid grid-cols-1 gap-4" pxm-product="image-gallery">
+  <div class="order-2 flex gap-3 overflow-x-auto pb-2">
     {% for image in product.images %}
       <button
         data-active="{{ forloop.first }}"
-        class="lg:w-full aspect-square relative border data-[active=true]:border-border-secondary border-border-primary rounded-[0.375rem] overflow-hidden flex-shrink-0"
+        class="w-20 h-20 relative border data-[active=true]:border-border-secondary border-border-primary rounded-[0.375rem] overflow-hidden flex-shrink-0"
         data-gallery-item
         data-index="{{ forloop.index0 }}"
       >
         <img
-          src="{{ image | image_url: width: 80 }}"
+          src="{{ image | image_url: width: 160 }}"
           alt="{{ product.title }}"
           width="{{ image.width }}"
           height="{{ image.height }}"
@@ -17,12 +17,13 @@
       </button>
     {% endfor %}
   </div>
+
   <img
     src="{{ product.featured_image | image_url: width: 1000 }}"
     alt="{{ product.title }}"
     width="{{ product.featured_image.width }}"
     height="{{ product.featured_image.height }}"
-    class="border border-border-primary rounded-2xl w-full flex-shrink max-w-full object-contain cursor-pointer"
+    class="order-1 border border-border-primary rounded-2xl w-full max-w-full object-contain cursor-pointer"
     data-gallery-item
     data-index="0"
   >
