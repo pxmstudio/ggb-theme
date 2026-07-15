@@ -55,6 +55,187 @@
                 </div>
               {% endform %}
             </px-add-to-cart>
+
+            {% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="ggb-product-benefits">
+  {% if product.available %}
+    <div class="ggb-stock-badge">
+      <span>✓</span> Produs disponibil pentru comandă
+    </div>
+  {% else %}
+    <div class="ggb-stock-badge is-sold-out">
+      Momentan indisponibil
+    </div>
+  {% endif %}
+
+  <div class="ggb-benefits-title">Cumperi în siguranță</div>
+
+  <ul class="ggb-benefits-list">
+    <li>
+      <span class="ggb-icon">↩</span>
+      <span><strong>30 zile retur</strong><small>Comanzi fără griji</small></span>
+    </li>
+    <li>
+      <span class="ggb-icon">✓</span>
+      <span><strong>Produse verificate</strong><small>Calitate și siguranță pentru copil</small></span>
+    </li>
+    <li>
+      <span class="ggb-icon">🚚</span>
+      <span><strong>Livrare rapidă</strong><small>Prin curier, oriunde în România</small></span>
+    </li>
+  </ul>
+
+  <div class="ggb-product-identification">
+    {% if current_variant.sku != blank %}
+      <span>Cod produs: <strong>{{ current_variant.sku }}</strong></span>
+    {% endif %}
+
+    {% if product.vendor != blank %}
+      <span>Brand: <strong>{{ product.vendor }}</strong></span>
+    {% endif %}
+  </div>
+
+  <a class="ggb-phone-card" href="tel:+40724207773">
+    <span class="ggb-phone-icon">☎</span>
+    <span>
+      <small>Ai nevoie de ajutor? Sună-ne</small>
+      <strong>0724 207 773</strong>
+    </span>
+  </a>
+</div>
+
+<style>
+  .ggb-product-benefits {
+    margin-top: 18px;
+    padding: 18px;
+    background: #f3f7fb;
+    border-radius: 12px;
+    color: #1d3148;
+  }
+
+  .ggb-stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 17px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #fff1e6;
+    color: #e76c00;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .ggb-stock-badge span {
+    display: grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #f58220;
+    color: #fff;
+    font-size: 11px;
+  }
+
+  .ggb-stock-badge.is-sold-out {
+    background: #fbe8e8;
+    color: #c32d35;
+  }
+
+  .ggb-benefits-title {
+    margin-bottom: 11px;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .ggb-benefits-list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ggb-benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .ggb-icon {
+    display: grid;
+    flex: 0 0 31px;
+    place-items: center;
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    background: #fff;
+    color: #5786cf;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .ggb-benefits-list strong,
+  .ggb-benefits-list small {
+    display: block;
+  }
+
+  .ggb-benefits-list strong {
+    font-size: 13px;
+  }
+
+  .ggb-benefits-list small,
+  .ggb-product-identification {
+    color: #718298;
+    font-size: 12px;
+  }
+
+  .ggb-product-identification {
+    display: grid;
+    gap: 4px;
+    margin-top: 17px;
+    padding-top: 14px;
+    border-top: 1px solid #d6e0ea;
+  }
+
+  .ggb-product-identification strong {
+    color: #26394e;
+  }
+
+  .ggb-phone-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 17px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(37, 60, 89, .12);
+    color: #5786cf;
+    text-decoration: none;
+  }
+
+  .ggb-phone-icon {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .ggb-phone-card small,
+  .ggb-phone-card strong {
+    display: block;
+  }
+
+  .ggb-phone-card small {
+    color: #718298;
+    font-size: 11px;
+  }
+
+  .ggb-phone-card strong {
+    font-size: 16px;
+  }
+</style>
+
             {% if product.vendor == "Lionelo" %}
               <div class="lionelo-button-wrapper">
                 <a href="https://www.gogobaby.ro/pages/lionelo-protect" class="lionelo-btn">Garantie extinsa 12 ani</a>
