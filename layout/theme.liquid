@@ -264,7 +264,6 @@
       // Black Friday / Black Week first-visit redirect (home page only)
       {% if template.name == 'index' %}
       (function () {
-        console.log('Black Friday / Black Week first-visit redirect');
         var featureEnabled = {{ settings.enable_black_friday | json }};
         if (!featureEnabled) return;
 
